@@ -1,4 +1,5 @@
 //= require jquery
+//= require jquery-migrate-1.2.1
 //= require jquery_ujs
 //= require turbolinks
 //= require beautify

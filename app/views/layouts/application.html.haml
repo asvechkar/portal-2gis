@@ -27,16 +27,16 @@
                 = image_tag false, 'data-src' => 'holder.js/36x36/white', :alt => 'Avatar'
             %ul
               %li.active
-                = link_to '#', :class => 'glyphicons.right_arrow' do
+                = link_to '#', :class => 'glyphicons right_arrow' do
                   %i
                   Пункт меню
               %li
-                = link_to '#', :class => 'glyphicons.right_arrow' do
+                = link_to '#', :class => 'glyphicons right_arrow' do
                   %i
                   Пункт меню
             .clearfix
             .alert.alert-primary
-              = link_to '&times;', :class => 'close', 'data-dismiss' => 'alert'
+              = link_to "&times;", :class => 'close', 'data-dismiss' => 'alert'
               %p
                 Integer quis tempor mi. Donec venenatis dui in neque fringilla at iaculis libero ullamcorper. In velit sem, sodales id hendrerit ac, fringilla et est.
         #content
@@ -51,13 +51,13 @@
                   %i
                   Панель управления
             .clearfix
-            = yield
-        .clearfix
-        #footer.hidden-print
-          .copy
-            &copy; 2012 - 2013 -
-            = link_to 'FRESH INTEL LTD', 'http://freshintel.ru'
-            \- All Rights Reserved.
+          = yield
+      .clearfix
+      #footer.hidden-print
+        .copy
+          &copy; 2012 - 2013 -
+          = link_to 'FRESH INTEL LTD', 'http://freshintel.ru'
+          \- All Rights Reserved.
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     %script
       Holder.add_theme("dark", {background:"#000", foreground:"#aaa", size:9});
