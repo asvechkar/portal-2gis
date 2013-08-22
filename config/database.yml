@@ -1,13 +1,21 @@
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  database: portal-2gis_development
   pool: 5
-  timeout: 5000
+  username: portal2gis
+  password: "123qweDSA"
+  host: localhost
+  port: 5432
 test:
-  adapter: sqlite3
-  database: db/test.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  database: portal-2gis_test
   pool: 5
-  timeout: 5000
+  username: portal2gis
+  password: "123qweDSA"
+  host: localhost
+  port: 5432
 production:
   adapter: postgresql
   host: ec2-54-217-215-81.eu-west-1.compute.amazonaws.com

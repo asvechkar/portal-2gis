@@ -10,8 +10,8 @@ gem 'rolify', '~> 3.3.0.rc4'
 gem 'sass-rails', '~> 4.0.0'
 gem 'haml-rails', '~> 0.4'
 #gem 'carrierwave'
-gem "paperclip", "~> 3.0"
-gem "paperclip-ffmpeg", git: 'git://github.com/kleymenus/paperclip-ffmpeg.git'
+gem 'paperclip', '~> 3.0'
+gem 'paperclip-ffmpeg', git: 'git://github.com/kleymenus/paperclip-ffmpeg.git'
 
 gem 'simple_form', '~> 3.0.0.rc'
 gem 'coffee-rails', '~> 4.0.0'
@@ -30,7 +30,7 @@ group :development do
   gem 'thin', '~> 1.5.1'
   gem 'capistrano', '~> 3.0.0.pre5'
   gem 'better_errors'
-  gem "binding_of_caller"
+  gem 'binding_of_caller'
 end
 
 group :production do
