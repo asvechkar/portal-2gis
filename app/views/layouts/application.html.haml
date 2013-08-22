@@ -24,7 +24,7 @@
           .slim-scroll{ 'data-scroll-height' => '800px' }
             %span.profile.center
               = link_to '#' do
-                = image_tag false, 'data-src' => 'holder.js/36x36/white', :alt => 'Avatar'
+                = image_tag '', 'data-src' => 'holder.js/36x36/white', :alt => 'Avatar'
             %ul
               %li.active
                 = link_to '#', :class => 'glyphicons right_arrow' do
@@ -36,7 +36,8 @@
                   Пункт меню
             .clearfix
             .alert.alert-primary
-              = link_to "&times;", :class => 'close', 'data-dismiss' => 'alert'
+              = link_to false, :class => 'close', 'data-dismiss' => 'alert' do
+                &times;
               %p
                 Integer quis tempor mi. Donec venenatis dui in neque fringilla at iaculis libero ullamcorper. In velit sem, sodales id hendrerit ac, fringilla et est.
         #content
