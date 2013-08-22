@@ -2,12 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f5df1db2-1152-4042-95dd-d7ba6f45a55b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/application.html.haml" afterPath="$PROJECT_DIR$/app/views/layouts/application.html.haml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/application.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/application.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/assets/stylesheets/font/FontAwesome.otf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/assets/stylesheets/font/fontawesome-webfont.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/assets/stylesheets/font/fontawesome-webfont.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/assets/stylesheets/font/fontawesome-webfont.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/assets/stylesheets/font/fontawesome-webfont.woff" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/assets/stylesheets/font/glyphicons-regular.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/assets/stylesheets/font/glyphicons-regular.otf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/assets/stylesheets/font/glyphicons-regular.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/assets/stylesheets/font/glyphicons-regular.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/assets/stylesheets/font/glyphicons-regular.woff" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/font-awesome.css" afterPath="$PROJECT_DIR$/app/assets/stylesheets/font-awesome.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/glyphicons.css" afterPath="$PROJECT_DIR$/app/assets/stylesheets/glyphicons.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="portal-2gis.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -47,7 +53,16 @@
       <file leaf-file-name="glyphicons.css" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/glyphicons.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="272" selection-start="545" selection-end="545" vertical-scroll-proportion="0.35" vertical-offset="0" max-vertical-offset="22151">
+            <state line="14" column="273" selection-start="547" selection-end="547" vertical-scroll-proportion="0.35" vertical-offset="0" max-vertical-offset="22151">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="font-awesome.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/font-awesome.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="30" column="221" selection-start="1518" selection-end="1518" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="25109">
               <folding />
             </state>
           </provider>
@@ -654,13 +669,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/font-awesome.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="359" column="30" selection-start="9403" selection-end="9403" vertical-scroll-proportion="8.975" vertical-offset="0" max-vertical-offset="25109">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/portal/index.html.haml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="688">
@@ -689,9 +697,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/font-awesome.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="221" selection-start="1518" selection-end="1518" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="25109">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/glyphicons.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="272" selection-start="545" selection-end="545" vertical-scroll-proportion="0.35" vertical-offset="0" max-vertical-offset="22151">
+        <state line="14" column="273" selection-start="547" selection-end="547" vertical-scroll-proportion="0.35" vertical-offset="0" max-vertical-offset="22151">
           <folding />
         </state>
       </provider>
