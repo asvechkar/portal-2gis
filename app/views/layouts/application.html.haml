@@ -14,6 +14,7 @@
     %meta{:content => 'yes', :name => 'apple-mobile-web-app-capable'}
     %meta{:content => 'black', :name => 'apple-mobile-web-app-status-bar-style'}
     %meta{:content => 'IE=9; IE=8; IE=7; IE=EDGE', 'http-equiv' => 'X-UA-Compatible'}
+    = favicon_link_tag '/favicon.ico', :type => 'image/x-icon'
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
