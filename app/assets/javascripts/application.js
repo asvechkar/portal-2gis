@@ -52,4 +52,6 @@ $(function()
     if (!disabled)
       toggleMenuHidden();
   });
+
+  if ($('.uniformjs').length) $('.uniformjs').find("select, input, button, textarea").uniform();
 });

@@ -77,4 +77,15 @@ Portal2gis::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      :address              => 'smtp.gmail.com',
+      :port                 => 587,
+      :domain               => 'freshintel.ru',
+      :user_name            => 'agile@freshintel.ru',
+      :password             => '123qweDSA!',
+      :authentication       => 'plain',
+      :enable_starttls_auto => true  }
 end

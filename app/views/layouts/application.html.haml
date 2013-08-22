@@ -25,8 +25,8 @@
             = image_tag 'logo.png', :alt => 'Портал 2GIS'
           .slim-scroll{ 'data-scroll-height' => '800px' }
             %span.profile.center
-              = link_to '#' do
-                = image_tag '', 'data-src' => 'holder.js/36x36/white', :alt => 'Avatar'
+              = link_to edit_user_registration_path do
+                = image_tag avatar_url(current_user), 'data-src' => avatar_url(current_user), :alt => current_user.username
             %ul
               %li.active
                 = link_to '#', :class => 'glyphicons right_arrow' do
@@ -50,9 +50,13 @@
               %span.icon-bar
             %ul.topnav.pull-left
               %li
-                = link_to '#', :class => 'glyphicons dashboard' do
+                = link_to root_path, :class => 'glyphicons dashboard' do
                   %i
                   Панель управления
+              %li
+                = link_to destroy_user_session_path, :method => :delete, :class => 'glyphicons dashboard' do
+                  %i
+                  Выйти
             .clearfix
           = yield
       .clearfix
