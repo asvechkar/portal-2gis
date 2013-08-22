@@ -18,8 +18,8 @@
     <data-source source="LOCAL" name="Rails portal-2gis: development" uuid="c0892e37-ec5f-4520-9d48-0e623a87a458">
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://127.0.0.1:5432/portal-2gis_development</jdbc-url>
-      <user-name>portal2gis</user-name>
-      <user-password>df9bdf98df99dfdbdfdddfcfdfeedff9dfeb</user-password>
+      <user-name>postgres</user-name>
+      <user-password>df9bdf98df99df9edf9fdf9cdf9ddf92</user-password>
       <libraries>
         <library>
           <url>file://$USER_HOME$/Library/Preferences/RubyMine60/jdbc-drivers/postgresql-driver-license.txt</url>
@@ -32,8 +32,8 @@
     <data-source source="LOCAL" name="Rails portal-2gis: test" uuid="e9e23d08-3d64-4882-9ab4-5b7c7bd0512a">
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://127.0.0.1:5432/portal-2gis_test</jdbc-url>
-      <user-name>portal2gis</user-name>
-      <user-password>df9bdf98df99dfdbdfdddfcfdfeedff9dfeb</user-password>
+      <user-name>postgres</user-name>
+      <user-password>df9bdf98df99df9edf9fdf9cdf9ddf92</user-password>
       <libraries>
         <library>
           <url>file://$USER_HOME$/Library/Preferences/RubyMine60/jdbc-drivers/postgresql-driver-license.txt</url>
