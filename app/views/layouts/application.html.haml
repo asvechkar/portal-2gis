@@ -20,7 +20,8 @@
     .container-fluid.fluid.menu-left
       #wrapper
         #menu.hidden-phone.hidden-print
-          = link_to 'Портал 2GIS', root_path, :class => 'appbrand'
+          = link_to root_path, :class => 'appbrand' do
+            = image_tag 'logo.png', :alt => 'Портал 2GIS'
           .slim-scroll{ 'data-scroll-height' => '800px' }
             %span.profile.center
               = link_to '#' do
@@ -56,9 +57,12 @@
       .clearfix
       #footer.hidden-print
         .copy
-          &copy; 2012 - 2013 -
+          &copy; 1999 - 2013 -
+          = link_to 'ООО ДубльГИС', 'http://2gis.ru'
+          |
+          Разработка
+          &copy; 2012 - &infin; -
           = link_to 'FRESH INTEL LTD', 'http://freshintel.ru'
-          \- All Rights Reserved.
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     %script
       Holder.add_theme("dark", {background:"#000", foreground:"#aaa", size:9});
