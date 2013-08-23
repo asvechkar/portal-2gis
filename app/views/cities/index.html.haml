@@ -1,0 +1,41 @@
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы сейчас здесь
+  %li
+    = link_to root_path, :class => 'glyphicons dashboard' do
+      %i
+      Главная
+  %li.divider
+  %li Справочник "Города"
+%h3.separator.bottom
+  Города
+  %span Справочник
+
+.widget.widget-heading-simple.widget-body-gray
+  .widget-body
+    .menubar.links.primary
+      %ul
+        %li= link_to 'Новый город', new_city_path
+    %table.table.table-bordered.table-condensed.table-striped.table-white
+      %thead
+        %tr
+          %th.center Наименование
+          %th.center Пользователь
+          %th.center Создан
+          %th
+      %tbody
+        - @cities.each do |city|
+          %tr
+            %td= city.name
+            %td= city.user.username if city.user
+            %td= city.created_at.strftime('%d.%m.%Y %H:%M')
+            %td
+              = link_to city, :class => 'btn btn-primary', :title => 'Показать' do
+                %i.icon-search
+              = link_to edit_city_path(city), :class => 'btn btn-primary', :title => 'Редактировать' do
+                %i.icon-edit
+              = link_to city, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-danger', :title => 'Удалить' do
+                %i.icon-trash
