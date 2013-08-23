@@ -8,4 +8,5 @@ class User < ActiveRecord::Base
   has_many :levels
   has_many :positions
   has_many :clients
+  has_many :employees
 end

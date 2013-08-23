@@ -25,7 +25,7 @@
             = image_tag 'logo.png', :alt => 'Портал 2GIS'
           .slim-scroll{ 'data-scroll-height' => '800px' }
             %span.profile.center
-              = link_to edit_user_registration_path do
+              = link_to edit_user_registration_path, :title => current_user.username do
                 = image_tag avatar_url(current_user), 'data-src' => avatar_url(current_user), :alt => current_user.username
             %ul
               %li
@@ -33,38 +33,43 @@
                   %i
                   Главная
               %li.dropdown.dd-1
+                = link_to '', 'data-toggle' => 'dropdown', :class => 'glyphicons parents' do
+                  %i
+                  Настройки
+                  %span.icon-chevron-right
+                %ul.dropdown-menu.pull-left
+                  %li{ :class => current_page?(edit_user_registration_path) ? 'active' : nil }
+                    = link_to 'Аккаунт', edit_user_registration_path
+                  %li
+                    = link_to 'Профиль', '#'
+                  %li
+                    = link_to 'Выход', destroy_user_session_path
+              %li.dropdown.dd-1
                 = link_to '', 'data-toggle' => 'dropdown', :class => 'glyphicons settings' do
                   %i
-                  Справочники
+                  Управление
                   %span.icon-chevron-right
                 %ul.dropdown-menu.pull-left
                   %li{ :class => current_page?(users_path) ? 'active' : nil }
                     = link_to 'Пользователи', users_path
+              %li.dropdown.dd-1
+                = link_to '', 'data-toggle' => 'dropdown', :class => 'glyphicons book_open' do
+                  %i
+                  Справочники
+                  %span.icon-chevron-right
+                %ul.dropdown-menu.pull-left
                   %li= link_to 'Филиалы', '#'
                   %li= link_to 'Группы', '#'
                   %li{ :class => current_page?(cities_path) ? 'active' : nil }
                     = link_to 'Города', cities_path
                   %li{ :class => current_page?(clients_path) ? 'active' : nil }
                     = link_to 'Клиенты', clients_path
-                  %li= link_to 'Сотрудники', '#'
+                  %li{ :class => current_page?(employees_path) ? 'active' : nil }
+                    = link_to 'Сотрудники', employees_path
                   %li{ :class => current_page?(positions_path) ? 'active' : nil }
                     = link_to 'Должности', positions_path
                   %li{ :class => current_page?(levels_path) ? 'active' : nil }
                     = link_to 'Уровни опыта', levels_path
-              %li.glyphs
-                %ul
-                  %li
-                    = link_to '#', :class => 'glyphicons heart' do
-                      %i
-                  %li
-                    = link_to '#', :class => 'glyphicons heart' do
-                      %i
-                  %li
-                    = link_to '#', :class => 'glyphicons heart' do
-                      %i
-                  %li.active
-                    = link_to destroy_user_session_path, :class => 'glyphicons power', :title => 'Выйти' do
-                      %i
             .clearfix
         #content
           .navbar.main

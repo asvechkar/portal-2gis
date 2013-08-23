@@ -1,0 +1,44 @@
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы сейчас здесь
+  %li
+    = link_to root_path, :class => 'glyphicons dashboard' do
+      %i
+      Главная
+  %li.divider
+  %li= link_to 'Справочник "Сотрудники"', employees_path
+  %li.divider
+  %li
+    = @employee.firstname
+    = @employee.middlename
+    = @employee.lastname
+%h3.separator.bottom
+  = @employee.firstname
+  = @employee.middlename
+  = @employee.lastname
+  %span карточка
+.widget.widget-heading-simple.widget-body-gray
+  .widget-body
+    .menubar.links.primary
+      %ul
+        %li= link_to 'Редактировать', edit_employee_path(@employee)
+    %dl
+      %dt Имя
+      %dd= @employee.firstname
+      %dt Отчество
+      %dd= @employee.middlename
+      %dt Фамилия
+      %dd= @employee.lastname
+      %dt СНИЛС
+      %dd= @employee.snils
+      %dt Уровень опыта
+      %dd= @employee.level.name
+      %dt Должность
+      %dd= @employee.position.name
+      %dt Автор
+      %dd= @employee.user.username if @employee.user
+      %dt Дата создания
+      %dd= @employee.created_at.strftime('%d.%m.%Y %H:%M')

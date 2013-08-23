@@ -1,0 +1,30 @@
+= form_for @employee do |f|
+  - if @employee.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@employee.errors.count, "error")} prohibited this city from being saved:"
+      %ul
+        - @client.errors.full_messages.each do |msg|
+          %li= msg
+
+  .control-group
+    .controls
+      = f.text_field :firstname, :class => 'span8', :placeholder => 'Имя'
+  .control-group
+    .controls
+      = f.text_field :middlename, :class => 'span8', :placeholder => 'Отчество'
+  .control-group
+    .controls
+      = f.text_field :lastname, :class => 'span8', :placeholder => 'Фамилия'
+  .control-group
+    .controls
+      = f.text_field :snils, :class => 'span8', :placeholder => 'СНИЛС'
+  .control-group
+    .controls
+      = f.collection_select :level_id, Level.all, :id, :name, {:prompt => 'Выберите уровень опыта'}, :class => 'span8'
+  .control-group
+    .controls
+      = f.collection_select :position_id, Position.all, :id, :name, {:prompt => 'Выберите должность'}, :class => 'span8'
+    %hr.separator
+  .form-actions
+    = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'
+
