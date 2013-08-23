@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130823212239) do
+ActiveRecord::Schema.define(version: 20130823220723) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,19 @@ ActiveRecord::Schema.define(version: 20130823212239) do
   add_index "employees", ["level_id"], name: "index_employees_on_level_id", using: :btree
   add_index "employees", ["position_id"], name: "index_employees_on_position_id", using: :btree
   add_index "employees", ["user_id"], name: "index_employees_on_user_id", using: :btree
+
+  create_table "groups", force: true do |t|
+    t.string   "code",        null: false
+    t.integer  "branch_id"
+    t.integer  "employee_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "groups", ["branch_id"], name: "index_groups_on_branch_id", using: :btree
+  add_index "groups", ["employee_id"], name: "index_groups_on_employee_id", using: :btree
+  add_index "groups", ["user_id"], name: "index_groups_on_user_id", using: :btree
 
   create_table "levels", force: true do |t|
     t.string   "name",       null: false

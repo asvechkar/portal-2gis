@@ -10,4 +10,5 @@ class User < ActiveRecord::Base
   has_many :clients
   has_many :employees
   has_many :branches
+  has_many :groups
 end
