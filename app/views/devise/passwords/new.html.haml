@@ -1,0 +1,14 @@
+.widget.widget-heading-simple.widget-body-gray
+  .widget-head
+    %h3.heading Забыли пароль?
+  .widget-body
+    = form_for resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post } do |f|
+      = devise_error_messages!
+      = f.label false, 'Адрес эл.почты'
+      = f.email_field :email, :autofocus => true, :class => 'input-block-level', :placeholder => 'Адрес эл.почты'
+      .separator.bottom
+        .row-fluid
+          .span12.center
+            = f.submit 'Отправить инструкцию по сбросу пароля', :class => 'btn btn-block btn-inverse'
+
+= render 'devise/shared/links'
