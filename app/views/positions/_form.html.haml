@@ -1,0 +1,14 @@
+= form_for @position do |f|
+  - if @position.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@position.errors.count, "error")} prohibited this city from being saved:"
+      %ul
+        - @position.errors.full_messages.each do |msg|
+          %li= msg
+
+  .control-group
+    .controls
+      = f.text_field :name, :class => 'span10', :placeholder => 'Наименование должности'
+  %hr.separator
+  .form-actions
+    = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'
