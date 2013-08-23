@@ -58,7 +58,8 @@
                   Справочники
                   %span.icon-chevron-right
                 %ul.dropdown-menu.pull-left
-                  %li= link_to 'Филиалы', '#'
+                  %li{ :class => current_page?(branches_path) ? 'active' : nil }
+                    = link_to 'Филиалы', branches_path
                   %li= link_to 'Группы', '#'
                   %li{ :class => current_page?(cities_path) ? 'active' : nil }
                     = link_to 'Города', cities_path

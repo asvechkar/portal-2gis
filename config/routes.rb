@@ -1,4 +1,6 @@
 Portal2gis::Application.routes.draw do
+  resources :branches
+
   resources :employees
   resources :users
   resources :clients

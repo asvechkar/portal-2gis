@@ -1,7 +1,7 @@
-class City < ActiveRecord::Base
+class Branch < ActiveRecord::Base
+  belongs_to :city
+  belongs_to :employee
   belongs_to :user
-  has_many :clients
-  has_many :branches
   validates_presence_of :name
   validates_uniqueness_of :name
 end
