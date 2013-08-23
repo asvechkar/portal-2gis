@@ -1,0 +1,29 @@
+.widget.widget-heading-simple.widget-body-gray
+  .widget-head
+    %h3.heading Редактирование профиля
+  .widget-body
+    = form_for resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put } do |f|
+      = devise_error_messages!
+      = f.label false, 'Адрес эл.почты'
+      = f.email_field :email, :autofocus => true, :class => 'input-block-level', :placeholder => 'Адрес эл.почты'
+      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+        %div
+          Currently waiting confirmation for:
+          = resource.unconfirmed_email
+      = f.label false, 'Оставьте пустым, если не хотите менять', :class => 'strong'
+      = f.password_field :password, :autocomplete => 'off', :class => 'input-block-level', :placeholder => 'Ваш пароль'
+
+      = f.label false, 'Пароль еще раз', :class => 'strong'
+      = f.password_field :password_confirmation, :class => 'input-block-level', :placeholder => 'Пароль еще раз'
+
+      = f.label false, 'Введите текущий пароль для сохранения', :class => 'strong'
+      = f.password_field :current_password, :class => 'input-block-level', :placeholder => 'Пароль еще раз'
+
+      .separator.bottom
+        .row-fluid
+          .span12.center
+            = f.submit 'Обновить данные', :class => 'btn btn-block btn-success'
+            %br
+            = link_to 'javascript:history.back();', :class => 'btn btn-block btn-inverse' do
+              %i.icon-mail-reply
+              Вернуться

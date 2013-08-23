@@ -28,20 +28,38 @@
               = link_to edit_user_registration_path do
                 = image_tag avatar_url(current_user), 'data-src' => avatar_url(current_user), :alt => current_user.username
             %ul
-              %li.active
-                = link_to '#', :class => 'glyphicons right_arrow' do
-                  %i
-                  Пункт меню
               %li
-                = link_to '#', :class => 'glyphicons right_arrow' do
+                = link_to root_path, :class => 'glyphicons dashboard' do
                   %i
-                  Пункт меню
+                  Главная
+              %li.dropdown.dd-1
+                = link_to '', 'data-toggle' => 'dropdown', :class => 'glyphicons settings' do
+                  %i
+                  Справочники
+                  %span.icon-chevron-right
+                %ul.dropdown-menu.pull-left
+                  %li= link_to 'Филиалы', '#'
+                  %li= link_to 'Группы', '#'
+                  %li= link_to 'Города', '#'
+                  %li= link_to 'Кленты', '#'
+                  %li= link_to 'Сотрудники', '#'
+                  %li= link_to 'Должности', '#'
+                  %li= link_to 'Уровни опыта', '#'
+              %li.glyphs
+                %ul
+                  %li
+                    = link_to '#', :class => 'glyphicons heart' do
+                      %i
+                  %li
+                    = link_to '#', :class => 'glyphicons heart' do
+                      %i
+                  %li
+                    = link_to '#', :class => 'glyphicons heart' do
+                      %i
+                  %li.active
+                    = link_to destroy_user_session_path, :class => 'glyphicons power', :title => 'Выйти' do
+                      %i
             .clearfix
-            .alert.alert-primary
-              = link_to false, :class => 'close', 'data-dismiss' => 'alert' do
-                &times;
-              %p
-                Integer quis tempor mi. Donec venenatis dui in neque fringilla at iaculis libero ullamcorper. In velit sem, sodales id hendrerit ac, fringilla et est.
         #content
           .navbar.main
             %button.btn.btn-navbar.pull-left{ 'type' => 'button' }
@@ -54,7 +72,7 @@
                   %i
                   Панель управления
               %li
-                = link_to destroy_user_session_path, :method => :delete, :class => 'glyphicons dashboard' do
+                = link_to destroy_user_session_path, :method => :delete, :class => 'glyphicons power' do
                   %i
                   Выйти
             .clearfix
