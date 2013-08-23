@@ -1,0 +1,17 @@
+= form_for @user do |f|
+  - if @user.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@user.errors.count, "error")} prohibited this city from being saved:"
+      %ul
+        - @user.errors.full_messages.each do |msg|
+          %li= msg
+
+  .control-group
+    .controls
+      = f.text_field :username, :class => 'span8', :placeholder => 'Имя пользователя'
+  .control-group
+    .controls
+      = f.text_field :email, :class => 'span8', :placeholder => 'Адрес эл.почты'
+  %hr.separator
+  .form-actions
+    = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'
