@@ -7,4 +7,5 @@ class User < ActiveRecord::Base
   has_many :cities
   has_many :levels
   has_many :positions
+  has_many :clients
 end

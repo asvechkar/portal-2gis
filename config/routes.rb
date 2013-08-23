@@ -1,6 +1,7 @@
 Portal2gis::Application.routes.draw do
+  resources :users
+  resources :clients
   resources :positions
-
   resources :levels
   resources :cities
 

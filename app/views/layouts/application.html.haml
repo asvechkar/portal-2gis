@@ -38,11 +38,14 @@
                   Справочники
                   %span.icon-chevron-right
                 %ul.dropdown-menu.pull-left
+                  %li{ :class => current_page?(users_path) ? 'active' : nil }
+                    = link_to 'Пользователи', users_path
                   %li= link_to 'Филиалы', '#'
                   %li= link_to 'Группы', '#'
                   %li{ :class => current_page?(cities_path) ? 'active' : nil }
                     = link_to 'Города', cities_path
-                  %li= link_to 'Кленты', '#'
+                  %li{ :class => current_page?(clients_path) ? 'active' : nil }
+                    = link_to 'Клиенты', clients_path
                   %li= link_to 'Сотрудники', '#'
                   %li{ :class => current_page?(positions_path) ? 'active' : nil }
                     = link_to 'Должности', positions_path

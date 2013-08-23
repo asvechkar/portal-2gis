@@ -1,0 +1,47 @@
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы сейчас здесь
+  %li
+    = link_to root_path, :class => 'glyphicons dashboard' do
+      %i
+      Главная
+  %li.divider
+  %li Справочник "Клиенты"
+%h3.separator.bottom
+  Клиенты
+  %span Справочник
+
+.widget.widget-heading-simple.widget-body-gray
+  .widget-body
+    .menubar.links.primary
+      %ul
+        %li= link_to 'Новый клиент', new_client_path
+    %table.table.table-bordered.table-condensed.table-striped.table-white
+      %thead
+        %tr
+          %th.center Наименование
+          %th.center ИНН
+          %th.center Код
+          %th.center Город
+          %th.center Пользователь
+          %th.center Создан
+          %th
+      %tbody
+        - @clients.each do |client|
+          %tr
+            %td= client.name
+            %td= client.inn
+            %td= client.code
+            %td= client.city.name if client.city
+            %td= client.user.username if client.user
+            %td= client.created_at.strftime('%d.%m.%Y %H:%M')
+            %td
+              = link_to client, :class => 'btn btn-primary', :title => 'Показать' do
+                %i.icon-search
+              = link_to edit_client_path(client), :class => 'btn btn-primary', :title => 'Редактировать' do
+                %i.icon-edit
+              = link_to client, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn btn-danger', :title => 'Удалить' do
+                %i.icon-trash
