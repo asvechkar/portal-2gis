@@ -45,7 +45,8 @@
                   %li= link_to 'Кленты', '#'
                   %li= link_to 'Сотрудники', '#'
                   %li= link_to 'Должности', '#'
-                  %li= link_to 'Уровни опыта', '#'
+                  %li{ :class => current_page?(levels_path) ? 'active' : nil }
+                    = link_to 'Уровни опыта', levels_path
               %li.glyphs
                 %ul
                   %li
