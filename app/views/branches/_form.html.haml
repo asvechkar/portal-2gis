@@ -11,10 +11,10 @@
       = f.text_field :name, :class => 'span8', :placeholder => 'Наименование филиала'
   .control-group
     .controls
-      = f.collection_select :city_id, City.all, :id, :name, {:prompt => 'Выберите город'}, :class => 'span8'
+      = f.collection_select :city_id, City.all, :id, :name, {:prompt => 'Выберите город'}, :class => 'selectpicker'
   .control-group
     .controls
-      = f.collection_select :employee_id, Employee.all, :id, :initials, {:prompt => 'Выберите руководителя'}, :class => 'span8'
+      = f.collection_select :employee_id, Employee.all, :id, :initials, {:prompt => 'Выберите руководителя'}, :class => 'selectpicker'
   %hr.separator
   .form-actions
     = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'

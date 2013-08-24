@@ -9,7 +9,7 @@
   .control-group
     = f.label :employee_id, 'Менеджер', :class => 'control-label'
     .controls
-      = f.collection_select :employee_id, Employee.all, :id, :initials, {:prompt => 'Выберите сотрудника'}, :class => 'span4'
+      = f.collection_select :employee_id, Employee.all, :id, :initials, {:prompt => 'Выберите сотрудника'}, :class => 'selectpicker'
   .control-group
     = f.label :year, 'Плановый год', :class => 'control-label'
     .controls

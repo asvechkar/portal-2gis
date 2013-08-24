@@ -20,20 +20,20 @@
       = f.text_field :snils, :placeholder => 'СНИЛС'
   .control-group
     .controls
-      = f.collection_select :position_id, Position.all, :id, :name, {:prompt => 'Выберите должность'}
+      = f.collection_select :position_id, Position.all, :id, :name, {:prompt => 'Выберите должность'}, :class => 'selectpicker'
   - level = (@employee.position.show_experience_level if @employee.position) || 0
   = content_tag :div, id: 'levels' do
     = f.hidden_field false, :value => level, :id => 'level'
   .control-group
     .controls
-      = f.collection_select :level_id, Level.all, :id, :name, {:prompt => 'Выберите уровень опыта'}
+      = f.collection_select :level_id, Level.all, :id, :name, {:prompt => 'Выберите уровень опыта'}, :class => 'selectpicker'
   .control-group
     = f.label false, 'Группы:', :class => 'control-label'
     .controls
       .uniformjs
         - Group.all.each do |g|
-          = label_tag false, :class => 'radio' do
-            = radio_button_tag "group[group_ids][]", g.id, @employee.group_ids.include?(g.id), id: dom_id(g)
+          %label.radio
+            = radio_button_tag "group[group_ids][]", g.id, @employee.group_ids.include?(g.id), id: dom_id(g), :class => 'radio'
             = g.code
     %hr.separator
   .form-actions

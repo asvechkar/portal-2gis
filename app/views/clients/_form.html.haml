@@ -8,16 +8,16 @@
 
   .control-group
     .controls
-      = f.text_field :name, :class => 'span8', :placeholder => 'Наименование компании'
+      = f.text_field :name, :placeholder => 'Наименование компании'
   .control-group
     .controls
-      = f.text_field :inn, :class => 'span8', :placeholder => 'ИНН компании'
+      = f.text_field :inn, :placeholder => 'ИНН компании'
   .control-group
     .controls
-      = f.text_field :code, :class => 'span8', :placeholder => 'Код компании'
+      = f.text_field :code, :placeholder => 'Код компании'
   .control-group
     .controls
-      = f.collection_select :city_id, City.all, :id, :name, {:prompt => 'Выберите город'}, :class => 'span8'
+      = f.collection_select :city_id, City.all, :id, :name, {:prompt => 'Выберите город'}, :class => 'selectpicker'
   %hr.separator
   .form-actions
     = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'

@@ -45,7 +45,7 @@
             %td= debt.user.username
             %td= debt.created_at.strftime('%d.%m.%Y %H:%M')
             %td
-              = link_to edit_debt_path(debt), :class => 'btn btn-mini btn-primary', :title => 'Редактировать' do
-                %i.icon-edit
-              = link_to debt, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn btn-mini btn-danger', :title => 'Удалить' do
-                %i.icon-trash
+              = link_to edit_debt_path(debt), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
+                %i
+              = link_to debt, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
+                %i

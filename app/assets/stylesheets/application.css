@@ -1,6 +1,9 @@
 /*
  *= require bootstrap
  *= require bootstrap-timepicker
+ *= require bootstrap-select
+ *= require bootstrap-toggle-buttons
+ *= require fileupload
  *= require datetimepicker
  *= require responsive
  *= require glyphicons

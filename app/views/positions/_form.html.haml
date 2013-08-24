@@ -8,12 +8,12 @@
 
   .control-group
     .controls
-      = f.text_field :name, :class => 'span10', :placeholder => 'Наименование должности'
+      = f.text_field :name, :placeholder => 'Наименование должности'
   .control-group
     .controls
       .uniformjs
-        = label_tag false, :class => 'checkbox' do
-          = f.check_box :show_experience_level
+        %label.checkbox
+          = f.check_box :show_experience_level, :class => 'checkbox'
           уровни опыта
   %hr.separator
   .form-actions

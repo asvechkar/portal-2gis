@@ -1,15 +1,21 @@
 //= require jquery
 //= require jquery-migrate-1.2.1
 //= require jquery_ujs
+//= require jquery.bootstrap.wizard
 //= require jquery.inputmask.bundle
+//= require jquery.toggle.buttons
 //= require turbolinks
 //= require beautify
 //= require beautify-html
 //= require jquery.prettyPhoto
 //= require modernizr
+//= require bootbox.js
 //= require bootstrap
 //= require bootstrap-timepicker
 //= require bootstrap-datetimepicker
+//= require bootstrap-fileupload
+//= require bootstrap-select
+//= require twitter-bootstrap-hover-dropdown
 //= require jquery.slimscroll
 //= require holder
 //= require jquery.uniform
@@ -58,6 +64,8 @@ $(function()
   });
 
   if ($('.uniformjs').length) $('.uniformjs').find("select, input, button, textarea").uniform();
+  $('.selectpicker').selectpicker();
+  if ($('.toggle-button').length) $('.toggle-button').toggleButtons();
 
   $('#dtp_orderdate').datetimepicker({
       format: "dd.mm.yyyy",
