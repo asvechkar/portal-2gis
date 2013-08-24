@@ -31,7 +31,7 @@
         - @positions.each do |position|
           %tr
             %td= position.name
-            %td= position.show_experience_level > 0 ? 'да' : 'нет'
+            %td= position.show_experience_level > 0 ? 'да' : 'нет' if position.show_experience_level
             %td= position.user.username if position.user
             %td= position.created_at.strftime('%d.%m.%Y %H:%M')
             %td
