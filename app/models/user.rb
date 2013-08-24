@@ -12,4 +12,5 @@ class User < ActiveRecord::Base
   has_many :branches
   has_many :groups
   has_many :plans
+  has_many :orders
 end

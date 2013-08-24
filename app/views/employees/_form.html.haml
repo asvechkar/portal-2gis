@@ -3,7 +3,7 @@
     #error_explanation
       %h2= "#{pluralize(@employee.errors.count, "error")} prohibited this city from being saved:"
       %ul
-        - @client.errors.full_messages.each do |msg|
+        - @employee.errors.full_messages.each do |msg|
           %li= msg
 
   .control-group
@@ -24,7 +24,7 @@
   .control-group
     .controls
       = f.collection_select :position_id, Position.all, :id, :name, {:prompt => 'Выберите должность'}, :class => 'span8'
-    %hr.separator
+  %hr.separator
   .form-actions
     = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'
 

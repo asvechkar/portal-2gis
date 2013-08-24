@@ -5,6 +5,7 @@ class Employee < ActiveRecord::Base
   has_many :branches
   has_many :groups
   has_many :plans
+  has_many :orders
   validates_presence_of :firstname, :middlename, :lastname, :snils
   validates_uniqueness_of :firstname, :middlename, :lastname, :snils
 

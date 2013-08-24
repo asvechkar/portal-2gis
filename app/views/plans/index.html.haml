@@ -45,9 +45,9 @@
             %td= plan.user.username
             %td= plan.created_at.strftime('%d.%m.%Y %H:%M')
             %td
-              = link_to plan, :class => 'btn btn-primary', :title => 'Показать' do
+              = link_to plan, :class => 'btn btn-mini btn-primary', :title => 'Показать' do
                 %i.icon-search
-              = link_to edit_plan_path(plan), :class => 'btn btn-primary', :title => 'Редактировать' do
+              = link_to edit_plan_path(plan), :class => 'btn btn-mini btn-primary', :title => 'Редактировать' do
                 %i.icon-edit
-              = link_to plan, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn btn-danger', :title => 'Удалить' do
+              = link_to plan, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn btn-mini btn-danger', :title => 'Удалить' do
                 %i.icon-trash
