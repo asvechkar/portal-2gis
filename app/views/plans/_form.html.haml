@@ -1,0 +1,37 @@
+= form_for @plan, :html => {:class => 'form-horizontal'} do |f|
+  - if @plan.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@plan.errors.count, "error")} prohibited this city from being saved:"
+      %ul
+        - @plan.errors.full_messages.each do |msg|
+          %li= msg
+
+  .control-group
+    = f.label :employee_id, 'Менеджер', :class => 'control-label'
+    .controls
+      = f.collection_select :employee_id, Employee.all, :id, :initials, {:prompt => 'Выберите сотрудника'}, :class => 'span4'
+  .control-group
+    = f.label :year, 'Плановый год', :class => 'control-label'
+    .controls
+      = f.number_field :year, :class => 'span2', :placeholder => 'Год'
+  .control-group
+    = f.label :month, 'Плановый месяц', :class => 'control-label'
+    .controls
+      = f.number_field :month, :class => 'span2', :placeholder => 'Месяц'
+  .control-group
+    = f.label :clients, 'Запланировано клиентов', :class => 'control-label'
+    .controls
+      = f.number_field :clients, :class => 'span2', :placeholder => 'Клиентов'
+  .control-group
+    = f.label :weight, 'Плановый вес', :class => 'control-label'
+    .controls
+      = f.number_field :weight, :class => 'span2', :placeholder => 'Вес'
+  .control-group
+    = f.label :total, 'Плановая сумма', :class => 'control-label'
+    .controls
+      .input-append
+        = f.number_field :total, :class => 'span2', :placeholder => 'Сумма'
+        %span.add-on руб
+    %hr.separator
+  .form-actions
+    = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'

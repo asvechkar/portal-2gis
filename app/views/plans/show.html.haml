@@ -1,0 +1,37 @@
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы сейчас здесь
+  %li
+    = link_to root_path, :class => 'glyphicons dashboard' do
+      %i
+      Главная
+  %li.divider
+  %li= link_to 'Планы по новым клиентам', plans_path
+  %li.divider
+  %li= @plan.employee.initials
+%h3.separator.bottom
+  = @plan.employee.initials
+  %span карточка
+.widget.widget-heading-simple.widget-body-gray
+  .widget-body
+    .menubar.links.primary
+      %ul
+        %li= link_to 'Редактировать', edit_plan_path(@plan)
+    %dl
+      %dt Год
+      %dd= @plan.year
+      %dt Месяц
+      %dd= @plan.month
+      %dt Запланировано новых клиентов
+      %dd= @plan.clients
+      %dt Плановый вес
+      %dd= number_to_currency(@plan.weight, unit: "руб.", separator: ",", delimiter: " ", format: "%n %u")
+      %dt Плановая сумма
+      %dd= number_to_currency(@plan.total, unit: "руб.", separator: ",", delimiter: " ", format: "%n %u")
+      %dt Автор
+      %dd= @plan.user.username
+      %dt Дата создания
+      %dd= @plan.created_at.strftime('%d.%m.%Y %H:%M')

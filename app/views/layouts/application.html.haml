@@ -72,6 +72,18 @@
                     = link_to 'Должности', positions_path
                   %li{ :class => current_page?(levels_path) ? 'active' : nil }
                     = link_to 'Уровни опыта', levels_path
+              %li{ :class => current_page?(plans_path) ? 'active' : nil }
+                = link_to plans_path, :class => 'glyphicons stats' do
+                  %i
+                  Планы
+              %li
+                = link_to '#', :class => 'glyphicons wallet' do
+                  %i
+                  Задолженность
+              %li
+                = link_to '#', :class => 'glyphicons notes_2' do
+                  %i
+                  Заказы
             .clearfix
         #content
           .navbar.main

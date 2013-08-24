@@ -11,4 +11,5 @@ class User < ActiveRecord::Base
   has_many :employees
   has_many :branches
   has_many :groups
+  has_many :plans
 end

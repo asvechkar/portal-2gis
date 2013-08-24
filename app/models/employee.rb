@@ -4,6 +4,7 @@ class Employee < ActiveRecord::Base
   belongs_to :user
   has_many :branches
   has_many :groups
+  has_many :plans
   validates_presence_of :firstname, :middlename, :lastname, :snils
   validates_uniqueness_of :firstname, :middlename, :lastname, :snils
 
