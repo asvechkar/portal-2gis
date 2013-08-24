@@ -33,7 +33,7 @@
   %hr.separator
     - Group.all.each do |g|
       .check-line
-        = check_box_tag "group[group_ids][]", g.id, @employee.group_ids.include?(g.id), id: dom_id(g)
+        = radio_button_tag "group[group_ids][]", g.id, @employee.group_ids.include?(g.id), id: dom_id(g)
         = label_tag dom_id(g), g.code, :class => 'inline'
     %hr.separator
   .form-actions
