@@ -3,7 +3,7 @@
     #error_explanation
       %h2= "#{pluralize(@employee.errors.count, "error")} prohibited this city from being saved:"
       %ul
-        - @client.errors.full_messages.each do |msg|
+        - @employee.errors.full_messages.each do |msg|
           %li= msg
 
   .control-group
@@ -30,12 +30,17 @@
   .control-group
     Группы:
     .controls
+<<<<<<< HEAD
+      = f.collection_select :position_id, Position.all, :id, :name, {:prompt => 'Выберите должность'}, :class => 'span8'
+  %hr.separator
+=======
       - Group.all.each do |g|
         .check-line
           = check_box_tag "group[group_ids][]", g.id, @employee.group_ids.include?(g.id), id: dom_id(g)
           = label_tag dom_id(g), g.code, :class => 'inline'
 
     %hr.separator
+>>>>>>> 1b4996123dc93f5d86bd8c2b6edb07b6650b65c7
   .form-actions
     = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'
 

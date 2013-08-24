@@ -25,7 +25,7 @@
             = image_tag 'logo.png', :alt => 'Портал 2GIS'
           .slim-scroll{ 'data-scroll-height' => '800px' }
             %span.profile.center
-              = link_to edit_user_registration_path, :title => current_user.username do
+              = link_to false, :title => current_user.username do
                 = image_tag avatar_url(current_user), 'data-src' => avatar_url(current_user), :alt => current_user.username
             %ul
               %li
@@ -81,7 +81,7 @@
                   %i
                   Задолженность
               %li
-                = link_to '#', :class => 'glyphicons notes_2' do
+                = link_to orders_path, :class => 'glyphicons notes_2' do
                   %i
                   Заказы
             .clearfix

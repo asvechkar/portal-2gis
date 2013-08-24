@@ -39,17 +39,21 @@
             %td= employee.middlename
             %td= employee.lastname
             %td= employee.snils
+<<<<<<< HEAD
+=======
             %td= employee.level.name if employee.level_id
+>>>>>>> 1b4996123dc93f5d86bd8c2b6edb07b6650b65c7
             %td= employee.position.name
+            %td= employee.level.name
             %td= employee.user.username if employee.user
             %td
               - employee.groups.each do |g|
                 = link_to g.code + '  ', group_path(g)
             %td= employee.created_at.strftime('%d.%m.%Y %H:%M')
             %td
-              = link_to employee, :class => 'btn btn-primary', :title => 'Показать' do
+              = link_to employee, :class => 'btn btn-mini btn-primary', :title => 'Показать' do
                 %i.icon-search
-              = link_to edit_employee_path(employee), :class => 'btn btn-primary', :title => 'Редактировать' do
+              = link_to edit_employee_path(employee), :class => 'btn btn-mini btn-primary', :title => 'Редактировать' do
                 %i.icon-edit
-              = link_to employee, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn btn-danger', :title => 'Удалить' do
+              = link_to employee, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn btn-mini btn-danger', :title => 'Удалить' do
                 %i.icon-trash

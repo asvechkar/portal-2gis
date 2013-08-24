@@ -1,0 +1,54 @@
+= form_for @order, :html => {:class => 'form-horizontal'} do |f|
+  - if @order.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@order.errors.count, "error")} prohibited this city from being saved:"
+      %ul
+        - @order.errors.full_messages.each do |msg|
+          %li= msg
+  .control-group
+    = f.label :ordernum, '№ бланка заказа', :class => 'control-label'
+    .controls
+      = f.text_field :ordernum, :placeholder => '№ бланка'
+  .control-group
+    = f.label :orderdate, 'Дата заказа', :class => 'control-label'
+    .controls
+      #dtp_orderdate.input-append.date
+        = f.text_field :orderdate
+        %span.add-on
+          %i.icon-th
+  .control-group
+    = f.label :startdate, 'Начало', :class => 'control-label'
+    .controls
+      #dtp_startdate.input-append.date
+        = f.text_field :startdate
+        %span.add-on
+          %i.icon-th
+  .control-group
+    = f.label :finishdate, 'Окончание', :class => 'control-label'
+    .controls
+      #dtp_finishdate.input-append.date
+        = f.text_field :finishdate
+        %span.add-on
+          %i.icon-th
+  .control-group
+    = f.label :ordersum, 'Сумма заказа', :class => 'control-label'
+    .controls
+      .input-append
+        = f.number_field :ordersum
+        %span.add-on руб
+  .control-group
+    = f.label :continue, 'Пролонгация', :class => 'control-label'
+    .controls
+      .uniformjs
+        = check_box_tag :continue, :value => 0
+  .control-group
+    = f.label :employee_id, 'Куратор', :class => 'control-label'
+    .controls
+      = f.collection_select :employee_id, Employee.all, :id, :initials, {:prompt => 'Выберите сотрудника'}
+  .control-group
+    = f.label :client_id, 'Клиент', :class => 'control-label'
+    .controls
+      = f.collection_select :client_id, Client.all, :id, :name, {:prompt => 'Выберите клиента'}
+  %hr.separator
+  .form-actions
+    = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'

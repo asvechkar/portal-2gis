@@ -1,12 +1,15 @@
 //= require jquery
 //= require jquery-migrate-1.2.1
 //= require jquery_ujs
+//= require jquery.inputmask.bundle
 //= require turbolinks
 //= require beautify
 //= require beautify-html
 //= require jquery.prettyPhoto
 //= require modernizr
 //= require bootstrap
+//= require bootstrap-timepicker
+//= require bootstrap-datetimepicker
 //= require jquery.slimscroll
 //= require holder
 //= require jquery.uniform
@@ -55,4 +58,30 @@ $(function()
   });
 
   if ($('.uniformjs').length) $('.uniformjs').find("select, input, button, textarea").uniform();
+
+  $('#dtp_orderdate').datetimepicker({
+      format: "dd.mm.yyyy",
+      weekStart: "1",
+      autoclose: "true",
+      minView: "2",
+      todayBtn: "true",
+      language: "ru"
+  });
+  $('#dtp_startdate').datetimepicker({
+    format: "dd.mm.yyyy",
+    weekStart: "1",
+    autoclose: "true",
+    minView: "2",
+    todayBtn: "true",
+    language: "ru"
+  });
+  $('#dtp_finishdate').datetimepicker({
+    format: "dd.mm.yyyy",
+    weekStart: "1",
+    autoclose: "true",
+    minView: "2",
+    todayBtn: "true",
+    language: "ru"
+  });
+  $("#inputmask-currency").inputmask('999 999 999,99', { numericInput: true, rightAlignNumerics: false, greedy: false});
 });
