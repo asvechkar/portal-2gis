@@ -35,7 +35,7 @@
       %dt СНИЛС
       %dd= @employee.snils
       %dt Уровень опыта
-      %dd= @employee.level.name
+      %dd= @employee.level.name if @employee.level_id
       %dt Должность
       %dd= @employee.position.name
       %dt Автор

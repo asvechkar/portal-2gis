@@ -15,4 +15,5 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :userifications
   has_many :employees, :through => :userifications, :source => :userable, :source_type => 'Employee'
+
 end

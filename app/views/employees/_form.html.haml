@@ -20,10 +20,29 @@
       = f.text_field :snils, :placeholder => 'СНИЛС'
   .control-group
     .controls
+<<<<<<< HEAD
       = f.collection_select :position_id, Position.all, :id, :name, {:prompt => 'Выберите должность'}
   .control-group
     .controls
       = f.collection_select :level_id, Level.all, :id, :name, {:prompt => 'Выберите уровень опыта'}
   %hr.separator
+=======
+      = f.collection_select :position_id, Position.all, :id, :name, {:prompt => 'Выберите должность'}, :class => 'span8'
+  - level = (@employee.position.show_experience_level if @employee.position) || 0
+  = content_tag :div, id: 'levels' do
+    = f.hidden_field false, :value => level, :id => 'level'
+  .control-group
+    .controls
+      = f.collection_select :level_id, Level.all, :id, :name, {:prompt => 'Выберите уровень опыта'}, :class => 'span8'
+  .control-group
+    Группы:
+    .controls
+  %hr.separator
+    - Group.all.each do |g|
+      .check-line
+        = radio_button_tag "group[group_ids][]", g.id, @employee.group_ids.include?(g.id), id: dom_id(g)
+        = label_tag dom_id(g), g.code, :class => 'inline'
+    %hr.separator
+>>>>>>> 6b9182cebbc1423909f7ba489043ed17f13c4220
   .form-actions
     = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'
