@@ -1,1 +1,56 @@
-%h1 Добро пожаловать на портал 2GIS
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы сейчас здесь
+  %li
+    = link_to root_path, :class => 'glyphicons dashboard' do
+      %i
+      Главная
+  %li.divider
+  %li Главная
+  %li.pull-right.hidden-phone
+    = link_to 'http://freshintel.ru', :class => 'glyphicons shield' do
+      Справка
+      %i
+  %li.pull-right.hidden-phone.divider
+%h2
+  Добро пожаловать на портал 2GIS
+  %span Главная
+.innerLR
+  .row-fluid
+    .span12
+      .widget.widget-heading-simple.widget-body-simple
+        .widget-head
+          %h4.heading Показатели
+        .widget-body
+          .row-fluid
+            .span3
+              = link_to clients_path, :class => 'widget-stats widget-stats-1' do
+                %span.glyphicons.parents
+                  %i
+                  %span.txt Клиентов
+                .clearfix
+                %span.count= Client.all.count
+            .span3
+              = link_to orders_path, :class => 'widget-stats widget-stats-1' do
+                %span.glyphicons.notes_2
+                  %i
+                  %span.txt Заказов
+                .clearfix
+                %span.count= Order.all.count
+            .span3
+              = link_to employees_path, :class => 'widget-stats widget-stats-1' do
+                %span.glyphicons.group
+                  %i
+                  %span.txt Сотрудников
+                .clearfix
+                %span.count= Employee.all.count
+            .span3
+              = link_to cities_path, :class => 'widget-stats widget-stats-1' do
+                %span.glyphicons.globe
+                  %i
+                  %span.txt Городов
+                .clearfix
+                %span.count= City.all.count

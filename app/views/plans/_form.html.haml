@@ -13,13 +13,13 @@
   .control-group
     = f.label :year, 'Плановый год', :class => 'control-label'
     .controls
-      = f.number_field :year, :class => 'span2', :placeholder => 'Год'
+      = select :plan, :year, years_list
   .control-group
     = f.label :month, 'Плановый месяц', :class => 'control-label'
     .controls
-      = f.number_field :month, :class => 'span2', :placeholder => 'Месяц'
+      = select :plan, :month, months_list
   .control-group
-    = f.label :clients, 'Запланировано клиентов', :class => 'control-label'
+    = f.label :clients, 'Клиентов', :class => 'control-label'
     .controls
       = f.number_field :clients, :class => 'span2', :placeholder => 'Клиентов'
   .control-group
