@@ -24,6 +24,14 @@
   .control-group
     .controls
       = f.collection_select :position_id, Position.all, :id, :name, {:prompt => 'Выберите должность'}, :class => 'span8'
+  .control-group
+    Группы:
+    .controls
+      - Group.all.each do |g|
+        .check-line
+          = check_box_tag "group[group_ids][]", g.id, @employee.group_ids.include?(g.id), id: dom_id(g)
+          = label_tag dom_id(g), g.code, :class => 'inline'
+
     %hr.separator
   .form-actions
     = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'

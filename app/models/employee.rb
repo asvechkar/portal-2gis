@@ -12,6 +12,10 @@ class Employee < ActiveRecord::Base
   has_many :suspensions
   has_many :groups, :through => :suspensions, :source => :employed, :source_type => 'Group'
 
+  def group
+    self
+  end
+
   def initials
     self.lastname + ' ' + self.firstname[0] + '.' + self.middlename[0] + '.'
   end

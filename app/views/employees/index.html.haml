@@ -29,6 +29,7 @@
           %th.center Должность
           %th.center Опыт
           %th.center Автор
+          %th.center Группы
           %th.center Создан
           %th
       %tbody
@@ -41,6 +42,9 @@
             %td= employee.level.name
             %td= employee.position.name
             %td= employee.user.username if employee.user
+            %td
+              - employee.groups.each do |g|
+                = link_to g.code + '  ', group_path(g)
             %td= employee.created_at.strftime('%d.%m.%Y %H:%M')
             %td
               = link_to employee, :class => 'btn btn-primary', :title => 'Показать' do
