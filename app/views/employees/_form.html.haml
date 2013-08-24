@@ -8,36 +8,22 @@
 
   .control-group
     .controls
-      = f.text_field :firstname, :class => 'span8', :placeholder => 'Имя'
+      = f.text_field :firstname, :placeholder => 'Имя'
   .control-group
     .controls
-      = f.text_field :middlename, :class => 'span8', :placeholder => 'Отчество'
+      = f.text_field :middlename, :placeholder => 'Отчество'
   .control-group
     .controls
-      = f.text_field :lastname, :class => 'span8', :placeholder => 'Фамилия'
+      = f.text_field :lastname, :placeholder => 'Фамилия'
   .control-group
     .controls
-      = f.text_field :snils, :class => 'span8', :placeholder => 'СНИЛС'
+      = f.text_field :snils, :placeholder => 'СНИЛС'
   .control-group
     .controls
-      = f.collection_select :position_id, Position.all, :id, :name, {:prompt => 'Выберите должность'}, :class => 'span8'
+      = f.collection_select :position_id, Position.all, :id, :name, {:prompt => 'Выберите должность'}
   .control-group
     .controls
-      = f.collection_select :level_id, Level.all, :id, :name, {:prompt => 'Выберите уровень опыта'}, :class => 'span8'
-  .control-group
-    Группы:
-    .controls
-<<<<<<< HEAD
-      = f.collection_select :position_id, Position.all, :id, :name, {:prompt => 'Выберите должность'}, :class => 'span8'
+      = f.collection_select :level_id, Level.all, :id, :name, {:prompt => 'Выберите уровень опыта'}
   %hr.separator
-=======
-      - Group.all.each do |g|
-        .check-line
-          = check_box_tag "group[group_ids][]", g.id, @employee.group_ids.include?(g.id), id: dom_id(g)
-          = label_tag dom_id(g), g.code, :class => 'inline'
-
-    %hr.separator
->>>>>>> 1b4996123dc93f5d86bd8c2b6edb07b6650b65c7
   .form-actions
     = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'
-
