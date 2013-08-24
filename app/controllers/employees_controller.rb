@@ -29,6 +29,7 @@ class EmployeesController < ApplicationController
 
     respond_to do |format|
       if @employee.save
+        @employee.level_id = nil if params[:show_level].to_i == 0
         @employee.group_ids = params[:group][:group_ids] if params[:group]
         format.html { redirect_to employees_path, notice: 'Сотрудник успешно добавлен.' }
         format.json { render action: 'show', status: :created, location: @employee }
@@ -44,7 +45,9 @@ class EmployeesController < ApplicationController
   def update
     respond_to do |format|
       if @employee.update(employee_params)
-        @employee.update_attributes(:group_ids => params[:group][:group_ids])
+        (params[:show_level].to_i == 0) ?
+            @employee.update_attributes(:group_ids => params[:group][:group_ids], :level_id => nil) :
+            @employee.update_attributes(:group_ids => params[:group][:group_ids])
         format.html { redirect_to @employee, notice: 'Сотудник успешно обновлен.' }
         format.json { head :no_content }
       else

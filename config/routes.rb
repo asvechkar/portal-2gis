@@ -1,4 +1,5 @@
 Portal2gis::Application.routes.draw do
+  get 'positions/level' => 'positions#level'
   resources :plans
   resources :groups
   resources :branches

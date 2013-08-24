@@ -22,6 +22,13 @@ class PositionsController < ApplicationController
   def edit
   end
 
+  def level
+    @level = Position.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
   # POST /positions
   # POST /positions.json
   def create

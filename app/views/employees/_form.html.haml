@@ -21,6 +21,9 @@
   .control-group
     .controls
       = f.collection_select :position_id, Position.all, :id, :name, {:prompt => 'Выберите должность'}, :class => 'span8'
+  - level = (@employee.position.show_experience_level if @employee.position) || 0
+  = content_tag :div, id: 'levels' do
+    = f.hidden_field false, :value => level, :id => 'level'
   .control-group
     .controls
       = f.collection_select :level_id, Level.all, :id, :name, {:prompt => 'Выберите уровень опыта'}, :class => 'span8'
