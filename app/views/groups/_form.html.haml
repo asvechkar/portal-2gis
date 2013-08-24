@@ -7,14 +7,17 @@
           %li= msg
 
   .control-group
+    = f.label :code, 'Код группы', :class => 'control-label'
     .controls
-      = f.text_field :code, :class => 'span8', :placeholder => 'Код группы (лат.)'
+      = f.text_field :code, :placeholder => 'Код группы (лат.)'
   .control-group
+    = f.label :branch_id, 'Филиал', :class => 'control-label'
     .controls
-      = f.collection_select :branch_id, Branch.all, :id, :name, {:prompt => 'Выберите филеал'}, :class => 'span8'
+      = f.collection_select :branch_id, Branch.all, :id, :name, {:prompt => 'Выберите филиал'}
   .control-group
+    = f.label :employee_id, 'Руководитель', :class => 'control-label'
     .controls
-      = f.collection_select :employee_id, Employee.all, :id, :initials, {:prompt => 'Выберите руководителя'}, :class => 'span8'
+      = f.collection_select :employee_id, Employee.all, :id, :initials, {:prompt => 'Выберите руководителя'}
   %hr.separator
   .form-actions
     = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'

@@ -1,5 +1,5 @@
 Portal2gis::Application.routes.draw do
-
+  resources :debts
   get 'positions/level' => 'positions#level'
   resources :orders
   resources :plans

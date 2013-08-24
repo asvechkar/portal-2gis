@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  year: 1
+  month: 1
+  employee_id: 
+  client_id: 
+  order_id: 
+  debtsum: 1.5
+  debttype: 1
+  user_id: 
+
+two:
+  year: 1
+  month: 1
+  employee_id: 
+  client_id: 
+  order_id: 
+  debtsum: 1.5
+  debttype: 1
+  user_id: 

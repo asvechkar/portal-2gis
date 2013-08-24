@@ -20,87 +20,9 @@
   %body
     .container-fluid.fluid.menu-left
       #wrapper
-        #menu.hidden-phone.hidden-print
-          = link_to root_path, :class => 'appbrand' do
-            = image_tag 'logo.png', :alt => 'Портал 2GIS'
-          .slim-scroll{ 'data-scroll-height' => '800px' }
-            %span.profile.center
-              = link_to false, :title => current_user.username do
-                = image_tag avatar_url(current_user), 'data-src' => avatar_url(current_user), :alt => current_user.username
-            %ul
-              %li
-                = link_to root_path, :class => 'glyphicons dashboard' do
-                  %i
-                  Главная
-              %li.dropdown.dd-1
-                = link_to '', 'data-toggle' => 'dropdown', :class => 'glyphicons parents' do
-                  %i
-                  Настройки
-                  %span.icon-chevron-right
-                %ul.dropdown-menu.pull-left
-                  %li{ :class => current_page?(edit_user_registration_path) ? 'active' : nil }
-                    = link_to 'Аккаунт', edit_user_registration_path
-                  %li
-                    = link_to 'Профиль', '#'
-                  %li
-                    = link_to 'Выход', destroy_user_session_path
-              %li.dropdown.dd-1
-                = link_to '', 'data-toggle' => 'dropdown', :class => 'glyphicons settings' do
-                  %i
-                  Управление
-                  %span.icon-chevron-right
-                %ul.dropdown-menu.pull-left
-                  %li{ :class => current_page?(users_path) ? 'active' : nil }
-                    = link_to 'Пользователи', users_path
-              %li.dropdown.dd-1
-                = link_to '', 'data-toggle' => 'dropdown', :class => 'glyphicons book_open' do
-                  %i
-                  Справочники
-                  %span.icon-chevron-right
-                %ul.dropdown-menu.pull-left
-                  %li{ :class => current_page?(branches_path) ? 'active' : nil }
-                    = link_to 'Филиалы', branches_path
-                  %li{ :class => current_page?(groups_path) ? 'active' : nil }
-                    = link_to 'Группы', groups_path
-                  %li{ :class => current_page?(cities_path) ? 'active' : nil }
-                    = link_to 'Города', cities_path
-                  %li{ :class => current_page?(clients_path) ? 'active' : nil }
-                    = link_to 'Клиенты', clients_path
-                  %li{ :class => current_page?(employees_path) ? 'active' : nil }
-                    = link_to 'Сотрудники', employees_path
-                  %li{ :class => current_page?(positions_path) ? 'active' : nil }
-                    = link_to 'Должности', positions_path
-                  %li{ :class => current_page?(levels_path) ? 'active' : nil }
-                    = link_to 'Уровни опыта', levels_path
-              %li{ :class => current_page?(plans_path) ? 'active' : nil }
-                = link_to plans_path, :class => 'glyphicons stats' do
-                  %i
-                  Планы
-              %li
-                = link_to '#', :class => 'glyphicons wallet' do
-                  %i
-                  Задолженность
-              %li
-                = link_to orders_path, :class => 'glyphicons notes_2' do
-                  %i
-                  Заказы
-            .clearfix
+        = render 'layouts/sidebar'
         #content
-          .navbar.main
-            %button.btn.btn-navbar.pull-left{ 'type' => 'button' }
-              %span.icon-bar
-              %span.icon-bar
-              %span.icon-bar
-            %ul.topnav.pull-left
-              %li
-                = link_to root_path, :class => 'glyphicons dashboard' do
-                  %i
-                  Панель управления
-              %li
-                = link_to destroy_user_session_path, :method => :delete, :class => 'glyphicons power' do
-                  %i
-                  Выйти
-            .clearfix
+          = render 'layouts/topmenu'
           = yield
       .clearfix
       #footer.hidden-print
@@ -112,6 +34,3 @@
           &copy; 2012 - &infin; -
           = link_to 'FRESH INTEL LTD', 'http://freshintel.ru'
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
-    %script
-      Holder.add_theme("dark", {background:"#000", foreground:"#aaa", size:9});
-      Holder.add_theme("white", {background:"#fff", foreground:"#c9c9c9", size:9});

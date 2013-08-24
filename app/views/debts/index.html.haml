@@ -1,0 +1,51 @@
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы сейчас здесь
+  %li
+    = link_to root_path, :class => 'glyphicons dashboard' do
+      %i
+      Главная
+  %li.divider
+  %li Задолженность
+%h3.separator.bottom
+  Задолженность
+  %span планирование
+
+.widget.widget-heading-simple.widget-body-gray
+  .widget-body
+    .menubar.links.primary
+      %ul
+        %li= link_to 'Импортировать', '#'
+    %table.table.table-bordered.table-condensed.table-striped.table-white
+      %thead
+        %tr
+          %th.center Год
+          %th.center Месяц
+          %th.center Менеджер
+          %th.center Клиент
+          %th.center Бланк заказа
+          %th.center Тип
+          %th.center Сумма
+          %th.center Пользователь
+          %th.center Создан
+          %th
+      %tbody
+        - @debts.each do |debt|
+          %tr
+            %td= debt.year
+            %td= debt.month
+            %td= debt.employee
+            %td= debt.client
+            %td= debt.order
+            %td= debt.debttype
+            %td= debt.debtsum
+            %td= debt.user.username
+            %td= debt.created_at.strftime('%d.%m.%Y %H:%M')
+            %td
+              = link_to edit_debt_path(debt), :class => 'btn btn-mini btn-primary', :title => 'Редактировать' do
+                %i.icon-edit
+              = link_to debt, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn btn-mini btn-danger', :title => 'Удалить' do
+                %i.icon-trash

@@ -1,0 +1,15 @@
+.navbar.main
+  %button.btn.btn-navbar.pull-left{ 'type' => 'button' }
+    %span.icon-bar
+    %span.icon-bar
+    %span.icon-bar
+  %ul.topnav.pull-left
+    %li
+      = link_to root_path, :class => 'glyphicons dashboard' do
+        %i
+        Панель управления
+    %li
+      = link_to destroy_user_session_path, :method => :delete, :class => 'glyphicons power' do
+        %i
+        Выйти
+  .clearfix
