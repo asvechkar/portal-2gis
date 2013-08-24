@@ -12,4 +12,6 @@ class User < ActiveRecord::Base
   has_many :branches
   has_many :groups
   has_many :plans
+  has_many :userifications
+  has_many :employees, :through => :userifications, :source => :userable, :source_type => 'Employee'
 end
