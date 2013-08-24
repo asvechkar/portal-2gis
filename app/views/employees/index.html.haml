@@ -39,12 +39,8 @@
             %td= employee.middlename
             %td= employee.lastname
             %td= employee.snils
-<<<<<<< HEAD
-=======
             %td= employee.level.name if employee.level_id
->>>>>>> 1b4996123dc93f5d86bd8c2b6edb07b6650b65c7
             %td= employee.position.name
-            %td= employee.level.name
             %td= employee.user.username if employee.user
             %td
               - employee.groups.each do |g|
