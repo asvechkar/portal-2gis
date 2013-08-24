@@ -26,8 +26,8 @@
           %th.center Отчество
           %th.center Фамилия
           %th.center СНИЛС
-          %th.center Должность
           %th.center Опыт
+          %th.center Должность
           %th.center Автор
           %th.center Группы
           %th.center Создан
@@ -39,7 +39,7 @@
             %td= employee.middlename
             %td= employee.lastname
             %td= employee.snils
-            %td= employee.level.name
+            %td= employee.level.name if employee.level_id
             %td= employee.position.name
             %td= employee.user.username if employee.user
             %td

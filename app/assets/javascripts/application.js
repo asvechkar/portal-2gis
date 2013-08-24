@@ -10,6 +10,7 @@
 //= require jquery.slimscroll
 //= require holder
 //= require jquery.uniform
+//= require employee
 
 function toggleMenuHidden()
 {

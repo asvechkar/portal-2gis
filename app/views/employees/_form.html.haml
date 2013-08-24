@@ -20,10 +20,10 @@
       = f.text_field :snils, :class => 'span8', :placeholder => 'СНИЛС'
   .control-group
     .controls
-      = f.collection_select :level_id, Level.all, :id, :name, {:prompt => 'Выберите уровень опыта'}, :class => 'span8'
+      = f.collection_select :position_id, Position.all, :id, :name, {:prompt => 'Выберите должность'}, :class => 'span8'
   .control-group
     .controls
-      = f.collection_select :position_id, Position.all, :id, :name, {:prompt => 'Выберите должность'}, :class => 'span8'
+      = f.collection_select :level_id, Level.all, :id, :name, {:prompt => 'Выберите уровень опыта'}, :class => 'span8'
   .control-group
     Группы:
     .controls
