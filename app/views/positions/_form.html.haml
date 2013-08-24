@@ -9,6 +9,11 @@
   .control-group
     .controls
       = f.text_field :name, :class => 'span10', :placeholder => 'Наименование должности'
+  .control-group
+    Показывать уровни опыта?
+    .controls
+      = f.check_box :show_experience_level, :class => 'span10'
+      = f.label 'Да/Нет'
   %hr.separator
   .form-actions
     = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'

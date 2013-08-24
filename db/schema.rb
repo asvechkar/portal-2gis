@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20130824104054) do
+=======
+ActiveRecord::Schema.define(version: 20130824113800) do
+>>>>>>> 1b4996123dc93f5d86bd8c2b6edb07b6650b65c7
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,13 +128,30 @@ ActiveRecord::Schema.define(version: 20130824104054) do
   add_index "plans", ["user_id"], name: "index_plans_on_user_id", using: :btree
 
   create_table "positions", force: true do |t|
-    t.string   "name",       null: false
+    t.string   "name",                  null: false
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "show_experience_level"
   end
 
   add_index "positions", ["user_id"], name: "index_positions_on_user_id", using: :btree
+
+  create_table "suspensions", force: true do |t|
+    t.integer "employee_id"
+    t.integer "employed_id"
+    t.string  "employed_type"
+  end
+
+  add_index "suspensions", ["employed_id", "employed_type", "employee_id"], name: "suspensions_index", using: :btree
+
+  create_table "userifications", force: true do |t|
+    t.integer "user_id"
+    t.integer "userable_id"
+    t.string  "userable_type"
+  end
+
+  add_index "userifications", ["userable_id", "userable_type", "user_id"], name: "userification_index", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
