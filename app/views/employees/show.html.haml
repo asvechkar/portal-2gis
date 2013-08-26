@@ -37,7 +37,7 @@
       %dt Уровень опыта
       %dd= @employee.level.name if @employee.level_id
       %dt Должность
-      %dd= @employee.position.name
+      %dd= @employee.position.name if @employee.position
       %dt Автор
       %dd= @employee.user.username if @employee.user
       %dt Дата создания

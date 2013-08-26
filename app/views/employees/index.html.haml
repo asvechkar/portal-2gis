@@ -40,7 +40,7 @@
             %td= employee.lastname
             %td= employee.snils
             %td= employee.level.name if employee.level_id
-            %td= employee.position.name
+            %td= employee.position.name if employee.position
             %td= employee.user.username if employee.user
             %td
               - employee.groups.each do |g|
