@@ -36,7 +36,7 @@
       %tbody
         - @plans.each do |plan|
           %tr
-            %td= plan.employee.initials
+            %td= plan.employee.initials if plan.employee
             %td= plan.year
             %td= plan.month
             %td= plan.clients

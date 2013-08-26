@@ -11,9 +11,9 @@
   %li.divider
   %li= link_to 'Планы по новым клиентам', plans_path
   %li.divider
-  %li= @plan.employee.initials
+  %li= @plan.employee.initials if @plan.employee
 %h3.separator.bottom
-  = @plan.employee.initials
+  = @plan.employee.initials if @plan.employee
   %span карточка
 .widget.widget-heading-simple.widget-body-gray
   .widget-body
