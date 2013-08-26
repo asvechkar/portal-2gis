@@ -4,7 +4,6 @@
 //= require jquery.bootstrap.wizard
 //= require jquery.inputmask.bundle
 //= require jquery.toggle.buttons
-//= require turbolinks
 //= require beautify
 //= require beautify-html
 //= require jquery.prettyPhoto
