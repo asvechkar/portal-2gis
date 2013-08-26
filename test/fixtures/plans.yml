@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  year: 1
+  month: 1
+  clients: 1
+  weight: 9.99
+  total: 9.99
+  employee_id: 
+  user_id: 
+
+two:
+  year: 1
+  month: 1
+  clients: 1
+  weight: 9.99
+  total: 9.99
+  employee_id: 
+  user_id: 

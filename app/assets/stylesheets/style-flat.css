@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,800,700,600&subset=latin,latin-ext);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,800,700,600&subset=latin,cyrillic,cyrillic-ext,latin-ext);
 /*!
  * QuickAdmin v1.4.0
  * 
@@ -7170,16 +7170,16 @@ div.dataTables_filter label {
 .bwizard-steps a:hover {
   text-decoration: none;
 }
-.bwizard-steps.clickable li:not (.active ) {
+.bwizard-steps.clickable li:not(.active) {
   cursor: pointer;
 }
-.bwizard-steps.clickable li:hover:not (.active ) {
+.bwizard-steps.clickable li:hover:not(.active) {
   background: #ccc;
 }
-.bwizard-steps.clickable li:hover:not (.active ):after {
+.bwizard-steps.clickable li:hover:not(.active):after {
   border-left-color: #ccc;
 }
-.bwizard-steps.clickable li:hover:not (.active ) a {
+.bwizard-steps.clickable li:hover:not(.active) a {
   color: #08c;
 }
 @media (max-width: 480px) {

@@ -1,0 +1,35 @@
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы сейчас здесь
+  %li
+    = link_to root_path, :class => 'glyphicons dashboard' do
+      %i
+      Главная
+  %li.divider
+  %li= link_to 'Справочник "Клиенты"', clients_path
+  %li.divider
+  %li= @client.name
+%h3.separator.bottom
+  = @client.name
+  %span карточка
+.widget.widget-heading-simple.widget-body-gray
+  .widget-body
+    .menubar.links.primary
+      %ul
+        %li= link_to 'Редактировать', edit_client_path(@client)
+    %dl
+      %dt Наименование
+      %dd= @client.name
+      %dt ИНН
+      %dd= @client.inn
+      %dt Код
+      %dd= @client.code
+      %dt Город
+      %dd= @client.city.name if @client.city
+      %dt Автор
+      %dd= @client.user.username if @client.user
+      %dt Дата создания
+      %dd= @client.created_at.strftime('%d.%m.%Y %H:%M')

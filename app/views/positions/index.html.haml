@@ -1,0 +1,43 @@
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы сейчас здесь
+  %li
+    = link_to root_path, :class => 'glyphicons dashboard' do
+      %i
+      Главная
+  %li.divider
+  %li Справочник "Должности"
+%h3.separator.bottom
+  Должности
+  %span Справочник
+
+.widget.widget-heading-simple.widget-body-gray
+  .widget-body
+    .menubar.links.primary
+      %ul
+        %li= link_to 'Новая должность', new_position_path
+    %table.table.table-bordered.table-condensed.table-striped.table-white
+      %thead
+        %tr
+          %th.center Наименование
+          %th.center Уровень опыта
+          %th.center Пользователь
+          %th.center Создан
+          %th
+      %tbody
+        - @positions.each do |position|
+          %tr
+            %td= position.name
+            %td= position.show_experience_level > 0 ? 'да' : 'нет' if position.show_experience_level
+            %td= position.user.username if position.user
+            %td= position.created_at.strftime('%d.%m.%Y %H:%M')
+            %td
+              = link_to position, :class => 'btn btn-mini btn-primary', :title => 'Показать' do
+                %i.icon-search
+              = link_to edit_position_path(position), :class => 'btn btn-mini btn-primary', :title => 'Редактировать' do
+                %i.icon-edit
+              = link_to position, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn btn-mini btn-danger', :title => 'Удалить' do
+                %i.icon-trash

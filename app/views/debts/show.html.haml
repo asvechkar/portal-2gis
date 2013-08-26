@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b Year:
+  = @debt.year
+%p
+  %b Month:
+  = @debt.month
+%p
+  %b Employee:
+  = @debt.employee
+%p
+  %b Client:
+  = @debt.client
+%p
+  %b Order:
+  = @debt.order
+%p
+  %b Debtsum:
+  = @debt.debtsum
+%p
+  %b Debttype:
+  = @debt.debttype
+%p
+  %b User:
+  = @debt.user
+
+= link_to 'Edit', edit_debt_path(@debt)
+\|
+= link_to 'Back', debts_path

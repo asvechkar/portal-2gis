@@ -1,0 +1,31 @@
+!!!
+/[if lt IE 7] <html class='ie lt-ie9 lt-ie8 lt-ie7 fluid top-quick sidebar sidebar-full sticky-sidebar'>
+/[if IE 7] <html class='ie lt-ie9 lt-ie8 fluid top-quick sticky-top sidebar sidebar-full sticky-sidebar'>
+/[if IE 8] <html class='ie lt-ie9 fluid top-quick sticky-top sidebar sidebar-full sticky-sidebar'>
+/[if gt IE 8] <html class='ie gt-ie8 fluid top-quick sticky-top sidebar sidebar-full sticky-sidebar'>
+/ [if !IE]><!
+%html.fluid.top-quick.sticky-top.sidebar.sidebar-full.sticky-sidebar
+  / <![endif]
+  %head
+    %title Портал 2GIS
+    / Meta
+    %meta{:charset => 'UTF-8'}
+    %meta{:content => 'width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0', :name => 'viewport'}
+    %meta{:content => 'yes', :name => 'apple-mobile-web-app-capable'}
+    %meta{:content => 'black', :name => 'apple-mobile-web-app-status-bar-style'}
+    %meta{:content => 'IE=9; IE=8; IE=7; IE=EDGE', 'http-equiv' => 'X-UA-Compatible'}
+    = favicon_link_tag '/favicon.ico', :type => 'image/x-icon'
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body.login
+    #login
+      .container
+        .wrapper
+          %h1.glyphicons.lock
+            = image_tag '2gis_logo.png', :alt => 'Портал 2GIS'
+            %i
+          = yield
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    %script
+      Holder.add_theme("dark", {background:"#000", foreground:"#aaa", size:9});
+      Holder.add_theme("white", {background:"#fff", foreground:"#c9c9c9", size:9});

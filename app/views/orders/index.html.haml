@@ -1,0 +1,57 @@
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы сейчас здесь
+  %li
+    = link_to root_path, :class => 'glyphicons dashboard' do
+      %i
+      Главная
+  %li.divider
+  %li Бланки заказов
+%h3.separator.bottom
+  Бланки заказов
+  %span заказы
+
+.widget.widget-heading-simple.widget-body-gray
+  .widget-body
+    .menubar.links.primary
+      %ul
+        %li= link_to 'Новый заказ', new_order_path
+    %table.table.table-bordered.table-condensed.table-striped.table-white
+      %thead
+        %tr
+          %th.center №
+          %th.center Куратор
+          %th.center Клиент
+          %th.center Подписан
+          %th.center Начало
+          %th.center Окончание
+          %th.center Сумма
+          %th.center Статус
+          %th.center Продление
+          %th.center Автор
+          %th.center Создан
+          %th
+      %tbody
+        - @orders.each do |order|
+          %tr
+            %td= order.ordernum
+            %td= order.employee.initials
+            %td= order.client.name
+            %td= order.orderdate.strftime('%d.%m.%Y')
+            %td= order.startdate.strftime('%d.%m.%Y')
+            %td= order.finishdate.strftime('%d.%m.%Y')
+            %td= number_to_currency(order.ordersum, unit: "руб.", separator: ",", delimiter: " ", format: "%n %u")
+            %td= order.status_desc
+            %td= order.continue_desc
+            %td= order.user.username if order.user
+            %td= order.created_at.strftime('%d.%m.%Y %H:%M')
+            %td
+              = link_to order, :class => 'btn btn-mini btn-primary', :title => 'Показать' do
+                %i.icon-search
+              = link_to edit_order_path(order), :class => 'btn btn-mini btn-primary', :title => 'Редактировать' do
+                %i.icon-edit
+              = link_to order, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn btn-mini btn-danger', :title => 'Удалить' do
+                %i.icon-trash

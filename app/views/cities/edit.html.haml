@@ -1,0 +1,20 @@
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы сейчас здесь
+  %li
+    = link_to root_path, :class => 'glyphicons dashboard' do
+      %i
+      Главная
+  %li.divider
+  %li= link_to 'Справочник "Города"', cities_path
+  %li.divider
+  %li Редактирование
+%h3.separator.bottom
+  = @city.name
+  %span редактировать
+.widget.widget-heading-simple.widget-body-gray
+  .widget-body
+    = render 'form'

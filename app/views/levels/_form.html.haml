@@ -1,0 +1,14 @@
+= form_for @level do |f|
+  - if @level.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@level.errors.count, "error")} prohibited this city from being saved:"
+      %ul
+        - @level.errors.full_messages.each do |msg|
+          %li= msg
+
+  .control-group
+    .controls
+      = f.text_field :name, :placeholder => 'Наименование уровня'
+  %hr.separator
+  .form-actions
+    = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'

@@ -1,0 +1,83 @@
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы сейчас здесь
+  %li
+    = link_to root_path, :class => 'glyphicons dashboard' do
+      %i
+      Главная
+  %li.divider
+  %li= link_to 'Бланки заказов', orders_path
+  %li.divider
+  %li
+    Бланк заказа №
+    = @order.ordernum
+#pdfTarget
+  .innerAll.shop-client-products.cart.invoice
+    %h3.separator.bottom Бланк заказа
+    %table.table.table-invoice
+      %tbody
+        %tr
+          %td.left
+            .innerL
+              %h4.separator.bottom
+                = @order.ordernum
+                |
+                = @order.orderdate.strftime('%d.%m.%Y')
+          %td{ style: 'width: 58%;' }
+    .separator.bottom.hidden-print
+    .well
+      %table.table.table-invoice
+        %tbody
+          %tr
+            %td{ style: 'width: 50%;' }
+              %p.lead Информация о клиенте
+              %h2= @order.client.name
+              %address.margin-none
+                %abbr Город:
+                = @order.client.city.name
+                %br
+                %abbr ИНН:
+                = @order.client.inn
+                %br
+                %abbr Код:
+                = @order.client.code
+            %td.right
+              %p.lead Данные заказа
+              %address.margin-none
+                %abbr № заказа:
+                = @order.ordernum
+                %br
+                %abbr Дата заказа:
+                = @order.orderdate.strftime('%d.%m.%Y')
+                %br
+                %abbr Дата начала:
+                = @order.startdate.strftime('%d.%m.%Y')
+                %br
+                %abbr Дата окончания:
+                = @order.finishdate.strftime('%d.%m.%Y')
+                %br
+                %abbr Статус:
+                = @order.status_desc
+                %br
+                %abbr Продление:
+                = @order.continue_desc
+                %br
+                .separator.line
+                %p.margin-none
+                  Заказа создал:
+                  = @order.user.username
+                  |
+                  Дата создания:
+                  = @order.created_at.strftime('%d.%m.%Y')
+    .separator.bottom.hidden-print
+    .row-fluid
+      .span5.hidden-print
+      .span4.offset3
+        %table.table.table-borderless.table-condensed.cart_total
+          %tbody
+            %tr
+              %td.right Всего:
+              %td.right.strong= number_to_currency(@order.ordersum, unit: "руб.", separator: ",", delimiter: " ", format: "%n %u")

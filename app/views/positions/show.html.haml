@@ -1,0 +1,29 @@
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы сейчас здесь
+  %li
+    = link_to root_path, :class => 'glyphicons dashboard' do
+      %i
+      Главная
+  %li.divider
+  %li= link_to 'Справочник "Должности"', positions_path
+  %li.divider
+  %li= @position.name
+%h3.separator.bottom
+  = @position.name
+  %span карточка
+.widget.widget-heading-simple.widget-body-gray
+  .widget-body
+    .menubar.links.primary
+      %ul
+        %li= link_to 'Редактировать', edit_position_path(@position)
+    %dl
+      %dt Наименование
+      %dd= @position.name
+      %dt Автор
+      %dd= @position.user.username
+      %dt Дата создания
+      %dd= @position.created_at.strftime('%d.%m.%Y %H:%M')

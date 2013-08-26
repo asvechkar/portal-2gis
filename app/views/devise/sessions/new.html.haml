@@ -1,0 +1,24 @@
+.widget.widget-heading-simple.widget-body-gray
+  .widget-body
+    = form_for resource, :as => resource_name, :url => session_path(resource_name) do |f|
+      = f.label false, 'Адрес эл.почты'
+      = f.email_field :email, :autofocus => true, :class => 'input-block-level', :placeholder => 'Адрес эл.почты'
+      %label
+        Пароль
+        = link_to 'забыли?', new_password_path(resource_name), :class => 'password'
+      = f.password_field :password, :class => 'input-block-level margin-none', :placeholder => 'Ваш пароль'
+      .separator.bottom
+      .row-fluid
+        .span8
+          .uniformjs
+            %label.checkbox
+              - if devise_mapping.rememberable?
+                = f.check_box :remember_me
+                Запомнить меня
+        .span4.center
+          = f.submit 'Войти', :class => 'btn btn-block btn-inverse'
+  .widget-footer
+    %p.glyphicons.restart
+      %i
+      Введите Ваш адрес эл.почты и пароль ...
+= render 'devise/shared/links'

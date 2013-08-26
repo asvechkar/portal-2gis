@@ -1,0 +1,53 @@
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы сейчас здесь
+  %li
+    = link_to root_path, :class => 'glyphicons dashboard' do
+      %i
+      Главная
+  %li.divider
+  %li Планы по новым клиентам
+%h3.separator.bottom
+  Планы по новым клиентам
+  %span планирование
+
+.widget.widget-heading-simple.widget-body-gray
+  .widget-body
+    .menubar.links.primary
+      %ul
+        %li= link_to 'Новый план', new_plan_path
+        %li.divider
+        %li= link_to 'Импорт', '#'
+    %table.table.table-bordered.table-condensed.table-striped.table-white
+      %thead
+        %tr
+          %th.center Сотрудник
+          %th.center Год
+          %th.center Месяц
+          %th.center Клиентов
+          %th.center Вес
+          %th.center Сумма
+          %th.center Создал
+          %th.center Создан
+          %th
+      %tbody
+        - @plans.each do |plan|
+          %tr
+            %td= plan.employee.initials
+            %td= plan.year
+            %td= plan.month
+            %td= plan.clients
+            %td= number_to_currency(plan.weight, unit: "руб.", separator: ",", delimiter: " ", format: "%n %u")
+            %td= number_to_currency(plan.total, unit: "руб.", separator: ",", delimiter: " ", format: "%n %u")
+            %td= plan.user.username
+            %td= plan.created_at.strftime('%d.%m.%Y %H:%M')
+            %td
+              = link_to plan, :class => 'btn btn-mini btn-primary', :title => 'Показать' do
+                %i.icon-search
+              = link_to edit_plan_path(plan), :class => 'btn btn-mini btn-primary', :title => 'Редактировать' do
+                %i.icon-edit
+              = link_to plan, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn btn-mini btn-danger', :title => 'Удалить' do
+                %i.icon-trash

@@ -1,0 +1,55 @@
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы сейчас здесь
+  %li
+    = link_to root_path, :class => 'glyphicons dashboard' do
+      %i
+      Главная
+  %li.divider
+  %li Справочник "Сотрудники"
+%h3.separator.bottom
+  Сотрудники
+  %span Справочник
+
+.widget.widget-heading-simple.widget-body-gray
+  .widget-body
+    .menubar.links.primary
+      %ul
+        %li= link_to 'Новый сотрудник', new_employee_path
+    %table.table.table-bordered.table-condensed.table-striped.table-white
+      %thead
+        %tr
+          %th.center Имя
+          %th.center Отчество
+          %th.center Фамилия
+          %th.center СНИЛС
+          %th.center Опыт
+          %th.center Должность
+          %th.center Автор
+          %th.center Группы
+          %th.center Создан
+          %th
+      %tbody
+        - @employees.each do |employee|
+          %tr
+            %td= employee.firstname
+            %td= employee.middlename
+            %td= employee.lastname
+            %td= employee.snils
+            %td= employee.level.name if employee.level_id
+            %td= employee.position.name
+            %td= employee.user.username if employee.user
+            %td
+              - employee.groups.each do |g|
+                = link_to g.code + ' ', group_path(g)
+            %td= employee.created_at.strftime('%d.%m.%Y %H:%M')
+            %td
+              = link_to employee, :class => 'btn btn-mini btn-primary', :title => 'Показать' do
+                %i.icon-search
+              = link_to edit_employee_path(employee), :class => 'btn btn-mini btn-primary', :title => 'Редактировать' do
+                %i.icon-edit
+              = link_to employee, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn btn-mini btn-danger', :title => 'Удалить' do
+                %i.icon-trash

@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  ordernum: MyString
+  orderdate: 2013-08-24 14:40:54
+  startdate: 2013-08-24 14:40:54
+  finishdate: 2013-08-24 14:40:54
+  status: 1
+  ordersum: 1.5
+  continue: 1
+  employee_id: 
+  client_id: 
+  user_id: 
+
+two:
+  ordernum: MyString
+  orderdate: 2013-08-24 14:40:54
+  startdate: 2013-08-24 14:40:54
+  finishdate: 2013-08-24 14:40:54
+  status: 1
+  ordersum: 1.5
+  continue: 1
+  employee_id: 
+  client_id: 
+  user_id: 

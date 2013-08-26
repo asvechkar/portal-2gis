@@ -1,0 +1,23 @@
+= form_for @client do |f|
+  - if @client.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@client.errors.count, "error")} prohibited this city from being saved:"
+      %ul
+        - @client.errors.full_messages.each do |msg|
+          %li= msg
+
+  .control-group
+    .controls
+      = f.text_field :name, :placeholder => 'Наименование компании'
+  .control-group
+    .controls
+      = f.text_field :inn, :placeholder => 'ИНН компании'
+  .control-group
+    .controls
+      = f.text_field :code, :placeholder => 'Код компании'
+  .control-group
+    .controls
+      = f.collection_select :city_id, City.all, :id, :name, {:prompt => 'Выберите город'}, :class => 'selectpicker'
+  %hr.separator
+  .form-actions
+    = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'

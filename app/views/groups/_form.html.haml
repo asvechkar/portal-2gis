@@ -1,0 +1,23 @@
+= form_for @group do |f|
+  - if @group.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@group.errors.count, "error")} prohibited this city from being saved:"
+      %ul
+        - @group.errors.full_messages.each do |msg|
+          %li= msg
+
+  .control-group
+    = f.label :code, 'Код группы', :class => 'control-label'
+    .controls
+      = f.text_field :code, :placeholder => 'Код группы (лат.)'
+  .control-group
+    = f.label :branch_id, 'Филиал', :class => 'control-label'
+    .controls
+      = f.collection_select :branch_id, Branch.all, :id, :name, {:prompt => 'Выберите филиал'}, :class => 'selectpicker'
+  .control-group
+    = f.label :employee_id, 'Руководитель', :class => 'control-label'
+    .controls
+      = f.collection_select :employee_id, Employee.all, :id, :initials, {:prompt => 'Выберите руководителя'}, :class => 'selectpicker'
+  %hr.separator
+  .form-actions
+    = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'
