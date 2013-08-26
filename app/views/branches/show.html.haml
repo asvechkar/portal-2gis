@@ -24,7 +24,7 @@
       %dt Наименование
       %dd= @branch.name
       %dt Руководитель
-      %dd= @branch.employee.initials
+      %dd= @branch.employee.initials if @branch.employee
       %dt Город
       %dd= @branch.city.name
       %dt Автор

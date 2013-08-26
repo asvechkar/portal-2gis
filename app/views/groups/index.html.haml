@@ -33,7 +33,7 @@
           %tr
             %td= group.code
             %td= group.branch.name
-            %td= group.employee.initials
+            %td= group.employee.initials if group.employee
             %td= group.user.username
             %td= group.created_at.strftime('%d.%m.%Y %H:%M')
             %td

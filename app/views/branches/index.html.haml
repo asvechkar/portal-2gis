@@ -32,7 +32,7 @@
         - @branches.each do |branch|
           %tr
             %td= branch.name
-            %td= branch.employee.initials
+            %td= branch.employee.initials if branch.employee
             %td= branch.city.name
             %td= branch.user.username
             %td= branch.created_at.strftime('%d.%m.%Y %H:%M')

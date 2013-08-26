@@ -24,7 +24,7 @@
       %dt Группа
       %dd= @group.code
       %dt Руководитель
-      %dd= @group.employee.initials
+      %dd= @group.employee.initials if @group.employee
       %dt Филиал
       %dd= @group.branch.name
       %dt Автор
