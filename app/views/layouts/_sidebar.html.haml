@@ -62,4 +62,12 @@
         = link_to orders_path, :class => 'glyphicons notes_2' do
           %i
           Заказы
+      %li{ :class => current_page?(uploads_path) ? 'active' : nil }
+        = link_to uploads_path, :class => 'glyphicons cloud-upload' do
+          %i
+          Загрузка
+      %li{ :class => current_page?(roles_path) ? 'active' : nil }
+        = link_to roles_path, :class => 'glyphicons group' do
+          %i
+          Роли
     .clearfix

@@ -1,0 +1,44 @@
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы сейчас здесь
+  %li
+    = link_to root_path, :class => 'glyphicons dashboard' do
+      %i
+      Главная
+  %li.divider
+  %li Загруженные файлы
+.heading-buttons
+  %h3
+    Загруженные файлы
+.separator.bottom
+.innerLR
+  .widget.widget-heading-simple.widget-body-gray
+    .widget-body
+      .separator.bottom.form-inline.small
+        Всего:
+        = @uploads.count
+      %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center
+        %thead
+          %tr
+            %th.center Наименование
+            %th.center Размер
+            %th.center Автор
+            %th.center Загружен
+            %th
+        %tbody
+          - @uploads.each do |upload|
+            %tr
+              %td= upload.upload_file_name
+              %td= upload.upload_file_size
+              %td= upload.user.username if upload.user
+              %td= upload.created_at.strftime('%d.%m.%Y %H:%M')
+              %td.center
+                = link_to order, :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
+                  %i
+                = link_to edit_order_path(order), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
+                  %i
+                = link_to order, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
+                  %i

@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  rolify
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -16,4 +17,5 @@ class User < ActiveRecord::Base
   has_many :userifications
   has_many :employees, :through => :userifications, :source => :userable, :source_type => 'Employee'
   has_many :debts
+  has_and_belongs_to_many :roles, :join_table => :users_roles
 end

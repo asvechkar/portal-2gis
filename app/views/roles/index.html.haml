@@ -1,0 +1,46 @@
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы сейчас здесь
+  %li
+    = link_to root_path, :class => 'glyphicons dashboard' do
+      %i
+      Главная
+  %li.divider
+  %li Справочник "Роли"
+.heading-buttons
+  %h3
+    Роли
+    %span Справочник
+  .buttons.pull-right
+    = link_to new_role_path, :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
+      %i
+      Новая роль
+  .clearfix
+.separator.bottom
+.innerLR
+  .widget.widget-heading-simple.widget-body-gray
+    .widget-body
+      .separator.bottom.form-inline.small
+        Всего:
+        = @roles.count
+      %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center
+        %thead
+          %tr
+            %th.center Наименование
+            %th.center Описание
+            %th.center Создан
+            %th
+        %tbody
+          - @roles.each do |role|
+            %tr
+              %td= role.name
+              %td= role.description
+              %td= role.created_at.strftime('%d.%m.%Y %H:%M')
+              %td.center
+                = link_to edit_role_path(role), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
+                  %i
+                = link_to role, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
+                  %i

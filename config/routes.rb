@@ -1,4 +1,8 @@
 Portal2gis::Application.routes.draw do
+  get "roles/index"
+  get "roles/new"
+  get "roles/edit"
+  get "roles/show"
   resources :debts
   get 'positions/level' => 'positions#level'
   resources :orders
@@ -11,6 +15,7 @@ Portal2gis::Application.routes.draw do
   resources :levels
   resources :cities
   resources :uploads
+  resources :roles
 
   get '/users/', to: 'users#index'
 
