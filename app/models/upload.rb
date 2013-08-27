@@ -15,4 +15,9 @@ class Upload < ActiveRecord::Base
     }
   end
 
+
+  def classname
+    true
+  end
+
 end
