@@ -20,6 +20,9 @@
 //= require jquery.uniform
 //= require jquery-fileupload
 //= require employee
+//= require uploads
+
+
 
 function toggleMenuHidden()
 {
