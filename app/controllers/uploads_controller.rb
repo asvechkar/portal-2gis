@@ -65,7 +65,7 @@ class UploadsController < ApplicationController
       file = Upload.find(params[:obj])
       cname = params[:classname]
 
-      Import.xlsx(file[:url], cname)
+      Import.xlsx(file.upload.url, cname)
 
       redirect_to '/' + cname.pluralize
 
