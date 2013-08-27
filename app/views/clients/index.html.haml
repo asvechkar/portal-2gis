@@ -18,7 +18,7 @@
     = link_to new_client_path, :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
       %i
       Новый клиент
-    = link_to '#', :class => 'btn btn-primary btn-icon glyphicons file_import' do
+    = link_to '#myModal', :class => 'btn btn-primary btn-icon glyphicons file_import', :data => {:toggle=>"modal"} do
       %i
       Импорт
   .clearfix
@@ -55,3 +55,4 @@
                   %i.icon-edit
                 = link_to client, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
                   %i
+= render 'shared/upload', object: 'client'

@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20130827125142) do
+=======
+ActiveRecord::Schema.define(version: 20130827125000) do
+>>>>>>> fb5210fd4fb77f567cb535bcda4371353c6779f7
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,6 +182,7 @@ ActiveRecord::Schema.define(version: 20130827125142) do
     t.datetime "upload_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "userifications", force: true do |t|
