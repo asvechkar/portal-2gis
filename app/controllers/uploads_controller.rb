@@ -44,6 +44,7 @@ class UploadsController < ApplicationController
 
     if params[:upload]
       @upload = Upload.new(uploads_params)
+      @upload.user_id = current_user.id
       respond_to do |format|
         if @upload.save
           format.html {

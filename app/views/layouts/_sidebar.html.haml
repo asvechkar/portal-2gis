@@ -30,6 +30,10 @@
         %ul.dropdown-menu.pull-left
           %li{ :class => current_page?(users_path) ? 'active' : nil }
             = link_to 'Пользователи', users_path
+          %li{ :class => current_page?(roles_path) ? 'active' : nil }
+            = link_to roles_path, :class => 'glyphicons group' do
+              %i
+              Роли
       %li.dropdown.dd-1
         = link_to '', 'data-toggle' => 'dropdown', :class => 'glyphicons book_open' do
           %i
@@ -66,8 +70,4 @@
         = link_to uploads_path, :class => 'glyphicons cloud-upload' do
           %i
           Загрузка
-      %li{ :class => current_page?(roles_path) ? 'active' : nil }
-        = link_to roles_path, :class => 'glyphicons group' do
-          %i
-          Роли
     .clearfix
