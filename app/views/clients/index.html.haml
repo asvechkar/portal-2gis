@@ -55,4 +55,4 @@
                   %i.icon-edit
                 = link_to client, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
                   %i
-= render 'shared/upload'
+= render 'shared/upload', object: @clients
