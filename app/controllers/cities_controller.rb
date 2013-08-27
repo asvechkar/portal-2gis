@@ -44,7 +44,7 @@ class CitiesController < ApplicationController
   def update
     respond_to do |format|
       if @city.update(city_params)
-        format.html { redirect_to @city, notice: 'Город был успешно обновлен.' }
+        format.html { redirect_to cities_path, notice: 'Город был успешно обновлен.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
