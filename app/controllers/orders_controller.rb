@@ -26,10 +26,9 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = current_user.orders.new(order_params)
-
+    @order.status = 0
     respond_to do |format|
       if @order.save
-        @order.status = 0
         format.html { redirect_to orders_path, notice: 'Заказ был успешно добавлен.' }
         format.json { render action: 'show', status: :created, location: @order }
       else
