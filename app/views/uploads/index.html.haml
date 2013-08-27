@@ -36,9 +36,7 @@
               %td= upload.user.username if upload.user
               %td= upload.created_at.strftime('%d.%m.%Y %H:%M')
               %td.center
-                = link_to order, :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
+                = link_to upload, :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
                   %i
-                = link_to edit_order_path(order), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
-                  %i
-                = link_to order, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
+                = link_to upload, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
                   %i

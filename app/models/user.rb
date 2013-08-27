@@ -17,5 +17,6 @@ class User < ActiveRecord::Base
   has_many :userifications
   has_many :employees, :through => :userifications, :source => :userable, :source_type => 'Employee'
   has_many :debts
+  has_many :uploads
   has_and_belongs_to_many :roles, :join_table => :users_roles
 end

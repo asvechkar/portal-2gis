@@ -1,5 +1,5 @@
 class Upload < ActiveRecord::Base
-
+  belongs_to :user
   has_attached_file :upload
 
   include Rails.application.routes.url_helpers
