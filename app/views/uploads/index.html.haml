@@ -13,6 +13,18 @@
 .heading-buttons
   %h3
     Загруженные файлы
+  .buttons.pull-right
+    = form_for @uploads.first do |f|
+      = link_to '#', :class => 'btn btn-inverse btn-icon glyphicons folder_open' do
+        %i
+        Выбрать
+      %button.btn.btn-primary.btn-icon.glyphicons.upload{ :type => 'submit' }
+        %i
+        Загрузить
+      %button.btn.btn-danger.btn-icon.glyphicons.remove{ :type => 'reset' }
+        %i
+        Отменить
+  .clearfix
 .separator.bottom
 .innerLR
   .widget.widget-heading-simple.widget-body-gray
