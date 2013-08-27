@@ -44,7 +44,7 @@
             %tr
               %td= order.ordernum
               %td= order.employee.initials
-              %td= order.client.name
+              %td= order.client.name if order.client
               %td= order.startdate.strftime('%d.%m.%Y')
               %td= order.finishdate.strftime('%d.%m.%Y')
               %td= number_to_currency(order.ordersum, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')

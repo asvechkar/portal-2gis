@@ -34,16 +34,16 @@
           %tr
             %td{ style: 'width: 50%;' }
               %p.lead Информация о клиенте
-              %h2= @order.client.name
+              %h2= @order.client.name if @order.client
               %address.margin-none
                 %abbr Город:
-                = @order.client.city.name
+                = @order.client.city.name if @order.client.city
                 %br
                 %abbr ИНН:
-                = @order.client.inn
+                = @order.client.inn if @order.client
                 %br
                 %abbr Код:
-                = @order.client.code
+                = @order.client.code if @order.client
             %td.right
               %p.lead Данные заказа
               %address.margin-none

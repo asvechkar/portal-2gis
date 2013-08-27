@@ -10,43 +10,46 @@
       Главная
   %li.divider
   %li Загруженные файлы
-.heading-buttons
-  %h3
-    Загруженные файлы
-  .buttons.pull-right
-    = form_for Upload.new, :html => { :multipart => true, :id => 'fileupload'  } do |f|
-      %span.btn.btn-inverse.btn-icon.glyphicons.folder_open.fileinput-button
-        %i
-        Выбрать...
-        = f.file_field :upload
-      %button.btn.btn-primary.btn-icon.glyphicons.upload.start{:type => 'submit'}
-        %i
-        Загрузить
-      %button.btn.btn-danger.btn-icon.glyphicons.remove.cancel{:type => 'reset'}
-        %i
-        Отменить
-    .span5
-      .progress.progress-success.progress-striped.active.fade
-        .bar{:style => 'width:0%;'}
-    .fileupload-loading
-  .clearfix
-.separator.bottom
-.innerLR
-  .widget.widget-heading-simple.widget-body-gray
-    .widget-body
-      .separator.bottom.form-inline.small
-        Всего:
-        = @uploads.count
-      %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center.checkboxs
-        %thead
-          %tr
-            %th.uniformjs{ :style => 'width: 1%;' }
-              = check_box 'select_all_uploads', ''
-            %th.center Просмотр
-            %th.center Наименование
-            %th.center Размер
-            %th.center Процесс
-            %th
-            %th
-        %tbody.files{"data-target" => "#modal-gallery", "data-toggle" => "#modal-gallery"}
+= form_for Upload.new, :html => { :multipart => true, :id => 'fileupload'  } do |f|
+  .fileupload-buttonbar
+    .progress.progress-success.progress-striped.active.fade
+      .bar{:style => 'width:0%;'}
+    .heading-buttons
+      %h3
+        Загруженные файлы
+      .buttons.pull-right
+        %span.btn.btn-inverse.btn-icon.glyphicons.folder_open.fileinput-button
+          %i
+          Выбрать...
+          = f.file_field :upload
+        %button.btn.btn-primary.btn-icon.glyphicons.upload.start{:type => 'submit'}
+          %i
+          Загрузить
+        %button.btn.btn-danger.btn-icon.glyphicons.remove.cancel{:type => 'reset'}
+          %i
+          Отменить
+        -#%button.btn.btn-danger.btn-icon.glyphicons.remove_2.delete{ :type => 'button' }
+        -#  %i
+        -#  Удалить
+  .fileupload-loading
+    .clearfix
+  .separator.bottom
+  .innerLR
+    .widget.widget-heading-simple.widget-body-gray
+      .widget-body
+        .separator.bottom.form-inline.small
+          Всего:
+          = @uploads.count
+        %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center.checkboxes
+          %thead
+            %tr
+              %th.uniformjs{ :style => 'width: 1%;' }
+                = check_box 'select_all_uploads', '', :class => 'toggle'
+              %th.center Просмотр
+              %th.center Наименование
+              %th.center Размер
+              %th.center Процесс
+              %th
+              %th
+          %tbody.files{"data-target" => "#modal-gallery", "data-toggle" => "#modal-gallery"}
 = render 'shared/jsup'
