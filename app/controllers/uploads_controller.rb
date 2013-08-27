@@ -59,7 +59,7 @@ class UploadsController < ApplicationController
         end
       end
     else
-      Import.xlsx(Upload.find(params[:obj]).upload.path, params[:classname])
+      Import.xlsx(Upload.find(params[:obj]).upload.path, params[:classname], current_user.id)
       redirect_to '/' + params[:classname].pluralize
     end
   end
