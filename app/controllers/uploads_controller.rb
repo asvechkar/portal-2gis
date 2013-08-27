@@ -58,6 +58,8 @@ class UploadsController < ApplicationController
       end
     else
 
+     # params[:obj]  - id импортируемого файла
+
       redirect_to '/' + params[:classname].pluralize
 
     end
