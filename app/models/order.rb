@@ -3,7 +3,7 @@ class Order < ActiveRecord::Base
   belongs_to :client
   belongs_to :user
   has_many :debts
-  validates_presence_of :ordernum, :orderdate, :startdate, :finishdate, :status, :ordersum, :continue, :employee, :client, :user
+  validates_presence_of :ordernum, :orderdate, :startdate, :finishdate, :status, :ordersum, :employee, :client, :user
 
   def status_desc
     case self.status
