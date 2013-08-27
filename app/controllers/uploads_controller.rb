@@ -40,20 +40,25 @@ class UploadsController < ApplicationController
   # POST /uploads
   # POST /uploads.json
   def create
-    @upload = Upload.new(uploads_params)
 
-    respond_to do |format|
-      if @upload.save
-        format.html {
-          render :json => [@upload.to_jq_upload].to_json,
-                 :content_type => 'text/html',
-                 :layout => false
-        }
-        format.json { render json: {files: [@upload.to_jq_upload]}, status: :created, location: @upload }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @upload.errors, status: :unprocessable_entity }
+    if params[:upload]
+      @upload = Upload.new(uploads_params)
+
+      respond_to do |format|
+        if @upload.save
+          format.html {
+            render :json => [@upload.to_jq_upload].to_json,
+                   :content_type => 'text/html',
+                   :layout => false
+          }
+          format.json { render json: {files: [@upload.to_jq_upload]}, status: :created, location: @upload }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @upload.errors, status: :unprocessable_entity }
+        end
       end
+    else
+
     end
   end
 
