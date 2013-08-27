@@ -20,14 +20,14 @@
       = f.text_field :snils, :placeholder => 'СНИЛС'
   .control-group
     .controls
-      = f.collection_select :position_id, Position.all, :id, :name, {:prompt => 'Выберите должность'}, :class => 'selectpicker'
+      = f.collection_select :position_id, Position.all, :id, :name, {:prompt => 'Выберите должность'}
   - level = (@employee.position.show_experience_level if @employee.position) || 0
   = content_tag :div, id: 'levels' do
     = f.hidden_field false, :value => level, :id => 'level'
   .control-group
     .controls
-      = f.collection_select :level_id, Level.all, :id, :name, {:prompt => 'Выберите уровень опыта'}, :class => 'selectpicker'
-  .control-group
+      = f.collection_select :level_id, Level.all, :id, :name, {:prompt => 'Выберите уровень опыта'}
+  #groups.control-group
     = f.label false, 'Группы:', :class => 'control-label'
     .controls
       .uniformjs

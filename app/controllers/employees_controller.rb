@@ -26,11 +26,11 @@ class EmployeesController < ApplicationController
   # POST /employees.json
   def create
     @employee = current_user.employees.new(employee_params)
-
+    @employee.user_id = current_user.id
     respond_to do |format|
       if @employee.save
-        @employee.level_id = nil if params[:show_level].to_i == 0
-        @employee.group_ids = params[:group][:group_ids] if params[:group]
+        (@employee.level_id = nil, @employee.group_ids = nil) if params[:show_level].to_i == 0
+        (@employee.group_ids = params[:group][:group_ids] if params[:group]) if params[:show_level].to_i != 0
         format.html { redirect_to employees_path, notice: 'Сотрудник успешно добавлен.' }
         format.json { render action: 'show', status: :created, location: @employee }
       else
@@ -46,7 +46,7 @@ class EmployeesController < ApplicationController
     respond_to do |format|
       if @employee.update(employee_params)
         (params[:show_level].to_i == 0) ?
-            @employee.update_attributes(:group_ids => params[:group][:group_ids], :level_id => nil) :
+            @employee.update_attributes(:group_ids => nil, :level_id => nil) :
             @employee.update_attributes(:group_ids => params[:group][:group_ids])
         format.html { redirect_to @employee, notice: 'Сотудник успешно обновлен.' }
         format.json { head :no_content }

@@ -44,8 +44,8 @@
               %td= plan.year
               %td= plan.month
               %td= plan.clients
-              %td= number_to_currency(plan.weight, unit: "руб.", separator: ",", delimiter: " ", format: "%n %u")
-              %td= number_to_currency(plan.total, unit: "руб.", separator: ",", delimiter: " ", format: "%n %u")
+              %td= number_to_currency(plan.weight, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+              %td= number_to_currency(plan.total, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
               %td= plan.user.username
               %td= plan.created_at.strftime('%d.%m.%Y %H:%M')
               %td.center

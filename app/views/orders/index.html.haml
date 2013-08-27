@@ -47,7 +47,7 @@
               %td= order.client.name
               %td= order.startdate.strftime('%d.%m.%Y')
               %td= order.finishdate.strftime('%d.%m.%Y')
-              %td= number_to_currency(order.ordersum, unit: "руб.", separator: ",", delimiter: " ", format: "%n %u")
+              %td= number_to_currency(order.ordersum, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
               %td= order.status_desc
               %td= order.continue_desc
               %td= order.user.username if order.user
