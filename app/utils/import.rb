@@ -1,7 +1,7 @@
 module Import
 
   def self.xlsx(file, cname)
-    sheet = Roo::Excelx.new("#{Rails.root}/public" + file)
+    sheet = Roo::Excelx.new(file)
   end
 
 end

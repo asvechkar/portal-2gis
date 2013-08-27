@@ -62,12 +62,9 @@ class UploadsController < ApplicationController
 
      # params[:obj]  - id импортируемого файла
 
-      file = Upload.find(params[:obj])
-      cname = params[:classname]
+      Import.xlsx(Upload.find(params[:obj]).upload.path, params[:classname])
 
-      Import.xlsx(file.upload.url, cname)
-
-      redirect_to '/' + cname.pluralize
+      redirect_to '/' + params[:classname].pluralize
 
     end
   end
