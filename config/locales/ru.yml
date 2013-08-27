@@ -1,2 +1,4 @@
 ru:
   hello: "Привет, мир!"
+  fileupload:
+    cancel: "sdfsdf"
