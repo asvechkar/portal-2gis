@@ -18,6 +18,7 @@ gem 'roo'
 # gem 'simple_form', '~> 3.0.0.rc'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
+gem 'jquery-fileupload-rails'
 
 gem 'figaro', '~> 0.7.0'
 gem 'uglifier', '>= 1.3.0'

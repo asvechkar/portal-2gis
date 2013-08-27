@@ -12,5 +12,6 @@
  *= require prettyPhoto
  *= require style-flat
  *= require green-army
+ *= require jquery.fileupload-ui
  *= require_self
  */
