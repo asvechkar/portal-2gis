@@ -39,14 +39,17 @@
           <br>
           <table class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
           </table>
-      <% end %>
+
 
     </div>
 
 
   </div>
   <div class="modal-footer">
-    <a href="#" class="btn btn-default">Импортировать</a>
+
+
+    <%= f.submit "Импортировать", :class => "btn btn-default" %>
+    <% end %>
   </div>
 </div>
 
