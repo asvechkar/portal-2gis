@@ -10,42 +10,48 @@
       Главная
   %li.divider
   %li Задолженность
-%h3.separator.bottom
-  Задолженность
-  %span планирование
-
-.widget.widget-heading-simple.widget-body-gray
-  .widget-body
-    .menubar.links.primary
-      %ul
-        %li= link_to 'Импортировать', '#'
-    %table.table.table-bordered.table-condensed.table-striped.table-white
-      %thead
-        %tr
-          %th.center Год
-          %th.center Месяц
-          %th.center Менеджер
-          %th.center Клиент
-          %th.center Бланк заказа
-          %th.center Тип
-          %th.center Сумма
-          %th.center Пользователь
-          %th.center Создан
-          %th
-      %tbody
-        - @debts.each do |debt|
+.heading-buttons
+  %h3
+    Задолженность
+  .buttons.pull-right
+    = link_to '#', :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
+      %i
+      Импортировать
+  .clearfix
+.separator.bottom
+.innerLR
+  .widget.widget-heading-simple.widget-body-gray
+    .widget-body
+      .separator.bottom.form-inline.small
+        Всего:
+        = @debts.count
+      %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center
+        %thead
           %tr
-            %td= debt.year
-            %td= debt.month
-            %td= debt.employee
-            %td= debt.client
-            %td= debt.order
-            %td= debt.debttype
-            %td= debt.debtsum
-            %td= debt.user.username
-            %td= debt.created_at.strftime('%d.%m.%Y %H:%M')
-            %td
-              = link_to edit_debt_path(debt), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
-                %i
-              = link_to debt, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
-                %i
+            %th.center Год
+            %th.center Месяц
+            %th.center Менеджер
+            %th.center Клиент
+            %th.center Бланк заказа
+            %th.center Тип
+            %th.center Сумма
+            %th.center Пользователь
+            %th.center Создан
+            %th
+        %tbody
+          - @debts.each do |debt|
+            %tr
+              %td= debt.year
+              %td= debt.month
+              %td= debt.employee
+              %td= debt.client
+              %td= debt.order
+              %td= debt.debttype
+              %td= debt.debtsum
+              %td= debt.user.username
+              %td= debt.created_at.strftime('%d.%m.%Y %H:%M')
+              %td.center
+                = link_to edit_debt_path(debt), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
+                  %i
+                = link_to debt, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
+                  %i

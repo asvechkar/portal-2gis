@@ -10,36 +10,43 @@
       Главная
   %li.divider
   %li Справочник "Филиалы"
-%h3.separator.bottom
-  Филиалы
-  %span Справочник
-
-.widget.widget-heading-simple.widget-body-gray
-  .widget-body
-    .menubar.links.primary
-      %ul
-        %li= link_to 'Новый филиал', new_branch_path
-    %table.table.table-bordered.table-condensed.table-striped.table-white
-      %thead
-        %tr
-          %th.center Наименование
-          %th.center Руководитель
-          %th.center Город
-          %th.center Автор
-          %th.center Создан
-          %th
-      %tbody
-        - @branches.each do |branch|
+.heading-buttons
+  %h3
+    Филиалы
+    %span Справочник
+  .buttons.pull-right
+    = link_to new_branch_path, :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
+      %i
+      Новый филиал
+  .clearfix
+.separator.bottom
+.innerLR
+  .widget.widget-heading-simple.widget-body-gray
+    .widget-body
+      .separator.bottom.form-inline.small
+        Всего:
+        = @branches.count
+      %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center
+        %thead
           %tr
-            %td= branch.name
-            %td= branch.employee.initials if branch.employee
-            %td= branch.city.name
-            %td= branch.user.username
-            %td= branch.created_at.strftime('%d.%m.%Y %H:%M')
-            %td
-              = link_to branch, :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
-                %i.icon-search
-              = link_to edit_branch_path(branch), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
-                %i.icon-edit
-              = link_to branch, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
-                %i.icon-trash
+            %th.center Наименование
+            %th.center Руководитель
+            %th.center Город
+            %th.center Автор
+            %th.center Создан
+            %th
+        %tbody
+          - @branches.each do |branch|
+            %tr
+              %td= branch.name
+              %td= branch.employee.initials if branch.employee
+              %td= branch.city.name
+              %td= branch.user.username
+              %td= branch.created_at.strftime('%d.%m.%Y %H:%M')
+              %td.center
+                = link_to branch, :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
+                  %i
+                = link_to edit_branch_path(branch), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
+                  %i
+                = link_to branch, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
+                  %i

@@ -10,32 +10,39 @@
       Главная
   %li.divider
   %li Справочник "Уровни опыта"
-%h3.separator.bottom
-  Уровни опыта
-  %span Справочник
-
-.widget.widget-heading-simple.widget-body-gray
-  .widget-body
-    .menubar.links.primary
-      %ul
-        %li= link_to 'Новый уровень', new_level_path
-    %table.table.table-bordered.table-condensed.table-striped.table-white
-      %thead
-        %tr
-          %th.center Уровень
-          %th.center Пользователь
-          %th.center Создан
-          %th
-      %tbody
-        - @levels.each do |level|
+.heading-buttons
+  %h3
+    Уровни опыта
+    %span Справочник
+  .buttons.pull-right
+    = link_to new_level_path, :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
+      %i
+      Новый уровень
+  .clearfix
+.separator.bottom
+.innerLR
+  .widget.widget-heading-simple.widget-body-gray
+    .widget-body
+      .separator.bottom.form-inline.small
+        Всего:
+        = @levels.count
+      %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center
+        %thead
           %tr
-            %td= level.name
-            %td= level.user.username if level.user
-            %td= level.created_at.strftime('%d.%m.%Y %H:%M')
-            %td
-              = link_to level, :class => 'btn btn-mini btn-primary', :title => 'Показать' do
-                %i.icon-search
-              = link_to edit_level_path(level), :class => 'btn btn-mini btn-primary', :title => 'Редактировать' do
-                %i.icon-edit
-              = link_to level, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn btn-mini btn-danger', :title => 'Удалить' do
-                %i.icon-trash
+            %th.center Уровень
+            %th.center Пользователь
+            %th.center Создан
+            %th
+        %tbody
+          - @levels.each do |level|
+            %tr
+              %td= level.name
+              %td= level.user.username if level.user
+              %td= level.created_at.strftime('%d.%m.%Y %H:%M')
+              %td.center
+                = link_to level, :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
+                  %i
+                = link_to edit_level_path(level), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
+                  %i
+                = link_to level, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
+                  %i
