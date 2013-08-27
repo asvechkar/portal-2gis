@@ -14,16 +14,31 @@
   %h3
     Загруженные файлы
   .buttons.pull-right
-    = form_for @uploads.first do |f|
-      = link_to '#', :class => 'btn btn-inverse btn-icon glyphicons folder_open' do
-        %i
-        Выбрать
-      %button.btn.btn-primary.btn-icon.glyphicons.upload{ :type => 'submit' }
-        %i
-        Загрузить
-      %button.btn.btn-danger.btn-icon.glyphicons.remove{ :type => 'reset' }
-        %i
-        Отменить
+    .container
+      = form_for Upload.new, :html => { :multipart => true, :id => "fileupload"  } do |f|
+        .row.fileupload-buttonbar
+          .span7
+            %span.btn.btn-success.fileinput-button
+              %i.icon-plus.icon-white
+              %span Добавить файлы...
+              = f.file_field :upload
+            %button.btn.btn-primary.start{:type => "submit"}
+              %i.icon-upload.icon-white
+              %span Начать загрузку
+            %button.btn.btn-warning.cancel{:type => "reset"}
+              %i.icon-ban-circle.icon-white
+              %span Отменить загрузку
+            %button.btn.btn-danger.delete{:type => "button"}
+              %i.icon-trash.icon-white
+              %span Удалить
+            %input.toggle{:type => "checkbox"}
+          .span5
+            .progress.progress-success.progress-striped.active.fade
+              .bar{:style => "width:0%;"}
+        .fileupload-loading
+        %br
+          %table.table.table-striped
+            %tbody.files{"data-target" => "#modal-gallery", "data-toggle" => "modal-gallery"}
   .clearfix
 .separator.bottom
 .innerLR
@@ -52,3 +67,4 @@
                   %i
                 = link_to upload, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
                   %i
+= render 'shared/jsup'
