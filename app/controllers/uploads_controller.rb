@@ -58,6 +58,8 @@ class UploadsController < ApplicationController
       end
     else
 
+      redirect_to '/' + params[:classname].pluralize
+
     end
   end
 
