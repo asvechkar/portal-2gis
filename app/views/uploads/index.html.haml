@@ -14,31 +14,21 @@
   %h3
     Загруженные файлы
   .buttons.pull-right
-    .container
-      = form_for Upload.new, :html => { :multipart => true, :id => "fileupload"  } do |f|
-        .row.fileupload-buttonbar
-          .span7
-            %span.btn.btn-success.fileinput-button
-              %i.icon-plus.icon-white
-              %span Добавить файлы...
-              = f.file_field :upload
-            %button.btn.btn-primary.start{:type => "submit"}
-              %i.icon-upload.icon-white
-              %span Начать загрузку
-            %button.btn.btn-warning.cancel{:type => "reset"}
-              %i.icon-ban-circle.icon-white
-              %span Отменить загрузку
-            %button.btn.btn-danger.delete{:type => "button"}
-              %i.icon-trash.icon-white
-              %span Удалить
-            %input.toggle{:type => "checkbox"}
-          .span5
-            .progress.progress-success.progress-striped.active.fade
-              .bar{:style => "width:0%;"}
-        .fileupload-loading
-        %br
-          %table.table.table-striped
-            %tbody.files{"data-target" => "#modal-gallery", "data-toggle" => "modal-gallery"}
+    = form_for Upload.new, :html => { :multipart => true, :id => 'fileupload'  } do |f|
+      %span.btn.btn-inverse.btn-icon.glyphicons.folder_open.fileinput-button
+        %i
+        Выбрать...
+        = f.file_field :upload
+      %button.btn.btn-primary.btn-icon.glyphicons.upload.start{:type => 'submit'}
+        %i
+        Загрузить
+      %button.btn.btn-danger.btn-icon.glyphicons.remove.cancel{:type => 'reset'}
+        %i
+        Отменить
+    .span5
+      .progress.progress-success.progress-striped.active.fade
+        .bar{:style => 'width:0%;'}
+    .fileupload-loading
   .clearfix
 .separator.bottom
 .innerLR
@@ -47,24 +37,16 @@
       .separator.bottom.form-inline.small
         Всего:
         = @uploads.count
-      %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center
+      %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center.checkboxs
         %thead
           %tr
+            %th.uniformjs{ :style => 'width: 1%;' }
+              = check_box 'select_all_uploads', ''
+            %th.center Просмотр
             %th.center Наименование
             %th.center Размер
-            %th.center Автор
-            %th.center Загружен
+            %th.center Процесс
             %th
-        %tbody
-          - @uploads.each do |upload|
-            %tr
-              %td= upload.upload_file_name
-              %td= upload.upload_file_size
-              %td= upload.user.username if upload.user
-              %td= upload.created_at.strftime('%d.%m.%Y %H:%M')
-              %td.center
-                = link_to upload, :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
-                  %i
-                = link_to upload, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
-                  %i
+            %th
+        %tbody.files{"data-target" => "#modal-gallery", "data-toggle" => "#modal-gallery"}
 = render 'shared/jsup'
