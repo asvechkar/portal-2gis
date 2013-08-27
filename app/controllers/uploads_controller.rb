@@ -1,5 +1,6 @@
 class UploadsController < ApplicationController
   before_action :set_uploads, only: [:show, :edit, :update, :destroy]
+  include Import
 
   def index
     @uploads = Upload.all
@@ -59,6 +60,10 @@ class UploadsController < ApplicationController
     else
 
      # params[:obj]  - id импортируемого файла
+
+      file = Upload.find(params[:obj])
+
+
 
       redirect_to '/' + params[:classname].pluralize
 
