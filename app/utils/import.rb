@@ -29,16 +29,17 @@ module Import
         employee_id = Import.whereMyEmployee(employee_ln, employee_fn, uid)
         client_name = sheet.cell('C', list).to_s
         client_id = Import.whereMyClient(client_name, uid)
+        ordernum = sheet.cell('E', list)
         Order.create(:employee_id => employee_id,
                      :client_id => client_id,
                      :user_id => uid,
-                     :ordernum => sheet.cell('E', list),
+                     :ordernum => ordernum,
                      :orderdate => sheet.cell('G', list),
                      :startdate => sheet.cell('G', list),
                      :finishdate => sheet.cell('H', list),
                      :ordersum => sheet.cell('F', list),
                      :continue => 0,
-                     :status => 0) if client_id
+                    :status => 0) if client_id && Order.where(:ordernum => ordernum).first.nil?
       end
     }
 
