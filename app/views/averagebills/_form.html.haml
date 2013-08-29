@@ -13,11 +13,11 @@
   .control-group
     = f.label :year, 'Год', :class => 'control-label'
     .controls
-      = f.number_field :year
+      = select :averagebill, :year, years_list
   .control-group
     = f.label :month, 'Месяц', :class => 'control-label'
     .controls
-      = f.number_field :month
+      = select :averagebill, :month, months_list
   .control-group
     = f.label :bill, 'Счет', :class => 'control-label'
     .controls
