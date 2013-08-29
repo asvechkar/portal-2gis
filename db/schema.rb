@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130827125142) do
+ActiveRecord::Schema.define(version: 20130829153131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "averagebills", force: true do |t|
+    t.integer  "year",       null: false
+    t.integer  "month",      null: false
+    t.float    "bill",       null: false
+    t.integer  "user_id"
+    t.integer  "branch_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "averagebills", ["branch_id"], name: "index_averagebills_on_branch_id", using: :btree
+  add_index "averagebills", ["user_id"], name: "index_averagebills_on_user_id", using: :btree
 
   create_table "branches", force: true do |t|
     t.string   "name",        null: false
