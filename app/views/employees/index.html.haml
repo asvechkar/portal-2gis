@@ -35,9 +35,8 @@
             %th.center СНИЛС
             %th.center Опыт
             %th.center Должность
-            %th.center Автор
+            %th.center Филиал
             %th.center Группы
-            %th.center Создан
             %th
         %tbody
           - @employees.each do |employee|
@@ -48,11 +47,10 @@
               %td= employee.snils
               %td= employee.level.name if employee.level_id
               %td= employee.position.name if employee.position
-              %td= employee.user.username if employee.user
+              %td= employee.branch.name if employee.branch
               %td
                 - employee.groups.each do |g|
                   = link_to g.code + ' ', group_path(g)
-              %td= employee.created_at.strftime('%d.%m.%Y %H:%M')
               %td.center
                 = link_to employee, :class=> 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
                   %i

@@ -2,6 +2,7 @@ class Employee < ActiveRecord::Base
   belongs_to :level
   belongs_to :position
   belongs_to :user
+  belongs_to :branch
   has_many :branches
   has_many :groups
   has_many :plans
