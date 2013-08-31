@@ -1,4 +1,4 @@
-= form_for @employee do |f|
+= form_for @employee, :html => {:class => 'form-horizontal'} do |f|
   - if @employee.errors.any?
     #error_explanation
       %h2= "#{pluralize(@employee.errors.count, "error")} prohibited this city from being saved:"
@@ -7,18 +7,27 @@
           %li= msg
 
   .control-group
+    = f.label :firstname, 'Имя', :class => 'control-label'
     .controls
       = f.text_field :firstname, :placeholder => 'Имя'
   .control-group
+    = f.label :middlename, 'Отчество', :class => 'control-label'
     .controls
       = f.text_field :middlename, :placeholder => 'Отчество'
   .control-group
+    = f.label :lastname, 'Фамилия', :class => 'control-label'
     .controls
       = f.text_field :lastname, :placeholder => 'Фамилия'
   .control-group
+    = f.label :snils, 'СНИЛС', :class => 'control-label'
     .controls
       = f.text_field :snils, :placeholder => 'СНИЛС'
   .control-group
+    = f.label :branch_id, 'Филиал', :class => 'control-label'
+    .controls
+      = f.collection_select :branch_id, Branch.all, :id, :name, {:prompt => 'Выберите филиал'}
+  .control-group
+    = f.label :position_id, 'Должность', :class => 'control-label'
     .controls
       = f.collection_select :position_id, Position.all, :id, :name, {:prompt => 'Выберите должность'}
   - level = (@employee.position.show_experience_level if @employee.position) || 0

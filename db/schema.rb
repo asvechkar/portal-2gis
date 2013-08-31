@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130827125142) do
+ActiveRecord::Schema.define(version: 20130829165550) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "averagebills", force: true do |t|
+    t.integer  "year",       null: false
+    t.integer  "month",      null: false
+    t.float    "bill",       null: false
+    t.integer  "user_id"
+    t.integer  "branch_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "averagebills", ["branch_id"], name: "index_averagebills_on_branch_id", using: :btree
+  add_index "averagebills", ["user_id"], name: "index_averagebills_on_user_id", using: :btree
 
   create_table "branches", force: true do |t|
     t.string   "name",        null: false
@@ -79,8 +92,10 @@ ActiveRecord::Schema.define(version: 20130827125142) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "branch_id"
   end
 
+  add_index "employees", ["branch_id"], name: "index_employees_on_branch_id", using: :btree
   add_index "employees", ["level_id"], name: "index_employees_on_level_id", using: :btree
   add_index "employees", ["position_id"], name: "index_employees_on_position_id", using: :btree
   add_index "employees", ["user_id"], name: "index_employees_on_user_id", using: :btree
@@ -130,8 +145,6 @@ ActiveRecord::Schema.define(version: 20130827125142) do
     t.integer  "year",        null: false
     t.integer  "month",       null: false
     t.integer  "clients",     null: false
-    t.float    "weight",      null: false
-    t.float    "total",       null: false
     t.integer  "employee_id"
     t.integer  "user_id"
     t.datetime "created_at"

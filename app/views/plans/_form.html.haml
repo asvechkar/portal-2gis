@@ -9,7 +9,7 @@
   .control-group
     = f.label :employee_id, 'Менеджер', :class => 'control-label'
     .controls
-      = f.collection_select :employee_id, Employee.all, :id, :initials, {:prompt => 'Выберите сотрудника'}, :class => 'selectpicker'
+      = f.collection_select :employee_id, Employee.all, :id, :initials, {:prompt => 'Выберите сотрудника'}
   .control-group
     = f.label :year, 'Плановый год', :class => 'control-label'
     .controls
@@ -21,17 +21,7 @@
   .control-group
     = f.label :clients, 'Клиентов', :class => 'control-label'
     .controls
-      = f.number_field :clients, :class => 'span2', :placeholder => 'Клиентов'
-  .control-group
-    = f.label :weight, 'Плановый вес', :class => 'control-label'
-    .controls
-      = f.number_field :weight, :class => 'span2', :placeholder => 'Вес'
-  .control-group
-    = f.label :total, 'Плановая сумма', :class => 'control-label'
-    .controls
-      .input-append
-        = f.number_field :total, :class => 'span2', :placeholder => 'Сумма'
-        %span.add-on руб
+      = f.number_field :clients, :placeholder => 'Клиентов'
   %hr.separator
   .form-actions
     = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'

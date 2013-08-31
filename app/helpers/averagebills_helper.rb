@@ -1,0 +1,2 @@
+module AveragebillsHelper
+end

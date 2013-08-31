@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  year: 1
+  month: 1
+  bill: 1.5
+  user_id: 
+  branch_id: 
+
+two:
+  year: 1
+  month: 1
+  bill: 1.5
+  user_id: 
+  branch_id: 

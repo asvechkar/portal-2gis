@@ -44,11 +44,11 @@
   .control-group
     = f.label :employee_id, 'Куратор', :class => 'control-label'
     .controls
-      = f.collection_select :employee_id, Employee.all, :id, :initials, {:prompt => 'Выберите сотрудника'}, :class => 'selectpicker'
+      = f.collection_select :employee_id, Employee.all, :id, :initials, {:prompt => 'Выберите сотрудника'}
   .control-group
     = f.label :client_id, 'Клиент', :class => 'control-label'
     .controls
-      = f.collection_select :client_id, Client.all, :id, :name, {:prompt => 'Выберите клиента'}, :class => 'selectpicker'
+      = f.collection_select :client_id, Client.all, :id, :name, {:prompt => 'Выберите клиента'}
   %hr.separator
   .form-actions
     = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'

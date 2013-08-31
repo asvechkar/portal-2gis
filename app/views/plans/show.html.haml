@@ -28,9 +28,9 @@
       %dt Запланировано новых клиентов
       %dd= @plan.clients
       %dt Плановый вес
-      %dd= number_to_currency(@plan.weight, unit: "руб.", separator: ",", delimiter: " ", format: "%n %u")
+      %dd= number_to_currency(get_plan_weight(@plan), unit: "руб.", separator: ",", delimiter: " ", format: "%n %u")
       %dt Плановая сумма
-      %dd= number_to_currency(@plan.total, unit: "руб.", separator: ",", delimiter: " ", format: "%n %u")
+      %dd= number_to_currency((get_plan_weight(@plan) * 2.5), unit: "руб.", separator: ",", delimiter: " ", format: "%n %u")
       %dt Автор
       %dd= @plan.user.username
       %dt Дата создания

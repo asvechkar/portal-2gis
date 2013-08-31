@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Year:
+  = @averagebill.year
+%p
+  %b Month:
+  = @averagebill.month
+%p
+  %b Bill:
+  = @averagebill.bill
+%p
+  %b User:
+  = @averagebill.user
+%p
+  %b Branch:
+  = @averagebill.branch
+
+= link_to 'Edit', edit_averagebill_path(@averagebill)
+\|
+= link_to 'Back', averagebills_path

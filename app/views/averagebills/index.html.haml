@@ -1,0 +1,52 @@
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы сейчас здесь
+  %li
+    = link_to root_path, :class => 'glyphicons dashboard' do
+      %i
+      Главная
+  %li.divider
+  %li Справочник "Средний чек"
+.heading-buttons
+  %h3
+    Средний чек
+    %span Справочник
+  .buttons.pull-right
+    = link_to new_averagebill_path, :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
+      %i
+      Новый чек
+  .clearfix
+.separator.bottom
+.innerLR
+  .widget.widget-heading-simple.widget-body-gray
+    .widget-body
+      .separator.bottom.form-inline.small
+        Всего:
+        = @averagebills.count
+      %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center
+        %thead
+          %tr
+            %th.center Филиал
+            %th.center Год
+            %th.center Месяц
+            %th.center Счет
+            %th.center Автор
+            %th.center Создан
+            %th
+        %tbody
+          - @averagebills.each do |averagebill|
+            %tr
+              %td= averagebill.branch.name if averagebill.branch
+              %td= averagebill.year
+              %td= averagebill.month
+              %td= number_to_currency(averagebill.bill, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+              %td= averagebill.user.username
+              %td= averagebill.created_at.strftime('%d.%m.%Y %H:%M')
+              %td.center
+                = link_to edit_averagebill_path(averagebill), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
+                  %i
+                = link_to averagebill, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
+                  %i

@@ -32,7 +32,7 @@
             %th.center Год
             %th.center Месяц
             %th.center Клиентов
-            %th.center Вес
+            %th.center Груз
             %th.center Сумма
             %th.center Создал
             %th.center Создан
@@ -44,8 +44,8 @@
               %td= plan.year
               %td= plan.month
               %td= plan.clients
-              %td= number_to_currency(plan.weight, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
-              %td= number_to_currency(plan.total, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+              %td= number_to_currency(get_plan_weight(plan), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+              %td= number_to_currency((get_plan_weight(plan) * 2.5), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
               %td= plan.user.username
               %td= plan.created_at.strftime('%d.%m.%Y %H:%M')
               %td.center

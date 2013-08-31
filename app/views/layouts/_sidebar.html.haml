@@ -54,6 +54,8 @@
             = link_to 'Должности', positions_path
           %li{ :class => current_page?(levels_path) ? 'active' : nil }
             = link_to 'Уровни опыта', levels_path
+          %li{ :class => current_page?(averagebills_path) ? 'active' : nil }
+            = link_to 'Средний чек', averagebills_path
       %li{ :class => current_page?(plans_path) ? 'active' : nil }
         = link_to plans_path, :class => 'glyphicons stats' do
           %i
