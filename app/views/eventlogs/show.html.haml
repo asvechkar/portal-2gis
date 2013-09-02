@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Action:
+  = @eventlog.action
+%p
+  %b Model:
+  = @eventlog.model
+%p
+  %b Message:
+  = @eventlog.message
+%p
+  %b User:
+  = @eventlog.user
+%p
+  %b Status:
+  = @eventlog.status
+
+= link_to 'Edit', edit_eventlog_path(@eventlog)
+\|
+= link_to 'Back', eventlogs_path

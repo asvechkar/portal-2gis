@@ -1,0 +1,22 @@
+= form_for @eventlog do |f|
+  - if @eventlog.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@eventlog.errors.count, "error")} prohibited this eventlog from being saved:"
+      %ul
+        - @eventlog.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :action
+    = f.text_field :action
+  .field
+    = f.label :model
+    = f.text_field :model
+  .field
+    = f.label :message
+    = f.text_area :message
+  .field
+    = f.label :status
+    = f.number_field :status
+  .actions
+    = f.submit 'Save'

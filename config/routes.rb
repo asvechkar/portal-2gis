@@ -1,4 +1,6 @@
 Portal2gis::Application.routes.draw do
+  resources :eventlogs
+
   resources :averagebills
 
   get "roles/index"

@@ -72,4 +72,8 @@
         = link_to uploads_path, :class => 'glyphicons cloud-upload' do
           %i
           Загрузка
+      %li{ :class => current_page?(eventlogs_path) ? 'active' : nil }
+        = link_to eventlogs_path, :class => 'glyphicons bug' do
+          %i
+          Журнал событий
     .clearfix

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  action: MyString
+  model: MyString
+  message: MyText
+  user_id: 
+  status: 1
+
+two:
+  action: MyString
+  model: MyString
+  message: MyText
+  user_id: 
+  status: 1
