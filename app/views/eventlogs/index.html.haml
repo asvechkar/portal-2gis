@@ -1,0 +1,65 @@
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы сейчас здесь
+  %li
+    = link_to root_path, :class => 'glyphicons dashboard' do
+      %i
+      Главная
+  %li.divider
+  %li Журнал событий
+.heading-buttons
+  %h3
+    Журнал событий
+    %span системный
+  .buttons.pull-right
+    = link_to '#', :class => 'btn btn-danger btn-icon glyphicons remove' do
+      %i
+      Очистить журнал
+  .clearfix
+.separator.bottom
+.innerLR
+  .widget.widget-heading-simple.widget-body-gray
+    .widget-body
+      .filter-bar
+        %form
+          %div
+            %label
+              Всего:
+              = @eventlogs.count
+          %div
+            %label Фильтр
+            %select{ :id => 'log_filders' }
+              %option По пользователю
+              %option По событию
+              %option По объекту
+              %option По статусу
+          %div
+            %label Значение
+            .input-append
+              %input.input-mini{ :type => 'text', :style => 'width: 150px;' }
+      %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center
+        %thead
+          %tr
+            %th.center №
+            %th.center Дата
+            %th.center Пользователь
+            %th.center Действие
+            %th.center Объект
+            %th.center Сообщение
+            %th.center Статус
+            %th
+        %tbody
+          - @eventlogs.each do |eventlog|
+            %tr
+              %td= eventlog.id
+              %td= eventlog.created_at.strftime('%d.%m.%Y %H:%M')
+              %td= eventlog.user.username
+              %td= eventlog.action
+              %td= eventlog.model
+              %td= eventlog.message
+              %td.center
+                %span{ :class => "label label-#{eventlog.status == 0 ? 'success' : 'important'}" }
+                  = eventlog.status == 0 ? 'Успешно' : 'Ошибка'

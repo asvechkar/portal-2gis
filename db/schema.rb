@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20130903162852) do
+=======
+ActiveRecord::Schema.define(version: 20130902220014) do
+>>>>>>> 32e89ca636ce386b617877c779d098409928ddf9
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +103,18 @@ ActiveRecord::Schema.define(version: 20130903162852) do
   add_index "employees", ["level_id"], name: "index_employees_on_level_id", using: :btree
   add_index "employees", ["position_id"], name: "index_employees_on_position_id", using: :btree
   add_index "employees", ["user_id"], name: "index_employees_on_user_id", using: :btree
+
+  create_table "eventlogs", force: true do |t|
+    t.string   "action"
+    t.string   "model"
+    t.text     "message"
+    t.integer  "user_id"
+    t.integer  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "eventlogs", ["user_id"], name: "index_eventlogs_on_user_id", using: :btree
 
   create_table "groups", force: true do |t|
     t.string   "code",        null: false

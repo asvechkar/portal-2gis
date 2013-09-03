@@ -11,18 +11,6 @@
           %i
           Главная
       %li.dropdown.dd-1
-        = link_to '', 'data-toggle' => 'dropdown', :class => 'glyphicons parents' do
-          %i
-          Настройки
-          %span.icon-chevron-right
-        %ul.dropdown-menu.pull-left
-          %li{ :class => current_page?(edit_user_registration_path) ? 'active' : nil }
-            = link_to 'Аккаунт', edit_user_registration_path
-          %li
-            = link_to 'Профиль', '#'
-          %li
-            = link_to 'Выход', destroy_user_session_path
-      %li.dropdown.dd-1
         = link_to '', 'data-toggle' => 'dropdown', :class => 'glyphicons settings' do
           %i
           Управление
@@ -72,4 +60,8 @@
         = link_to uploads_path, :class => 'glyphicons cloud-upload' do
           %i
           Загрузка
+      %li{ :class => current_page?(eventlogs_path) ? 'active' : nil }
+        = link_to eventlogs_path, :class => 'glyphicons bug' do
+          %i
+          Журнал событий
     .clearfix

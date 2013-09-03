@@ -5,9 +5,13 @@
     %span.icon-bar
   %ul.topnav.pull-left
     %li
-      = link_to root_path, :class => 'glyphicons dashboard' do
+      = link_to edit_user_registration_path, :class => 'glyphicons parents' do
         %i
-        Панель управления
+        Аккаунт
+    %li
+      = link_to '#', :class => 'glyphicons user' do
+        %i
+        Профиль
     %li
       = link_to destroy_user_session_path, :method => :delete, :class => 'glyphicons power' do
         %i
