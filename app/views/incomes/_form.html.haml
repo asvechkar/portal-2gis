@@ -1,31 +1,43 @@
-= form_for @income do |f|
+= form_for @income, :html => {:class => 'form-horizontal'} do |f|
   - if @income.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@income.errors.count, "error")} prohibited this income from being saved:"
+      %h2= "#{pluralize(@order.errors.count, "error")} prohibited this city from being saved:"
       %ul
         - @income.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :indate
-    = f.datetime_select :indate
-  .field
-    = f.label :client
-    = f.text_field :client
-  .field
-    = f.label :insum
-    = f.text_field :insum
-  .field
-    = f.label :employee
-    = f.text_field :employee
-  .field
-    = f.label :cash
-    = f.check_box :cash
-  .field
-    = f.label :order
-    = f.text_field :order
-  .field
-    = f.label :user
-    = f.text_field :user
-  .actions
-    = f.submit 'Save'
+  .control-group
+    = f.label :indate, 'Дата поступления', :class => 'control-label'
+    .controls
+      #dtp_orderdate.input-append.date
+        = f.text_field :indate
+        %span.add-on
+          %i.icon-th
+  .control-group
+    = f.label :client_id, 'Клиент', :class => 'control-label'
+    .controls
+      = f.collection_select :client_id, Client.all, :id, :name, {:prompt => 'Выберите клиента'}
+  .control-group
+    = f.label :employee_id, 'Куратор', :class => 'control-label'
+    .controls
+      = f.collection_select :employee_id, Employee.all, :id, :initials, {:prompt => 'Выберите сотрудника'}
+  .control-group
+    = f.label :insum, 'Сумма поступления', :class => 'control-label'
+    .controls
+      .input-append
+        = f.number_field :insum
+        %span.add-on руб
+  .control-group
+    .controls
+      .uniformjs
+        %label.checkbox
+          = f.check_box :cash, :class => 'checkbox'
+          наличные
+  .control-group
+    = f.label :order, 'Бланк-заказ', :class => 'control-label'
+    .controls
+      = f.collection_select :order_id, Order.all, :id, :ordernum, {:prompt => 'Выберите бланк-заказ'}
+  %hr.separator
+  .form-actions
+    = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'
+

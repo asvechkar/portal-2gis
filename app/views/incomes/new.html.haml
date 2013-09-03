@@ -1,5 +1,20 @@
-%h1 New income
-
-= render 'form'
-
-= link_to 'Back', incomes_path
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы сейчас здесь
+  %li
+    = link_to root_path, :class => 'glyphicons dashboard' do
+      %i
+      Главная
+  %li.divider
+  %li= link_to 'Фактические поступления', incomes_path
+  %li.divider
+  %li Новое поступление
+%h3.separator.bottom
+  Новое поступление
+  %span добавить
+.widget.widget-heading-simple.widget-body-gray
+  .widget-body
+    = render 'form'

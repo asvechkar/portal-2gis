@@ -29,7 +29,7 @@ class IncomesController < ApplicationController
 
     respond_to do |format|
       if @income.save
-        format.html { redirect_to @income, notice: 'Income was successfully created.' }
+        format.html { redirect_to incomes_path, notice: 'Поступление успешно добавлено.' }
         format.json { render action: 'show', status: :created, location: @income }
       else
         format.html { render action: 'new' }
@@ -43,7 +43,7 @@ class IncomesController < ApplicationController
   def update
     respond_to do |format|
       if @income.update(income_params)
-        format.html { redirect_to @income, notice: 'Income was successfully updated.' }
+        format.html { redirect_to incomes_path, notice: 'Поступление успешно обновлено.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

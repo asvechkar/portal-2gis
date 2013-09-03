@@ -1,7 +1,22 @@
-%h1 Editing income
-
-= render 'form'
-
-= link_to 'Show', @income
-\|
-= link_to 'Back', incomes_path
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы сейчас здесь
+  %li
+    = link_to root_path, :class => 'glyphicons dashboard' do
+      %i
+      Главная
+  %li.divider
+  %li= link_to 'Фактические поступления', incomes_path
+  %li.divider
+  %li Редактирование
+%h3.separator.bottom
+  = @income.id
+  от
+  = @income.indate.strftime('%d.%m.%Y')
+  %span редактировать
+.widget.widget-heading-simple.widget-body-gray
+  .widget-body
+    = render 'form'
