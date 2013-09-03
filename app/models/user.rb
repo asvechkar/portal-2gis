@@ -19,10 +19,7 @@ class User < ActiveRecord::Base
   has_many :debts
   has_many :uploads
   has_many :averagebills
-<<<<<<< HEAD
   has_many :incomes
-=======
   has_many :eventlogs
->>>>>>> 32e89ca636ce386b617877c779d098409928ddf9
   has_and_belongs_to_many :roles, :join_table => :users_roles
 end

@@ -52,6 +52,10 @@
         = link_to debts_path, :class => 'glyphicons wallet' do
           %i
           Задолженность
+      %li{ :class => current_page?(incomes_path) ? 'active' : nil }
+        = link_to incomes_path, :class => 'glyphicons coins' do
+          %i
+          Поступления
       %li{ :class => current_page?(orders_path) ? 'active' : nil }
         = link_to orders_path, :class => 'glyphicons notes_2' do
           %i
