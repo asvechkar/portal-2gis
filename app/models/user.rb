@@ -19,5 +19,6 @@ class User < ActiveRecord::Base
   has_many :debts
   has_many :uploads
   has_many :averagebills
+  has_many :incomes
   has_and_belongs_to_many :roles, :join_table => :users_roles
 end

@@ -8,6 +8,7 @@ class Employee < ActiveRecord::Base
   has_many :plans
   has_many :orders
   has_many :debts
+  has_many :incomes
   validates_presence_of :firstname, :lastname,  :snils # :middlename,
   # validates_uniqueness_of :firstname, :lastname, :middlename, :snils
   has_many :userifications, :as => :userable, :dependent => :destroy

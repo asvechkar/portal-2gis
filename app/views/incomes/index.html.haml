@@ -1,0 +1,31 @@
+%h1 Listing incomes
+
+%table
+  %tr
+    %th Indate
+    %th Client
+    %th Insum
+    %th Employee
+    %th Cash
+    %th Order
+    %th User
+    %th
+    %th
+    %th
+
+  - @incomes.each do |income|
+    %tr
+      %td= income.indate
+      %td= income.client
+      %td= income.insum
+      %td= income.employee
+      %td= income.cash
+      %td= income.order
+      %td= income.user
+      %td= link_to 'Show', income
+      %td= link_to 'Edit', edit_income_path(income)
+      %td= link_to 'Destroy', income, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Income', new_income_path

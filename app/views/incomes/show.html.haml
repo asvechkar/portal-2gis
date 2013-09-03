@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b Indate:
+  = @income.indate
+%p
+  %b Client:
+  = @income.client
+%p
+  %b Insum:
+  = @income.insum
+%p
+  %b Employee:
+  = @income.employee
+%p
+  %b Cash:
+  = @income.cash
+%p
+  %b Order:
+  = @income.order
+%p
+  %b User:
+  = @income.user
+
+= link_to 'Edit', edit_income_path(@income)
+\|
+= link_to 'Back', incomes_path

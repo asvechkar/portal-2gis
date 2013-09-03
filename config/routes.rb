@@ -1,5 +1,4 @@
 Portal2gis::Application.routes.draw do
-  resources :averagebills
 
   get "roles/index"
   get "roles/new"
@@ -18,6 +17,8 @@ Portal2gis::Application.routes.draw do
   resources :cities
   resources :uploads
   resources :roles
+  resources :incomes
+  resources :averagebills
 
   get '/users/', to: 'users#index'
 

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  indate: 2013-09-03 20:28:52
+  client_id: 
+  insum: 1.5
+  employee_id: 
+  cash: false
+  order_id: 
+  user_id: 
+
+two:
+  indate: 2013-09-03 20:28:52
+  client_id: 
+  insum: 1.5
+  employee_id: 
+  cash: false
+  order_id: 
+  user_id: 

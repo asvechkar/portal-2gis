@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130829165550) do
+ActiveRecord::Schema.define(version: 20130903162852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,23 @@ ActiveRecord::Schema.define(version: 20130829165550) do
   add_index "groups", ["branch_id"], name: "index_groups_on_branch_id", using: :btree
   add_index "groups", ["employee_id"], name: "index_groups_on_employee_id", using: :btree
   add_index "groups", ["user_id"], name: "index_groups_on_user_id", using: :btree
+
+  create_table "incomes", force: true do |t|
+    t.datetime "indate",      null: false
+    t.integer  "client_id"
+    t.float    "insum",       null: false
+    t.integer  "employee_id"
+    t.boolean  "cash"
+    t.integer  "order_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "incomes", ["client_id"], name: "index_incomes_on_client_id", using: :btree
+  add_index "incomes", ["employee_id"], name: "index_incomes_on_employee_id", using: :btree
+  add_index "incomes", ["order_id"], name: "index_incomes_on_order_id", using: :btree
+  add_index "incomes", ["user_id"], name: "index_incomes_on_user_id", using: :btree
 
   create_table "levels", force: true do |t|
     t.string   "name",       null: false
