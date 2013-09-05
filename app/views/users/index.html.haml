@@ -27,6 +27,7 @@
           %tr
             %th.center Имя пользователя
             %th.center Эл.почта
+            %th.center Роль
             %th.center Зарегистрирован
             %th
         %tbody
@@ -34,11 +35,12 @@
             %tr
               %td= user.username
               %td= user.email
+              %td= user.roles.first.name if !user.roles.empty?
               %td= user.created_at.strftime('%d.%m.%Y %H:%M')
               %td.center
                 = link_to '#', :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
                   %i
-                = link_to '#', :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
+                = link_to edit_user_path(user), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
                   %i
                 = link_to '#', :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Заблокировать' do
                   %i

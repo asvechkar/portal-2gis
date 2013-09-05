@@ -1,11 +1,7 @@
 Portal2gis::Application.routes.draw do
 
-  get "roles/index"
-  get "roles/new"
-  get "roles/edit"
-  get "roles/show"
-  resources :debts
   get 'positions/level' => 'positions#level'
+  resources :debts
   resources :orders
   resources :plans
   resources :groups
@@ -21,7 +17,10 @@ Portal2gis::Application.routes.draw do
   resources :averagebills
   resources :eventlogs
 
-  get '/users/', to: 'users#index'
+  get '/users/' => 'users#index', :as => 'users'
+  get '/users/:id/edit' => 'users#edit', :as => 'edit_user'
+  get '/users/:id' => 'users#show', :as => 'user'
+  patch '/users/:id(.:format)' => 'users#update'
 
   devise_for :users, :controllers => { :registrations => 'registrations', :sessions => 'sessions', :passwords => 'passwords' }
   root 'portal#index'
