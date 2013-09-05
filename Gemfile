@@ -11,6 +11,7 @@ gem 'rolify', '~> 3.3.0.rc4'
 
 gem 'sass-rails', '~> 4.0.0'
 gem 'haml-rails', '~> 0.4'
+gem 'paperclip', '~> 3.0'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'roo'
