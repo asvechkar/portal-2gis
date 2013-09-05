@@ -5,7 +5,7 @@ module ApplicationHelper
 
   def avatar_url(user)
     gravatar_id = Digest::MD5::hexdigest(user.email).downcase
-    "http://gravatar.com/avatar/#{gravatar_id}.png?s=72"
+    user.avatar? ? user.avatar_url('avatar') : "http://gravatar.com/avatar/#{gravatar_id}.png?s=72"
   end
 
   def months_list

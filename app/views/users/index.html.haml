@@ -25,6 +25,7 @@
       %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center
         %thead
           %tr
+            %th
             %th.center Имя пользователя
             %th.center Эл.почта
             %th.center Роль
@@ -33,6 +34,7 @@
         %tbody
           - @users.each do |user|
             %tr
+              %td.center= image_tag(user.avatar_url('thumb')) if user.avatar?
               %td= user.username
               %td= user.email
               %td= user.roles.first.name if !user.roles.empty?
@@ -40,7 +42,7 @@
               %td.center
                 = link_to '#', :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
                   %i
-                = link_to edit_user_path(user), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
+                = link_to '#', :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
                   %i
                 = link_to '#', :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Заблокировать' do
                   %i

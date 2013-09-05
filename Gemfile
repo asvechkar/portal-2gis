@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.0.0'
 
 gem 'rails', '4.0.0'
-#gem 'turbolinks'
+gem 'turbolinks'
 gem 'pg'
 
 gem 'devise', '~> 3.0.3'
@@ -11,12 +11,10 @@ gem 'rolify', '~> 3.3.0.rc4'
 
 gem 'sass-rails', '~> 4.0.0'
 gem 'haml-rails', '~> 0.4'
-# gem 'carrierwave'
-gem 'paperclip', '~> 3.0'
+gem 'carrierwave'
+gem 'mini_magick'
 gem 'roo'
-#gem 'paperclip-ffmpeg', git: 'git://github.com/kleymenus/paperclip-ffmpeg.git'
 
-# gem 'simple_form', '~> 3.0.0.rc'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'jquery-fileupload-rails'
