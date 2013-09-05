@@ -33,17 +33,14 @@
   - level = (@employee.position.show_experience_level if @employee.position) || 0
   = content_tag :div, id: 'levels' do
     = f.hidden_field false, :value => level, :id => 'level'
-  .control-group
+  #levelgroups.control-group
+    = f.label :level_id, 'Уровень опыта', :class => 'control-label'
     .controls
       = f.collection_select :level_id, Level.all, :id, :name, {:prompt => 'Выберите уровень опыта'}
   #groups.control-group
-    = f.label false, 'Группы:', :class => 'control-label'
+    = f.label :group_id, 'Группа', :class => 'control-label'
     .controls
-      .uniformjs
-        - Group.all.each do |g|
-          %label.radio
-            = radio_button_tag "group[group_ids][]", g.id, @employee.group_ids.include?(g.id), id: dom_id(g), :class => 'radio'
-            = g.code
+      = collection_select(:group, :group_ids, Group.all, :id, :code, :prompt => 'Выберите группу')
     %hr.separator
   .form-actions
     = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'

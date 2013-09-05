@@ -13,7 +13,7 @@
   .control-group
     = f.label :role_id, 'Роль', :class => 'control-label'
     .controls
-      = collection_select(:user, :role_ids, Role.all, :id, :name, :prompt => true)
+      = collection_select(:user, :role_ids, Role.all, :id, :name, :prompt => 'Выберите роль')
   %hr.separator
   .form-actions
     = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'

@@ -2,9 +2,11 @@
   start: (level) ->
     if level == 0
       jQuery('#employee_level_id').hide()
+      jQuery('#levelgroups').hide()
       jQuery('#groups').hide()
     else
       jQuery('#employee_level_id').show()
+      jQuery('#levelgroups').show()
       jQuery('#groups').show()
 jQuery ->
   level = parseInt(jQuery('#level').val())
