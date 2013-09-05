@@ -16,8 +16,8 @@
           Управление
           %span.icon-chevron-right
         %ul.dropdown-menu.pull-left
-          %li{ :class => current_page?(users_path) ? 'active' : nil }
-            = link_to 'Пользователи', users_path
+          %li{ :class => current_page?(members_path) ? 'active' : nil }
+            = link_to 'Пользователи', members_path
           %li{ :class => current_page?(roles_path) ? 'active' : nil }
             = link_to roles_path, :class => 'glyphicons group' do
               %i

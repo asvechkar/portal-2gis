@@ -1,0 +1,29 @@
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы сейчас здесь
+  %li
+    = link_to root_path, :class => 'glyphicons dashboard' do
+      %i
+      Главная
+  %li.divider
+  %li= link_to 'Справочник "Пользователи"',  members_path
+  %li.divider
+  %li= @member.username
+%h3.separator.bottom
+  = @member.username
+  %span карточка
+.widget.widget-heading-simple.widget-body-gray
+  .widget-body
+    .menubar.links.primary
+      %ul
+        %li= link_to 'Редактировать', edit_user_path(@member)
+    %dl
+      %dt Имя пользователя
+      %dd= @member.username
+      %dt Эл.почта
+      %dd= @member.email
+      %dt Дата регистрации
+      %dd= @member.created_at.strftime('%d.%m.%Y %H:%M')

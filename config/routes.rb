@@ -16,11 +16,7 @@ Portal2gis::Application.routes.draw do
   resources :incomes
   resources :averagebills
   resources :eventlogs
-
-  get '/users/' => 'users#index', :as => 'users'
-  # get '/users/:id/edit' => 'users#edit', :as => 'edit_user'
-  # get '/users/:id' => 'users#show', :as => 'user'
-  # patch '/users/:id(.:format)' => 'users#update'
+  resources :members
 
   devise_for :users, :controllers => { :registrations => 'registrations', :sessions => 'sessions', :passwords => 'passwords' }
   root 'portal#index'
