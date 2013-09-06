@@ -23,6 +23,7 @@ gem 'jquery-fileupload-rails'
 gem 'figaro', '~> 0.7.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'jbuilder', '~> 1.2'
+gem 'therubyracer', platforms: :ruby
 
 group :doc do
   gem 'sdoc', require: false
