@@ -1,6 +1,10 @@
 %p#notice= notice
 
 %p
+  %b Status:
+  %span{ :class => "label label-#{@eventlog.status == 0 ? 'success' : 'important'}" }
+    = @eventlog.status == 0 ? 'Успешно' : 'Ошибка'
+%p
   %b Action:
   = @eventlog.action
 %p
@@ -8,14 +12,9 @@
   = @eventlog.model
 %p
   %b Message:
-  = @eventlog.message
+  = @eventlog.message.html_safe
 %p
   %b User:
-  = @eventlog.user
-%p
-  %b Status:
-  = @eventlog.status
+  = @eventlog.user.username
 
-= link_to 'Edit', edit_eventlog_path(@eventlog)
-\|
-= link_to 'Back', eventlogs_path
+

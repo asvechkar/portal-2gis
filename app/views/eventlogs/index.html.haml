@@ -59,7 +59,7 @@
               %td= eventlog.user.username
               %td= eventlog.action
               %td= eventlog.model
-              %td= eventlog.message
+              %td= eventlog.message.html_safe
               %td.center
                 %span{ :class => "label label-#{eventlog.status == 0 ? 'success' : 'important'}" }
                   = eventlog.status == 0 ? 'Успешно' : 'Ошибка'

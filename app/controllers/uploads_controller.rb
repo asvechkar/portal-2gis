@@ -59,8 +59,8 @@ class UploadsController < ApplicationController
         end
       end
     else
-      Import.xlsx(Upload.find(params[:obj]).upload.path, params[:classname], current_user.id)
-      redirect_to '/' + params[:classname].pluralize
+     redirect_to '/eventlogs/' + Import.xlsx(Upload.find(params[:obj]).upload.path, params[:classname], current_user.id).to_s
+     #params[:classname].pluralize
     end
   end
 

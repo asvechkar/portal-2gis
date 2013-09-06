@@ -3,9 +3,10 @@ module Import
   def self.xlsx(file, cname, uid)
     sheet = Roo::Excelx.new(file)
     case
-      when cname == 'client' then Import.clients(sheet, uid)
-      when cname == 'order' then Import.orders(sheet, uid)
+      when cname == 'client' then log = Import.clients(sheet, uid)
+      when cname == 'order' then log = Import.orders(sheet, uid)
     end
+    return log
   end
 
 
@@ -22,59 +23,79 @@ module Import
   end
 
   def self.orders(sheet, uid)
-    sheet.last_row.downto(2) { |list|
-      if sheet.cell('A', list).to_s.size > 1
-        employee_ln = sheet.cell('B', list).to_s.slice(/(^[^,]*)/).strip
-        employee_fn = sheet.cell('B', list).to_s.slice(/([^,\s]*[^\s]$)/).strip
-        employee_id = Import.whereMyEmployee(employee_ln, employee_fn, uid)
-        client_name = sheet.cell('C', list).to_s
-        client_id = Import.whereMyClient(client_name, uid)
-        ordernum = sheet.cell('E', list)
-        Order.create(:employee_id => employee_id,
-                     :client_id => client_id,
-                     :user_id => uid,
-                     :ordernum => ordernum,
-                     :orderdate => sheet.cell('G', list),
-                     :startdate => sheet.cell('G', list),
-                     :finishdate => sheet.cell('H', list),
-                     :ordersum => sheet.cell('F', list),
-                     :continue => 0,
-                    :status => 0) if client_id && Order.where(:ordernum => ordernum).first.nil?
-      end
-    }
+    message = ''
+    count = 0
+    # проверяем, содержит ли первая колонка список кураторов
+    if sheet.cell('A', 1) == 'Куратор'
+      sheet.last_row.downto(2) { |list|
+        # здесь была провера на кураторов, пока их не удалили из таблицы
+        #if sheet.cell('A', list).to_s.size > 1
+          employee_ln = sheet.cell('A', list).to_s.slice(/(^[^,]*)/).strip
+          employee_fn = sheet.cell('A', list).to_s.slice(/([^,\s]*[^\s]$)/).strip
+          employee_id = Import.whereMyEmployee(employee_ln, employee_fn, uid)
+          client_name = sheet.cell('B', list).to_s
+          client_id = Import.whereMyClient(client_name, uid)
+          ordernum = sheet.cell('D', list)
+          # проверяем, заведен ли в системе клиент, заведен ли сотрудник и нет ли уже в базе такой записи
+          # если все условия соблюдены - создаем запись
 
+          message = message + '<br>' + 'Клиент ' + client_name.to_s + ' отсутствует в системе:: запись ' + list.to_s + ' не импортирована ' if client_id.nil?
+          message = message + '<br>' + 'Сотрудник ' + employee_fn.to_s + ' ' + employee_ln.to_s + ' отсутствует в системе:: запись '  + list.to_s + ' не импортирована ' if employee_id.nil?
+
+          order = Order.create(:employee_id => employee_id,
+                       :client_id => client_id,
+                       :user_id => uid,
+                       :ordernum => ordernum,
+                       :orderdate => sheet.cell('F', list),
+                       :startdate => sheet.cell('F', list),
+                       :finishdate => sheet.cell('G', list),
+                       :ordersum => sheet.cell('E', list),
+                       :continue => 0,
+                      :status => 0) if client_id && Order.where(:ordernum => ordernum).first.nil? && employee_id
+
+        count += 1 if order
+        #end
+      }
+      message = message + '<br>' + 'Импортировано ' + count.to_s + ' записей из ' + (sheet.last_row - 1).to_s
+      log = Eventlog.create(:user_id => uid, :action => 'Import', :model => 'Order', :status => 0, :message => message)
+    else
+      # если нет - пишем в лог ошибку и завершаем процедуру импорта
+      log = Eventlog.create(:user_id => uid, :action => 'Import', :model => 'Order', :status => 1, :message => 'Неправильный формат файла!')
+    end
+    return log.id
   end
 
   def self.whereMyEmployee(ln, fn, uid)
     employee = Employee.where(:firstname => fn, :lastname => ln).first
-    if employee
-      id = employee.id
-    else
-      employee = Employee.create!(:firstname => fn,
-                              :lastname => ln,
-                              :middlename => ' ',
-                              :snils => 0,
-                              :user_id => uid,
-                              :position_id => nil,
-                              :level_id => nil )
-      id = employee.id
-    end
-    id
+    id = nil
+    id = employee.id if employee && employee.groups.first
+    return id
+      # здесь заводился новый сотрудник, если он отсутствовал в системе, но
+      # присутствовал в материалах импорта
+
+      #employee = Employee.create!(:firstname => fn,
+      #                        :lastname => ln,
+      #                        :middlename => ' ',
+      #                        :snils => 0,
+      #                        :user_id => uid,
+      #                        :position_id => nil,
+      #                        :level_id => nil )
+     # id = employee.id
   end
 
   def self.whereMyClient(client_name, uid)
      code = client_name.slice(/(^[^,]*)/)
      client = Client.where(:code => code).first
-    if client
-      id =client.id
-    else
+     id = nil
+     id =client.id if client
+     return id
+      # здесь заводился новый клиент, если он отсутствовал в системе, но
+      # присутствовал в материалах импорта
+
       #client = Client.create!(:name => client_name,
       #                       :code => code,
       #                       :inn => 0,
       #                       :user_id => uid)
       #id = client.id
-      id = nil
-    end
-    id
   end
 end
