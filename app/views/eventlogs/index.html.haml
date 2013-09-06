@@ -59,7 +59,10 @@
               %td= eventlog.user.username
               %td= eventlog.action
               %td= eventlog.model
-              %td= eventlog.message.html_safe
+              %td= eventlog.message.truncate(100) + '...'
               %td.center
                 %span{ :class => "label label-#{eventlog.status == 0 ? 'success' : 'important'}" }
                   = eventlog.status == 0 ? 'Успешно' : 'Ошибка'
+              %td.center
+                = link_to eventlog, :class=> 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
+                  %i
