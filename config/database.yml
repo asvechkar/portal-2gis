@@ -18,11 +18,11 @@ test:
   port: 5432
 production:
   adapter: postgresql
-  host: ec2-54-217-215-81.eu-west-1.compute.amazonaws.com
+  host: postgresql5.locum.ru
   encoding: utf8
-  username: pgwobbjwbmpwqs
-  password: OWiM7PAYCPFBo0i0M-kizq8M-D
+  username: leondr_portal247
+  password: h8NsP7hQ0X
   port: 5432
-  database: d16tg1ffjrvabl
+  database: leondr_portal247
   pool: 5
   timeout: 5000
