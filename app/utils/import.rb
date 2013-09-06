@@ -64,7 +64,7 @@ module Import
         # считаем количество импортированных записей
         count += 1 if order
       }
-      message = message + '<br>' + 'Импортировано ' + count.to_s + ' записей из ' + (sheet.last_row - 1).to_s
+      message = message + '<br><p>' + 'Импортировано ' + count.to_s + ' записей из ' + (sheet.last_row - 1).to_s + '</p>'
       log = Eventlog.create(:user_id => uid, :action => 'Import', :model => 'Order', :status => 0, :message => message)
     else
       # если нет - пишем в лог ошибку и завершаем процедуру импорта
