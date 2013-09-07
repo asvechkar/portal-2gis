@@ -21,4 +21,27 @@ class Order < ActiveRecord::Base
       else 'нет'
     end
   end
+
+  def floating_debt(uid)
+    months = Time.at(self.finishdate - self.startdate).month + 1
+    now = self.startdate
+    debtsum = self.ordersum / months
+    months.times {
+      present_debt = Debt.where(:year => now.year,
+                                :month => now.month,
+                                :debtsum => debtsum,
+                                :employee_id => self.employee_id,
+                                :client_id => self.client_id,
+                                :order_id => self.id).first
+      Debt.create(:year => now.year,
+                  :month => now.month,
+                  :debtsum => debtsum,
+                  :employee_id => self.employee_id,
+                  :client_id => self.client_id,
+                  :order_id => self.id,
+                  :debttype => 0,
+                  :user_id => uid) unless present_debt
+      now = now + 1.month
+    }
+  end
 end

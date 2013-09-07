@@ -47,11 +47,11 @@
             %tr
               %td= debt.year
               %td= debt.month
-              %td= debt.employee
-              %td= debt.client
-              %td= debt.order
+              %td= debt.employee.initials
+              %td= debt.client.name
+              %td= debt.order.ordernum
               %td= debt.debttype
-              %td= debt.debtsum
+              %td= number_to_currency(debt.debtsum, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
               %td= debt.user.username
               %td= debt.created_at.strftime('%d.%m.%Y %H:%M')
               %td.center

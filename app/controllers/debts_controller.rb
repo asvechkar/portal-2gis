@@ -64,6 +64,10 @@ class DebtsController < ApplicationController
 
 
   def floating
+    orders = Order.all
+    orders.each do |order|
+      order.floating_debt(current_user.id)
+    end
     redirect_to debts_path
   end
 
