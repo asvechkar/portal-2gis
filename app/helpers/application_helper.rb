@@ -32,4 +32,5 @@ module ApplicationHelper
       (Date.today.year + 2).to_s => Date.today.year + 2
     }
   end
+
 end

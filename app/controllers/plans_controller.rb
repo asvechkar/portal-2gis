@@ -29,9 +29,11 @@ class PlansController < ApplicationController
 
     respond_to do |format|
       if @plan.save
+        Tools.write2log(current_user.id, 'Добавление', 'Планы', 0, plan_params.to_s)
         format.html { redirect_to plans_path, notice: 'План был успешно добавлен.' }
         format.json { render action: 'show', status: :created, location: @plan }
       else
+        Tools.write2log(current_user.id, 'Добавление', 'Планы', 1, plan_params.to_s)
         format.html { render action: 'new' }
         format.json { render json: @plan.errors, status: :unprocessable_entity }
       end
@@ -43,9 +45,11 @@ class PlansController < ApplicationController
   def update
     respond_to do |format|
       if @plan.update(plan_params)
+        Tools.write2log(current_user.id, 'Обновление', 'Планы', 0, plan_params.to_s)
         format.html { redirect_to @plan, notice: 'План был успешно обновлен.' }
         format.json { head :no_content }
       else
+        Tools.write2log(current_user.id, 'Обновление', 'Планы', 1, plan_params.to_s)
         format.html { render action: 'edit' }
         format.json { render json: @plan.errors, status: :unprocessable_entity }
       end
@@ -55,6 +59,7 @@ class PlansController < ApplicationController
   # DELETE /plans/1
   # DELETE /plans/1.json
   def destroy
+    Tools.write2log(current_user.id, 'Удаление', 'Планы', 0, '# ' + @plan.id.to_s)
     @plan.destroy
     respond_to do |format|
       format.html { redirect_to plans_url }

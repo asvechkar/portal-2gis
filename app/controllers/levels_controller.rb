@@ -29,9 +29,11 @@ class LevelsController < ApplicationController
 
     respond_to do |format|
       if @level.save
+        Tools.write2log(current_user.id, 'Добавление', 'Уровни опыта', 0, level_params.to_s)
         format.html { redirect_to levels_path, notice: 'Level was successfully created.' }
         format.json { render action: 'show', status: :created, location: @level }
       else
+        Tools.write2log(current_user.id, 'Добавление', 'Уровни опыта', 1, level_params.to_s)
         format.html { render action: 'new' }
         format.json { render json: @level.errors, status: :unprocessable_entity }
       end
@@ -43,9 +45,11 @@ class LevelsController < ApplicationController
   def update
     respond_to do |format|
       if @level.update(level_params)
+        Tools.write2log(current_user.id, 'Обновление', 'Уровни опыта', 0, level_params.to_s)
         format.html { redirect_to @level, notice: 'Level was successfully updated.' }
         format.json { head :no_content }
       else
+        Tools.write2log(current_user.id, 'Обновление', 'Уровни опыта', 1, level_params.to_s)
         format.html { render action: 'edit' }
         format.json { render json: @level.errors, status: :unprocessable_entity }
       end
@@ -55,6 +59,7 @@ class LevelsController < ApplicationController
   # DELETE /levels/1
   # DELETE /levels/1.json
   def destroy
+    Tools.write2log(current_user.id, 'Удаление', 'Уровни опыта', 0, '# ' + @level.id.to_s)
     @level.destroy
     respond_to do |format|
       format.html { redirect_to levels_url }

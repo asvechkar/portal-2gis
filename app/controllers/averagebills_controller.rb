@@ -29,9 +29,11 @@ class AveragebillsController < ApplicationController
 
     respond_to do |format|
       if @averagebill.save
+        Tools.write2log(current_user.id, 'Добавление', 'Средний чек', 0, averagebill_params.to_s)
         format.html { redirect_to averagebills_path, notice: 'Средний чек успешно создан.' }
         format.json { render action: 'show', status: :created, location: @averagebill }
       else
+        Tools.write2log(current_user.id, 'Добавление', 'Средний чек', 1, averagebill_params.to_s)
         format.html { render action: 'new' }
         format.json { render json: @averagebill.errors, status: :unprocessable_entity }
       end
@@ -43,9 +45,11 @@ class AveragebillsController < ApplicationController
   def update
     respond_to do |format|
       if @averagebill.update(averagebill_params)
+        Tools.write2log(current_user.id, 'Обновление', 'Средний чек', 0, averagebill_params.to_s)
         format.html { redirect_to averagebills_path, notice: 'Средний чек успешно обновлен.' }
         format.json { head :no_content }
       else
+        Tools.write2log(current_user.id, 'Обновление', 'Средний чек', 1, averagebill_params.to_s)
         format.html { render action: 'edit' }
         format.json { render json: @averagebill.errors, status: :unprocessable_entity }
       end
@@ -55,6 +59,7 @@ class AveragebillsController < ApplicationController
   # DELETE /averagebills/1
   # DELETE /averagebills/1.json
   def destroy
+    Tools.write2log(current_user.id, 'Удаление', 'Средний чек', 0, '# ' + @averagebill.id.to_s)
     @averagebill.destroy
     respond_to do |format|
       format.html { redirect_to averagebills_url }

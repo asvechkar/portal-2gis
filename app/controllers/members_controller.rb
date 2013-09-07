@@ -33,10 +33,12 @@ class MembersController < ApplicationController
   def update
     respond_to do |format|
       if @member.update(member_params)
+        Tools.write2log(current_user.id, 'Обновление', 'Пользователи', 0, member_params.to_s)
         @member.update_attributes(:role_ids => params[:user][:role_ids])
         format.html { redirect_to members_path, notice: 'Пользователь был успешно обновлен.' }
         format.json { head :no_content }
       else
+        Tools.write2log(current_user.id, 'Обновление', 'Пользователи', 1, member_params.to_s)
         format.html { render action: 'edit' }
         format.json { render json: @member.errors, status: :unprocessable_entity }
       end

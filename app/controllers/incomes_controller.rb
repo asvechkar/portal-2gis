@@ -29,9 +29,11 @@ class IncomesController < ApplicationController
 
     respond_to do |format|
       if @income.save
+        Tools.write2log(current_user.id, 'Добавление', 'Поступления', 0, income_params.to_s)
         format.html { redirect_to incomes_path, notice: 'Поступление успешно добавлено.' }
         format.json { render action: 'show', status: :created, location: @income }
       else
+        Tools.write2log(current_user.id, 'Добавление', 'Поступления', 1, income_params.to_s)
         format.html { render action: 'new' }
         format.json { render json: @income.errors, status: :unprocessable_entity }
       end
@@ -43,9 +45,11 @@ class IncomesController < ApplicationController
   def update
     respond_to do |format|
       if @income.update(income_params)
+        Tools.write2log(current_user.id, 'Обновление', 'Поступления', 0, income_params.to_s)
         format.html { redirect_to incomes_path, notice: 'Поступление успешно обновлено.' }
         format.json { head :no_content }
       else
+        Tools.write2log(current_user.id, 'Обновление', 'Поступления', 1, income_params.to_s)
         format.html { render action: 'edit' }
         format.json { render json: @income.errors, status: :unprocessable_entity }
       end
@@ -55,6 +59,7 @@ class IncomesController < ApplicationController
   # DELETE /incomes/1
   # DELETE /incomes/1.json
   def destroy
+    Tools.write2log(current_user.id, 'Удаление', 'Поступления', 0, '# ' + @income.id.to_s)
     @income.destroy
     respond_to do |format|
       format.html { redirect_to incomes_url }

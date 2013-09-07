@@ -22,9 +22,11 @@ class RolesController < ApplicationController
 
     respond_to do |format|
       if @role.save
+        Tools.write2log(current_user.id, 'Добавление', 'Роли', 0, role_params.to_s)
         format.html { redirect_to roles_path, notice: 'Роль была успешно добавлена.' }
         format.json { render action: 'show', status: :created, location: @role }
       else
+        Tools.write2log(current_user.id, 'Добавление', 'Роли', 1, role_params.to_s)
         format.html { render action: 'new' }
         format.json { render json: @role.errors, status: :unprocessable_entity }
       end
@@ -34,9 +36,11 @@ class RolesController < ApplicationController
   def update
     respond_to do |format|
       if @role.update(role_params)
+        Tools.write2log(current_user.id, 'Обновление', 'Роли', 0, role_params.to_s)
         format.html { redirect_to roles_path, notice: 'Роль была успешно обновлена.' }
         format.json { head :no_content }
       else
+        Tools.write2log(current_user.id, 'Обновление', 'Роли', 1, role_params.to_s)
         format.html { render action: 'edit' }
         format.json { render json: @role.errors, status: :unprocessable_entity }
       end
@@ -44,6 +48,7 @@ class RolesController < ApplicationController
   end
 
   def destroy
+    Tools.write2log(current_user.id, 'Удаление', 'Роли', 0, '# ' + @role.id.to_s)
     @role.destroy
     respond_to do |format|
       format.html { redirect_to roles_path }
