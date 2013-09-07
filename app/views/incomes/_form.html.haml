@@ -18,6 +18,10 @@
     .controls
       = f.collection_select :client_id, Client.all, :id, :name, {:prompt => 'Выберите клиента'}
   .control-group
+    = f.label :order, 'Бланк-заказ', :class => 'control-label'
+    .controls
+      = f.collection_select :order_id, Order.all, :id, :ordernum, {:prompt => 'Выберите бланк-заказ'}
+  .control-group
     = f.label :employee_id, 'Куратор', :class => 'control-label'
     .controls
       = f.collection_select :employee_id, Employee.all, :id, :initials, {:prompt => 'Выберите сотрудника'}
@@ -33,10 +37,6 @@
         %label.checkbox
           = f.check_box :cash, :class => 'checkbox'
           наличные
-  .control-group
-    = f.label :order, 'Бланк-заказ', :class => 'control-label'
-    .controls
-      = f.collection_select :order_id, Order.all, :id, :ordernum, {:prompt => 'Выберите бланк-заказ'}
   %hr.separator
   .form-actions
     = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'
