@@ -1,6 +1,7 @@
 Portal2gis::Application.routes.draw do
 
   get 'positions/level' => 'positions#level'
+  get 'debts/floating' => 'debts#floating'
   resources :debts
   resources :orders
   resources :plans

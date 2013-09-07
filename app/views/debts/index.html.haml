@@ -14,6 +14,10 @@
   %h3
     Задолженность
   .buttons.pull-right
+    = link_to debts_floating_path, :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
+      %i
+      Расчет текущей
+  .buttons.pull-right
     = link_to '#', :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
       %i
       Импортировать
