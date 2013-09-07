@@ -29,9 +29,11 @@ class ClientsController < ApplicationController
 
     respond_to do |format|
       if @client.save
+        Tools.write2log(current_user.id, 'Добавление', 'Клиенты', 0, client_params.to_s)
         format.html { redirect_to clients_path, notice: 'Клиент был успешно добавлен.' }
         format.json { render action: 'show', status: :created, location: @client }
       else
+        Tools.write2log(current_user.id, 'Добавление', 'Клиенты', 1, client_params.to_s)
         format.html { render action: 'new' }
         format.json { render json: @client.errors, status: :unprocessable_entity }
       end
@@ -43,9 +45,11 @@ class ClientsController < ApplicationController
   def update
     respond_to do |format|
       if @client.update(client_params)
+        Tools.write2log(current_user.id, 'Обновление', 'Клиенты', 0, client_params.to_s)
         format.html { redirect_to @client, notice: 'Клиент был успешно обновлен.' }
         format.json { head :no_content }
       else
+        Tools.write2log(current_user.id, 'Обновление', 'Клиенты', 1, city_params.to_s)
         format.html { render action: 'edit' }
         format.json { render json: @client.errors, status: :unprocessable_entity }
       end
@@ -55,6 +59,7 @@ class ClientsController < ApplicationController
   # DELETE /clients/1
   # DELETE /clients/1.json
   def destroy
+    Tools.write2log(current_user.id, 'Удаление', 'Клиенты', 0, '# ' + @client.id.to_s)
     @client.destroy
     respond_to do |format|
       format.html { redirect_to clients_url }

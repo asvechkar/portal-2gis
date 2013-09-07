@@ -29,9 +29,11 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.save
+        Tools.write2log(current_user.id, 'Добавление', 'Группы', 0, group_params.to_s)
         format.html { redirect_to groups_path, notice: 'Группа создана успешно.' }
         format.json { render action: 'show', status: :created, location: @group }
       else
+        Tools.write2log(current_user.id, 'Добавление', 'Группы', 1, group_params.to_s)
         format.html { render action: 'new' }
         format.json { render json: @group.errors, status: :unprocessable_entity }
       end
@@ -43,9 +45,11 @@ class GroupsController < ApplicationController
   def update
     respond_to do |format|
       if @group.update(group_params)
+        Tools.write2log(current_user.id, 'Обновление', 'Группы', 0, group_params.to_s)
         format.html { redirect_to @group, notice: 'Группа успешно обновлена.' }
         format.json { head :no_content }
       else
+        Tools.write2log(current_user.id, 'Обновление', 'Группы', 1, group_params.to_s)
         format.html { render action: 'edit' }
         format.json { render json: @group.errors, status: :unprocessable_entity }
       end
@@ -55,6 +59,7 @@ class GroupsController < ApplicationController
   # DELETE /groups/1
   # DELETE /groups/1.json
   def destroy
+    Tools.write2log(current_user.id, 'Удаление', 'Группы', 0, '# ' + @group.id.to_s)
     @group.destroy
     respond_to do |format|
       format.html { redirect_to groups_url }

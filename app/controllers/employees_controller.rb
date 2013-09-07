@@ -31,9 +31,11 @@ class EmployeesController < ApplicationController
       if @employee.save
         (@employee.level_id = nil, @employee.group_ids = nil) if params[:show_level].to_i == 0
         (@employee.group_ids = params[:group][:group_ids] if params[:group]) if params[:show_level].to_i != 0
+        Tools.write2log(current_user.id, 'Добавление', 'Сотрудники', 0, employee_params.to_s)
         format.html { redirect_to employees_path, notice: 'Сотрудник успешно добавлен.' }
         format.json { render action: 'show', status: :created, location: @employee }
       else
+        Tools.write2log(current_user.id, 'Добавление', 'Сотрудники', 1, employee_params.to_s)
         format.html { render action: 'new' }
         format.json { render json: @employee.errors, status: :unprocessable_entity }
       end
@@ -48,9 +50,11 @@ class EmployeesController < ApplicationController
         (params[:show_level].to_i == 0) ?
             @employee.update_attributes(:group_ids => nil, :level_id => nil) :
             @employee.update_attributes(:group_ids => params[:group][:group_ids])
+        Tools.write2log(current_user.id, 'Обновление', 'Сотрудники', 0, employee_params.to_s)
         format.html { redirect_to @employee, notice: 'Сотудник успешно обновлен.' }
         format.json { head :no_content }
       else
+        Tools.write2log(current_user.id, 'Обновление', 'Сотрудники', 1, employee_params.to_s)
         format.html { render action: 'edit' }
         format.json { render json: @employee.errors, status: :unprocessable_entity }
       end
@@ -60,6 +64,7 @@ class EmployeesController < ApplicationController
   # DELETE /employees/1
   # DELETE /employees/1.json
   def destroy
+    Tools.write2log(current_user.id, 'Удаление', 'Сотрудники', 0, '# ' + @employee.id.to_s)
     @employee.destroy
     respond_to do |format|
       format.html { redirect_to employees_url }

@@ -39,23 +39,19 @@
             %th.center Сумма
             %th.center Статус
             %th.center Продление
-            %th.center Автор
-            %th.center Создан
             %th
         %tbody
           - @orders.each do |order|
             %tr
-              %td= order.ordernum
+              %td.center= order.ordernum
               %td= order.employee.initials
               %td= order.client.name if order.client
-              %td= order.startdate.strftime('%d.%m.%Y')
-              %td= order.finishdate.strftime('%d.%m.%Y')
+              %td.center= order.startdate.strftime('%d.%m.%Y')
+              %td.center= order.finishdate.strftime('%d.%m.%Y')
               %td= number_to_currency(order.ordersum, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
               %td= order.status_desc
-              %td= order.continue_desc
-              %td= order.user.username if order.user
-              %td= order.created_at.strftime('%d.%m.%Y %H:%M')
-              %td.center
+              %td.center= order.continue_desc
+              %td.center.actions-bar
                 = link_to order, :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
                   %i
                 = link_to edit_order_path(order), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do

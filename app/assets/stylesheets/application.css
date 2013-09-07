@@ -15,3 +15,7 @@
  *= require jquery.fileupload-ui
  *= require_self
  */
+ 
+ .actions-bar {
+   min-width: 100px;
+ }

@@ -17,9 +17,8 @@
 %h3.separator.bottom
   Событие №
   = @eventlog.id
-  %span
-    %span{ :class => "label label-#{@eventlog.status == 0 ? 'success' : 'important'}" }
-      = @eventlog.status == 0 ? 'Успешно' : 'Ошибка'
+  %span{ :class => "label label-#{@eventlog.status == 0 ? 'success' : 'important'}" }
+    = @eventlog.status == 0 ? 'Успешно' : 'Ошибка'
 .widget
   .widget-head
     %h4.heading-arrow

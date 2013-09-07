@@ -29,9 +29,11 @@ class OrdersController < ApplicationController
     @order.status = 0
     respond_to do |format|
       if @order.save
+        Tools.write2log(current_user.id, 'Добавление', 'Заказы', 0, order_params.to_s)
         format.html { redirect_to orders_path, notice: 'Заказ был успешно добавлен.' }
         format.json { render action: 'show', status: :created, location: @order }
       else
+        Tools.write2log(current_user.id, 'Добавление', 'Заказы', 1, order_params.to_s)
         format.html { render action: 'new' }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
@@ -43,9 +45,11 @@ class OrdersController < ApplicationController
   def update
     respond_to do |format|
       if @order.update(order_params)
+        Tools.write2log(current_user.id, 'Обновление', 'Заказы', 0, order_params.to_s)
         format.html { redirect_to @order, notice: 'Заказ был успешно обновлен.' }
         format.json { head :no_content }
       else
+        Tools.write2log(current_user.id, 'Обновление', 'Заказы', 1, order_params.to_s)
         format.html { render action: 'edit' }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
@@ -55,6 +59,7 @@ class OrdersController < ApplicationController
   # DELETE /orders/1
   # DELETE /orders/1.json
   def destroy
+    Tools.write2log(current_user.id, 'Удаление', 'Заказы', 0, '# ' + @order.id.to_s)
     @order.destroy
     respond_to do |format|
       format.html { redirect_to orders_url }

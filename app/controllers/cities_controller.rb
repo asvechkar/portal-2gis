@@ -30,9 +30,11 @@ class CitiesController < ApplicationController
 
     respond_to do |format|
       if @city.save
+        Tools.write2log(current_user.id, 'Добавление', 'Города', 0, city_params.to_s)
         format.html { redirect_to cities_path, notice: 'Город был успешно добавлен.' }
         format.json { render action: 'show', status: :created, location: @city }
       else
+        Tools.write2log(current_user.id, 'Добавление', 'Города', 0, city_params.to_s)
         format.html { render action: 'new' }
         format.json { render json: @city.errors, status: :unprocessable_entity }
       end
@@ -44,9 +46,11 @@ class CitiesController < ApplicationController
   def update
     respond_to do |format|
       if @city.update(city_params)
+        Tools.write2log(current_user.id, 'Обновление', 'Города', 0, city_params.to_s)
         format.html { redirect_to cities_path, notice: 'Город был успешно обновлен.' }
         format.json { head :no_content }
       else
+        Tools.write2log(current_user.id, 'Обновление', 'Города', 0, city_params.to_s)
         format.html { render action: 'edit' }
         format.json { render json: @city.errors, status: :unprocessable_entity }
       end
@@ -56,6 +60,7 @@ class CitiesController < ApplicationController
   # DELETE /cities/1
   # DELETE /cities/1.json
   def destroy
+    Tools.write2log(current_user.id, 'Удаление', 'Города', 0, '# ' + @city.id.to_s)
     @city.destroy
     respond_to do |format|
       format.html { redirect_to cities_url }

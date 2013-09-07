@@ -29,9 +29,11 @@ class BranchesController < ApplicationController
 
     respond_to do |format|
       if @branch.save
+        Tools.write2log(current_user.id, 'Добавление', 'Филиалы', 0, branch_params.to_s)
         format.html { redirect_to branches_path, notice: 'Филиал был успешно добавлен.' }
         format.json { render action: 'show', status: :created, location: @branch }
       else
+        Tools.write2log(current_user.id, 'Добавление', 'Филиалы', 1, branch_params.to_s)
         format.html { render action: 'new' }
         format.json { render json: @branch.errors, status: :unprocessable_entity }
       end
@@ -43,9 +45,11 @@ class BranchesController < ApplicationController
   def update
     respond_to do |format|
       if @branch.update(branch_params)
+        Tools.write2log(current_user.id, 'Обновление', 'Филиалы', 0, branch_params.to_s)
         format.html { redirect_to @branch, notice: 'Филиал был успешно обновлен.' }
         format.json { head :no_content }
       else
+        Tools.write2log(current_user.id, 'Обновление', 'Филиалы', 1, branch_params.to_s)
         format.html { render action: 'edit' }
         format.json { render json: @branch.errors, status: :unprocessable_entity }
       end
@@ -55,6 +59,7 @@ class BranchesController < ApplicationController
   # DELETE /branches/1
   # DELETE /branches/1.json
   def destroy
+    Tools.write2log(current_user.id, 'Удаление', 'Филиалы', 0, '# ' + @branch.id.to_s)
     @branch.destroy
     respond_to do |format|
       format.html { redirect_to branches_url }
