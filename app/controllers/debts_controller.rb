@@ -65,9 +65,11 @@ class DebtsController < ApplicationController
 
   def floating
     orders = Order.all
+    message = ''
     orders.each do |order|
-      order.floating_debt(current_user.id)
+      message = message + order.floating_debt(current_user.id)
     end
+    Eventlog.create(:user_id => current_user.id, :action => 'Floating', :model => 'Debt', :status => 0, :message => message)
     redirect_to debts_path
   end
 

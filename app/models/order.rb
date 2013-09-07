@@ -23,6 +23,7 @@ class Order < ActiveRecord::Base
   end
 
   def floating_debt(uid)
+    count = 0
     months = Time.at(self.finishdate - self.startdate).month + 1
     now = self.startdate
     debtsum = self.ordersum / months
@@ -33,7 +34,7 @@ class Order < ActiveRecord::Base
                                 :employee_id => self.employee_id,
                                 :client_id => self.client_id,
                                 :order_id => self.id).first
-      Debt.create(:year => now.year,
+      new_debt = Debt.create(:year => now.year,
                   :month => now.month,
                   :debtsum => debtsum,
                   :employee_id => self.employee_id,
@@ -42,6 +43,8 @@ class Order < ActiveRecord::Base
                   :debttype => 0,
                   :user_id => uid) unless present_debt
       now = now + 1.month
+      count += 1 if new_debt
     }
+    'Рассчитано ' + count.to_s + ' текущих задолженностей по БЗ ' + self.ordernum + '<br>'
   end
 end
