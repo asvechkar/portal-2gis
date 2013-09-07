@@ -54,8 +54,8 @@
         %tbody
           - @eventlogs.each do |eventlog|
             %tr
-              %td= eventlog.id
-              %td= eventlog.created_at.strftime('%d.%m.%Y %H:%M')
+              %td.center= eventlog.id
+              %td.center= eventlog.created_at.strftime('%d.%m.%Y %H:%M')
               %td= eventlog.user.username
               %td= eventlog.action
               %td= eventlog.model
