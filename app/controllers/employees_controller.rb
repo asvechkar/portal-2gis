@@ -7,6 +7,17 @@ class EmployeesController < ApplicationController
   def index
     @employees = Employee.all
   end
+  
+  # get 'employees/update_group_select/:id'
+  def update_group_select
+    branch = Branch.find(params[:id])
+    groups = Group.where(branch)
+    select = ''
+    groups.each do |group|
+      select += "<option value='#{group.id}'>#{group.name}</option>"
+    end
+    return select
+  end
 
   # GET /employees/1
   # GET /employees/1.json
