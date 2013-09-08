@@ -13,6 +13,22 @@ class IncomesController < ApplicationController
   def show
   end
 
+  def get_orders_by_client_id
+    select = '<option value="">Выберите бланк-заказ</option>'
+    begin
+      clients = Client.where(id: params[:id])
+      unless clients.empty?
+        orders = Order.where(client_id: clients.first.id)
+        orders.each do |order|
+          select += "<option value='#{order.id}'>#{order.ordernum}</option>"
+        end
+      end
+    rescue Exception => e
+      select = '<option value="">Бланков нет</option>'
+    end
+    render text: select
+  end
+
   # GET /incomes/new
   def new
     @income = Income.new

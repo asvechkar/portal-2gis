@@ -7,16 +7,23 @@ class EmployeesController < ApplicationController
   def index
     @employees = Employee.all
   end
-  
-  # get 'employees/update_group_select/:id'
-  def update_group_select
-    branch = Branch.find(params[:id])
-    groups = Group.where(branch)
-    select = ''
-    groups.each do |group|
-      select += "<option value='#{group.id}'>#{group.name}</option>"
+
+  # get 'employees/get_groups_by_branch_id/:id'
+  def get_groups_by_branch_id
+    select = '<option value="">Выберите группу</option>'
+    begin
+      branches = Branch.where(id: params[:id])
+      unless branches.empty?
+        groups = Group.where(branch_id: branches.first.id)
+        groups.each do |group|
+          select += "<option value='#{group.id}'>#{group.code}</option>"
+        end
+      end
+    rescue Exception => e
+      select = '<option value="">Групп нет</option>'
     end
-    return select
+    # render json: groups
+    render text: select
   end
 
   # GET /employees/1
@@ -40,7 +47,10 @@ class EmployeesController < ApplicationController
     @employee.user_id = current_user.id
     respond_to do |format|
       if @employee.save
-        (@employee.level_id = nil, @employee.group_ids = nil) if params[:show_level].to_i == 0
+        if params[:show_level].to_i == 0
+          @employee.level_id = nil
+          @employee.group_ids = nil
+        end
         (@employee.group_ids = params[:group][:group_ids] if params[:group]) if params[:show_level].to_i != 0
         Tools.write2log(current_user.id, 'Добавление', 'Сотрудники', 0, employee_params.to_s)
         format.html { redirect_to employees_path, notice: 'Сотрудник успешно добавлен.' }

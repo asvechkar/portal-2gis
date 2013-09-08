@@ -2,8 +2,9 @@ Portal2gis::Application.routes.draw do
 
   get 'positions/level' => 'positions#level'
   get 'debts/floating' => 'debts#floating'
-  get 'employees/update_group_select/:id' => 'employees#update_group_select'
-  
+  get 'employees/get_groups_by_branch_id/:id' => 'employees#get_groups_by_branch_id'
+  get 'incomes/get_orders_by_client_id/:id' => 'incomes#get_orders_by_client_id'
+
   resources :debts
   resources :orders
   resources :plans

@@ -20,6 +20,7 @@
 //= require jquery.uniform
 //= require jquery-fileupload
 //= require employee
+//= require incomes
 //= require upload
 
 
