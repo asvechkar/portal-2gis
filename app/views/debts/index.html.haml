@@ -20,7 +20,11 @@
   .buttons.pull-right
     = link_to '#', :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
       %i
-      Импортировать
+      Импорт рассрочки
+  .buttons.pull-right
+    = link_to '#', :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
+      %i
+      Импорт дебета
   .clearfix
 .separator.bottom
 .innerLR
@@ -42,16 +46,17 @@
             %th
         %tbody
           - @debts.each do |debt|
-            %tr
-              %td.center= debt.year
-              %td.center= debt.month
-              %td= debt.employee.initials
-              %td= debt.client.name
-              %td= debt.order.ordernum
-              %td= debt.debttype
-              %td= number_to_currency(debt.debtsum, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
-              %td.center.actions-bar
-                = link_to edit_debt_path(debt), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
-                  %i
-                = link_to debt, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
-                  %i
+            - cache debt do
+              %tr
+                %td.center= debt.year
+                %td.center= debt.month
+                %td{ style: 'min-width: 150px;' }= debt.employee.initials
+                %td= debt.client.name
+                %td{ style: 'min-width: 200px;' }= debt.order.ordernum
+                %td= debt.decode_type
+                %td{ style: 'min-width: 100px;' }= number_to_currency(debt.debtsum, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+                %td.center.actions-bar
+                  = link_to edit_debt_path(debt), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
+                    %i
+                  = link_to debt, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
+                    %i
