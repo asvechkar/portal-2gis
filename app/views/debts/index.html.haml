@@ -39,22 +39,18 @@
             %th.center Бланк заказа
             %th.center Тип
             %th.center Сумма
-            %th.center Пользователь
-            %th.center Создан
             %th
         %tbody
           - @debts.each do |debt|
             %tr
-              %td= debt.year
-              %td= debt.month
+              %td.center= debt.year
+              %td.center= debt.month
               %td= debt.employee.initials
               %td= debt.client.name
               %td= debt.order.ordernum
               %td= debt.debttype
               %td= number_to_currency(debt.debtsum, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
-              %td= debt.user.username
-              %td= debt.created_at.strftime('%d.%m.%Y %H:%M')
-              %td.center
+              %td.center.actions-bar
                 = link_to edit_debt_path(debt), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
                   %i
                 = link_to debt, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do

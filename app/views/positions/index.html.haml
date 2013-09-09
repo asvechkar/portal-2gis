@@ -31,17 +31,13 @@
           %tr
             %th.center Наименование
             %th.center Уровень опыта
-            %th.center Пользователь
-            %th.center Создан
             %th
         %tbody
           - @positions.each do |position|
             %tr
               %td= position.name
               %td= position.show_experience_level > 0 ? 'да' : 'нет' if position.show_experience_level
-              %td= position.user.username if position.user
-              %td= position.created_at.strftime('%d.%m.%Y %H:%M')
-              %td.center
+              %td.center.actions-bar
                 = link_to position, :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
                   %i
                 = link_to edit_position_path(position), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do

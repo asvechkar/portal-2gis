@@ -35,22 +35,19 @@
             %th.center Наименование
             %th.center ИНН
             %th.center Код
-            %th.center Пользователь
-            %th.center Создан
             %th
         %tbody
           - @clients.each do |client|
-            %tr
-              %td= client.name
-              %td= client.inn
-              %td= client.code
-              %td= client.user.username if client.user
-              %td= client.created_at.strftime('%d.%m.%Y %H:%M')
-              %td.center
-                = link_to client, :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
-                  %i.icon-search
-                = link_to edit_client_path(client), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
-                  %i.icon-edit
-                = link_to client, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
-                  %i
+            - cache client do
+              %tr
+                %td= client.name
+                %td= client.inn
+                %td= client.code
+                %td.center.actions-bar
+                  = link_to client, :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
+                    %i.icon-search
+                  = link_to edit_client_path(client), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
+                    %i.icon-edit
+                  = link_to client, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
+                    %i
 = render 'shared/upload', object: 'client'

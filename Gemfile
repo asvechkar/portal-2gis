@@ -30,7 +30,8 @@ group :doc do
 end
 
 group :development do
-  gem 'thin', '~> 1.5.1'
+  # gem 'thin', '~> 1.5.1'
+  gem 'puma'
   gem 'capistrano', '~> 3.0.0.pre5'
   gem 'better_errors'
   gem 'binding_of_caller'

@@ -30,18 +30,12 @@
         %thead
           %tr
             %th.center Уровень
-            %th.center Пользователь
-            %th.center Создан
             %th
         %tbody
           - @levels.each do |level|
             %tr
               %td= level.name
-              %td= level.user.username if level.user
-              %td= level.created_at.strftime('%d.%m.%Y %H:%M')
-              %td.center
-                = link_to level, :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
-                  %i
+              %td.center.actions-bar
                 = link_to edit_level_path(level), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
                   %i
                 = link_to level, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do

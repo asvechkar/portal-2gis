@@ -32,8 +32,6 @@
             %th.center Наименование
             %th.center Руководитель
             %th.center Город
-            %th.center Автор
-            %th.center Создан
             %th
         %tbody
           - @branches.each do |branch|
@@ -41,9 +39,7 @@
               %td= branch.name
               %td= branch.employee.initials if branch.employee
               %td= branch.city.name
-              %td= branch.user.username
-              %td= branch.created_at.strftime('%d.%m.%Y %H:%M')
-              %td.center
+              %td.center.actions-bar
                 = link_to branch, :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
                   %i
                 = link_to edit_branch_path(branch), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do

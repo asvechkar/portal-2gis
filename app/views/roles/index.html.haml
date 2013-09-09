@@ -39,7 +39,7 @@
               %td= role.name
               %td= role.description
               %td= role.created_at.strftime('%d.%m.%Y %H:%M')
-              %td.center
+              %td.center.actions-bar
                 = link_to edit_role_path(role), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
                   %i
                 = link_to role, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do

@@ -32,8 +32,7 @@
             %th.center Код
             %th.center Филиал
             %th.center Руководитель
-            %th.center Автор
-            %th.center Создан
+            %th.center Сотрудников
             %th
         %tbody
           - @groups.each do |group|
@@ -41,9 +40,8 @@
               %td= group.code
               %td= group.branch.name
               %td= group.employee.initials if group.employee
-              %td= group.user.username
-              %td= group.created_at.strftime('%d.%m.%Y %H:%M')
-              %td.center
+              %td= group.employees.count
+              %td.center.actions-bar
                 = link_to group, :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
                   %i
                 = link_to edit_group_path(group), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do

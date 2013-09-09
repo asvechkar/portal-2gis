@@ -33,19 +33,15 @@
             %th.center Год
             %th.center Месяц
             %th.center Счет
-            %th.center Автор
-            %th.center Создан
             %th
         %tbody
           - @averagebills.each do |averagebill|
             %tr
               %td= averagebill.branch.name if averagebill.branch
-              %td= averagebill.year
-              %td= averagebill.month
+              %td.center= averagebill.year
+              %td.center= averagebill.month
               %td= number_to_currency(averagebill.bill, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
-              %td= averagebill.user.username
-              %td= averagebill.created_at.strftime('%d.%m.%Y %H:%M')
-              %td.center
+              %td.center.actions-bar
                 = link_to edit_averagebill_path(averagebill), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
                   %i
                 = link_to averagebill, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do

@@ -34,8 +34,6 @@
             %th.center № заказа
             %th.center Наличные
             %th.center Сумма
-            %th.center Создал
-            %th.center Создан
             %th
         %tbody
           - @incomes.each do |income|
@@ -46,9 +44,7 @@
               %td= income.order.ordernum if income.order
               %td.center= income.cash == true ? 'да' : 'нет'
               %td= number_to_currency(income.insum, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
-              %td= income.user.username
-              %td.center= income.created_at.strftime('%d.%m.%Y %H:%M')
-              %td.center
+              %td.center.actions-bar
                 = link_to edit_income_path(income), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
                   %i
                 = link_to income, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do

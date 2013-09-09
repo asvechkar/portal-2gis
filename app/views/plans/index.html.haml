@@ -34,8 +34,6 @@
             %th.center Клиентов
             %th.center Груз
             %th.center Сумма
-            %th.center Создал
-            %th.center Создан
             %th
         %tbody
           - @plans.each do |plan|
@@ -46,9 +44,7 @@
               %td= plan.clients
               %td= number_to_currency(get_plan_weight(plan), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
               %td= number_to_currency((get_plan_weight(plan) * 2.5), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
-              %td= plan.user.username
-              %td= plan.created_at.strftime('%d.%m.%Y %H:%M')
-              %td.center
+              %td.center.actions-bar
                 = link_to plan, :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
                   %i
                 = link_to edit_plan_path(plan), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
