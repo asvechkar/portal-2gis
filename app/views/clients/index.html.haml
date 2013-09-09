@@ -35,7 +35,6 @@
             %th.center Наименование
             %th.center ИНН
             %th.center Код
-            %th.center Город
             %th.center Пользователь
             %th.center Создан
             %th
@@ -45,7 +44,6 @@
               %td= client.name
               %td= client.inn
               %td= client.code
-              %td= client.city.name if client.city
               %td= client.user.username if client.user
               %td= client.created_at.strftime('%d.%m.%Y %H:%M')
               %td.center

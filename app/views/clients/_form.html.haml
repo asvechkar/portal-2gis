@@ -7,17 +7,17 @@
           %li= msg
 
   .control-group
+    = f.label :name, 'Наименование компании', :class => 'control-label'
     .controls
       = f.text_field :name, :placeholder => 'Наименование компании'
   .control-group
+    = f.label :inn, 'ИНН компании', :class => 'control-label'
     .controls
       = f.text_field :inn, :placeholder => 'ИНН компании'
   .control-group
+    = f.label :code, 'Код компании', :class => 'control-label'
     .controls
       = f.text_field :code, :placeholder => 'Код компании'
-  .control-group
-    .controls
-      = f.collection_select :city_id, City.all, :id, :name, {:prompt => 'Выберите город'}, :class => 'selectpicker'
   %hr.separator
   .form-actions
     = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'

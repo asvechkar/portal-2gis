@@ -21,36 +21,38 @@
 .innerLR
   .row-fluid
     .span12
-      .widget.widget-heading-simple.widget-body-simple
+      = render 'portal/widget'
+  .row-fluid
+    .span6
+      .widget.widget-body-white
         .widget-head
-          %h4.heading Показатели
+          %h4.heading.glyphicons.cardio
+            %i
+            Прирост клиентов
         .widget-body
-          .row-fluid
-            .span3
-              = link_to clients_path, :class => 'widget-stats widget-stats-1' do
-                %span.glyphicons.parents
-                  %i
-                  %span.txt Клиентов
-                .clearfix
-                %span.count= Client.all.count
-            .span3
-              = link_to orders_path, :class => 'widget-stats widget-stats-1' do
-                %span.glyphicons.notes_2
-                  %i
-                  %span.txt Заказов
-                .clearfix
-                %span.count= Order.all.count
-            .span3
-              = link_to employees_path, :class => 'widget-stats widget-stats-1' do
-                %span.glyphicons.group
-                  %i
-                  %span.txt Сотрудников
-                .clearfix
-                %span.count= Employee.all.count
-            .span3
-              = link_to cities_path, :class => 'widget-stats widget-stats-1' do
-                %span.glyphicons.globe
-                  %i
-                  %span.txt Городов
-                .clearfix
-                %span.count= City.all.count
+          #chart-grow-clients{ style: 'height: 253px;' }
+    .span6
+      .widget.widget-body-white
+        .widget-head
+          %h4.heading.glyphicons.cardio
+            %i
+            Изменение груза в выпуск
+        .widget-body
+          #chart-change-wight{ style: 'height: 253px;' }
+  .row-fluid
+    .span6
+      .widget.widget-body-white
+        .widget-head
+          %h4.heading.glyphicons.cardio
+            %i
+            Поступление денежных средств
+        .widget-body
+          #chart-incomes{ style: 'height: 253px;' }
+    .span6
+      .widget.widget-body-white
+        .widget-head
+          %h4.heading.glyphicons.cardio
+            %i
+            Изменение Интегрального Коэффициента (ИК)
+        .widget-body
+          #chart-change-ic{ style: 'height: 253px;' }

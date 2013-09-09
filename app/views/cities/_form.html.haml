@@ -7,6 +7,7 @@
           %li= msg
 
   .control-group
+    = f.label :name, 'Наименование города', :class => 'control-label'
     .controls
       = f.text_field :name, :placeholder => 'Наименование города'
   %hr.separator

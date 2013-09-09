@@ -1,0 +1,33 @@
+.widget.widget-heading-simple.widget-body-simple
+  .widget-head
+    %h4.heading Показатели
+  .widget-body
+    .row-fluid
+      .span3
+        = link_to clients_path, :class => 'widget-stats widget-stats-1' do
+          %span.glyphicons.parents
+            %i
+            %span.txt Клиентов
+          .clearfix
+          %span.count= Client.all.count
+      .span3
+        = link_to orders_path, :class => 'widget-stats widget-stats-1' do
+          %span.glyphicons.notes_2
+            %i
+            %span.txt Заказов
+          .clearfix
+          %span.count= Order.all.count
+      .span3
+        = link_to employees_path, :class => 'widget-stats widget-stats-1' do
+          %span.glyphicons.group
+            %i
+            %span.txt Сотрудников
+          .clearfix
+          %span.count= Employee.all.count
+      .span3
+        = link_to cities_path, :class => 'widget-stats widget-stats-1' do
+          %span.glyphicons.globe
+            %i
+            %span.txt Городов
+          .clearfix
+          %span.count= City.all.count
