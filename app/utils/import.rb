@@ -176,7 +176,7 @@ module Import
   def self.whereMyEmployee(ln, fn, uid)
     employee = Employee.where(:firstname => fn, :lastname => ln).first
     id = nil
-    id = employee.id if employee && employee.groups.first
+    id = employee.id if employee # && employee.groups.first
     return id
   end
 

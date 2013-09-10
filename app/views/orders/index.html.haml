@@ -49,7 +49,7 @@
             %tr
               %td.center= order.ordernum
               %td= order.city.name if order.city
-              %td= order.employee.initials
+              %td= order.employee.initials if order.employee
               %td= order.client.name if order.client
               %td.center= order.startdate.strftime('%d.%m.%Y')
               %td.center= order.finishdate.strftime('%d.%m.%Y')
