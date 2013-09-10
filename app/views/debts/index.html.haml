@@ -14,15 +14,15 @@
   %h3
     Задолженность
   .buttons.pull-right
-    = link_to debts_floating_path, :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
+    = link_to debts_floating_path, :class => 'btn btn-warning btn-icon glyphicons circle_plus' do
       %i
       Расчет текущей
   .buttons.pull-right
-    = link_to '#', :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
+    = link_to '#instModal', :class => 'btn btn-primary btn-icon glyphicons circle_plus', :data => {:toggle=>"modal"} do
       %i
       Импорт рассрочки
   .buttons.pull-right
-    = link_to '#', :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
+    = link_to '#debtModal', :class => 'btn btn-primary btn-icon glyphicons circle_plus', :data => {:toggle=>"modal"} do
       %i
       Импорт дебета
   .clearfix
@@ -60,3 +60,5 @@
                     %i
                   = link_to debt, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
                     %i
+= render 'shared/upload', object: 'debt_inst', dialog_id: 'instModal'
+= render 'shared/upload', object: 'debt_debt', dialog_id: 'debtModal'

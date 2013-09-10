@@ -17,9 +17,12 @@
     = link_to new_order_path, :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
       %i
       Новый бланк заказа
-    = link_to '#myModal', :class => 'btn btn-primary btn-icon glyphicons file_import', :data => {:toggle=>"modal"} do
+    = link_to '#currOrders', :class => 'btn btn-primary btn-icon glyphicons file_import', :data => {:toggle=>"modal"} do
       %i
-      Импорт
+      Импорт текущих
+    = link_to '#contOrders', :class => 'btn btn-primary btn-icon glyphicons file_import', :data => {:toggle=>"modal"} do
+      %i
+      Импорт продленных
   .clearfix
 .separator.bottom
 .innerLR
@@ -58,4 +61,5 @@
                   %i
                 = link_to order, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
                   %i
-= render 'shared/upload', object: 'order'
+= render 'shared/upload', object: 'order_curr', dialog_id: 'currOrders'
+= render 'shared/upload', object: 'order_cont', dialog_id: 'contOrders'

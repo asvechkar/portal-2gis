@@ -2,13 +2,30 @@ module Import
 
   def self.xlsx(file, cname, uid)
     sheet = Roo::Excelx.new(file)
-    case
-      when cname == 'client' then log = Import.clients(sheet, uid)
-      when cname == 'order' then log = Import.orders(sheet, uid)
+    case cname
+      when 'client' then log = Import.clients(sheet, uid)
+      when 'order_curr' then log = Import.orders(sheet, uid)
+      when 'order_cont' then log = Import.orders_cont(sheet, uid)
+      when 'debt_inst' then log = Import.installments(sheet, uid)
+      when 'debt_debt' then log = Import.debts(sheet, uid)
     end
     return log
   end
 
+  def self.installments(sheet, uid)
+    message = 'Прошла успешно'
+    log = Eventlog.create(:user_id => uid, :action => 'Импорт', :model => 'Рассрочка', :status => 0, :message => message)
+  end
+
+  def self.debts(sheet, uid)
+    message = 'Прошла успешно'
+    log = Eventlog.create(:user_id => uid, :action => 'Импорт', :model => 'Дебетовая задолженность', :status => 0, :message => message)
+  end
+
+  def self.orders_cont(sheet, uid)
+    message = 'Прошла успешно'
+    log = Eventlog.create(:user_id => uid, :action => 'Импорт', :model => 'Продление', :status => 0, :message => message)
+  end
 
   def self.clients(sheet, uid)
     message = ''

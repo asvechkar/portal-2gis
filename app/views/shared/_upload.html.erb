@@ -1,4 +1,4 @@
-<div class="modal hide fade" id="myModal">
+<div class="modal hide fade" id="<%= dialog_id %>">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3>Файловый менеджер</h3>
@@ -48,7 +48,14 @@
           <div class="modal-footer">
 
             <%= hidden_field_tag 'classname', object %>
-            <%= f.submit "Импортировать", :class => "btn btn-default" %>
+            <% submitTitle = ''
+              case dialog_id
+                when 'currOrders' then submitTitle = 'Импортировать текущие'
+                when 'contOrders' then submitTitle = 'Импортировать продленные'
+                when 'instModal' then submitTitle = 'Импортировать рассрочку'
+                when 'debtModal' then submitTitle = 'Импортировать дебет'
+              end %>
+            <%= f.submit submitTitle, :class => "btn btn-default" %>
       <% end %>
    </div>
 </div>

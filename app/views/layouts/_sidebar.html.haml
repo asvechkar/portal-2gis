@@ -3,7 +3,7 @@
     = image_tag '2gis_logo_64x30.png', :alt => 'Портал 2GIS'
   .slim-scroll{ 'data-scroll-height' => '800px' }
     %span.profile.center
-      = link_to false, :title => current_user.username do
+      = link_to edit_user_registration_path, :title => current_user.username do
         = image_tag avatar_url(current_user), 'data-src' => avatar_url(current_user), :alt => current_user.username
     %ul
       %li
