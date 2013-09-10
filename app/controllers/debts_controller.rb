@@ -5,7 +5,15 @@ class DebtsController < ApplicationController
   # GET /debts
   # GET /debts.json
   def index
-    @debts = Debt.all
+    if params[:type]
+      case params[:type]
+        when 'plan' then @debts = Debt.where(:debttype => 0)
+        when 'inst' then @debts = Debt.where(:debttype => 1)
+        when 'debt' then @debts = Debt.where(:debttype => 2)
+      end
+    else
+      @debts = Debt.all
+    end
   end
 
   # GET /debts/1

@@ -29,6 +29,17 @@
 .separator.bottom
 .innerLR
   .widget.widget-heading-simple.widget-body-gray
+    .widget-head
+      .menubar.links.primary
+        %ul
+          %li Фильтр:
+          %li= link_to 'Все', debts_path
+          %li.divider
+          %li= link_to 'План', debts_path + '?type=plan'
+          %li.divider
+          %li= link_to 'Рассрочка', debts_path + '?type=inst'
+          %li.divider
+          %li= link_to 'Дебет', debts_path + '?type=debt'
     .widget-body
       .separator.bottom.form-inline.small
         Всего:
