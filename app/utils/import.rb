@@ -19,19 +19,15 @@ module Import
     message = ''
     count = 0
     sheet.last_row.downto(2) do |row|
-      message += 'Новая рассрочка<br />'
       # Получаем сотрудника
       employee_ln = sheet.cell('A', row).to_s.slice(/(^[^,]*)/).strip
       employee_fn = sheet.cell('A', row).to_s.slice(/([^,\s]*[^\s]$)/).strip
       employee_id = Import.whereMyEmployee(employee_ln, employee_fn, uid)
-      message += "employee_id = #{employee_id.to_s}<br />"
       # Получает клиента
       client_name = sheet.cell('B', row).to_s
       client_id = Import.getClientByName(client_name, uid)
-      message += "client_id = #{client_id.to_s}<br />"
       # Получаем бланк-заказ
       order_id = Order.where(:client_id => client_id, :employee_id => employee_id).first
-      message += "order_id = #{order_id.to_s}<br />"
       # Получаем сумму
       installsum = sheet.cell('C', row)
       # Сообщения об ошибке
@@ -50,19 +46,15 @@ module Import
     message = ''
     count = 0
     sheet.last_row.downto(2) do |row|
-      message += 'Новая дебеторская задолженность<br />'
       # Получаем сотрудника
       employee_ln = sheet.cell('A', row).to_s.slice(/(^[^,]*)/).strip
       employee_fn = sheet.cell('A', row).to_s.slice(/([^,\s]*[^\s]$)/).strip
       employee_id = Import.whereMyEmployee(employee_ln, employee_fn, uid)
-      message += "employee_id = #{employee_id.to_s}<br />"
       # Получает клиента
       client_name = sheet.cell('B', row).to_s
       client_id = Import.getClientByName(client_name, uid)
-      message += "client_id = #{client_id.to_s}<br />"
       # Получаем бланк-заказ
       order_id = Order.where(:client_id => client_id, :employee_id => employee_id).first
-      message += "order_id = #{order_id.to_s}<br />"
       # Получаем сумму
       installsum = sheet.cell('C', row)
       # Сообщения об ошибке
