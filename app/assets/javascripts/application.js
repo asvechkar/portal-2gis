@@ -19,13 +19,6 @@
 //= require holder
 //= require jquery.uniform
 //= require jquery-fileupload
-//= require jquery.flot
-//= require jquery.flot.pie
-//= require jquery.flot.tooltip
-//= require jquery.flot.selection
-//= require jquery.flot.resize
-//= require jquery.flot.orderBars
-//= require charts.helper.js
 //= require employee
 //= require incomes
 //= require upload

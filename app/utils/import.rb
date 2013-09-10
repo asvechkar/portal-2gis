@@ -11,20 +11,44 @@ module Import
     end
     return log
   end
-
+  # Функция загрузки рассрочки
+  # A - Куратор
+  # B - Юр.лицо заказчика
+  # C = Планируемый объем оплат (в план)
   def self.installments(sheet, uid)
     message = 'Прошла успешно'
+    sheet.last_row.downto(2) do |row|
+      message += 'Новая рассрочка<br />'
+      # Получаем сотрудника
+      employee_ln = sheet.cell('A', row).to_s.slice(/(^[^,]*)/).strip
+      employee_fn = sheet.cell('A', row).to_s.slice(/([^,\s]*[^\s]$)/).strip
+      employee_id = Import.whereMyEmployee(employee_ln, employee_fn, uid)
+      message += "employee_id = #{employee_id.to_s}<br />"
+      # Получает клиента
+      client_name = sheet.cell('B', row).to_s
+      client_id = Import.getClientByName(client_name, uid)
+      message += "client_id = #{client_id.to_s}<br />"
+      # Получаем бланк-заказ
+      order_id = Order.where(:client_id => client_id, :employee_id => employee_id).first
+      message += "order_id = #{order_id.to_s}<br />"
+      # Получаем сумму
+      installsum = sheet.cell('C', row)
+      Debt.create(:year => Date.today.year, :month => Date.today.month, :employee_id => employee_id, :client_id => client_id, :order_id => order_id, :debtsum => installsum, :debttype => 1, :user_id => uid)
+    end
     log = Eventlog.create(:user_id => uid, :action => 'Импорт', :model => 'Рассрочка', :status => 0, :message => message)
+    return log.id
   end
 
   def self.debts(sheet, uid)
     message = 'Прошла успешно'
     log = Eventlog.create(:user_id => uid, :action => 'Импорт', :model => 'Дебетовая задолженность', :status => 0, :message => message)
+    return log.id
   end
 
   def self.orders_cont(sheet, uid)
     message = 'Прошла успешно'
     log = Eventlog.create(:user_id => uid, :action => 'Импорт', :model => 'Продление', :status => 0, :message => message)
+    return log.id
   end
 
   def self.clients(sheet, uid)
@@ -103,5 +127,13 @@ module Import
      id = nil
      id =client.id if client
      return id
+  end
+
+  def self.getClientByName(client_name, uid)
+    name = client_name.slice(/(^[^,]*)/)
+    client = Client.where(:name => name).first
+    id = nil
+    id =client.id if client
+    return id
   end
 end

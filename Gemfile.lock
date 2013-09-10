@@ -95,6 +95,8 @@ GEM
       subexec (~> 0.2.1)
     mini_portile (0.5.1)
     minitest (4.7.5)
+    morrisjs-rails (0.4.3)
+      railties (> 3.1, < 5)
     multi_json (1.7.9)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
@@ -134,6 +136,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.11.0)
     rake (10.1.0)
+    raphael-rails (2.1.2)
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.5)
@@ -211,11 +214,13 @@ DEPENDENCIES
   jquery-fileupload-rails
   jquery-rails
   mini_magick
+  morrisjs-rails
   paperclip (~> 3.0)
   pg
   puma
   rails (= 4.0.0)
   rails_12factor
+  raphael-rails
   rolify (~> 3.3.0.rc4)
   roo
   sass-rails (~> 4.0.0)
