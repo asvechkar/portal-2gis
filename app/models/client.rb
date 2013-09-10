@@ -4,6 +4,5 @@ class Client < ActiveRecord::Base
   has_many :orders
   has_many :debts
   has_many :incomes
-  validates_presence_of :name, :code, :inn
-  validates_uniqueness_of :name, :code, :inn
+  validates_presence_of :name, :code
 end
