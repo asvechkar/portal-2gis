@@ -1,4 +1,8 @@
 ru:
-  hello: "Привет, мир!"
-  fileupload:
-    cancel: "sdfsdf"
+  views:
+    pagination:
+      first: "&laquo; Начало"
+      last: "Last &raquo;"
+      previous: "&lsaquo; Prev"
+      next: "Next &rsaquo;"
+      truncate: "..."

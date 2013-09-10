@@ -71,5 +71,6 @@
                     %i
                   = link_to debt, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
                     %i
+      = paginate @debts
 = render 'shared/upload', object: 'debt_inst', dialog_id: 'instModal'
 = render 'shared/upload', object: 'debt_debt', dialog_id: 'debtModal'

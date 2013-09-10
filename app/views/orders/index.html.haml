@@ -63,5 +63,6 @@
                   %i
                 = link_to order, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
                   %i
+      = paginate @orders
 = render 'shared/upload', object: 'order_curr', dialog_id: 'currOrders'
 = render 'shared/upload', object: 'order_cont', dialog_id: 'contOrders'

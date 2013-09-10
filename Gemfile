@@ -26,6 +26,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'therubyracer', platforms: :ruby
 gem 'morrisjs-rails'
 gem 'raphael-rails'
+gem 'kaminari'
 
 group :doc do
   gem 'sdoc', require: false

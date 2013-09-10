@@ -7,12 +7,12 @@ class DebtsController < ApplicationController
   def index
     if params[:type]
       case params[:type]
-        when 'plan' then @debts = Debt.where(:debttype => 0)
-        when 'inst' then @debts = Debt.where(:debttype => 1)
-        when 'debt' then @debts = Debt.where(:debttype => 2)
+        when 'plan' then @debts = Debt.where(:debttype => 0).page(params[:page]).per(10)
+        when 'inst' then @debts = Debt.where(:debttype => 1).page(params[:page]).per(10)
+        when 'debt' then @debts = Debt.where(:debttype => 2).page(params[:page]).per(10)
       end
     else
-      @debts = Debt.all
+      @debts = Debt.all.page(params[:page]).per(10)
     end
   end
 

@@ -28,7 +28,7 @@
     .widget-body
       .separator.bottom.form-inline.small
         Всего:
-        = @clients.count
+        = Client.all.count
       %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center
         %thead
           %tr
@@ -50,4 +50,5 @@
                     %i.icon-edit
                   = link_to client, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
                     %i
+      = paginate @clients
 = render 'shared/upload', object: 'client', dialog_id: 'clientsDialog'
