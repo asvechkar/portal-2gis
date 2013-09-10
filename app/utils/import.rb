@@ -124,7 +124,7 @@ module Import
     sheet.last_row.downto(2) { |list|
       (sheet.cell('B', list).to_s.size < 1) ? code = 'NONE' : code = sheet.cell('B', list).to_s.slice(/(^[^,]*)/)
       inn = sheet.cell('C', list)
-      newclient = Client.create(:name => sheet.cell('A', list), :code => code, :inn => inn, :user_id => uid) unless Client.where(:inn => inn).first && inn.size < 1
+      newclient = Client.create(:name => sheet.cell('A', list), :code => code, :inn => inn, :user_id => uid) unless Client.where(:code => code).first
       count += 1 if newclient
     }
     message = message + '<br><p>' + 'Импортировано ' + count.to_s + ' клиентов из ' + (sheet.last_row - 1).to_s + '</p>'
