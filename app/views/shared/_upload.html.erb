@@ -7,7 +7,7 @@
 
     <div class="container">
 
-      <%= form_for Upload.new, :html => { :multipart => true, :id => "fileupload"  } do |f| %>
+      <%= form_for Upload.new, :html => { :multipart => true, :id => 'fileupload'  } do |f| %>
           <div class="row fileupload-buttonbar">
             <div class="span7">
         <span class="btn btn-success fileinput-button">
@@ -54,8 +54,9 @@
                 when 'contOrders' then submitTitle = 'Импортировать продленные'
                 when 'instModal' then submitTitle = 'Импортировать рассрочку'
                 when 'debtModal' then submitTitle = 'Импортировать дебет'
+                when 'clientsDialog' then submitTitle = 'Импортировать клиентов'
               end %>
-            <%= f.submit submitTitle, :class => "btn btn-default" %>
+            <%= f.submit submitTitle, :class => 'btn btn-primary' %>
       <% end %>
    </div>
 </div>

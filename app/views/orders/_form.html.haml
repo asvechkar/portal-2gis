@@ -42,6 +42,10 @@
       .uniformjs
         = f.check_box :continue
   .control-group
+    = f.label :city_id, 'Город назначения', :class => 'control-label'
+    .controls
+      = f.collection_select :city_id, City.all, :id, :name, {:prompt => 'Выберите город'}
+  .control-group
     = f.label :employee_id, 'Куратор', :class => 'control-label'
     .controls
       = f.collection_select :employee_id, Employee.all, :id, :initials, {:prompt => 'Выберите сотрудника'}

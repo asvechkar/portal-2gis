@@ -16,7 +16,8 @@ module Import
   # B - Юр.лицо заказчика
   # C = Планируемый объем оплат (в план)
   def self.installments(sheet, uid)
-    message = 'Прошла успешно'
+    message = ''
+    count = 0
     sheet.last_row.downto(2) do |row|
       message += 'Новая рассрочка<br />'
       # Получаем сотрудника
@@ -33,84 +34,142 @@ module Import
       message += "order_id = #{order_id.to_s}<br />"
       # Получаем сумму
       installsum = sheet.cell('C', row)
-      Debt.create(:year => Date.today.year, :month => Date.today.month, :employee_id => employee_id, :client_id => client_id, :order_id => order_id, :debtsum => installsum, :debttype => 1, :user_id => uid)
+      # Сообщения об ошибке
+      message = message + '<br>' + 'Клиент ' + client_name.to_s + ' отсутствует в системе ' if client_id.nil?
+      message = message + '<br>' + 'Сотрудник ' + employee_fn.to_s + ' ' + employee_ln.to_s + ' отсутствует в системе' if employee_id.nil?
+      # Создание записи
+      deb = Debt.create(:year => Date.today.year, :month => Date.today.month, :employee_id => employee_id, :client_id => client_id, :order_id => order_id, :debtsum => installsum, :debttype => 1, :user_id => uid)
+      count += 1 if deb
     end
+    message = message + '<br><p>' + 'Импортировано ' + count.to_s + ' записей из ' + (sheet.last_row - 1).to_s + '</p>'
     log = Eventlog.create(:user_id => uid, :action => 'Импорт', :model => 'Рассрочка', :status => 0, :message => message)
     return log.id
   end
 
   def self.debts(sheet, uid)
-    message = 'Прошла успешно'
+    message = ''
+    count = 0
+    sheet.last_row.downto(2) do |row|
+      message += 'Новая дебеторская задолженность<br />'
+      # Получаем сотрудника
+      employee_ln = sheet.cell('A', row).to_s.slice(/(^[^,]*)/).strip
+      employee_fn = sheet.cell('A', row).to_s.slice(/([^,\s]*[^\s]$)/).strip
+      employee_id = Import.whereMyEmployee(employee_ln, employee_fn, uid)
+      message += "employee_id = #{employee_id.to_s}<br />"
+      # Получает клиента
+      client_name = sheet.cell('B', row).to_s
+      client_id = Import.getClientByName(client_name, uid)
+      message += "client_id = #{client_id.to_s}<br />"
+      # Получаем бланк-заказ
+      order_id = Order.where(:client_id => client_id, :employee_id => employee_id).first
+      message += "order_id = #{order_id.to_s}<br />"
+      # Получаем сумму
+      installsum = sheet.cell('C', row)
+      # Сообщения об ошибке
+      message = message + '<br>' + 'Клиент ' + client_name.to_s + ' отсутствует в системе ' if client_id.nil?
+      message = message + '<br>' + 'Сотрудник ' + employee_fn.to_s + ' ' + employee_ln.to_s + ' отсутствует в системе' if employee_id.nil?
+      # Создание записи
+      deb = Debt.create(:year => Date.today.year, :month => Date.today.month, :employee_id => employee_id, :client_id => client_id, :order_id => order_id, :debtsum => installsum, :debttype => 2, :user_id => uid)
+      count += 1 if deb
+    end
+    message = message + '<br><p>' + 'Импортировано ' + count.to_s + ' записей из ' + (sheet.last_row - 1).to_s + '</p>'
     log = Eventlog.create(:user_id => uid, :action => 'Импорт', :model => 'Дебетовая задолженность', :status => 0, :message => message)
     return log.id
   end
 
   def self.orders_cont(sheet, uid)
-    message = 'Прошла успешно'
-    log = Eventlog.create(:user_id => uid, :action => 'Импорт', :model => 'Продление', :status => 0, :message => message)
+    # сообщения лога
+    message = ''
+    count = 0
+    # проходим всю таблицу от начала и до второй строки
+    sheet.last_row.downto(2) { |list|
+      # получаем сотрудника
+      employee_ln = sheet.cell('A', list).to_s.slice(/(^[^,]*)/).strip
+      employee_fn = sheet.cell('A', list).to_s.slice(/([^,\s]*[^\s]$)/).strip
+      employee_id = Import.whereMyEmployee(employee_ln, employee_fn, uid)
+      # получаем клиента
+      client_name = sheet.cell('B', list).to_s
+      client_id = Import.whereMyClient(client_name, uid)
+      # Получаем город
+      city_name = sheet.cell('C', list).to_s
+      city_id = Import.getCityByName(city_name, uid)
+      # получаем номер заказа из таблицы
+      ordernum = sheet.cell('D', list)
+      # пишем warning-сообщения в лог
+      message = message + '<br>' + 'Клиент ' + client_name.to_s + ' отсутствует в системе:: запись ' + list.to_s + ' не импортирована ' if client_id.nil?
+      message = message + '<br>' + 'Сотрудник ' + employee_fn.to_s + ' ' + employee_ln.to_s + ' отсутствует в системе:: запись '  + list.to_s + ' не импортирована ' if employee_id.nil?
+      # если все условия соблюдены - создаем запись
+      order = Order.create(:employee_id => employee_id,
+                           :client_id => client_id,
+                           :user_id => uid,
+                           :city_id => city_id,
+                           :ordernum => ordernum,
+                           :ordersum => sheet.cell('E', list),
+                           :orderdate => sheet.cell('F', list),
+                           :startdate => sheet.cell('F', list),
+                           :finishdate => sheet.cell('G', list),
+                           :continue => 0,
+                           :status => 0) if client_id && Order.where(:ordernum => ordernum).first.nil? && employee_id
+      # считаем количество импортированных записей
+      count += 1 if order
+    }
+    message = message + '<br><p>' + 'Импортировано ' + count.to_s + ' записей из ' + (sheet.last_row - 1).to_s + '</p>'
+    log = Eventlog.create(:user_id => uid, :action => 'Импорт', :model => 'Продленные заказы', :status => 0, :message => message)
     return log.id
   end
 
   def self.clients(sheet, uid)
     message = ''
+    count = 0
     sheet.last_row.downto(2) { |list|
-      (sheet.cell('I', list).to_s.size < 1) ? code = 'NONE' :
-          code = sheet.cell('I', list).to_s.slice(/(^[^,]*)/)
-      inn = sheet.cell('L', list)
-      Client.create(:name => sheet.cell('A', list),
-                    :code => code,
-                    :inn => inn,
-                    :user_id => uid) unless Client.where(:inn => inn).first && inn.size < 1
+      (sheet.cell('B', list).to_s.size < 1) ? code = 'NONE' : code = sheet.cell('B', list).to_s.slice(/(^[^,]*)/)
+      inn = sheet.cell('C', list)
+      newclient = Client.create(:name => sheet.cell('A', list), :code => code, :inn => inn, :user_id => uid) unless Client.where(:inn => inn).first && inn.size < 1
+      count += 1 if newclient
     }
-    log = Eventlog.create(:user_id => uid, :action => 'Import', :model => 'Client', :status => 0, :message => message)
+    message = message + '<br><p>' + 'Импортировано ' + count.to_s + ' клиентов из ' + (sheet.last_row - 1).to_s + '</p>'
+    log = Eventlog.create(:user_id => uid, :action => 'Импорт', :model => 'Клиенты', :status => 0, :message => message)
     return log.id
   end
 
   def self.orders(sheet, uid)
     # сообщения лога
     message = ''
-    # счетчик импортированных сообщений
     count = 0
-    # проверяем, содержит ли первая колонка список кураторов
-    if sheet.cell('A', 1) == 'Куратор'
-      # проходим всю таблицу от начала и до второй строки
-      sheet.last_row.downto(2) { |list|
-          # получаем lastname сотрудника из таблицы
-          employee_ln = sheet.cell('A', list).to_s.slice(/(^[^,]*)/).strip
-          # получаем firstname сотрудника из таблицы
-          employee_fn = sheet.cell('A', list).to_s.slice(/([^,\s]*[^\s]$)/).strip
-          # проверяем, есть ли сотрудник в системе и получаем его id
-          employee_id = Import.whereMyEmployee(employee_ln, employee_fn, uid)
-          # получаем клиента из таблицы
-          client_name = sheet.cell('B', list).to_s
-          # проверяем, есть ли клиент в системе и получаем его id
-          client_id = Import.whereMyClient(client_name, uid)
-          # получаем номер  заказа из таблицы
-          ordernum = sheet.cell('D', list)
-          # пишем warning-сообщения в лог
-          message = message + '<br>' + 'Клиент ' + client_name.to_s + ' отсутствует в системе:: запись ' + list.to_s + ' не импортирована ' if client_id.nil?
-          message = message + '<br>' + 'Сотрудник ' + employee_fn.to_s + ' ' + employee_ln.to_s + ' отсутствует в системе:: запись '  + list.to_s + ' не импортирована ' if employee_id.nil?
-          # проверяем, заведен ли в системе клиент, заведен ли сотрудник и нет ли уже в базе такой записи
-          # если все условия соблюдены - создаем запись
-          order = Order.create(:employee_id => employee_id,
-                       :client_id => client_id,
-                       :user_id => uid,
-                       :ordernum => ordernum,
-                       :orderdate => sheet.cell('F', list),
-                       :startdate => sheet.cell('F', list),
-                       :finishdate => sheet.cell('G', list),
-                       :ordersum => sheet.cell('E', list),
-                       :continue => 0,
-                      :status => 0) if client_id && Order.where(:ordernum => ordernum).first.nil? && employee_id
-        # считаем количество импортированных записей
-        count += 1 if order
-      }
-      message = message + '<br><p>' + 'Импортировано ' + count.to_s + ' записей из ' + (sheet.last_row - 1).to_s + '</p>'
-      log = Eventlog.create(:user_id => uid, :action => 'Import', :model => 'Order', :status => 0, :message => message)
-    else
-      # если нет - пишем в лог ошибку и завершаем процедуру импорта
-      log = Eventlog.create(:user_id => uid, :action => 'Import', :model => 'Order', :status => 1, :message => 'Неправильный формат файла!')
-    end
+    # проходим всю таблицу от начала и до второй строки
+    sheet.last_row.downto(2) { |list|
+        # получаем сотрудника
+        employee_ln = sheet.cell('A', list).to_s.slice(/(^[^,]*)/).strip
+        employee_fn = sheet.cell('A', list).to_s.slice(/([^,\s]*[^\s]$)/).strip
+        employee_id = Import.whereMyEmployee(employee_ln, employee_fn, uid)
+        # получаем клиента
+        client_name = sheet.cell('B', list).to_s
+        client_id = Import.whereMyClient(client_name, uid)
+        # Получаем город
+        city_name = sheet.cell('C', list).to_s
+        city_id = Import.getCityByName(city_name, uid)
+        # получаем номер заказа из таблицы
+        ordernum = sheet.cell('D', list)
+        # пишем warning-сообщения в лог
+        message = message + '<br>' + 'Клиент ' + client_name.to_s + ' отсутствует в системе:: запись ' + list.to_s + ' не импортирована ' if client_id.nil?
+        message = message + '<br>' + 'Сотрудник ' + employee_fn.to_s + ' ' + employee_ln.to_s + ' отсутствует в системе:: запись '  + list.to_s + ' не импортирована ' if employee_id.nil?
+        # если все условия соблюдены - создаем запись
+        order = Order.create(:employee_id => employee_id,
+                     :client_id => client_id,
+                     :user_id => uid,
+                     :city_id => city_id,
+                     :ordernum => ordernum,
+                     :ordersum => sheet.cell('E', list),
+                     :orderdate => sheet.cell('F', list),
+                     :startdate => sheet.cell('F', list),
+                     :finishdate => sheet.cell('G', list),
+                     :continue => 0,
+                    :status => 0) if client_id && Order.where(:ordernum => ordernum).first.nil? && employee_id
+      # считаем количество импортированных записей
+      count += 1 if order
+    }
+    message = message + '<br><p>' + 'Импортировано ' + count.to_s + ' записей из ' + (sheet.last_row - 1).to_s + '</p>'
+    log = Eventlog.create(:user_id => uid, :action => 'Импорт', :model => 'Текущие заказы', :status => 0, :message => message)
     return log.id
   end
 
@@ -125,7 +184,7 @@ module Import
      code = client_name.slice(/(^[^,]*)/)
      client = Client.where(:code => code).first
      id = nil
-     id =client.id if client
+     id = client.id if client
      return id
   end
 
@@ -133,7 +192,13 @@ module Import
     name = client_name.slice(/(^[^,]*)/)
     client = Client.where(:name => name).first
     id = nil
-    id =client.id if client
+    id = client.id if client
+    return id
+  end
+
+  def self.getCityByName(city_name, uid)
+    city = City.where(:name => city_name).first
+    id = city.nil? ? nil : city.id
     return id
   end
 end

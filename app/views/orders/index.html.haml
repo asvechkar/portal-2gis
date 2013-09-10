@@ -35,6 +35,7 @@
         %thead
           %tr
             %th.center №
+            %th.cemter Город
             %th.center Куратор
             %th.center Клиент
             %th.center Начало
@@ -47,6 +48,7 @@
           - @orders.each do |order|
             %tr
               %td.center= order.ordernum
+              %td= order.city.name if order.city
               %td= order.employee.initials
               %td= order.client.name if order.client
               %td.center= order.startdate.strftime('%d.%m.%Y')

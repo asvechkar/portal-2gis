@@ -50,9 +50,9 @@
               %tr
                 %td.center= debt.year
                 %td.center= debt.month
-                %td{ style: 'min-width: 150px;' }= debt.employee.initials
-                %td= debt.client.name
-                %td{ style: 'min-width: 200px;' }= debt.order.ordernum
+                %td{ style: 'min-width: 150px;' }= debt.employee ? debt.employee.initials : 'пусто'
+                %td= debt.client ? debt.client.name : 'пусто'
+                %td{ style: 'min-width: 200px;' }= debt.order ? debt.order.ordernum : 'пусто'
                 %td= debt.decode_type
                 %td{ style: 'min-width: 100px;' }= number_to_currency(debt.debtsum, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
                 %td.center.actions-bar

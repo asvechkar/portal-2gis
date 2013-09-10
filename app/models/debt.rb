@@ -3,9 +3,9 @@ class Debt < ActiveRecord::Base
   belongs_to :client
   belongs_to :order
   belongs_to :user
-  validates_presence_of :year, :month, :employee, :client, :order, :debtsum, :debttype, :user
+  validates_presence_of :year, :month, :debtsum, :debttype, :user # , :employee, :client, :order,
 
-  def decode_type
+      def decode_type
     case self.debttype
       when 0
         'план'

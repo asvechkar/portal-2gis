@@ -37,7 +37,7 @@
               %h2= @order.client.name if @order.client
               %address.margin-none
                 %abbr Город:
-                = @order.client.city.name if @order.client.city
+                = @order.city.name if @order.city
                 %br
                 %abbr ИНН:
                 = @order.client.inn if @order.client
