@@ -39,8 +39,8 @@
           - @incomes.each do |income|
             %tr
               %td.center= income.indate.strftime('%d.%m.%Y')
-              %td= income.client.name
-              %td= income.employee.initials
+              %td= income.client.name if income.client
+              %td= income.employee.initials if income.employee
               %td= income.order.ordernum if income.order
               %td.center= income.cash == true ? 'да' : 'нет'
               %td= number_to_currency(income.insum, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
