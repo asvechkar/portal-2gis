@@ -45,7 +45,7 @@ class Employee < ActiveRecord::Base
   end
 
   def get_new_fact_weight
-    orders = Order.select(:client_id).where(:employee => self, :startdate => Date.today.next_month.at_beginning_of_month)
+    orders = Order.where(:employee => self, :startdate => Date.today.next_month.at_beginning_of_month)
     weight = 0
     unless orders.empty?
       orders.each do |order|
