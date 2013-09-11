@@ -29,6 +29,11 @@ class Employee < ActiveRecord::Base
     plans.empty? ? 0 : plans.first.clients
   end
 
+  def get_new_fact_clients
+    orders = Order.select(:client_id).where(:employee => self, :startdate => Date.today.next_month.at_beginning_of_month).group(:client_id)
+    orders.empty? ? 0 : orders.all.count
+  end
+
   def get_cont_plan_clients
     orders = Order.select(:client_id).where(:employee => self, :continue => 1, :finishdate => Date.today.at_end_of_month).group(:client_id)
     orders.empty? ? 0 : orders.all.count
