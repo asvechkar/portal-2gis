@@ -49,4 +49,14 @@ class Employee < ActiveRecord::Base
     end
     return weight
   end
+
+  def get_installment_sum
+    instsum = Debt.where(:year => Date.today.year, :month => Date.today.month, :employee => self, :debttype => 1).sum(:debtsum)
+    return instsum
+  end
+
+  def get_debt_sum
+    debtsum = Debt.where(:year => Date.today.year, :month => Date.today.month, :employee => self, :debttype => 2).sum(:debtsum)
+    return debtsum
+  end
 end
