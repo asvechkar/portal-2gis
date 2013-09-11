@@ -5,6 +5,6 @@ class ReportsController < ApplicationController
   end
 
   def planfact
-    @report_data = Employee.all
+    @report_data = Employee.all.map{|employee| employee.groups.first.nil? ? nil : employee}.compact
   end
 end
