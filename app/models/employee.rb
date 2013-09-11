@@ -81,12 +81,16 @@ class Employee < ActiveRecord::Base
   end
 
   def get_prolong_percents
-    prolongs = self.get_cont_plan_clients
-    factprolongs = Order.select(:client_id).where("employee_id = #{self.id} AND startdate = '#{Date.today.next_month.at_beginning_of_month}' AND order_id IS NOT NULL").group(:client_id)
-    if factprolongs.empty?
+    plan = Order.select(:client_id).where(:employee => self, :finishdate => Date.today.at_end_of_month).group(:client_id)
+    fact = Order.select(:client_id).where("employee_id = #{self.id} AND startdate = '#{Date.today.next_month.at_beginning_of_month}' AND order_id IS NOT NULL").group(:client_id)
+    if fact.empty?
       return 0
     else
-      ((factprolongs.all.count.to_f / prolongs.to_f) * 100).to_i
+      if plan.empty?
+        return 0
+      else
+        ((fact.all.count.to_f / plan.all.count.to_f) * 100).to_i
+      end
     end
   end
 end
