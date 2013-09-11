@@ -1,5 +1,7 @@
 Portal2gis::Application.routes.draw do
 
+  get "reports/index"
+  get "reports/planfact"
   get 'positions/level' => 'positions#level'
   get 'debts/floating' => 'debts#floating'
   get 'employees/get_groups_by_branch_id/:id' => 'employees#get_groups_by_branch_id'

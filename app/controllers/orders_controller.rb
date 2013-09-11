@@ -5,7 +5,15 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all.page(params[:page]).per(10)
+    if params[:type]
+      lastDay = Date.today.at_end_of_month
+      case params[:type]
+        when 'current' then @orders = Order.where("finishdate > '#{lastDay}'").page(params[:page]).per(10)
+        when 'continue' then @orders = Order.where("finishdate = '#{lastDay}'").page(params[:page]).per(10)
+      end
+    else
+      @orders = Order.all.page(params[:page]).per(10)
+    end
   end
 
   # GET /orders/1

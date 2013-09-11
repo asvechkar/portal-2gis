@@ -44,28 +44,38 @@
             = link_to 'Уровни опыта', levels_path
           %li{ :class => current_page?(averagebills_path) ? 'active' : nil }
             = link_to 'Средний чек', averagebills_path
-      %li{ :class => current_page?(plans_path) ? 'active' : nil }
-        = link_to plans_path, :class => 'glyphicons stats' do
+      %li.dropdown.dd-1
+        = link_to '', 'data-toggle' => 'dropdown', :class => 'glyphicons gbp' do
           %i
-          Планы
-      %li{ :class => current_page?(debts_path) ? 'active' : nil }
-        = link_to debts_path, :class => 'glyphicons wallet' do
-          %i
-          Задолженность
-      %li{ :class => current_page?(incomes_path) ? 'active' : nil }
-        = link_to incomes_path, :class => 'glyphicons coins' do
-          %i
-          Поступления
-      %li{ :class => current_page?(orders_path) ? 'active' : nil }
-        = link_to orders_path, :class => 'glyphicons notes_2' do
-          %i
-          Заказы
-      %li{ :class => current_page?(uploads_path) ? 'active' : nil }
-        = link_to uploads_path, :class => 'glyphicons cloud-upload' do
-          %i
-          Загрузка
-      %li{ :class => current_page?(eventlogs_path) ? 'active' : nil }
-        = link_to eventlogs_path, :class => 'glyphicons bug' do
-          %i
-          Журнал событий
+          Финансы
+          %span.icon-chevron-right
+        %ul.dropdown-menu.pull-left
+          %li{ :class => current_page?(plans_path) ? 'active' : nil }
+            = link_to plans_path, :class => 'glyphicons calendar' do
+              %i
+              Планы
+          %li{ :class => current_page?(debts_path) ? 'active' : nil }
+            = link_to debts_path, :class => 'glyphicons wallet' do
+              %i
+              Задолженность
+          %li{ :class => current_page?(incomes_path) ? 'active' : nil }
+            = link_to incomes_path, :class => 'glyphicons coins' do
+              %i
+              Поступления
+          %li{ :class => current_page?(orders_path) ? 'active' : nil }
+            = link_to orders_path, :class => 'glyphicons notes_2' do
+              %i
+              Заказы
+          %li{ :class => current_page?(reports_planfact_path) ? 'active' : nil }
+            = link_to reports_planfact_path, :class => 'glyphicons stats' do
+              %i
+              План-Факт
+          %li{ :class => current_page?(uploads_path) ? 'active' : nil }
+            = link_to uploads_path, :class => 'glyphicons cloud-upload' do
+              %i
+              Загрузка
+          %li{ :class => current_page?(eventlogs_path) ? 'active' : nil }
+            = link_to eventlogs_path, :class => 'glyphicons bug' do
+              %i
+              Журнал событий
     .clearfix
