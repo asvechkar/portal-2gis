@@ -44,6 +44,17 @@ class Employee < ActiveRecord::Base
     plans.empty? ? 0 : plans.first.weight
   end
 
+  def get_new_fact_weight
+    orders = Order.select(:client_id).where(:employee => self, :startdate => Date.today.next_month.at_beginning_of_month)
+    weight = 0
+    unless orders.empty?
+      orders.each do |order|
+        weight += order.weight
+      end
+    end
+    return weight
+  end
+
   def get_cont_plan_weight
     orders = Order.where(:employee => self, :continue => 1, :finishdate => Date.today.at_end_of_month)
     weight = 0
