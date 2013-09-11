@@ -23,4 +23,14 @@ class Employee < ActiveRecord::Base
   def initials
     self.lastname + ' ' + self.firstname[0] + '.' + self.middlename[0] + '.'
   end
+
+  def get_new_plan_clients
+    plans = Plan.where(:year => Date.today.year, :month => Date.today.month, :employee => self)
+    plans.empty? ? 0 : plans.first.clients
+  end
+
+  def get_cont_plan_clients
+    orders = Order.where(:employee => self, :continue => 1, :finishdate => Date.today.at_end_of_month)
+    orders.empty? ? 0 : orders.all.count
+  end
 end
