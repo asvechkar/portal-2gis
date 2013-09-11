@@ -5,7 +5,7 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.all.page(params[:page]).per(10)
+    @clients = Client.all.page(params[:page]).per(25)
   end
 
   # GET /clients/1
