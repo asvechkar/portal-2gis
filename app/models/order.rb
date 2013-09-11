@@ -32,7 +32,8 @@ class Order < ActiveRecord::Base
 
   def floating_debt(uid)
     count = 0
-    months = Time.at(self.finishdate - self.startdate).month # + 1
+    # months = Time.at(self.finishdate - self.startdate).month # + 1
+    months = (self.finishdate.year * 12 + self.finishdate.month) - (self.startdate.year * 12 + self.startdate.month) + 1
     now = self.startdate
     debtsum = self.ordersum / months
     months.times {

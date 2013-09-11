@@ -30,7 +30,7 @@ class Employee < ActiveRecord::Base
   end
 
   def get_cont_plan_clients
-    orders = Order.where(:employee => self, :continue => 1, :finishdate => Date.today.at_end_of_month)
+    orders = Order.select(:client_id).where(:employee => self, :continue => 1, :finishdate => Date.today.at_end_of_month).group(:client_id)
     orders.empty? ? 0 : orders.all.count
   end
 
