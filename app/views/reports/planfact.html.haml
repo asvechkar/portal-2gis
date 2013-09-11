@@ -53,6 +53,6 @@
               %td= number_to_currency((row.get_new_plan_weight + row.get_cont_plan_weight), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Груз план
               %td= number_to_currency(row.get_new_fact_weight, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Груз факт
               %td= number_to_currency((((row.get_new_plan_weight + row.get_cont_plan_weight) * 2.5) + row.get_installment_sum + row.get_debt_sum), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Поступления план
-              %td= 0# Поступления факт
+              %td= number_to_currency(row.get_fact_incomes, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Поступления факт
               %td= 0# % продления
               %td= 0# ИК

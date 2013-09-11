@@ -75,4 +75,8 @@ class Employee < ActiveRecord::Base
     debtsum = Debt.where(:year => Date.today.year, :month => Date.today.month, :employee => self, :debttype => 2).sum(:debtsum)
     return debtsum
   end
+
+  def get_fact_incomes
+    return Income.where("indate BETWEEN '#{Date.today.at_beginning_of_month}' AND '#{Date.today.at_end_of_month}' AND employee_id = #{self.id}").sum(:insum)
+  end
 end
