@@ -50,6 +50,7 @@
             %th.center Начало
             %th.center Окончание
             %th.center Сумма
+            %th.center Груз
             %th.center Статус
             %th.center Продление
             %th
@@ -63,6 +64,7 @@
               %td.center= order.startdate.strftime('%d.%m.%Y')
               %td.center= order.finishdate.strftime('%d.%m.%Y')
               %td= number_to_currency(order.ordersum, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+              %td= number_to_currency(order.weight, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
               %td= order.status_desc
               %td.center= order.continue_desc
               %td.center.actions-bar

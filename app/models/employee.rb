@@ -33,4 +33,20 @@ class Employee < ActiveRecord::Base
     orders = Order.where(:employee => self, :continue => 1, :finishdate => Date.today.at_end_of_month)
     orders.empty? ? 0 : orders.all.count
   end
+
+  def get_new_plan_weight
+    plans = Plan.where(:year => Date.today.year, :month => Date.today.month, :employee => self)
+    plans.empty? ? 0 : plans.first.weight
+  end
+
+  def get_cont_plan_weight
+    orders = Order.where(:employee => self, :continue => 1, :finishdate => Date.today.at_end_of_month)
+    weight = 0
+    unless orders.empty?
+      orders.each do |order|
+        weight += order.weight
+      end
+    end
+    return weight
+  end
 end

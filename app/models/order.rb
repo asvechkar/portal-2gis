@@ -23,6 +23,12 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def weight
+    months = Time.at(self.finishdate - self.startdate).month
+    debtsum = self.ordersum / months
+    return debtsum
+  end
+
   def floating_debt(uid)
     count = 0
     months = Time.at(self.finishdate - self.startdate).month # + 1

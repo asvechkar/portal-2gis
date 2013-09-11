@@ -42,8 +42,8 @@
               %td= plan.year
               %td= plan.month
               %td= plan.clients
-              %td= number_to_currency(get_plan_weight(plan), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
-              %td= number_to_currency((get_plan_weight(plan) * 2.5), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+              %td= number_to_currency(plan.weight, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+              %td= number_to_currency((plan.weight * 2.5), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
               %td.center.actions-bar
                 = link_to plan, :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
                   %i
