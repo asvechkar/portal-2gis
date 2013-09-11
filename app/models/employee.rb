@@ -86,7 +86,7 @@ class Employee < ActiveRecord::Base
     if factprolongs.empty?
       return 0
     else
-      (factprolongs.all.count / prolongs)
+      ((factprolongs.all.count.to_f / prolongs.to_f) * 100).to_i
     end
   end
 end
