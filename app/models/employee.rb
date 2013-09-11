@@ -79,4 +79,14 @@ class Employee < ActiveRecord::Base
   def get_fact_incomes
     return Income.where("indate BETWEEN '#{Date.today.at_beginning_of_month}' AND '#{Date.today.at_end_of_month}' AND employee_id = #{self.id}").sum(:insum)
   end
+
+  def get_prolong_percents
+    prolongs = self.get_cont_plan_clients
+    factprolongs = Order.select(:client_id).where(:employee => self, :startdate => Date.today.next_month.at_beginning_of_month, :order_id => !nil).group(:client_id)
+    if factprolongs.empty?
+      return 0
+    else
+      (factprolongs.count / prolongs)
+    end
+  end
 end
