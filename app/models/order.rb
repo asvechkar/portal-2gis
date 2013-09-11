@@ -11,6 +11,7 @@ class Order < ActiveRecord::Base
     case self.status
       when 0 then 'Открыт'
       when 1 then 'Закрыт'
+      when 2 then 'Отказ'
       else 'Аннулирован'
     end
   end

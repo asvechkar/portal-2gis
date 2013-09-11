@@ -53,6 +53,7 @@
             %th.center Груз
             %th.center Статус
             %th.center Продление
+            %th.center Старый БЗ
             %th
         %tbody
           - @orders.each do |order|
@@ -67,6 +68,7 @@
               %td= number_to_currency(order.weight, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
               %td= order.status_desc
               %td.center= order.continue_desc
+              %td= Order.find(order.order_id).ordernum if order.order_id
               %td.center.actions-bar
                 = link_to order, :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
                   %i

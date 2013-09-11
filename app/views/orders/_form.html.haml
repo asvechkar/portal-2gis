@@ -53,6 +53,14 @@
     = f.label :client_id, 'Клиент', :class => 'control-label'
     .controls
       = f.collection_select :client_id, Client.all, :id, :name, {:prompt => 'Выберите клиента'}
+  .control-group
+    = f.label :status, 'Статус', :class => 'control-label'
+    .controls
+      = select :order, :status, Tools.status_list
+  .control-group
+    = f.label :order_id, 'Предыдущий бланк', :class => 'control-label'
+    .controls
+      = f.collection_select :order_id, Order.all, :id, :ordernum, {:prompt => 'Выберите бланк-заказ'}
   %hr.separator
   .form-actions
     = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'
