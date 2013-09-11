@@ -24,8 +24,7 @@ gem 'figaro', '~> 0.7.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'jbuilder', '~> 1.2'
 gem 'therubyracer', platforms: :ruby
-gem 'morrisjs-rails'
-gem 'raphael-rails'
+gem 'highcharts-rails', '~> 3.0.0'
 gem 'kaminari'
 
 group :doc do

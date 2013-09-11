@@ -4,6 +4,8 @@
 //= require jquery.bootstrap.wizard
 //= require jquery.inputmask.bundle
 //= require jquery.toggle.buttons
+//= require highcharts
+//= require highcharts/highcharts-more
 //= require beautify
 //= require beautify-html
 //= require jquery.prettyPhoto
