@@ -24,7 +24,7 @@ class Order < ActiveRecord::Base
   end
 
   def weight
-    months = Time.at(self.finishdate - self.startdate).month
+    months = Time.at(self.finishdate - self.startdate).month - 1
     debtsum = self.ordersum / months
     return debtsum
   end
