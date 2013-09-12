@@ -5,30 +5,36 @@
       %ul
         - @debt.errors.full_messages.each do |msg|
           %li= msg
-
-  .field
-    = f.label :year
-    = f.number_field :year
-  .field
-    = f.label :month
-    = f.number_field :month
-  .field
-    = f.label :employee
-    = f.text_field :employee
-  .field
-    = f.label :client
-    = f.text_field :client
-  .field
-    = f.label :order
-    = f.text_field :order
-  .field
-    = f.label :debtsum
-    = f.text_field :debtsum
-  .field
-    = f.label :debttype
-    = f.number_field :debttype
-  .field
-    = f.label :user
-    = f.text_field :user
-  .actions
-    = f.submit 'Save'
+  .control-group
+    = f.label :year, 'Год', :class => 'control-label'
+    .controls
+      = select :debt, :year, years_list
+  .control-group
+    = f.label :month, 'Месяц', :class => 'control-label'
+    .controls
+      = select :debt, :month, months_list
+  .control-group
+    = f.label :employee_id, 'Куратор', :class => 'control-label'
+    .controls
+      = f.collection_select :employee_id, Employee.all, :id, :initials, {:prompt => 'Выберите сотрудника'}
+  .control-group
+    = f.label :client_id, 'Клиент', :class => 'control-label'
+    .controls
+      = f.collection_select :client_id, Client.all, :id, :name, {:prompt => 'Выберите клиента'}, :class => 'span8'
+  .control-group
+    = f.label :order, 'Бланк-заказ', :class => 'control-label'
+    .controls
+      = f.collection_select :order_id, Order.where(:client_id => @debt.client_id), :id, :ordernum, {:prompt => 'Выберите бланк-заказ'}
+  .control-group
+    = f.label :debtsum, 'Сумма задолженности', :class => 'control-label'
+    .controls
+      .input-append
+        = f.text_field :debtsum
+        %span.add-on руб
+  .control-group
+    = f.label :debttype, 'Тип задолженности', :class => 'control-label'
+    .controls
+      = select :debt, :debttype, Debt.type_list
+  %hr.separator
+  .form-actions
+    = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'

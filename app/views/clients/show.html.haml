@@ -21,11 +21,11 @@
       %ul
         %li= link_to 'Редактировать', edit_client_path(@client)
     %dl
-      %dt Наименование
+      %dt Юр. Лицо
       %dd= @client.name
       %dt ИНН
       %dd= @client.inn
-      %dt Код
+      %dt Название фирмы
       %dd= @client.code
       %dt Город
       %dd= @client.city.name if @client.city

@@ -5,7 +5,7 @@ class Debt < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :year, :month, :debtsum, :debttype, :user # , :employee, :client, :order,
 
-      def decode_type
+  def decode_type
     case self.debttype
       when 0
         'план'
@@ -14,6 +14,14 @@ class Debt < ActiveRecord::Base
       when 2
         'дебет'
     end
+  end
+  
+  def self.type_list
+    {
+      'План' => 0,
+      'Рассрочка' => 1,
+      'Дебет' => 2
+    }
   end
 
 end

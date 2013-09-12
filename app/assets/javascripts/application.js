@@ -23,6 +23,7 @@
 //= require jquery-fileupload
 //= require employee
 //= require incomes
+//= require debts
 //= require upload
 
 
