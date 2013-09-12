@@ -14,6 +14,12 @@
   %h3
     План продаж
   .buttons.pull-right
+    = link_to new_order_path, :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
+      %i
+      Новый заказ
+    = link_to new_income_path, :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
+      %i
+      Новое поступление
     = link_to '#', :class => 'btn btn-primary btn-icon glyphicons refresh' do
       %i
       Обновить
