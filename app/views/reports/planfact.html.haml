@@ -55,4 +55,4 @@
               %td= number_to_currency((((row.get_new_plan_weight + row.get_cont_plan_weight) * 2.5) + row.get_installment_sum + row.get_debt_sum), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Поступления план
               %td= number_to_currency(row.get_fact_incomes, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Поступления факт
               %td.center= row.get_prolong_percents # % продления
-              %td= row.get_ic # ИК
+              %td= "%.3f" % row.get_ic # ИК
