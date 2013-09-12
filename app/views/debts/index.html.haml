@@ -25,6 +25,10 @@
     = link_to '#debtModal', :class => 'btn btn-primary btn-icon glyphicons circle_plus', :data => {:toggle=>"modal"} do
       %i
       Импорт дебета
+  .buttons.pull-right
+    = link_to new_debt_path, :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
+      %i
+      Навая задолженность
   .clearfix
 .separator.bottom
 .innerLR
