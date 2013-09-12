@@ -93,4 +93,11 @@ class Employee < ActiveRecord::Base
       end
     end
   end
+
+  def get_ic
+    first = (self.get_new_fact_clients.to_f / (self.get_new_plan_clients + self.get_cont_plan_clients).to_f) * 0.2
+    second = (self.get_new_fact_weight.to_f / (self.get_new_plan_weight + self.get_cont_plan_weight).to_f) * 0.3
+    third = (self.get_fact_incomes.to_f / (((self.get_new_plan_weight + self.get_cont_plan_weight) * 2.5) + self.get_installment_sum + self.get_debt_sum).to_f) * 0.3
+    first + second + third
+  end
 end

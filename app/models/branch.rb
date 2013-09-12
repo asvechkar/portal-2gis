@@ -5,6 +5,7 @@ class Branch < ActiveRecord::Base
   has_many :groups
   has_many :employees
   has_many :averagebills
+  has_many :plancents
   validates_presence_of :name
   validates_uniqueness_of :name
 end

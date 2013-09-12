@@ -1,5 +1,7 @@
 Portal2gis::Application.routes.draw do
 
+  resources :plancents
+
   get "reports/index"
   get "reports/planfact"
   get 'positions/level' => 'positions#level'

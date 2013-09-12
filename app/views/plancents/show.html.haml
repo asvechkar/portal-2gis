@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Year:
+  = @plancent.year
+%p
+  %b Month:
+  = @plancent.month
+%p
+  %b Branch:
+  = @plancent.branch
+%p
+  %b Fromprc:
+  = @plancent.fromprc
+%p
+  %b Toprc:
+  = @plancent.toprc
+%p
+  %b Mult:
+  = @plancent.mult
+
+= link_to 'Edit', edit_plancent_path(@plancent)
+\|
+= link_to 'Back', plancents_path

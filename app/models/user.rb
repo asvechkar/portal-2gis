@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   has_many :averagebills
   has_many :incomes
   has_many :eventlogs
+  has_many :plancents
   has_and_belongs_to_many :roles,
                           :join_table => :users_roles,
                           :foreign_key => 'role_id',

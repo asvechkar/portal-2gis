@@ -1,0 +1,51 @@
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы сейчас здесь
+  %li
+    = link_to root_path, :class => 'glyphicons dashboard' do
+      %i
+      Главная
+  %li.divider
+  %li Плановый процент продлений
+.heading-buttons
+  %h3
+    Плановый процент продлений
+  .buttons.pull-right
+    = link_to new_plancent_path, :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
+      %i
+      Добавить процент
+  .clearfix
+.separator.bottom
+.innerLR
+  .widget.widget-heading-simple.widget-body-gray
+    .widget-body
+      .separator.bottom.form-inline.small
+        Всего:
+        = @plancents.count
+      %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center
+        %thead
+          %tr
+            %th.center Филиал
+            %th.center Год
+            %th.center Месяц
+            %th.center От
+            %th.center До
+            %th.center Множитель
+            %th
+        %tbody
+          - @plancents.each do |plancent|
+            %tr
+              %td= plancent.branch.name if plancent.branch
+              %td= plancent.year
+              %td= plancent.month
+              %td= plancent.fromprc
+              %td= plancent.toprc
+              %td= plancent.mult
+              %td.center.actions-bar
+                = link_to edit_plancent_path(plancent), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
+                  %i
+                = link_to plancent, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
+                  %i

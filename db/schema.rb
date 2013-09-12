@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130911221028) do
+ActiveRecord::Schema.define(version: 20130912000453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -171,6 +171,21 @@ ActiveRecord::Schema.define(version: 20130911221028) do
   add_index "orders", ["employee_id"], name: "index_orders_on_employee_id", using: :btree
   add_index "orders", ["order_id"], name: "index_orders_on_order_id", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
+
+  create_table "plancents", force: true do |t|
+    t.integer  "year"
+    t.integer  "month"
+    t.integer  "branch_id"
+    t.integer  "user_id"
+    t.integer  "fromprc"
+    t.integer  "toprc"
+    t.float    "mult"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "plancents", ["branch_id"], name: "index_plancents_on_branch_id", using: :btree
+  add_index "plancents", ["user_id"], name: "index_plancents_on_user_id", using: :btree
 
   create_table "plans", force: true do |t|
     t.integer  "year",        null: false

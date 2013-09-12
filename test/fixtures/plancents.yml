@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  year: 1
+  month: 1
+  branch_id: 
+  fromprc: 1
+  toprc: 1
+  mult: 1.5
+
+two:
+  year: 1
+  month: 1
+  branch_id: 
+  fromprc: 1
+  toprc: 1
+  mult: 1.5

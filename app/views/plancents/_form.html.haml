@@ -1,0 +1,35 @@
+= form_for @plancent, :html => {:class => 'form-horizontal'} do |f|
+  - if @plancent.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@plancent.errors.count, "error")} prohibited this city from being saved:"
+      %ul
+        - @plancent.errors.full_messages.each do |msg|
+          %li= msg
+
+  .control-group
+    = f.label :branch_id, 'Филиал', :class => 'control-label'
+    .controls
+      = f.collection_select :branch_id, Branch.all, :id, :name, {:prompt => 'Выберите филиал'}
+  .control-group
+    = f.label :year, 'Плановый год', :class => 'control-label'
+    .controls
+      = select :plancent, :year, years_list
+  .control-group
+    = f.label :month, 'Плановый месяц', :class => 'control-label'
+    .controls
+      = select :plancent, :month, months_list
+  .control-group
+    = f.label :fromprc, '% продлений от', :class => 'control-label'
+    .controls
+      = f.number_field :fromprc
+  .control-group
+    = f.label :toprc, '% продлений до', :class => 'control-label'
+    .controls
+      = f.number_field :toprc
+  .control-group
+    = f.label :mult, '% продлений до', :class => 'control-label'
+    .controls
+      = f.text_field :mult
+  %hr.separator
+  .form-actions
+    = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'
