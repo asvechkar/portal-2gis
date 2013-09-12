@@ -46,7 +46,7 @@ class PlansController < ApplicationController
     respond_to do |format|
       if @plan.update(plan_params)
         Tools.write2log(current_user.id, 'Обновление', 'Планы', 0, plan_params.to_s)
-        format.html { redirect_to @plan, notice: 'План был успешно обновлен.' }
+        format.html { redirect_to plans_path, notice: 'План был успешно обновлен.' }
         format.json { head :no_content }
       else
         Tools.write2log(current_user.id, 'Обновление', 'Планы', 1, plan_params.to_s)

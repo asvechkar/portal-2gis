@@ -45,8 +45,6 @@
               %td= number_to_currency(plan.weight, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
               %td= number_to_currency((plan.weight * 2.5), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
               %td.center.actions-bar
-                = link_to plan, :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
-                  %i
                 = link_to edit_plan_path(plan), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
                   %i
                 = link_to plan, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
