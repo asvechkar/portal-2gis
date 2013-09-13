@@ -63,18 +63,21 @@
           - branch_ic = 0
           - @branches.first.groups.each do |group|
             - group_clients_plan = 0
+            - group_con_clients_plan = 0
             - group_clients_fact = 0
             - group_weight_plan = 0
             - group_weight_fact = 0
             - group_incomes_plan = 0
             - group_incomes_fact = 0
             - group_prolong_percent = 0
+            - group_debt = 0
             - group_ic = 0
             - group.employees.all.each do |employee|
               %tr
                 %td= employee.initials # Куратор
                 %td.center= employee.get_new_plan_clients + employee.get_cont_plan_clients # Клиенты план
                 - group_clients_plan += employee.get_new_plan_clients + employee.get_cont_plan_clients
+                - group_con_clients_plan += employee.get_cont_plan_clients
                 %td.center= employee.get_new_fact_clients # Клиенты факт
                 - group_clients_fact += employee.get_new_fact_clients
                 %td= number_to_currency((employee.get_new_plan_weight + employee.get_cont_plan_weight), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Груз план
@@ -85,10 +88,9 @@
                 - group_incomes_plan += ((employee.get_new_plan_weight + employee.get_cont_plan_weight) * 2.5) + employee.get_installment_sum + employee.get_debt_sum
                 %td= number_to_currency(employee.get_fact_incomes, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Поступления факт
                 - group_incomes_fact += employee.get_fact_incomes
+                - group_debt = employee.get_installment_sum + employee.get_debt_sum
                 %td.center= employee.get_prolong_percents # % продления
-                - group_prolong_percent += employee.get_prolong_percents
                 %td= '%.3f' % employee.get_ic # ИК
-                - group_ic += employee.get_ic
             %tr
               %td
                 %strong
@@ -112,9 +114,21 @@
               %td
                 %strong= number_to_currency(group_incomes_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
               - branch_incomes_fact += group_incomes_fact
+              - group_prolong_percent = (group_clients_fact.to_f / group_con_clients_plan.to_f) * 100
               %td.center
                 %strong= group_prolong_percent
               - branch_prolong_percent += group_prolong_percent
+              -# Расчет группового ИК
+              - first = (group_clients_fact.to_f / group_clients_plan.to_f) * 0.2
+              - second = (group_weight_fact.to_f / group_weight_plan.to_f) * 0.3
+              - third = (group_incomes_fact.to_f / ((group_weight_plan * 2.5) + group_debt).to_f) * 0.3
+              - group_ic = first + second + third
+              - prolong = group_prolong_percent.nan? ? 0 : group_prolong_percent
+              - mult = Plancent.where("branch_id = #{group.branch_id} AND year = #{Date.today.year} AND month = #{Date.today.month} AND fromprc <= '#{prolong}' AND toprc >= '#{prolong}'")
+              - if mult.empty?
+                - group_ic += 0
+              - else
+                - group_ic += mult.first.mult * 0.2
               %td
                 %strong= '%.3f' % group_ic
               - branch_ic += group_ic
