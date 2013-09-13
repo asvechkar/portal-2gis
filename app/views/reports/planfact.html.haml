@@ -91,14 +91,14 @@
               %td.center
                 %strong= group_clients_fact
               %td
-                %strong= group_weight_plan
+                %strong= number_to_currency(group_weight_plan, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
               %td
-                %strong= group_weight_fact
+                %strong= number_to_currency(group_weight_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
               %td
-                %strong= group_incomes_plan
+                %strong= number_to_currency(group_incomes_plan, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
               %td
-                %strong= group_incomes_fact
+                %strong= number_to_currency(group_incomes_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
               %td.center
                 %strong= group_prolong_percent
               %td
-                %strong= group_ic
+                %strong= "%.3f" % group_ic
