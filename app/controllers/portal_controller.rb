@@ -2,35 +2,24 @@ class PortalController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    a = Array.new
-    @theend = Hash.new
-    firstDay = Date.today.at_beginning_of_month
-    lastDay = Date.today.at_end_of_month
-    #@allincomes = Income.all
-    #@alldates = Income.select('indate').where("indate BETWEEN '#{firstDay}' AND '#{lastDay}'").order(:indate).uniq
-    incomes = Income.select('SUM(insum) as totalsum, employee_id, indate').where("indate BETWEEN '#{firstDay}' AND '#{lastDay}'").group('employee_id, indate').order(:indate)
-    # TODO: вместо запросов сделать сортировки массива incomes
-    employees = Income.select('employee_id').uniq
-    indates = Income.select('indate').where("indate BETWEEN '#{firstDay}' AND '#{lastDay}'").order(:indate).uniq
-    b = Array.new
-    fio = Array.new
-    indates.each do |indate|
-      h = Hash.new
-      h[:indate] = indate.indate.strftime('%d.%m.%Y')
-      employees.each do |emp|
-        # TODO: one-  query
-        if incomes.where(employee_id: emp.employee_id, indate: indate.indate).first
-          h['e' + emp.employee_id.to_s] = incomes.where(employee_id: emp.employee_id, indate: indate.indate).first.totalsum
-        #else
-        #  h['e' + emp.employee_id.to_s] = 0
-        end
-        b << 'e' + emp.employee_id.to_s
-        fio << Employee.find(emp.employee_id).initials
+    @branch = City.where(:name => 'Рязань').first.branches.first
+    @total_clients_plan = 0
+    @total_clients_fact = Array.new
+    days = Date.today.day
+    @branch.groups.all.each do |group|
+      group.employees.all.each do |employee|
+        @total_clients_plan += employee.get_new_plan_clients + employee.get_cont_plan_clients
       end
-      a << h
     end
-    @theend['data'] = a
-    @theend['labels'] = b.uniq
-    @theend['initials'] = fio.uniq
+    total_clients_fact_dif = 0
+    (1..days).each do |day|
+      orderdate = Date.new(Date.today.year, Date.today.month, day)
+      @branch.groups.all.each do |group|
+        group.employees.all.each do |employee|
+          total_clients_fact_dif += employee.get_fact_clients_by_date orderdate
+        end
+      end
+      @total_clients_fact << total_clients_fact_dif
+    end
   end
 end

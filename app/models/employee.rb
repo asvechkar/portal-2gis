@@ -34,6 +34,11 @@ class Employee < ActiveRecord::Base
     orders.empty? ? 0 : orders.all.count
   end
 
+  def get_fact_clients_by_date date
+    orders = Order.select(:client_id).where(:employee => self, :orderdate => date).group(:client_id)
+    orders.empty? ? 0 : orders.all.count
+  end
+
   def get_cont_plan_clients
     orders = Order.select(:client_id).where(:employee => self, :continue => 1, :finishdate => Date.today.at_end_of_month).group(:client_id)
     orders.empty? ? 0 : orders.all.count
@@ -52,7 +57,7 @@ class Employee < ActiveRecord::Base
         weight += order.weight
       end
     end
-    return weight
+    weight
   end
 
   def get_cont_plan_weight
@@ -63,31 +68,29 @@ class Employee < ActiveRecord::Base
         weight += order.weight
       end
     end
-    return weight
+    weight
   end
 
   def get_installment_sum
-    instsum = Debt.where(:year => Date.today.year, :month => Date.today.month, :employee => self, :debttype => 1).sum(:debtsum)
-    return instsum
+    Debt.where(:year => Date.today.year, :month => Date.today.month, :employee => self, :debttype => 1).sum(:debtsum)
   end
 
   def get_debt_sum
-    debtsum = Debt.where(:year => Date.today.year, :month => Date.today.month, :employee => self, :debttype => 2).sum(:debtsum)
-    return debtsum
+    Debt.where(:year => Date.today.year, :month => Date.today.month, :employee => self, :debttype => 2).sum(:debtsum)
   end
 
   def get_fact_incomes
-    return Income.where("indate BETWEEN '#{Date.today.at_beginning_of_month}' AND '#{Date.today.at_end_of_month}' AND employee_id = #{self.id}").sum(:insum)
+    Income.where("indate BETWEEN '#{Date.today.at_beginning_of_month}' AND '#{Date.today.at_end_of_month}' AND employee_id = #{self.id}").sum(:insum)
   end
 
   def get_prolong_percents
     plan = Order.select(:client_id).where(:employee => self, :finishdate => Date.today.at_end_of_month).group(:client_id)
     fact = Order.select(:client_id).where("employee_id = #{self.id} AND startdate = '#{Date.today.next_month.at_beginning_of_month}' AND order_id IS NOT NULL").group(:client_id)
     if fact.empty?
-      return 0
+      0
     else
       if plan.empty?
-        return 0
+        0
       else
         ((fact.all.count.to_f / plan.all.count.to_f) * 100).round
       end
@@ -106,6 +109,6 @@ class Employee < ActiveRecord::Base
     else
       total += mult.first.mult * 0.2
     end
-    return total
+    total
   end
 end

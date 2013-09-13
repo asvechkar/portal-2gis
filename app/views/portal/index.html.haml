@@ -30,7 +30,7 @@
             %i
             Прирост клиентов
         .widget-body
-          #chart-grow-clients{ style: 'height: 253px;' }
+          #chart-grow-clients{ style: 'height: 253px;', 'data-plan' => "#{@total_clients_plan}", 'data-fact' => "#{@total_clients_fact}" }
     .span6
       .widget.widget-body-white
         .widget-head
