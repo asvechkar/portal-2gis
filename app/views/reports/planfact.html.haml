@@ -148,6 +148,6 @@
             %td{ :style => 'color: #6F8745;'}
               %strong= number_to_currency(branch_incomes_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
             %td.center{ :style => 'color: #6F8745;'}
-              %strong= branch_prolong_percent.nan? ? 0 : branch_prolong_percent.to_i
+              %strong= branch_prolong_percent.nan? ? 0 : branch_prolong_percent.round
             %td{ :style => 'color: #6F8745;'}
               %strong= '%.3f' % branch_ic
