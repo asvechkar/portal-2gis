@@ -38,7 +38,7 @@
             %i
             Изменение груза в выпуск
         .widget-body
-          #chart-change-wight{ style: 'height: 253px;' }
+          #chart-change-wight{ style: 'height: 253px;', 'data-plan' => "#{@total_weight_plan}", 'data-fact' => "0" }
   .row-fluid
     .span6
       .widget.widget-body-white
@@ -47,7 +47,7 @@
             %i
             Поступление денежных средств
         .widget-body
-          #chart-incomes{ style: 'height: 253px;' }
+          #chart-incomes{ style: 'height: 253px;', 'data-plan' => "#{@total_incomes_plan}", 'data-fact' => "#{@total_incomes_fact}" }
     .span6
       .widget.widget-body-white
         .widget-head

@@ -3,12 +3,13 @@ jQuery ->
   # Поступление денежных средств
   new Highcharts.Chart(
     chart:
+      type: "spline"
       renderTo: "chart-incomes"
     title: null
-    legend:
-      enabled: false
     xAxis:
       type: "datetime"
+      dateTimeLabelFormats:
+        day: "%d.%m"
       gridLineWidth: 1
     yAxis:
       title: null
@@ -16,18 +17,21 @@ jQuery ->
       formatter: ->
         Highcharts.dateFormat("%d.%m", @x) + ": " + Highcharts.numberFormat(@y, 2) + " р."
     series: [
-      {name: "Сидоров И.П."
-      pointInterval: (24 * 3600000)
-      pointStart: Date.parse(new Date(d.getYear(), d.getMonth(), 1, 0, 0, 0, 0))
-      data: [0, 2400, 3580.90, 5760, 7390, 3856.67, 0]},
-      {name: "Петров С.В."
-      pointInterval: (24 * 3600000)
-      pointStart: Date.parse(new Date(d.getYear(), d.getMonth(), 1, 0, 0, 0, 0))
-      data: [0, 2360.90, 3760, 5390, 1856.67, 0, 0]},
-      {name: "Иванов А.С."
-      pointInterval: (24 * 3600000)
-      pointStart: Date.parse(new Date(d.getYear(), d.getMonth(), 1, 0, 0, 0, 0))
-      data: [2360.90, 3760, 5390, 1856.67, 8400, 1200, 5600]},
+      name: "План"
+      color: "#6F8745"
+      marker:
+        symbol: "circle"
+      pointInterval: (d.getDate() - 1) * 24 * 3600000
+      pointStart: Date.UTC(d.getYear(), d.getMonth(), 1, 0, 0, 0, 0)
+      data: [parseFloat($("#chart-incomes").data("plan")), parseFloat($("#chart-incomes").data("plan"))]
+    ,
+      name: "Факт"
+      color: "#CC181E"
+      marker:
+        symbol: "circle"
+      pointInterval: 24 * 3600000
+      pointStart: Date.UTC(d.getYear(), d.getMonth(), 1, 0, 0, 0, 0)
+      data: $("#chart-incomes").data("fact")
     ]
   )
   # Прирост клиентов
@@ -63,4 +67,36 @@ jQuery ->
       pointStart: Date.UTC(d.getYear(), d.getMonth(), 1, 0, 0, 0, 0)
       data: $("#chart-grow-clients").data("fact")
     ]
-
+  # Изменение груза в выпуск
+  new Highcharts.Chart
+    chart:
+      type: "spline"
+      renderTo: "chart-change-wight"
+    title: null
+    xAxis:
+      type: "datetime"
+      dateTimeLabelFormats:
+        day: "%d.%m"
+      gridLineWidth: 1
+    yAxis:
+      title: null
+    tooltip:
+      formatter: ->
+        Highcharts.dateFormat("%d.%m", @x) + ": " + Highcharts.numberFormat(@y, 2) + " р."
+    series: [
+      name: "План"
+      color: "#6F8745"
+      marker:
+        symbol: "circle"
+      pointInterval: (d.getDate() - 1) * 24 * 3600000
+      pointStart: Date.UTC(d.getYear(), d.getMonth(), 1, 0, 0, 0, 0)
+      data: [parseFloat($("#chart-change-wight").data("plan")), parseFloat($("#chart-change-wight").data("plan"))]
+    ,
+      name: "Факт"
+      color: "#CC181E"
+      marker:
+        symbol: "circle"
+      pointInterval: 24 * 3600000
+      pointStart: Date.UTC(d.getYear(), d.getMonth(), 1, 0, 0, 0, 0)
+      data: $("#chart-change-wight").data("fact")
+    ]

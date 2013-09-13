@@ -83,6 +83,10 @@ class Employee < ActiveRecord::Base
     Income.where("indate BETWEEN '#{Date.today.at_beginning_of_month}' AND '#{Date.today.at_end_of_month}' AND employee_id = #{self.id}").sum(:insum)
   end
 
+  def get_incomes_by_date date
+    Income.where(:indate => date, :employee => self).sum(:insum)
+  end
+
   def get_prolong_percents
     plan = Order.select(:client_id).where(:employee => self, :finishdate => Date.today.at_end_of_month).group(:client_id)
     fact = Order.select(:client_id).where("employee_id = #{self.id} AND startdate = '#{Date.today.next_month.at_beginning_of_month}' AND order_id IS NOT NULL").group(:client_id)
