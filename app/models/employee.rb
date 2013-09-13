@@ -60,6 +60,17 @@ class Employee < ActiveRecord::Base
     weight
   end
 
+  def get_fact_weight_by_date date
+    orders = Order.where(:employee => self, :orderdate => date)
+    weight = 0
+    unless orders.empty?
+      orders.each do |order|
+        weight += order.weight
+      end
+    end
+    weight
+  end
+
   def get_cont_plan_weight
     orders = Order.where(:employee => self, :continue => 1, :finishdate => Date.today.at_end_of_month)
     weight = 0

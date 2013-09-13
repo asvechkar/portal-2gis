@@ -38,7 +38,7 @@
             %i
             Изменение груза в выпуск
         .widget-body
-          #chart-change-wight{ style: 'height: 253px;', 'data-plan' => "#{@total_weight_plan}", 'data-fact' => "0" }
+          #chart-change-wight{ style: 'height: 253px;', 'data-plan' => "#{@total_weight_plan}", 'data-fact' => "#{@total_weight_fact}" }
   .row-fluid
     .span6
       .widget.widget-body-white
@@ -55,5 +55,5 @@
             %i
             Изменение Интегрального Коэффициента (ИК)
         .widget-body
-          #chart-change-ic{ style: 'height: 253px;' }
+          #chart-change-ic{ style: 'height: 253px;', 'data-plan' => "#{@total_ik_plan}", 'data-fact' => "#{@total_ik_fact}" }
 = javascript_include_tag 'portal'

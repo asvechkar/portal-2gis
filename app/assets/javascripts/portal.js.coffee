@@ -100,3 +100,36 @@ jQuery ->
       pointStart: Date.UTC(d.getYear(), d.getMonth(), 1, 0, 0, 0, 0)
       data: $("#chart-change-wight").data("fact")
     ]
+  # Изменение Интегрального Коэффициента (ИК)
+  new Highcharts.Chart
+    chart:
+      type: "spline"
+      renderTo: "chart-change-ic"
+    title: null
+    xAxis:
+      type: "datetime"
+      dateTimeLabelFormats:
+        day: "%d.%m"
+      gridLineWidth: 1
+    yAxis:
+      title: null
+    tooltip:
+      formatter: ->
+        Highcharts.dateFormat("%d.%m", @x) + ": " + Highcharts.numberFormat(@y, 3)
+    series: [
+      name: "План"
+      color: "#6F8745"
+      marker:
+        symbol: "circle"
+      pointInterval: (d.getDate() - 1) * 24 * 3600000
+      pointStart: Date.UTC(d.getYear(), d.getMonth(), 1, 0, 0, 0, 0)
+      data: [parseFloat($("#chart-change-ic").data("plan")), parseFloat($("#chart-change-ic").data("plan"))]
+    ,
+      name: "Факт"
+      color: "#CC181E"
+      marker:
+        symbol: "circle"
+      pointInterval: 24 * 3600000
+      pointStart: Date.UTC(d.getYear(), d.getMonth(), 1, 0, 0, 0, 0)
+      data: $("#chart-change-ic").data("fact")
+    ]

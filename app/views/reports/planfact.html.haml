@@ -116,7 +116,7 @@
               %td
                 %strong= number_to_currency(group_incomes_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
               - branch_incomes_fact += group_incomes_fact
-              - group_prolong_percent += (group_clients_fact.to_f / group_con_clients_plan.to_f) * 100
+              - group_prolong_percent = (group_clients_fact.to_f / group_con_clients_plan.to_f) * 100
               %td.center
                 %strong= group_prolong_percent.nan? ? 0 : group_prolong_percent.to_i
               - branch_prolong_percent += group_prolong_percent
