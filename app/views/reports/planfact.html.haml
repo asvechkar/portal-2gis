@@ -60,6 +60,7 @@
           - branch_incomes_plan = 0
           - branch_incomes_fact = 0
           - branch_prolong_percent = 0
+          - branch_debt = 0
           - branch_ic = 0
           - @branches.first.groups.each do |group|
             - group_clients_plan = 0
@@ -88,7 +89,8 @@
                 - group_incomes_plan += ((employee.get_new_plan_weight + employee.get_cont_plan_weight) * 2.5) + employee.get_installment_sum + employee.get_debt_sum
                 %td= number_to_currency(employee.get_fact_incomes, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Поступления факт
                 - group_incomes_fact += employee.get_fact_incomes
-                - group_debt = employee.get_installment_sum + employee.get_debt_sum
+                - group_debt += employee.get_installment_sum + employee.get_debt_sum
+                - branch_debt += group_debt
                 %td.center= employee.get_prolong_percents # % продления
                 %td= '%.3f' % employee.get_ic # ИК
             %tr
@@ -149,5 +151,16 @@
               %strong= number_to_currency(branch_incomes_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
             %td.center{ :style => 'color: #6F8745;'}
               %strong= branch_prolong_percent.nan? ? 0 : branch_prolong_percent.round
+            -# Расчет филиального ИК
+            - first = (branch_clients_fact.to_f / branch_clients_plan.to_f) * 0.2
+            - second = (branch_weight_fact.to_f / branch_weight_plan.to_f) * 0.3
+            - third = (branch_incomes_fact.to_f / ((branch_weight_plan * 2.5) + branch_debt).to_f) * 0.3
+            - branch_ic = first + second + third
+            - prolong = branch_prolong_percent.nan? ? 0 : branch_prolong_percent.round
+            - mult = Plancent.where("branch_id = #{@branches.first.id} AND year = #{Date.today.year} AND month = #{Date.today.month} AND fromprc <= '#{prolong}' AND toprc >= '#{prolong}'")
+            - if mult.empty?
+              - branch_ic += 0
+            - else
+              - branch_ic += mult.first.mult * 0.2
             %td{ :style => 'color: #6F8745;'}
               %strong= '%.3f' % branch_ic
