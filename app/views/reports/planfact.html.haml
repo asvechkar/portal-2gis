@@ -22,7 +22,7 @@
       %i
       Новое поступление
   .buttons.pull-right
-    = link_to '#', :class => 'btn btn-primary btn-icon glyphicons refresh' do
+    = link_to 'javascript:location.reload();', :class => 'btn btn-primary btn-icon glyphicons refresh' do
       %i
       Обновить
   .clearfix
@@ -53,14 +53,52 @@
             %th.center
             %th.center
         %tbody
-          - @report_data.each do |row|
+          - @groups.each do |group|
+            - group_clients_plan = 0
+            - group_clients_fact = 0
+            - group_weight_plan = 0
+            - group_weight_fact = 0
+            - group_incomes_plan = 0
+            - group_incomes_fact = 0
+            - group_prolong_percent = 0
+            - group_ic = 0
+            - group.employees.all.each do |employee|
+              %tr
+                %td= employee.initials # Куратор
+                %td.center= employee.get_new_plan_clients + employee.get_cont_plan_clients # Клиенты план
+                - group_clients_plan += employee.get_new_plan_clients + employee.get_cont_plan_clients
+                %td.center= employee.get_new_fact_clients # Клиенты факт
+                - group_clients_fact += employee.get_new_fact_clients
+                %td= number_to_currency((employee.get_new_plan_weight + employee.get_cont_plan_weight), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Груз план
+                - group_weight_plan += employee.get_new_plan_weight + employee.get_cont_plan_weight
+                %td= number_to_currency(employee.get_new_fact_weight, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Груз факт
+                - group_weight_fact += employee.get_new_fact_weight
+                %td= number_to_currency((((employee.get_new_plan_weight + employee.get_cont_plan_weight) * 2.5) + employee.get_installment_sum + employee.get_debt_sum), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Поступления план
+                - group_incomes_plan += ((employee.get_new_plan_weight + employee.get_cont_plan_weight) * 2.5) + employee.get_installment_sum + employee.get_debt_sum
+                %td= number_to_currency(employee.get_fact_incomes, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Поступления факт
+                - group_incomes_fact += employee.get_fact_incomes
+                %td.center= employee.get_prolong_percents # % продления
+                - group_prolong_percent += employee.get_prolong_percents
+                %td= "%.3f" % employee.get_ic # ИК
+                - group_ic += employee.get_ic
             %tr
-              %td= row.initials # Куратор
-              %td.center= row.get_new_plan_clients + row.get_cont_plan_clients # Клиенты план
-              %td.center= row.get_new_fact_clients # Клиенты факт
-              %td= number_to_currency((row.get_new_plan_weight + row.get_cont_plan_weight), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Груз план
-              %td= number_to_currency(row.get_new_fact_weight, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Груз факт
-              %td= number_to_currency((((row.get_new_plan_weight + row.get_cont_plan_weight) * 2.5) + row.get_installment_sum + row.get_debt_sum), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Поступления план
-              %td= number_to_currency(row.get_fact_incomes, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Поступления факт
-              %td.center= row.get_prolong_percents # % продления
-              %td= "%.3f" % row.get_ic # ИК
+              %td
+                %strong
+                  Группа
+                  = group.code
+              %td.center
+                %strong= group_clients_plan
+              %td.center
+                %strong= group_clients_fact
+              %td
+                %strong= group_weight_plan
+              %td
+                %strong= group_weight_fact
+              %td
+                %strong= group_incomes_plan
+              %td
+                %strong= group_incomes_fact
+              %td.center
+                %strong= group_prolong_percent
+              %td
+                %strong= group_ic
