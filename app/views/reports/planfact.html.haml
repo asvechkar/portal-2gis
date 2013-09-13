@@ -13,6 +13,9 @@
 .heading-buttons
   %h3
     План продаж
+    %span{ :style => 'color: #6F8745;'}
+      Филиал
+      = @branches.first.name
   .buttons.pull-right
     = link_to new_order_path, :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
       %i
@@ -30,9 +33,6 @@
 .innerLR
   .widget.widget-heading-simple.widget-body-gray
     .widget-body
-      .separator.bottom.form-inline.small
-        Всего:
-        = 0
       %table.table.table-bordered.table-condensed.table-striped.table-vertical-center.table-pricing.table-pricing-2
         %thead
           %tr
@@ -53,7 +53,15 @@
             %th.center
             %th.center
         %tbody
-          - @groups.each do |group|
+          - branch_clients_plan = 0
+          - branch_clients_fact = 0
+          - branch_weight_plan = 0
+          - branch_weight_fact = 0
+          - branch_incomes_plan = 0
+          - branch_incomes_fact = 0
+          - branch_prolong_percent = 0
+          - branch_ic = 0
+          - @branches.first.groups.each do |group|
             - group_clients_plan = 0
             - group_clients_fact = 0
             - group_weight_plan = 0
@@ -79,7 +87,7 @@
                 - group_incomes_fact += employee.get_fact_incomes
                 %td.center= employee.get_prolong_percents # % продления
                 - group_prolong_percent += employee.get_prolong_percents
-                %td= "%.3f" % employee.get_ic # ИК
+                %td= '%.3f' % employee.get_ic # ИК
                 - group_ic += employee.get_ic
             %tr
               %td
@@ -88,17 +96,44 @@
                   = group.code
               %td.center
                 %strong= group_clients_plan
+              - branch_clients_plan += group_clients_plan
               %td.center
                 %strong= group_clients_fact
+              - branch_clients_fact += group_clients_fact
               %td
                 %strong= number_to_currency(group_weight_plan, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+              - branch_weight_plan += group_weight_plan
               %td
                 %strong= number_to_currency(group_weight_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+              - branch_weight_fact += group_weight_fact
               %td
                 %strong= number_to_currency(group_incomes_plan, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+              - branch_incomes_plan += group_incomes_plan
               %td
                 %strong= number_to_currency(group_incomes_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+              - branch_incomes_fact += group_incomes_fact
               %td.center
                 %strong= group_prolong_percent
+              - branch_prolong_percent += group_prolong_percent
               %td
-                %strong= "%.3f" % group_ic
+                %strong= '%.3f' % group_ic
+              - branch_ic += group_ic
+          %tr
+            %td
+              %h4{ :style => 'color: #6F8745;'} Итого по филиалу
+            %td.center{ :style => 'color: #6F8745;'}
+              %strong= branch_clients_plan
+            %td.center{ :style => 'color: #6F8745;'}
+              %strong= branch_clients_fact
+            %td{ :style => 'color: #6F8745;'}
+              %strong= number_to_currency(branch_weight_plan, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+            %td{ :style => 'color: #6F8745;'}
+              %strong= number_to_currency(branch_weight_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+            %td{ :style => 'color: #6F8745;'}
+              %strong= number_to_currency(branch_incomes_plan, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+            %td{ :style => 'color: #6F8745;'}
+              %strong= number_to_currency(branch_incomes_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+            %td.center{ :style => 'color: #6F8745;'}
+              %strong= branch_prolong_percent
+            %td{ :style => 'color: #6F8745;'}
+              %strong= '%.3f' % branch_ic
