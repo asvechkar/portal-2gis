@@ -89,7 +89,7 @@ class Employee < ActiveRecord::Base
       if plan.empty?
         return 0
       else
-        ((fact.all.count.to_f / plan.all.count.to_f) * 100).to_i
+        ((fact.all.count.to_f / plan.all.count.to_f) * 100).round
       end
     end
   end
