@@ -5,7 +5,7 @@
       уже зарегистрированы?
       = link_to 'Войти', new_session_path(resource_name), :class => 'btn btn-inverse btn-mini'
   .widget-body
-    = form_for resource, :as => resource_name, :url => registration_path(resource_name) do |f|
+    = form_for resource, :as => resource_name, :url => registration_path(resource_name), :html => { :autocomplete => 'off' } do |f|
       = devise_error_messages!
       .row-fluid.row-merge
         .span6

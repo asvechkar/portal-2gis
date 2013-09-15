@@ -1,6 +1,6 @@
 .widget.widget-heading-simple.widget-body-gray
   .widget-body
-    = form_for resource, :as => resource_name, :url => session_path(resource_name) do |f|
+    = form_for resource, :as => resource_name, :url => session_path(resource_name), :html => { :autocomplete => 'off' } do |f|
       = f.label false, 'Адрес эл.почты'
       = f.email_field :email, :autofocus => true, :class => 'input-block-level', :placeholder => 'Адрес эл.почты'
       %label

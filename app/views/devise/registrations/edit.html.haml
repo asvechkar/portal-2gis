@@ -2,7 +2,7 @@
   .widget-head
     %h3.heading Редактирование профиля
   .widget-body
-    = form_for resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :multipart => true } do |f|
+    = form_for resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :multipart => true, :autocomplete => 'off' } do |f|
       = devise_error_messages!
 
       = f.label false, 'Имя пользователя', :class => 'strong'
