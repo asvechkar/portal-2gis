@@ -18,11 +18,11 @@ test:
   port: 5432
 production:
   adapter: postgresql
-  host: postgresql5.locum.ru
+  host: localhost
   encoding: utf8
-  username: leondr_portal247
-  password: h8NsP7hQ0X
+  username: portal2gis
+  password: 123qweDSA
   port: 5432
-  database: leondr_portal247
+  database: portal2gis
   pool: 5
   timeout: 5000
