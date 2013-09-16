@@ -23,6 +23,6 @@ production:
   username: portal2gis
   password: 123qweDSA
   port: 5432
-  database: portal2gis
+  database: portal-2gis_production
   pool: 5
   timeout: 5000
