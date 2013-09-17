@@ -31,6 +31,7 @@
           %tr
             %th.center Наименование
             %th.center Описание
+            %th.center Пользователи
             %th.center Создан
             %th
         %tbody
@@ -38,6 +39,7 @@
             %tr
               %td= role.name
               %td= role.description
+              %td= role.users.count
               %td= role.created_at.strftime('%d.%m.%Y %H:%M')
               %td.center.actions-bar
                 = link_to edit_role_path(role), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do

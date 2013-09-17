@@ -5,7 +5,7 @@ class EventlogsController < ApplicationController
   # GET /eventlogs
   # GET /eventlogs.json
   def index
-    @eventlogs = Eventlog.all
+    @eventlogs = Eventlog.all.order('created_at DESC').page(params[:page]).per(25)
   end
 
   # GET /eventlogs/1

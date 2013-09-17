@@ -5,6 +5,10 @@
     %span.icon-bar
   %ul.topnav.pull-left
     %li
+      = link_to root_path, :class => 'glyphicons unlock' do
+        %i
+        = current_user.role.name
+    %li
       = link_to edit_user_registration_path, :class => 'glyphicons parents' do
         %i
         Аккаунт

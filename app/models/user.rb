@@ -27,4 +27,12 @@ class User < ActiveRecord::Base
                           :join_table => :users_roles,
                           :foreign_key => 'role_id',
                           :association_foreign_key => 'user_id'
+
+  def is?(role)
+    roles.include?(role.to_s)
+  end
+
+  def role
+    self.roles.all.first
+  end
 end
