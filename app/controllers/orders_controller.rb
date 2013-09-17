@@ -16,6 +16,9 @@ class OrdersController < ApplicationController
       @orders = Order.all.page(params[:page]).per(25)
     end
   end
+  
+  def wizard
+  end
 
   # GET /orders/1
   # GET /orders/1.json

@@ -8,6 +8,7 @@ Portal2gis::Application.routes.draw do
   get 'debts/floating' => 'debts#floating'
   get 'employees/get_groups_by_branch_id/:id' => 'employees#get_groups_by_branch_id'
   get 'incomes/get_orders_by_client_id/:id' => 'incomes#get_orders_by_client_id'
+  get 'orders/wizard' => 'orders#wizard', :as => 'new_deal'
 
   resources :debts
   resources :orders

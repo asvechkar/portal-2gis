@@ -1,0 +1,52 @@
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы сейчас здесь
+  %li
+    = link_to root_path, :class => 'glyphicons dashboard' do
+      %i
+      Главная
+  %li.divider
+  %li Новая продажа
+.heading-buttons
+  %h3
+    Новая продажа
+.separator.bottom
+.innerLR
+  .widget.widget-tabs.widget-tabs-double.widget-tabs-vertical.row-fluid.row-merge
+    .widget-head.span3
+      %ul
+        %li.active
+          = link_to '#step-1', :class => 'glyphicons user', 'data-toggle' => 'tab' do
+            %i
+            %span.strong Шаг 1
+            %span Информация о клиенте
+        %li
+          = link_to '#step-2', :class => 'glyphicons calculator', 'data-toggle' => 'tab' do
+            %i
+            %span.strong Шаг 2
+            %span Бланк-заказ
+        %li
+          = link_to '#step-3', :class => 'glyphicons credit_card', 'data-toggle' => 'tab' do
+            %i
+            %span.strong Шаг 3
+            %span Внесение поступлений
+        %li
+          = link_to '#step-4', :class => 'glyphicons circle_ok', 'data-toggle' => 'tab' do
+            %i
+            %span.strong Шаг 4
+            %span Подтверждение
+    .widget-body.span9
+      .tab-content
+        #step-1.tab-pane.active
+          %h4 Информация о клиенте
+        #step-2.tab-pane
+          %h4 Бланк-заказ
+        #step-3.tab-pane
+          %h4 Внесение поступлений
+        #step-4.tab-pane
+          %h4 Подтверждение
+  .form-actions
+    = submit_tag 'Внести данные', :class => 'btn btn-icon btn-primary'

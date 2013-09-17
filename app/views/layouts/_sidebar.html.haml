@@ -80,8 +80,8 @@
             = link_to eventlogs_path, :class => 'glyphicons bug' do
               %i
               Журнал событий
-      %li{ :class => current_page?('#') ? 'active' : nil }
-        = link_to '#', :class => 'glyphicons calculator' do
+      %li{ :class => current_page?(new_deal_path) ? 'active' : nil }
+        = link_to new_deal_path, :class => 'glyphicons calculator' do
           %i
           Новая продажа
       %li{ :class => current_page?(reports_planfact_path) ? 'active' : nil }
