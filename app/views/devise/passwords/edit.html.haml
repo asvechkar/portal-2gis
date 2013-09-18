@@ -1,20 +1,26 @@
-.widget.widget-heading-simple.widget-body-gray
-  .widget-head
-    %h3.heading Поменяйте свой пароль
-  .widget-body
-    = form_for resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put, :autocomplete => 'off' } do |f|
-      = devise_error_messages!
-      = f.hidden_field :reset_password_token
+#login
+  .container
+    .wrapper
+      %h1.glyphicons.lock
+        = image_tag '2gis_logo.png', :alt => 'Портал 2GIS'
+        %i
+      .widget.widget-heading-simple.widget-body-gray
+        .widget-head
+          %h3.heading Поменяйте свой пароль
+        .widget-body
+          = form_for resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put, :autocomplete => 'off' } do |f|
+            = devise_error_messages!
+            = f.hidden_field :reset_password_token
 
-      = f.label false, 'Пароль', :class => 'strong'
-      = f.password_field :password, :autofocus => true, :class => 'input-block-level', :placeholder => 'Ваш пароль'
+            = f.label false, 'Пароль', :class => 'strong'
+            = f.password_field :password, :autofocus => true, :class => 'input-block-level', :placeholder => 'Ваш пароль'
 
-      = f.label false, 'Пароль еще раз', :class => 'strong'
-      = f.password_field :password_confirmation, :class => 'input-block-level', :placeholder => 'Пароль еще раз'
+            = f.label false, 'Пароль еще раз', :class => 'strong'
+            = f.password_field :password_confirmation, :class => 'input-block-level', :placeholder => 'Пароль еще раз'
 
-      .separator.bottom
-        .row-fluid
-          .span12.center
-            = f.submit 'Поменять пароль', :class => 'btn btn-block btn-inverse'
+            .separator.bottom
+              .row-fluid
+                .span12.center
+                  = f.submit 'Поменять пароль', :class => 'btn btn-block btn-inverse'
 
-= render 'devise/shared/links'
+      = render 'devise/shared/links'

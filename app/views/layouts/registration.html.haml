@@ -18,14 +18,5 @@
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body.login
-    #login
-      .container
-        .wrapper
-          %h1.glyphicons.lock
-            = image_tag '2gis_logo.png', :alt => 'Портал 2GIS'
-            %i
-          = yield
+    = yield
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
-    %script
-      Holder.add_theme("dark", {background:"#000", foreground:"#aaa", size:9});
-      Holder.add_theme("white", {background:"#fff", foreground:"#c9c9c9", size:9});

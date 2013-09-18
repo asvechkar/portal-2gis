@@ -9,7 +9,11 @@
         %i
         = current_user.role.name
     %li
-      = link_to edit_user_registration_path, :class => 'glyphicons parents' do
+      = link_to root_path, :class => 'glyphicons message_empty' do
+        %i
+        Сообщения
+    %li
+      = link_to edit_member_path(current_user), :class => 'glyphicons parents' do
         %i
         Аккаунт
     %li
