@@ -34,8 +34,8 @@ class MembersController < ApplicationController
   def update
     respond_to do |format|
       if @member.update(member_params)
-        Tools.write2log(current_user.id, 'Обновление', 'Пользователи', 0, member_params.to_s)
         @member.update_attributes(:role_ids => params[:user][:role_ids])
+        Tools.write2log(current_user.id, 'Обновление', 'Пользователи', 0, member_params.to_s)
         format.html { redirect_to members_path, notice: 'Пользователь был успешно обновлен.' }
         format.json { head :no_content }
       else
@@ -62,6 +62,21 @@ class MembersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def member_params
-    params.require(:member).permit(:username, :email, :password, :password_confirmation, :current_password, :role_id, :avatar)
+    params.require(:member).permit(
+      :username, 
+      :email, 
+      :role_id,
+      :avatar, 
+      :firstname, 
+      :lastname,
+      :birthdate,
+      :gender,
+      :about,
+      :phone,
+      :site,
+      :facebook,
+      :twitter,
+      :skype
+    )
   end
 end

@@ -99,5 +99,23 @@ $(function()
     todayBtn: "true",
     language: "ru"
   });
+  $('#dtp_birthdate').datetimepicker({
+    format: "dd.mm.yyyy",
+    weekStart: "1",
+    autoclose: "true",
+    minView: "2",
+    todayBtn: "true",
+    language: "ru"
+  });
+  $('#member_birthdate').on('change', function(){
+    year = parseInt($('#member_birthdate').val().match(/\d+/g)[2]);
+    month = parseInt($('#member_birthdate').val().match(/\d+/g)[1]) - 1;
+    day = parseInt($('#member_birthdate').val().match(/\d+/g)[0]);
+    birthdate = new Date(year, month, day);
+    todate = new Date();
+    defdate = todate - birthdate;
+    $('#age').val(Math.floor(defdate / (1000*60*60*24*365.26)).toString());
+  });
   $("#inputmask-currency").inputmask('999 999 999,99', { numericInput: true, rightAlignNumerics: false, greedy: false});
+  $('#member_phone').inputmask('(999) 999-9999', { numericInput: true, rightAlignNumerics: false, greedy: false})
 });

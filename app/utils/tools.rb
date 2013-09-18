@@ -12,4 +12,11 @@ module Tools
       'Отказ' => 2
     }
   end
+
+  def self.gender_list
+    {
+      'Мужской' => 0,
+      'Женский' => 1
+    }
+  end
 end
