@@ -1,0 +1,58 @@
+- flash.each do |name, msg|
+  %div{ :class => "alert alert-#{name}" }
+    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+    = msg
+%ul.breadcrumb
+  %li Вы в городе
+  %li
+    = link_to root_path, :class => 'glyphicons globe' do
+      %i
+      Рязань
+  %li.divider
+  %li Техническая поддержка
+  %li.pull-right.hidden-phone
+    = link_to support_path, :class => 'glyphicons shield' do
+      Справка
+      %i
+  %li.pull-right.hidden-phone.divider
+%h3
+  Частые вопросы
+.innerLR
+  .widget.widget-tabs.widget-tabs-double-2
+    .widget-head
+      %ul
+        %li.active
+          = link_to '#tabCommon', :class => 'glyphicons list', 'data-toggle' => 'tab' do
+            %i
+            %span Общие
+        %li
+          = link_to '#tabAccount', :class => 'glyphicons user', 'data-toggle' => 'tab' do
+            %i
+            %span Профиль
+        %li
+          = link_to '#tabPayment', :class => 'glyphicons credit_card', 'data-toggle' => 'tab' do
+            %i
+            %span Финансы
+        %li
+          = link_to '#tabSupport', :class => 'glyphicons cogwheel', 'data-toggle' => 'tab' do
+            %i
+            %span Тех. поддержка
+        %li
+          = link_to '#tabFeatures', :class => 'glyphicons snowflake', 'data-toggle' => 'tab' do
+            %i
+            %span Новинки
+    .widget-body
+      .tab-content
+        #tabCommon.tab-pane.active
+          #accordion.accordion.accordion-2
+            .accordion-group
+              .accordion-heading
+                = link_to 'Как добавить город', '#collapse-1', :class => 'accordion-toggle collapsed', 'data-toggle' => 'collapse', 'data-parent' => '#accordion'
+              #collapse-1.accordion-body.collapse
+                .accordion-inner
+                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        #tabAccount.tab-pane
+        #tabPayment.tab-pane
+        #tabSupport.tab-pane
+        #tabFeatures.tab-pane
+

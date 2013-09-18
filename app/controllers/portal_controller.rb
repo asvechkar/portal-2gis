@@ -65,4 +65,7 @@ class PortalController < ApplicationController
       end
     end
   end
+
+  def support
+  end
 end
