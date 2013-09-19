@@ -33,6 +33,7 @@ class MembersController < ApplicationController
 
   def update
     respond_to do |format|
+      member_params[:password] = member_params[:current_password]
       if @member.update(member_params)
         @member.update_attributes(:role_ids => params[:user][:role_ids])
         Tools.write2log(current_user.id, 'Обновление', 'Пользователи', 0, member_params.to_s)
@@ -67,7 +68,9 @@ class MembersController < ApplicationController
       :email, 
       :role_id,
       :avatar, 
-      :firstname, 
+      :firstname,
+      :password,
+      :current_password,
       :lastname,
       :birthdate,
       :gender,

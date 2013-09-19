@@ -30,8 +30,12 @@
           = link_to '#account-settings', :class => 'glyphicons settings', 'data-toggle' => 'tab' do
             %i
             Настройки
+        %li
+          = link_to '#account-avatar', :class => 'glyphicons film', 'data-toggle' => 'tab' do
+            %i
+            Фотография
     .widget-body
-      = form_for @member, :html => { :class => 'form-horizontal', :autocomplete => 'off' } do |f|
+      = form_for @member, :html => { :class => 'form-horizontal', :multipart => true, :autocomplete => 'off' } do |f|
         - if @member.errors.any?
           #error_explanation
             %h2= "#{pluralize(@member.errors.count, 'error')} возникло при сохранении:"
@@ -81,7 +85,7 @@
             .row-fluid
               .span3
                 %strong Смена пароля
-                %p.muted Имя пользователя остается неизменным. Оставьте пустыми все поля паролей, если не хотите менять.
+                %p.muted Имя пользователя остается неизменным. Для сохранения информации введите текущий пароль.
               .span9
                 .row-fluid
                   .span6
@@ -95,7 +99,7 @@
                     .input-prepend
                       %span.add-on.glyphicons.lock
                         %i
-                      = f.password_field :current_password, :class => 'input-large', :placeholder => 'пустой, если не хотите менять'
+                      = f.password_field :current_password, :class => 'input-large', :placeholder => 'Обязательно заполнить'
                     .separator.bottom
                   .span6
                     = f.label :password, 'Новый пароль'
@@ -155,5 +159,15 @@
                         %i
                       = f.text_field :skype, :class => 'input-large', :placeholder => 'например, 2gis'
                     .separator.bottom
+            .form-actions{style: 'margin: 0;'}
+              = f.submit 'Cохранить', :class => 'btn btn-primary'
+          #account-avatar.tab-pane
+            .row-fluid
+              .span12
+                = f.label :avatar, 'Аватар, размер 144х144 пикселя'
+                %a.thumb
+                  = image_tag(User.find(@member.id).avatar_url) if User.find(@member.id).avatar?
+                = f.file_field :avatar
+                = f.hidden_field :avatar_cache
             .form-actions{style: 'margin: 0;'}
               = f.submit 'Cохранить', :class => 'btn btn-primary'
