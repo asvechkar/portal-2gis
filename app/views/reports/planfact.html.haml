@@ -12,8 +12,7 @@
   %li План продаж
 .heading-buttons
   %h3
-    План продаж
-    :
+    План продаж:
     = @branch.name unless @branch.nil?
   .buttons.pull-right
     = link_to new_order_path, :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
