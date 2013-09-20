@@ -2,8 +2,9 @@ Portal2gis::Application.routes.draw do
 
   resources :plancents
 
-  get "reports/index"
-  get "reports/planfact"
+  get 'reports/index'
+  get 'reports/planfact'
+  get 'reports/planfact/:id' => 'reports#planfact'
   get 'positions/level' => 'positions#level'
   get 'debts/floating' => 'debts#floating'
   get 'employees/get_groups_by_branch_id/:id' => 'employees#get_groups_by_branch_id'

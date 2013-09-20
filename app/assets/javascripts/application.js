@@ -25,6 +25,7 @@
 //= require incomes
 //= require debts
 //= require upload
+//= require reports
 
 
 
