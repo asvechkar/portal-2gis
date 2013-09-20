@@ -1,4 +1,4 @@
-/*
+  /*
  *= require bootstrap
  *= require bootstrap-timepicker
  *= require bootstrap-select
@@ -15,9 +15,13 @@
  *= require jquery.fileupload-ui
  *= require_self
  */
- 
+
  .actions-bar {
    min-width: 100px;
    max-width: 100px;
    width: 100px;
  }
+.group-row {
+  background-color: #E8960C !important;
+  color: #ffffff !important;
+}

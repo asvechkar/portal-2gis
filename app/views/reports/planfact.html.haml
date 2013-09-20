@@ -101,30 +101,30 @@
                   %td.center= employee.get_prolong_percents # % продления
                   %td= '%.3f' % employee.get_ic # ИК
               %tr
-                %td
+                %td.group-row
                   %strong
-                    Группа
-                    = group.code
-                %td.center
+                    Группа:
+                    = group.employee.initials unless group.employee.nil?
+                %td.center.group-row
                   %strong= group_clients_plan
                 - branch_clients_plan += group_clients_plan
-                %td.center
+                %td.center.group-row
                   %strong= group_clients_fact
                 - branch_clients_fact += group_clients_fact
-                %td
+                %td.group-row
                   %strong= number_to_currency(group_weight_plan, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
                 - branch_weight_plan += group_weight_plan
-                %td
+                %td.group-row
                   %strong= number_to_currency(group_weight_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
                 - branch_weight_fact += group_weight_fact
-                %td
+                %td.group-row
                   %strong= number_to_currency(group_incomes_plan, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
                 - branch_incomes_plan += group_incomes_plan
-                %td
+                %td.group-row
                   %strong= number_to_currency(group_incomes_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
                 - branch_incomes_fact += group_incomes_fact
                 - group_prolong_percent = (group_clients_fact.to_f / group_con_clients_plan.to_f) * 100
-                %td.center
+                %td.center.group-row
                   %strong= group_prolong_percent.nan? ? 0 : group_prolong_percent.to_i
                 - branch_prolong_percent += group_prolong_percent
                 -# Расчет группового ИК
@@ -138,7 +138,7 @@
                   - group_ic += 0
                 - else
                   - group_ic += mult.first.mult * 0.2
-                %td
+                %td.group-row
                   %strong= '%.3f' % group_ic
             %tr
               %td
