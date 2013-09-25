@@ -40,9 +40,9 @@
               %td= member.roles.first.name if !member.roles.empty?
               %td= member.created_at.strftime('%d.%m.%Y %H:%M')
               %td.center.actions-bar
-                = link_to member, :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
+                = link_to '#', :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
                   %i
-                = link_to edit_member_path(member), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
+                = link_to '#', :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
                   %i
-                = link_to member, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Заблокировать' do
+                = link_to '#', :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Заблокировать' do
                   %i
