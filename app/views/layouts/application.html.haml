@@ -24,6 +24,15 @@
         = render 'layouts/sidebar'
         #content
           = render 'layouts/topmenu'
+          - flash.each do |name, msg|
+            - alert_class = 'alert-info'
+            - case name.to_s
+              - when 'alert' then alert_class = 'alert-warning'
+              - when 'notice' then alert_class = 'alert-success'
+              - else  alert_class = 'alert-info'
+            %div{ :class => "alert #{alert_class}" }
+              %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+              = msg
           = yield
       .clearfix
       #footer.hidden-print

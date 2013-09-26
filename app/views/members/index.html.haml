@@ -1,7 +1,3 @@
-- flash.each do |name, msg|
-  %div{ :class => "alert alert-#{name}" }
-    %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
-    = msg
 %ul.breadcrumb
   %li Вы сейчас здесь
   %li
@@ -42,7 +38,7 @@
               %td.center.actions-bar
                 = link_to '#', :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
                   %i
-                = link_to '#', :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
+                = link_to edit_member_path(member), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
                   %i
                 = link_to '#', :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Заблокировать' do
                   %i

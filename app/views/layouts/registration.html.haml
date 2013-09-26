@@ -18,5 +18,14 @@
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body.login
+    - flash.each do |name, msg|
+      - alert_class = 'alert-info'
+      - case name.to_s
+        - when 'alert' then alert_class = 'alert-warning'
+        - when 'notice' then alert_class = 'alert-success'
+        - else  alert_class = 'alert-info'
+      %div{ :class => "alert #{alert_class}" }
+        %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
+        = msg
     = yield
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
