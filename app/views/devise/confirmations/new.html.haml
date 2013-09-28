@@ -6,15 +6,15 @@
         %i
       .widget.widget-heading-simple.widget-body-gray
         .widget-head
-          %h3.heading Забыли пароль?
+          %h3.heading Переслать письмо подтверждения
         .widget-body
-          = form_for resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :autocomplete => 'off' } do |f|
+          = form_for resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post, :autocomplete => 'off' } do |f|
             = devise_error_messages!
             = f.label false, 'Адрес эл.почты'
             = f.email_field :email, :autofocus => true, :class => 'input-block-level', :placeholder => 'Адрес эл.почты'
             .separator.bottom
               .row-fluid
                 .span12.center
-                  = f.submit 'Отправить письмо по сбросу пароля', :class => 'btn btn-block btn-inverse'
+                  = f.submit 'Отправить письмо подтверждения', :class => 'btn btn-block btn-inverse'
 
       = render 'devise/shared/links'

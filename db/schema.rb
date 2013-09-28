@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130912000453) do
+ActiveRecord::Schema.define(version: 20130928100442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,16 @@ ActiveRecord::Schema.define(version: 20130912000453) do
     t.timestamp "created_at",  precision: 6
     t.timestamp "updated_at",  precision: 6
     t.integer   "branch_id"
+    t.date      "birthdate"
+    t.boolean   "gender"
+    t.text      "about"
+    t.string    "phone"
+    t.string    "site"
+    t.string    "facebook"
+    t.string    "twitter"
+    t.string    "skype"
+    t.string    "vkontakte"
+    t.string    "avatar"
   end
 
   add_index "employees", ["branch_id"], name: "index_employees_on_branch_id", using: :btree
@@ -263,10 +273,21 @@ ActiveRecord::Schema.define(version: 20130912000453) do
     t.timestamp "updated_at",             precision: 6
     t.string    "username",                                          null: false
     t.string    "avatar"
+    t.string    "confirmation_token"
+    t.datetime  "confirmed_at"
+    t.datetime  "confirmation_sent_at"
+    t.string    "unconfirmed_email"
+    t.integer   "failed_attempts",                      default: 0
+    t.string    "unlock_token"
+    t.datetime  "locked_at"
+    t.string    "authentication_token"
   end
 
+  add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
   create_table "users_roles", id: false, force: true do |t|

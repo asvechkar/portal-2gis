@@ -29,6 +29,6 @@ Portal2gis::Application.routes.draw do
   resources :eventlogs
   resources :members
 
-  devise_for :users, :controllers => { :registrations => 'registrations', :sessions => 'sessions', :passwords => 'passwords' }
+  devise_for :users, :controllers => { :registrations => 'registrations', :sessions => 'sessions', :passwords => 'passwords', :confirmations => 'confirmations', :unlocks => 'unlocks' }
   root 'portal#index'
 end
