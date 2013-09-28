@@ -21,20 +21,61 @@
     .menubar.links.primary
       %ul
         %li= link_to 'Редактировать', edit_employee_path(@employee)
-    %dl
-      %dt Имя
-      %dd= @employee.firstname
-      %dt Отчество
-      %dd= @employee.middlename
-      %dt Фамилия
-      %dd= @employee.lastname
-      %dt СНИЛС
-      %dd= @employee.snils
-      %dt Уровень опыта
-      %dd= @employee.level.name if @employee.level_id
-      %dt Должность
-      %dd= @employee.position.name if @employee.position
-      %dt Автор
-      %dd= @employee.user.username if @employee.user
-      %dt Дата создания
-      %dd= @employee.created_at.strftime('%d.%m.%Y %H:%M')
+    .row-fluid.row-merge
+      .span3.center.innerL.innerTB
+        .innerR
+          %a.thumb
+            = image_tag @employee.avatar.nil? ? @employee.avatar_url(:large) : 'employees.png', alt: 'Profile'
+          .separator.bottom
+          = link_to '', class: 'glyphicons standard primary facebook' do
+            %i
+          = link_to '', class: 'glyphicons standard twitter' do
+            %i
+          = link_to '', class: 'glyphicons standard skype' do
+            %i
+          = link_to '', class: 'glyphicons standard vkontakte' do
+            %i
+          .clearfix.separator.bottom
+          %h5 Филиал: #{@employee.branch.name}
+          %h5 Группа: #{@employee.groups.first.code unless @employee.groups.empty?}
+          %h5 Должность: #{@employee.position.name}
+      .span9.containerBg.innerTB
+        .innerLR
+          .row-fluid.innerB
+            .span12
+              .widget.widget-heading-simple.widget-body-white.margin-none
+                .widget-head
+                  %h4.heading.glyphicons.user
+                    %i
+                    Уровень опыта: #{@employee.level.name unless @employee.level.nil?}
+                .widget-body
+                  %p
+                    - if @employee.about
+                      = @employee.about
+                    - else
+                      Краткая информация о сотруднике отсутствует.
+          .row-fluid
+            .span12
+              .widget.widget-heading-simple.widget-body-white.margin-none
+                .widget-head
+                  %h4.heading.glyphicons.calendar
+                    %i
+                    Персональная информация
+                .widget-body
+                  %ul.unstyled.icons.margin-none
+                    %li.glyphicons.birthday_cake
+                      %i
+                      - if @employee.birthdate
+                        %span.label= @employee.birthdate.day
+                        %span.label= @employee.birthdate.month
+                        %span.label= @employee.birthdate.year
+                      - else
+                        Дата рождения не заполнена
+                    %li.glyphicons.globe
+                      %i
+                      Город:
+                      = @employee.branch.city.name
+                    %li.glyphicons.certificate
+                      %i
+                      СНИЛС:
+                      = @employee.snils

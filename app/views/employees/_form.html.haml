@@ -1,46 +1,79 @@
-= form_for @employee, :html => {:class => 'form-horizontal'} do |f|
-  - if @employee.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@employee.errors.count, "error")} prohibited this city from being saved:"
-      %ul
-        - @employee.errors.full_messages.each do |msg|
-          %li= msg
-
-  .control-group
-    = f.label :firstname, 'Имя', :class => 'control-label'
-    .controls
-      = f.text_field :firstname, :placeholder => 'Имя'
-  .control-group
-    = f.label :middlename, 'Отчество', :class => 'control-label'
-    .controls
-      = f.text_field :middlename, :placeholder => 'Отчество'
-  .control-group
-    = f.label :lastname, 'Фамилия', :class => 'control-label'
-    .controls
-      = f.text_field :lastname, :placeholder => 'Фамилия'
-  .control-group
-    = f.label :snils, 'СНИЛС', :class => 'control-label'
-    .controls
-      = f.text_field :snils, :placeholder => 'СНИЛС'
-  .control-group
-    = f.label :branch_id, 'Филиал', :class => 'control-label'
-    .controls
-      = f.collection_select :branch_id, Branch.all, :id, :name, {:prompt => 'Выберите филиал'}
-  .control-group
-    = f.label :position_id, 'Должность', :class => 'control-label'
-    .controls
-      = f.collection_select :position_id, Position.all, :id, :name, {:prompt => 'Выберите должность'}
-  - level = (@employee.position.show_experience_level if @employee.position) || 0
-  = content_tag :div, id: 'levels' do
-    = f.hidden_field false, :value => level, :id => 'level'
-  #levelgroups.control-group
-    = f.label :level_id, 'Уровень опыта', :class => 'control-label'
-    .controls
-      = f.collection_select :level_id, Level.all, :id, :name, {:prompt => 'Выберите уровень опыта'}
-  #groups.control-group
-    = f.label :group_id, 'Группа', :class => 'control-label'
-    .controls
-      = collection_select(:group, :group_ids, Group.all, :id, :code, :prompt => 'Выберите группу')
-    %hr.separator
-  .form-actions
-    = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'
+.innerLR
+  = form_for @employee, :html => {:class => 'form-horizontal'} do |f|
+    - if @employee.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@employee.errors.count, "error")} prohibited this city from being saved:"
+        %ul
+          - @employee.errors.full_messages.each do |msg|
+            %li= msg
+    .widget.widget-tabs.widget-tabs-vertical.row-fluid.row-merge.margin-none.widget-body-white
+      .widget-head.span3
+        %ul
+          %li.active
+            = link_to '#employee-details', class: 'glyphicons pencil', 'data-toggle' => 'tab' do
+              %i
+              Свойства сотрудника
+            = link_to '#account-details', class: 'glyphicons settings', 'data-toggle' => 'tab' do
+              %i
+              Учетная запись
+            = link_to '#photo-details', class: 'glyphicons eye_open', 'data-toggle' => 'tab' do
+              %i
+              Фото сотрудника
+      .widget-body.span9
+        .tab-content
+          #employee-details.tab-pane.active
+            .row-fluid
+              .span6
+                .control-group
+                  = f.label :firstname, 'Имя', :class => 'control-label'
+                  .controls
+                    = f.text_field :firstname, :placeholder => 'Имя', class: 'span10'
+                .control-group
+                  = f.label :middlename, 'Отчество', :class => 'control-label'
+                  .controls
+                    = f.text_field :middlename, :placeholder => 'Отчество', class: 'span10'
+                .control-group
+                  = f.label :lastname, 'Фамилия', :class => 'control-label'
+                  .controls
+                    = f.text_field :lastname, :placeholder => 'Фамилия', class: 'span10'
+              .span6
+                .control-group
+                  = f.label :birthdate, 'Дата рождения', :class => 'control-label'
+                  .controls
+                    .input-append
+                      = f.text_field :birthdate, class: 'span12 hasDatepicker', id: 'birthdatepicker'
+                      %span.add-on.glyphicons.calendar
+                        %i
+                  .control-group
+                    = f.label :gender, 'Пол', :class => 'control-label'
+                    .controls
+                      = f.collection_select :gender, options_for_select(Tools.gender_list), :id, :name
+                  .control-group
+                    = f.label :snils, 'СНИЛС', :class => 'control-label'
+                    .controls
+                      = f.text_field :snils, :placeholder => 'СНИЛС'
+                  .control-group
+                    = f.label :branch_id, 'Филиал', :class => 'control-label'
+                    .controls
+                      = f.collection_select :branch_id, Branch.all, :id, :name, {:prompt => 'Выберите филиал'}
+                  .control-group
+                    = f.label :position_id, 'Должность', :class => 'control-label'
+                    .controls
+                      = f.collection_select :position_id, Position.all, :id, :name, {:prompt => 'Выберите должность'}
+                  - level = (@employee.position.show_experience_level if @employee.position) || 0
+                  = content_tag :div, id: 'levels' do
+                    = f.hidden_field false, :value => level, :id => 'level'
+                  #levelgroups.control-group
+                    = f.label :level_id, 'Уровень опыта', :class => 'control-label'
+                    .controls
+                      = f.collection_select :level_id, Level.all, :id, :name, {:prompt => 'Выберите уровень опыта'}
+                  #groups.control-group
+                    = f.label :group_id, 'Группа', :class => 'control-label'
+                    .controls
+                      = collection_select(:group, :group_ids, Group.all, :id, :code, :prompt => 'Выберите группу')
+            .separator.line.bottom
+            .control-group.row-fluid
+          #account-details.tab-pane
+          #photo-details.tab-pane
+    .form-actions
+      = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'

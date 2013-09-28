@@ -21,7 +21,6 @@
       %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center
         %thead
           %tr
-            %th
             %th.center Имя пользователя
             %th.center Эл.почта
             %th.center Роль
@@ -30,7 +29,6 @@
         %tbody
           - @members.each do |member|
             %tr
-              %td.center= get_avatar_thumb(member.id)
               %td= member.username
               %td= member.email
               %td= member.roles.first.name if !member.roles.empty?

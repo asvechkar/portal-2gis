@@ -273,6 +273,16 @@ ActiveRecord::Schema.define(version: 20130928100442) do
     t.timestamp "updated_at",             precision: 6
     t.string    "username",                                          null: false
     t.string    "avatar"
+    t.string    "firstname"
+    t.string    "lastname"
+    t.date      "birthdate"
+    t.boolean   "gender"
+    t.text      "about"
+    t.string    "phone"
+    t.string    "site"
+    t.string    "facebook"
+    t.string    "twitter"
+    t.string    "skype"
     t.string    "confirmation_token"
     t.datetime  "confirmed_at"
     t.datetime  "confirmation_sent_at"
@@ -295,6 +305,6 @@ ActiveRecord::Schema.define(version: 20130928100442) do
     t.integer "role_id"
   end
 
-  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
+  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", unique: true, using: :btree
 
 end

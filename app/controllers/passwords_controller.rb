@@ -1,6 +1,5 @@
 class PasswordsController < Devise::PasswordsController
   layout 'registration'
-
   def create
     super
   end
