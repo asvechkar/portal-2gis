@@ -1,4 +1,5 @@
 class Employee < ActiveRecord::Base
+  included User
   mount_uploader :avatar, AvatarUploader
   belongs_to :level
   belongs_to :position

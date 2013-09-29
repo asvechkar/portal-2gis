@@ -10,18 +10,76 @@
       .widget-head.span3
         %ul
           %li.active
-            = link_to '#employee-details', class: 'glyphicons pencil', 'data-toggle' => 'tab' do
-              %i
-              Свойства сотрудника
             = link_to '#account-details', class: 'glyphicons settings', 'data-toggle' => 'tab' do
               %i
               Учетная запись
+          %li
+            = link_to '#employee-details', class: 'glyphicons pencil', 'data-toggle' => 'tab' do
+              %i
+              Свойства сотрудника
+          %li
             = link_to '#photo-details', class: 'glyphicons eye_open', 'data-toggle' => 'tab' do
               %i
               Фото сотрудника
       .widget-body.span9
         .tab-content
-          #employee-details.tab-pane.active
+          #account-details.tab-pane.active
+            .row-fluid
+              .span3
+                %strong Учётная запись
+                %p.muted Имя пользователя остается неизменным.
+              .span9
+                = label_tag 'username', 'Имя пользователя'
+                = text_field_tag 'username', '', :placeholder => 'лат. буквами', class: 'span12', disabled: true
+                .separator
+                = label_tag 'password', 'Пароль'
+                = password_field_tag 'password', '', :placeholder => 'лат. буквами', class: 'span12'
+                .separator
+            .separator.line.bottom
+            .row-fluid
+              .span3
+                %strong Контактная информация
+              .span9
+                .row-fluid
+                  .span6
+                    = label_tag 'phone', 'Телефон'
+                    .input-prepend
+                      %span.add-on.glyphicons.phone
+                        %i
+                      = text_field_tag 'phone', '', :placeholder => '+7 123 456-7890', class: 'input-large'
+                    .separator
+                    = label_tag 'email', 'Эл.почта'
+                    .input-prepend
+                      %span.add-on.glyphicons.envelope
+                        %i
+                      = text_field_tag 'email', '', :placeholder => 'user@2gis.ru', class: 'input-large'
+                    .separator
+                    = label_tag 'skype', 'Skype'
+                    .input-prepend
+                      %span.add-on.glyphicons.skype
+                        %i
+                      = text_field_tag 'skype', '', :placeholder => 'skype user', class: 'input-large'
+                    .separator
+                  .span6
+                    = label_tag 'facebook', 'Facebook'
+                    .input-prepend
+                      %span.add-on.glyphicons.facebook
+                        %i
+                      = text_field_tag 'facebook', '', :placeholder => 'facebook user', class: 'input-large'
+                    .separator
+                    = label_tag 'vkontakte', 'ВКонтакте'
+                    .input-prepend
+                      %span.add-on.glyphicons.vkontakte
+                        %i
+                      = text_field_tag 'vkontakte', '', :placeholder => 'vkontakte user', class: 'input-large'
+                    .separator
+                    = label_tag 'twitter', 'Twitter'
+                    .input-prepend
+                      %span.add-on.glyphicons.twitter
+                        %i
+                      = text_field_tag 'twitter', '', :placeholder => 'twitter user', class: 'input-large'
+                    .separator
+          #employee-details.tab-pane
             .row-fluid
               .span6
                 .control-group
@@ -36,44 +94,60 @@
                   = f.label :lastname, 'Фамилия', :class => 'control-label'
                   .controls
                     = f.text_field :lastname, :placeholder => 'Фамилия', class: 'span10'
-              .span6
                 .control-group
                   = f.label :birthdate, 'Дата рождения', :class => 'control-label'
                   .controls
-                    .input-append
-                      = f.text_field :birthdate, class: 'span12 hasDatepicker', id: 'birthdatepicker'
-                      %span.add-on.glyphicons.calendar
-                        %i
-                  .control-group
-                    = f.label :gender, 'Пол', :class => 'control-label'
-                    .controls
-                      = f.collection_select :gender, options_for_select(Tools.gender_list), :id, :name
-                  .control-group
-                    = f.label :snils, 'СНИЛС', :class => 'control-label'
-                    .controls
-                      = f.text_field :snils, :placeholder => 'СНИЛС'
-                  .control-group
-                    = f.label :branch_id, 'Филиал', :class => 'control-label'
-                    .controls
-                      = f.collection_select :branch_id, Branch.all, :id, :name, {:prompt => 'Выберите филиал'}
-                  .control-group
-                    = f.label :position_id, 'Должность', :class => 'control-label'
-                    .controls
-                      = f.collection_select :position_id, Position.all, :id, :name, {:prompt => 'Выберите должность'}
-                  - level = (@employee.position.show_experience_level if @employee.position) || 0
-                  = content_tag :div, id: 'levels' do
-                    = f.hidden_field false, :value => level, :id => 'level'
-                  #levelgroups.control-group
-                    = f.label :level_id, 'Уровень опыта', :class => 'control-label'
-                    .controls
-                      = f.collection_select :level_id, Level.all, :id, :name, {:prompt => 'Выберите уровень опыта'}
-                  #groups.control-group
-                    = f.label :group_id, 'Группа', :class => 'control-label'
-                    .controls
-                      = collection_select(:group, :group_ids, Group.all, :id, :code, :prompt => 'Выберите группу')
-            .separator.line.bottom
-            .control-group.row-fluid
-          #account-details.tab-pane
+                    #dtp_birthdate.input-append.date
+                      = f.text_field :birthdate, id: 'member_birthdate'
+                      %span.add-on
+                        %i.icon-th
+                .control-group
+                  = f.label :gender, 'Пол', :class => 'control-label'
+                  .controls
+                    = select :employee, :gender, Tools.gender_list, class: 'span12'
+              .span6
+                .control-group
+                  = f.label :snils, 'СНИЛС', :class => 'control-label'
+                  .controls
+                    = f.text_field :snils, :placeholder => 'СНИЛС', class: 'span10'
+                .control-group
+                  = f.label :branch_id, 'Филиал', :class => 'control-label'
+                  .controls
+                    = f.collection_select :branch_id, Branch.all, :id, :name, {:prompt => 'Выберите филиал'}, class: 'span10'
+                .control-group
+                  = f.label :position_id, 'Должность', :class => 'control-label'
+                  .controls
+                    = f.collection_select :position_id, Position.all, :id, :name, {:prompt => 'Выберите должность'}, class: 'span10'
+                - level = (@employee.position.show_experience_level if @employee.position) || 0
+                = content_tag :div, id: 'levels' do
+                  = f.hidden_field false, :value => level, :id => 'level'
+                #levelgroups.control-group
+                  = f.label :level_id, 'Уровень опыта', :class => 'control-label'
+                  .controls
+                    = f.collection_select :level_id, Level.all, :id, :name, {:prompt => 'Выберите уровень опыта'}, class: 'span10'
+                #groups.control-group
+                  = f.label :group_id, 'Группа', :class => 'control-label'
+                  .controls
+                    = collection_select :group, :group_ids, Group.all, :id, :code, :prompt => 'Выберите группу', class: 'span12'
+            .separator
           #photo-details.tab-pane
+            .row-fluid
+              .span6
+                = label_tag 'current_photo', 'Текущее фото'
+                %a.thumb
+                  = image_tag @employee.avatar ? @employee.avatar_url(:large) : 'employees.png', alt: 'Profile'
+              .span6
+                = label_tag 'photo', 'Новое фото'
+                .fileupload.fileupload-new{"data-provides" => "fileupload"}
+                  .fileupload-new.thumbnail{style: "width: 256px; height: 256px;"}
+                    %img{src: "http://www.placehold.it/256x256/EFEFEF/AAAAAA&text=no+image"}/
+                  .fileupload-preview.fileupload-exists.thumbnail{style: "max-width: 256px; max-height: 256px; line-height: 20px;"}
+                  %div
+                    %span.btn.btn-file
+                      %span.fileupload-new Выбрать фото
+                      %span.fileupload-exists Изменить
+                      = f.file_field :avatar
+                    %a.btn.fileupload-exists{"data-dismiss" => "fileupload", href: "#"} Удалить
+    .separator.line.bottom
     .form-actions
       = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'

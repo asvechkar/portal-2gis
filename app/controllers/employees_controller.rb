@@ -119,6 +119,7 @@ class EmployeesController < ApplicationController
       :facebook,
       :twitter,
       :skype,
-      :vkontakte)
+      :vkontakte,
+      :avatar)
     end
 end

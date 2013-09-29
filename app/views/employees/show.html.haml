@@ -25,7 +25,7 @@
       .span3.center.innerL.innerTB
         .innerR
           %a.thumb
-            = image_tag @employee.avatar.nil? ? @employee.avatar_url(:large) : 'employees.png', alt: 'Profile'
+            = image_tag @employee.avatar ? @employee.avatar_url(:large) : 'employees.png', alt: 'Profile'
           .separator.bottom
           = link_to '', class: 'glyphicons standard primary facebook' do
             %i

@@ -14,13 +14,13 @@
 //= require bootstrap
 //= require bootstrap-timepicker
 //= require bootstrap-datetimepicker
-//= require bootstrap-fileupload
 //= require bootstrap-select
 //= require twitter-bootstrap-hover-dropdown
 //= require jquery.slimscroll
 //= require holder
 //= require jquery.uniform
 //= require jquery-fileupload
+//= require bootstrap-fileupload
 //= require employee
 //= require incomes
 //= require debts
