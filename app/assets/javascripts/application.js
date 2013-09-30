@@ -26,7 +26,7 @@
 //= require debts
 //= require upload
 //= require reports
-
+//= require pGenerator.jquery
 
 
 
@@ -75,6 +75,21 @@ $(function()
   if ($('.uniformjs').length) $('.uniformjs').find("select, input, button, textarea").uniform();
   $('.selectpicker').selectpicker();
   if ($('.toggle-button').length) $('.toggle-button').toggleButtons();
+  
+  $('#password_generator_btn').pGenerator({
+          'bind': 'click',
+          'passwordElement': '#my-input-element',
+          'displayElement': '#my-display-element',
+          'passwordLength': 8,
+          'uppercase': true,
+          'lowercase': true,
+          'numbers':   true,
+          'specialChars': false,
+          'onPasswordGenerated': function(generatedPassword) {
+          	$('#member_password').val(generatedPassword);
+            $('#password_generator_label').html(generatedPassword);
+          }
+      });
 
   $('#dtp_orderdate').datetimepicker({
       format: "dd.mm.yyyy",

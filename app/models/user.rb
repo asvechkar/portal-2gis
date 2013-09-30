@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
                           :join_table => :users_roles,
                           :foreign_key => 'user_id',
                           :association_foreign_key => 'role_id'
-  before_create :set_role
+  after_create :set_role
 
   def is?(role)
     roles.include?(role.to_s)

@@ -1,19 +1,28 @@
-= form_for @member do |f|
+= form_for @member, html: { autocomplete: 'off' } do |f|
   - if @member.errors.any?
     #error_explanation
       %h2= "#{pluralize(@member.errors.count, 'error')} возникло при сохранении:"
       %ul
         - @member.errors.full_messages.each do |msg|
           %li= msg
-
   .control-group
-    = f.label :name, 'Адрес эл.почты', :class => 'control-label'
+    = f.label :username, 'Имя пользователя', :class => 'control-label'
     .controls
-      = f.text_field :email, :placeholder => 'Адрес эл.почты'
+      = f.text_field :username, :placeholder => 'лат. буквами'
+  .control-group
+    = f.label :email, 'Адрес эл.почты', :class => 'control-label'
+    .controls
+      = f.text_field :email, :placeholder => 'username@2gis.ru'
   .control-group
     = f.label :role_id, 'Роль', :class => 'control-label'
     .controls
       = collection_select(:user, :role_ids, Role.all, :id, :name, :prompt => 'Выберите роль')
+  .control-group
+    = f.label :password, 'Пароль', :class => 'control-label'
+    .controls
+      = f.password_field :password, :placeholder => 'не менее 8 символов'
+      = link_to 'Придумать пароль', '#', id: 'password_generator_btn'
+      %span#password_generator_label 
   %hr.separator
   .form-actions
     = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'
