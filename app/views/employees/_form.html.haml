@@ -32,8 +32,8 @@
                 = label_tag 'username', 'Имя пользователя'
                 = text_field_tag 'username', '', :placeholder => 'лат. буквами', class: 'span12', disabled: true
                 .separator
-                = label_tag 'password', 'Пароль'
-                = password_field_tag 'password', '', :placeholder => 'лат. буквами', class: 'span12'
+                = f.label :userable_id, ' Учетные записи'
+                = collection_select(:user, :userable_ids, User.all, :id, :username, :prompt => 'Выберите пользователя')
                 .separator
             .separator.line.bottom
             .row-fluid
@@ -42,42 +42,42 @@
               .span9
                 .row-fluid
                   .span6
-                    = label_tag 'phone', 'Телефон'
+                    = f.label :phone, 'Телефон'
                     .input-prepend
                       %span.add-on.glyphicons.phone
                         %i
-                      = text_field_tag 'phone', '', :placeholder => '+7 123 456-7890', class: 'input-large'
+                      = f.text_field :phone, :placeholder => '+7 123 456-7890', class: 'input-large'
                     .separator
                     = label_tag 'email', 'Эл.почта'
                     .input-prepend
                       %span.add-on.glyphicons.envelope
                         %i
-                      = text_field_tag 'email', '', :placeholder => 'user@2gis.ru', class: 'input-large'
+                      = text_field_tag 'email', '', :placeholder => 'user@2gis.ru', class: 'input-large', disabled: true
                     .separator
-                    = label_tag 'skype', 'Skype'
+                    = f.label :skype, 'Skype'
                     .input-prepend
                       %span.add-on.glyphicons.skype
                         %i
-                      = text_field_tag 'skype', '', :placeholder => 'skype user', class: 'input-large'
+                      = f.text_field :skype, :placeholder => 'skype user', class: 'input-large'
                     .separator
                   .span6
-                    = label_tag 'facebook', 'Facebook'
+                    = f.label :facebook, 'Facebook'
                     .input-prepend
                       %span.add-on.glyphicons.facebook
                         %i
-                      = text_field_tag 'facebook', '', :placeholder => 'facebook user', class: 'input-large'
+                      = f.text_field :facebook, :placeholder => 'facebook user', class: 'input-large'
                     .separator
-                    = label_tag 'vkontakte', 'ВКонтакте'
+                    = f.label :vkontakte, 'ВКонтакте'
                     .input-prepend
                       %span.add-on.glyphicons.vkontakte
                         %i
-                      = text_field_tag 'vkontakte', '', :placeholder => 'vkontakte user', class: 'input-large'
+                      = f.text_field :vkontakte, :placeholder => 'vkontakte user', class: 'input-large'
                     .separator
-                    = label_tag 'twitter', 'Twitter'
+                    = f.label :twitter, 'Twitter'
                     .input-prepend
                       %span.add-on.glyphicons.twitter
                         %i
-                      = text_field_tag 'twitter', '', :placeholder => 'twitter user', class: 'input-large'
+                      = f.text_field :twitter, :placeholder => 'twitter user', class: 'input-large'
                     .separator
           #employee-details.tab-pane
             .row-fluid

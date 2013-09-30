@@ -13,7 +13,7 @@ class Employee < ActiveRecord::Base
   has_many :incomes
   validates_presence_of :firstname, :lastname,  :snils # :middlename,
   # validates_uniqueness_of :firstname, :lastname, :middlename, :snils
-  has_many :userifications, :as => :userable, :dependent => :destroy
+  has_one :userification, :as => :userable, :dependent => :destroy
   has_many :users, :through => :userifications, :foreign_key => 'userable_id'
   has_many :suspensions
   has_many :groups, :through => :suspensions, :source => :employed, :source_type => 'Group'

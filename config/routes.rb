@@ -17,7 +17,9 @@ Portal2gis::Application.routes.draw do
   resources :plans
   resources :groups
   resources :branches
-  resources :employees
+  resources :employees do
+    resources :userifications
+  end
   resources :clients
   resources :positions
   resources :levels
