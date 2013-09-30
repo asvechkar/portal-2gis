@@ -8,7 +8,7 @@
           - if current_user.account_employee.avatar
             = image_tag current_user.account_employee.avatar_url('avatar'), 'data-src' => current_user.account_employee.avatar_url('avatar'), :alt => current_user.account_employee.initials
         - else
-          = images_tag 'employees.png', 'data-src' => 'employees.png', alt: 'неисзвестный сотрудник'
+          = image_tag 'employees.png', 'data-src' => 'employees.png', alt: 'неисзвестный сотрудник'
     %ul
       %li
         = link_to root_path, :class => 'glyphicons dashboard' do
