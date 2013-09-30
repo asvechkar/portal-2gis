@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130928100442) do
+ActiveRecord::Schema.define(version: 20130930114052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,8 +101,10 @@ ActiveRecord::Schema.define(version: 20130928100442) do
     t.string    "skype"
     t.string    "vkontakte"
     t.string    "avatar"
+    t.integer   "account_id"
   end
 
+  add_index "employees", ["account_id"], name: "index_employees_on_account_id", using: :btree
   add_index "employees", ["branch_id"], name: "index_employees_on_branch_id", using: :btree
   add_index "employees", ["level_id"], name: "index_employees_on_level_id", using: :btree
   add_index "employees", ["position_id"], name: "index_employees_on_position_id", using: :btree
@@ -250,14 +252,6 @@ ActiveRecord::Schema.define(version: 20130928100442) do
     t.integer   "user_id"
   end
 
-  create_table "userifications", force: true do |t|
-    t.integer "user_id"
-    t.integer "userable_id"
-    t.string  "userable_type"
-  end
-
-  add_index "userifications", ["userable_id", "userable_type", "user_id"], name: "userification_index", using: :btree
-
   create_table "users", force: true do |t|
     t.string    "email",                                default: "", null: false
     t.string    "encrypted_password",                   default: "", null: false
@@ -272,7 +266,6 @@ ActiveRecord::Schema.define(version: 20130928100442) do
     t.timestamp "created_at",             precision: 6
     t.timestamp "updated_at",             precision: 6
     t.string    "username",                                          null: false
-    t.string    "avatar"
     t.string    "confirmation_token"
     t.datetime  "confirmed_at"
     t.datetime  "confirmation_sent_at"
@@ -295,6 +288,6 @@ ActiveRecord::Schema.define(version: 20130928100442) do
     t.integer "role_id"
   end
 
-  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
+  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", unique: true, using: :btree
 
 end

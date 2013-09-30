@@ -17,10 +17,11 @@
       = link_to edit_user_registration_path, :class => 'glyphicons parents' do
         %i
         Аккаунт
-    %li
-      = link_to '#', :class => 'glyphicons user' do
-        %i
-        Профиль
+    - unless current_user.account_employee.nil?
+      %li
+        = link_to edit_employee_path(current_user.account_employee), :class => 'glyphicons user' do
+          %i
+          Профиль
     %li
       = link_to destroy_user_session_path, :method => :delete, :class => 'glyphicons power' do
         %i

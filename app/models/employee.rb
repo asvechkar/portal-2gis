@@ -12,11 +12,10 @@ class Employee < ActiveRecord::Base
   has_many :debts
   has_many :incomes
   validates_presence_of :firstname, :lastname,  :snils # :middlename,
-  # validates_uniqueness_of :firstname, :lastname, :middlename, :snils
-  has_one :userification, :as => :userable, :dependent => :destroy
   has_many :users, :through => :userifications, :foreign_key => 'userable_id'
   has_many :suspensions
   has_many :groups, :through => :suspensions, :source => :employed, :source_type => 'Group'
+  belongs_to :account, :class_name => 'User'
 
   def group
     self

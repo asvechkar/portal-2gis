@@ -72,7 +72,6 @@ class EmployeesController < ApplicationController
         (params[:show_level].to_i == 0) ?
             @employee.update_attributes(:group_ids => nil, :level_id => nil) :
             @employee.update_attributes(:group_ids => params[:group][:group_ids])
-        # @employee.update_attributes(:userable_id => params[:user][:userable_ids])
         Tools.write2log(current_user.id, 'Обновление', 'Сотрудники', 0, employee_params.to_s)
         format.html { redirect_to @employee, notice: 'Сотудник успешно обновлен.' }
         format.json { head :no_content }
@@ -112,7 +111,7 @@ class EmployeesController < ApplicationController
       :position_id, 
       :branch_id, 
       :user_id,
-      :userable_id,
+      :account_id,
       :birthdate, 
       :gender,
       :about,

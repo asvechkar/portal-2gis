@@ -30,11 +30,12 @@
                 %p.muted Имя пользователя остается неизменным.
               .span9
                 = label_tag 'username', 'Имя пользователя'
-                = text_field_tag 'username', '', :placeholder => 'лат. буквами', class: 'span12', disabled: true
+                = text_field_tag 'username', '', :placeholder => 'лат. буквами', class: 'span12', disabled: true, value: User.find(@employee.account_id).username
                 .separator
-                = f.label :userable_id, ' Учетные записи'
-                = collection_select(:user, :userable_ids, User.all, :id, :username, :prompt => 'Выберите пользователя')
-                .separator
+                - if current_user.role.name == 'admin'
+                  = f.label :account_id, ' Учетные записи'
+                  = f.collection_select :account_id, User.all, :id, :username, :prompt => 'Выберите пользователя'
+                  .separator
             .separator.line.bottom
             .row-fluid
               .span3
@@ -52,7 +53,7 @@
                     .input-prepend
                       %span.add-on.glyphicons.envelope
                         %i
-                      = text_field_tag 'email', '', :placeholder => 'user@2gis.ru', class: 'input-large', disabled: true
+                      = text_field_tag 'email', '', :placeholder => 'user@2gis.ru', class: 'input-large', disabled: true, value: User.find(@employee.account_id).email
                     .separator
                     = f.label :skype, 'Skype'
                     .input-prepend

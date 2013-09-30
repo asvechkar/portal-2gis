@@ -16,13 +16,13 @@ class User < ActiveRecord::Base
   has_many :plans
   has_many :orders
   has_many :userifications
-  has_many :employees, :through => :userifications, :source => :userable, :source_type => 'Employee'
   has_many :debts
   has_many :uploads
   has_many :averagebills
   has_many :incomes
   has_many :eventlogs
   has_many :plancents
+  has_one :account_employee, :class_name => 'Employee', :foreign_key => 'account_id'
   has_and_belongs_to_many :roles,
                           :join_table => :users_roles,
                           :foreign_key => 'user_id',

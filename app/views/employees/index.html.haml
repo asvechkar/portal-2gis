@@ -33,6 +33,7 @@
             %th.center Должность
             %th.center Филиал
             %th.center Группы
+            %th.center Пользователь
             %th
         %tbody
           - @employees.each do |employee|
@@ -47,6 +48,7 @@
               %td
                 - employee.groups.each do |g|
                   = link_to g.code + ' ', group_path(g)
+              %td= employee.account.username unless employee.account.nil? 
               %td.center.actions-bar
                 = link_to employee, :class=> 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
                   %i
