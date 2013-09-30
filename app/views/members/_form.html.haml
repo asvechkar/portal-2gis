@@ -17,12 +17,13 @@
     = f.label :role_id, 'Роль', :class => 'control-label'
     .controls
       = collection_select(:user, :role_ids, Role.all, :id, :name, :prompt => 'Выберите роль')
-  .control-group
-    = f.label :password, 'Пароль', :class => 'control-label'
-    .controls
-      = f.password_field :password, :placeholder => 'не менее 8 символов'
-      = link_to 'Придумать пароль', '#', id: 'password_generator_btn'
-      %span#password_generator_label 
+  - unless @member.role
+    .control-group
+      = f.label :password, 'Пароль', :class => 'control-label'
+      .controls
+        = f.password_field :password, :placeholder => 'не менее 8 символов'
+        = link_to 'Придумать пароль', '#', id: 'password_generator_btn'
+        %span#password_generator_label 
   %hr.separator
   .form-actions
     = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'
