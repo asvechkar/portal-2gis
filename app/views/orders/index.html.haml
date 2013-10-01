@@ -36,9 +36,13 @@
       .separator.bottom.form-inline.small
         Всего:
         = @orders.count
-      %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center
+        Отмечено:
+        %span#selected_count 0
+      %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center.checkboxs
         %thead
           %tr
+            %th.uniformjs{ style: 'width: 1%;' }
+              %input{ type: 'checkbox' }
             %th.center №
             %th.cemter Город
             %th.center Куратор
@@ -49,11 +53,13 @@
             %th.center Груз
             %th.center Статус
             %th.center Продление
-            %th.center Старый БЗ
+            %th.center Старый&nbsp;БЗ
             %th
         %tbody
           - @orders.each do |order|
-            %tr
+            %tr.selectable
+              %td.center.uniformjs
+                %input{ type: 'checkbox', id: "#{order.id}" }
               %td.center= order.ordernum
               %td= order.city.name if order.city
               %td= order.employee.initials if order.employee

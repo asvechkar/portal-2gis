@@ -90,6 +90,14 @@ $(function()
             $('#password_generator_label').html(generatedPassword);
           }
       });
+  
+  $('.checkboxs tbody').on('click', 'tr.selectable', function(e){
+    $('#selected_count').text($('.checkboxs tbody :checked').length);
+    for (var i = 0; i < $('.checkboxs tbody :checked').length; i++) {
+      order_id = $('.checkboxs tbody :checked')[i].id
+       $('#selected_count').text(order_id);
+    }
+  });
 
   $('#dtp_orderdate').datetimepicker({
       format: "dd.mm.yyyy",

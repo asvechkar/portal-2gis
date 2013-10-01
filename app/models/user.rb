@@ -27,8 +27,6 @@ class User < ActiveRecord::Base
                           :join_table => :users_roles,
                           :foreign_key => 'user_id',
                           :association_foreign_key => 'role_id'
-  after_create :set_role
-
   def is?(role)
     roles.include?(role.to_s)
   end
@@ -36,11 +34,4 @@ class User < ActiveRecord::Base
   def role
     self.roles.all.first
   end
-  
-  private
-    def set_role
-      if self.roles.empty?
-        self.roles << Role.find_by_name('noob')
-      end
-    end
 end

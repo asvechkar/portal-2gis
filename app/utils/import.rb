@@ -11,6 +11,7 @@ module Import
     end
     return log
   end
+
   # Функция загрузки рассрочки
   # A - Куратор
   # B - Юр.лицо заказчика
@@ -42,6 +43,7 @@ module Import
     return log.id
   end
 
+  # Загрузка дебетовой рассрочки
   def self.debts(sheet, uid)
     message = ''
     count = 0
@@ -69,6 +71,7 @@ module Import
     return log.id
   end
 
+  # Загрузка продлений
   def self.orders_cont(sheet, uid)
     # сообщения лога
     message = ''
@@ -100,7 +103,7 @@ module Import
                            :orderdate => sheet.cell('F', list),
                            :startdate => sheet.cell('F', list),
                            :finishdate => sheet.cell('G', list),
-                           :continue => 0,
+                           :continue => 1,
                            :status => 0) if client_id && Order.where(:ordernum => ordernum).first.nil? && employee_id
       # считаем количество импортированных записей
       count += 1 if order
@@ -110,6 +113,7 @@ module Import
     return log.id
   end
 
+  # Загрузка клиентов
   def self.clients(sheet, uid)
     message = ''
     count = 0
@@ -125,6 +129,7 @@ module Import
     return log.id
   end
 
+  # Загрузка текущих
   def self.orders(sheet, uid)
     # сообщения лога
     message = ''
@@ -166,6 +171,7 @@ module Import
     return log.id
   end
 
+  # поиск сотрудника по имени и фамилии
   def self.whereMyEmployee(ln, fn, uid)
     employee = Employee.where(:firstname => fn, :lastname => ln).first
     id = nil
@@ -173,6 +179,7 @@ module Import
     return id
   end
 
+  # поиск клитента по коду
   def self.whereMyClient(client_name, uid)
      code = client_name.slice(/(^[^,]*)/)
      client = Client.where(:code => code).first
@@ -181,6 +188,7 @@ module Import
      return id
   end
 
+  # поиск клитента по имени
   def self.getClientByName(client_name, uid)
     name = client_name.slice(/(^[^,]*)/)
     client = Client.where(:name => name).first
@@ -189,6 +197,7 @@ module Import
     return id
   end
 
+  # поиск города по имени
   def self.getCityByName(city_name, uid)
     city = City.where(:name => city_name).first
     id = city.nil? ? nil : city.id
