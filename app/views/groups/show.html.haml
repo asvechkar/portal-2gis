@@ -27,3 +27,34 @@
       %dd= @group.user.username
       %dt Дата создания
       %dd= @group.created_at.strftime('%d.%m.%Y %H:%M')
+    .separator.bottom.form-inline.small
+      Всего:
+      = @group_members.count
+    %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center
+      %thead
+        %tr
+          %th.center Имя
+          %th.center Отчество
+          %th.center Фамилия
+          %th.center СНИЛС
+          %th.center Опыт
+          %th.center Должность
+          %th.center Пользователь
+          %th
+      %tbody
+        - @group_members.each do |employee|
+          %tr
+            %td= employee.firstname
+            %td= employee.middlename
+            %td= employee.lastname
+            %td= employee.snils
+            %td= employee.level.name if employee.level_id
+            %td= employee.position.name if employee.position
+            %td= employee.account.username unless employee.account.nil?
+            %td.center.actions-bar
+              = link_to employee, :class=> 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
+                %i
+              = link_to edit_employee_path(employee), :class=> 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
+                %i
+              = link_to employee, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :title => 'Удалить', :class=> 'btn-action glyphicons remove_2 btn-danger' do
+                %i
