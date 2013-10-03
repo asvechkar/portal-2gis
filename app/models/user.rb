@@ -34,4 +34,8 @@ class User < ActiveRecord::Base
   def role
     self.roles.all.first
   end
+
+  def city
+    self.account_employee ? self.account_employee.branch.name : 'неизвестно'
+  end
 end
