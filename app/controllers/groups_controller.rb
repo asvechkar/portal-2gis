@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
@@ -12,6 +14,7 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
+    @group_members = @group.employees
   end
 
   # GET /groups/new
