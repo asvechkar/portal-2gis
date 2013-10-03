@@ -1,23 +1,20 @@
-= form_for @client do |f|
-  - if @client.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@client.errors.count, "error")} prohibited this city from being saved:"
-      %ul
-        - @client.errors.full_messages.each do |msg|
-          %li= msg
+- if @client.errors.any?
+  #error_explanation
+    %h2= "#{pluralize(@client.errors.count, "error")} prohibited this city from being saved:"
+    %ul
+      - @client.errors.full_messages.each do |msg|
+        %li= msg
 
-  .control-group
-    = f.label :name, 'Юр. Лицо', :class => 'control-label'
-    .controls
-      = f.text_field :name, :placeholder => 'Наименование компании'
-  .control-group
-    = f.label :inn, 'ИНН компании', :class => 'control-label'
-    .controls
-      = f.text_field :inn, :placeholder => 'ИНН компании'
-  .control-group
-    = f.label :code, 'Название фирмы', :class => 'control-label'
-    .controls
-      = f.text_field :code, :placeholder => 'Код компании'
-  %hr.separator
-  .form-actions
-    = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'
+.control-group
+  = f.label :name, 'Юр. Лицо', :class => 'control-label'
+  .controls
+    = f.text_field :name, :placeholder => 'Наименование компании'
+.control-group
+  = f.label :inn, 'ИНН компании', :class => 'control-label'
+  .controls
+    = f.text_field :inn, :placeholder => 'ИНН компании'
+.control-group
+  = f.label :code, 'Название фирмы', :class => 'control-label'
+  .controls
+    = f.text_field :code, :placeholder => 'Код компании'
+%hr.separator
