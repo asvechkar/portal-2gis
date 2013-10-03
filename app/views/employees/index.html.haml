@@ -29,8 +29,8 @@
             %th.center Отчество
             %th.center Фамилия
             %th.center СНИЛС
-            %th.center Опыт
             %th.center Должность
+            %th.center Опыт
             %th.center Филиал
             %th.center Группы
             %th.center Пользователь
@@ -42,8 +42,8 @@
               %td= employee.middlename
               %td= employee.lastname
               %td= employee.snils
-              %td= employee.level.name if employee.level_id
               %td= employee.position.name if employee.position
+              %td= employee.level.name if employee.level_id
               %td= employee.branch.name if employee.branch
               %td
                 - employee.groups.each do |g|

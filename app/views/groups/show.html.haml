@@ -37,8 +37,8 @@
           %th.center Отчество
           %th.center Фамилия
           %th.center СНИЛС
-          %th.center Опыт
           %th.center Должность
+          %th.center Опыт
           %th.center Пользователь
           %th
       %tbody
@@ -48,8 +48,8 @@
             %td= employee.middlename
             %td= employee.lastname
             %td= employee.snils
-            %td= employee.level.name if employee.level_id
             %td= employee.position.name if employee.position
+            %td= employee.level.name if employee.level_id
             %td= employee.account.username unless employee.account.nil?
             %td.center.actions-bar
               = link_to employee, :class=> 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
