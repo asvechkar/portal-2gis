@@ -174,7 +174,7 @@ module Import
     return log.id
   end
 
-  #импорт по оплатам (A,B,F,H)
+  #импорт поступлений (A,B,F,H)
   def self.income
     message = ''
     count = 0

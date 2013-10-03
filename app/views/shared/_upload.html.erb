@@ -7,58 +7,59 @@
 
     <div class="container">
 
-      <%= form_for Upload.new, :html => { :multipart => true, :id => 'fileupload'  } do |f| %>
-          <div class="row fileupload-buttonbar">
-            <div class="span7">
-        <span class="btn btn-success fileinput-button">
-          <i class="icon-plus icon-white"></i>
-          <span>Добавить файлы...</span>
-          <%= f.file_field :upload %>
-        </span>
-              <button type="submit" class="btn btn-primary start">
-                <i class="icon-upload icon-white"></i>
-                <span>Начать загрузку</span>
-              </button>
-              <button type="reset" class="btn btn-warning cancel">
-                <i class="icon-ban-circle icon-white"></i>
-                <span>Отменить загрузку</span>
-              </button>
-              <!--<button type="button" class="btn btn-danger delete">-->
+      <%= form_for Upload.new, :html => { :multipart => true, :id => 'fileupload' } do |f| %>
+        <div class="row fileupload-buttonbar">
+          <div class="span7">
+            <span class="btn btn-success fileinput-button">
+              <i class="icon-plus icon-white"></i>
+              <span>Добавить файлы...</span>
+              <%= f.file_field :upload %>
+            </span>
+            <button type="submit" class="btn btn-primary start">
+              <i class="icon-upload icon-white"></i>
+              <span>Начать загрузку</span>
+            </button>
+            <button type="reset" class="btn btn-warning cancel">
+              <i class="icon-ban-circle icon-white"></i>
+              <span>Отменить загрузку</span>
+            </button>
+            <!--<button type="button" class="btn btn-danger delete">-->
               <!--<i class="icon-trash icon-white"></i>-->
               <!--<span>Удалить</span>-->
               <!--</button>-->
-              <!--<input type="checkbox" class="toggle">-->
+            <!--<input type="checkbox" class="toggle">-->
+          </div>
+          <div class="span5">
+            <div class="progress progress-success progress-striped active fade">
+              <div class="bar" style="width:0%;"></div>
             </div>
-            <div class="span5">
-              <div class="progress progress-success progress-striped active fade">
-                <div class="bar" style="width:0%;"></div>
-              </div>
-            </div>
           </div>
-          <div class="fileupload-loading"></div>
-          <br>
-          <table class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
-          </table>
+        </div>
+        <div class="fileupload-loading"></div>
+        <br>
+        <table class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
+        </table>
 
 
-          </div>
+      </div>
 
 
-          </div>
-          <div class="modal-footer">
+    </div>
+    <div class="modal-footer">
 
-            <%= hidden_field_tag 'classname', object %>
-            <% submitTitle = ''
-              case dialog_id
-                when 'currOrders' then submitTitle = 'Импортировать текущие'
-                when 'contOrders' then submitTitle = 'Импортировать продленные'
-                when 'instModal' then submitTitle = 'Импортировать рассрочку'
-                when 'debtModal' then submitTitle = 'Импортировать дебет'
-                when 'clientsDialog' then submitTitle = 'Импортировать клиентов'
-              end %>
-            <%= f.submit submitTitle, :class => 'btn btn-primary' %>
-      <% end %>
-   </div>
+      <%= hidden_field_tag 'classname', object %>
+      <% submitTitle = ''
+      case dialog_id
+      when 'currOrders' then submitTitle = 'Импортировать текущие'
+      when 'contOrders' then submitTitle = 'Импортировать продленные'
+      when 'instModal' then submitTitle = 'Импортировать рассрочку'
+      when 'debtModal' then submitTitle = 'Импортировать дебет'
+      when 'clientsDialog' then submitTitle = 'Импортировать клиентов'
+      when 'income' then submitTitle = 'Импортировать поступлений'
+      end %>
+      <%= f.submit submitTitle, :class => 'btn btn-primary' %>
+    <% end %>
+  </div>
 </div>
 
 
