@@ -19,6 +19,9 @@
     = link_to '#contOrders', :class => 'btn btn-primary btn-icon glyphicons file_import', :data => {:toggle=>"modal"} do
       %i
       Импорт продленных
+    = link_to '', :class => 'btn btn-primary btn-icon glyphicons set_continue', 'data-url' => set_continue_orders_path  do
+      %i
+      Пролонгировать
   .clearfix
 .separator.bottom
 .innerLR

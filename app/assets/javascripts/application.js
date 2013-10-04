@@ -90,14 +90,27 @@ $(function()
             $('#password_generator_label').html(generatedPassword);
           }
       });
-  
+  var orders_ids = [];
   $('.checkboxs tbody').on('click', 'tr.selectable', function(e){
-    $('#selected_count').text($('.checkboxs tbody :checked').length);
-    for (var i = 0; i < $('.checkboxs tbody :checked').length; i++) {
-      order_id = $('.checkboxs tbody :checked')[i].id
-       $('#selected_count').text(order_id);
+    var all_elements = $('.checkboxs tbody :checked').length;
+    orders_ids = [];
+    $('#selected_count').text(all_elements);
+    for (var i = 0; i < all_elements; i++) {
+      orders_ids.push($('.checkboxs tbody :checked')[i].id);
     }
   });
+
+  $('.set_continue').click( function (e){
+    var url = $('.set_continue').data('url');
+    $.ajax({
+      type:'post',
+      url: url,
+      data: ({ ids: orders_ids }),
+      success: function () { location.reload(true); }
+    });
+    orders_ids = null;
+    return false;
+  })
 
   $('#dtp_orderdate').datetimepicker({
       format: "dd.mm.yyyy",

@@ -24,6 +24,10 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def set_continue
+    self.continue = true
+  end
+
   def weight
     # months = Time.at((self.finishdate.to_date - 5) - self.startdate.to_date).month
     months = (self.finishdate.year * 12 + self.finishdate.month) - (self.startdate.year * 12 + self.startdate.month) + 1

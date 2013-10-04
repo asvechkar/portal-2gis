@@ -79,6 +79,15 @@ class OrdersController < ApplicationController
     end
   end
 
+  def set_continue
+    @orders = Order.where(id: params[:ids])
+    @orders.each do |order|
+      order.set_continue
+      order.save
+    end
+    render nothing: true
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
