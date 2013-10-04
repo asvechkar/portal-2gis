@@ -52,7 +52,7 @@ class UploadsController < ApplicationController
           }
           format.json { render json: {files: [@upload.to_jq_upload]}, status: :created, location: @upload }
         else
-          format.html { render action: "new" }
+          format.html { render action: 'new' }
           format.json { render json: @upload.errors, status: :unprocessable_entity }
         end
       end

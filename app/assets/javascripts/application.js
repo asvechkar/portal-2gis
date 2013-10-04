@@ -20,15 +20,14 @@
 //= require holder
 //= require jquery.uniform
 //= require jquery-fileupload
-//= require bootstrap-fileupload
+//= require upload
+// bootstrap-fileupload
 //= require employee
 //= require incomes
 //= require debts
 //= require upload
 //= require reports
 //= require pGenerator.jquery
-
-
 
 function toggleMenuHidden()
 {
