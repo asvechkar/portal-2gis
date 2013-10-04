@@ -41,16 +41,14 @@ class UploadsController < ApplicationController
   # POST /uploads
   # POST /uploads.json
   def create
-
     if params[:upload]
-      @upload = Upload.new(uploads_params)
-      @upload.user_id = current_user.id
+      @upload = Upload.new(uploads_params.merge(user_id: current_user.id))
       respond_to do |format|
         if @upload.save
           format.html {
-            render :json => [@upload.to_jq_upload].to_json,
-                   :content_type => 'text/html',
-                   :layout => false
+            render json: [@upload.to_jq_upload].to_json,
+                   content_type: 'text/html',
+                   layout: false
           }
           format.json { render json: {files: [@upload.to_jq_upload]}, status: :created, location: @upload }
         else
@@ -59,7 +57,7 @@ class UploadsController < ApplicationController
         end
       end
     else
-     redirect_to '/eventlogs/' + Import.xlsx(Upload.find(params[:obj]).upload.path, params[:classname], current_user.id).to_s
+      redirect_to '/eventlogs/' + Import.xlsx(Upload.find(params[:obj]).upload.path, params[:classname], current_user.id).to_s
     end
   end
 

@@ -3,5 +3,6 @@ class Income < ActiveRecord::Base
   belongs_to :employee
   belongs_to :order
   belongs_to :user
-  validates_presence_of :indate, :insum
+
+  validates :indate, :insum, :presence => true
 end
