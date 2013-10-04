@@ -12,8 +12,13 @@ Portal2gis::Application.routes.draw do
   get 'orders/wizard' => 'orders#wizard', :as => 'new_deal'
   get 'support' => 'portal#support'
 
+
   resources :debts
-  resources :orders
+  resources :orders do
+    collection do
+      post :set_continue
+    end
+  end
   resources :plans
   resources :groups
   resources :branches
