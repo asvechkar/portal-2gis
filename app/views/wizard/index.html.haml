@@ -82,3 +82,9 @@
           .row-fluid
             .span12
           #plans
+.row-fluid
+  = render 'shared/upload', object: 'client', dialog_id: 'clientsDialog'
+  = render 'shared/upload', object: 'order_curr', dialog_id: 'currOrders'
+  = render 'shared/upload', object: 'order_cont', dialog_id: 'contOrders'
+  = render 'shared/upload', object: 'debt_inst', dialog_id: 'instModal'
+  = render 'shared/upload', object: 'debt_debt', dialog_id: 'debtModal'
