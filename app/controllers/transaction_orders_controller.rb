@@ -11,26 +11,26 @@ class TransactionOrdersController < ApplicationController
     @user = current_user
     case @step = params[:step]
     when 'client'
-      action('order')
+      transaction_objects
+      @step = 'order' if @client.valid?
       render 'new'
     when 'order'
-      action('confirm')
+      transaction_objects
+      @step = 'confirm' if @order.valid?
       render 'new'
     when 'confirm'
-      @client = Client.create(params[:user][:client].permit(:name, :inn, :code))
-      @order = Order.create(params[:user][:order].permit(:city_id, :employee_id, :client_id,
-        :ordersum, :startdate, :finishdate, :orderdate, :ordernum, :order_id, :continue))
-      render 'new', notice: 'Заказ успешно оформлен'
+      transaction_objects
+      @client.save; @order.save
+      redirect_to new_transaction_order_path, notice: 'Новая продажа успешно оформлена'
     end
   end
 
   private
 
-  def action(to)
+  def transaction_objects
     @client = Client.new(params[:user][:client].permit(:name, :inn, :code))
-    @order = Order.new(params[:user][:order].permit(:city_id, :employee_id, :client_id,
-      :ordersum, :startdate, :finishdate, :orderdate, :ordernum, :order_id, :continue))
-    @step = to if @client.valid?
+    @order = Order.new(params[:user][:order].merge(user_id: current_user.id).permit(:city_id, :employee_id, :client_id, :ordersum, :startdate,
+          :finishdate, :orderdate, :ordernum, :order_id, :continue, :status, :user_id))
   end
 
 end
