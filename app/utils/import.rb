@@ -193,7 +193,8 @@ module Import
       message = "#{message}<br>Клиент #{client_name} отсутствует в системе" unless client_id
       message = "#{message}<br>Сотрудник #{employee_fn} #{employee_ln} отсутствует в системе" unless employee_id
       # Создание записи
-      count += 1 if Income.create(:indate => indate, :insum => insum)
+      income = Income.create(:indate => indate, :insum => insum) if client_id && employee_id
+      count += 1 if income
     end
     message = "#{message}<br><p>Импортировано #{count} записей из #{sheet.last_row - 1}</p>"
     log = Eventlog.create(:user_id => uid, :action => 'Импорт', :model => 'Income - Выгрузка по оплатам', :status => 0, :message => message)
