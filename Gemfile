@@ -26,7 +26,6 @@ gem 'jbuilder', '~> 1.2'
 gem 'therubyracer', platforms: :ruby
 gem 'highcharts-rails', '~> 3.0.0'
 gem 'kaminari'
-gem 'wicked'
 
 group :doc do
   gem 'sdoc', require: false
