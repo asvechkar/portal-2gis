@@ -1,12 +1,3 @@
-.row-fluid
-  .span3
-    = link_to '#currOrders', class: 'btn btn-primary btn-icon glyphicons file_import', data: {:toggle=>"modal"} do
-      %i
-      Импорт текущих
-
-.row-fluid
-  .span12
-
 %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center.checkboxs
   %thead
     %tr
@@ -25,7 +16,7 @@
       %th.center Старый&nbsp;БЗ
       %th
   %tbody
-    - @current_orders.each do |order|
+    - @continue_orders.each do |order|
       %tr.selectable
         %td.center.uniformjs
           %input{ type: 'checkbox', id: "#{order.id}" }
@@ -47,4 +38,4 @@
             %i
           = link_to order, method: :delete, data: { confirm: 'Вы уверены, что хотите удалить?' }, class: 'btn-action glyphicons remove_2 btn-danger', title: 'Удалить' do
             %i
-= paginate @current_orders, param_name: 'current_orders_page', remote: true
+= paginate @continue_orders, param_name: 'continue_orders_page', remote: true

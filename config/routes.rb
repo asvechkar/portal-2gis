@@ -19,11 +19,7 @@ Portal2gis::Application.routes.draw do
       post :set_continue
     end
   end
-  resources :plans do
-    collection do
-      get :wizard
-    end
-  end
+  resources :plans
   resources :groups
   resources :branches
   resources :employees do
@@ -39,7 +35,16 @@ Portal2gis::Application.routes.draw do
   resources :averagebills
   resources :eventlogs
   resources :members
+  resources :wizard, only: [:index] do
+    collection do
+      get :clients
+      get :current_orders
+      get :continue_orders
+      get :debts
+      get :plans
+    end
+  end
 
-  devise_for :users, :controllers => { :registrations => 'registrations', :sessions => 'sessions', :passwords => 'passwords', :confirmations => 'confirmations', :unlocks => 'unlocks' }
+  devise_for :users, controllers: { registrations: 'registrations', sessions: 'sessions', passwords: 'passwords', confirmations: 'confirmations', unlocks: 'unlocks' }
   root 'portal#index'
 end

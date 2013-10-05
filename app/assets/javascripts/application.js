@@ -28,6 +28,7 @@
 //= require upload
 //= require reports
 //= require pGenerator.jquery
+//= require wizard
 
 function toggleMenuHidden()
 {
@@ -155,3 +156,10 @@ $(function()
   $("#inputmask-currency").inputmask('999 999 999,99', { numericInput: true, rightAlignNumerics: false, greedy: false});
   $('#member_phone').inputmask('(999) 999-9999', { numericInput: true, rightAlignNumerics: false, greedy: false})
 });
+
+ajaxRequest = function(url, type) {
+  $.ajax({
+    url: url,
+    type: type
+  })
+}
