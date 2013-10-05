@@ -68,6 +68,15 @@ class PlansController < ApplicationController
     end
   end
 
+  def wizard
+    @clients = Client.all.page(params[:clients_page]).per(25)
+    lastDay = Date.today.at_end_of_month
+    @current_orders = Order.where("finishdate > '#{lastDay}'").page(params[:current_orders_page]).per(25)
+    @continue_orders = Order.where("finishdate = '#{lastDay}'").page(params[:continue_orders_page]).per(25)
+    @debts = Debt.all.page(params[:debts_page]).per(10)
+    @plans = Plan.all.page(params[:plans_page]).per(10)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_plan

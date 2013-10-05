@@ -19,7 +19,11 @@ Portal2gis::Application.routes.draw do
       post :set_continue
     end
   end
-  resources :plans
+  resources :plans do
+    collection do
+      get :wizard
+    end
+  end
   resources :groups
   resources :branches
   resources :employees do

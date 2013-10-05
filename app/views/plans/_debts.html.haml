@@ -1,0 +1,39 @@
+.row-fluid
+  .span3
+    = link_to '#instModal', class: 'btn btn-primary btn-icon glyphicons circle_plus', data: {:toggle=>"modal"} do
+      %i
+      Импорт рассрочки
+  .span3
+    = link_to '#debtModal', class: 'btn btn-primary btn-icon glyphicons circle_plus', data: {:toggle=>"modal"} do
+      %i
+      Импорт дебета
+.row-fluid
+  .span12
+%table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center
+  %thead
+    %tr
+      %th.center Год
+      %th.center Месяц
+      %th.center Менеджер
+      %th.center Клиент
+      %th.center Бланк заказа
+      %th.center Тип
+      %th.center Сумма
+      %th
+  %tbody
+    - @debts.each do |debt|
+      - cache debt do
+        %tr
+          %td.center= debt.year
+          %td.center= debt.month
+          %td{ style: 'min-width: 150px;' }= debt.employee ? debt.employee.initials : 'пусто'
+          %td= debt.client ? debt.client.name : 'пусто'
+          %td{ style: 'min-width: 200px;' }= debt.order ? debt.order.ordernum : 'пусто'
+          %td= debt.decode_type
+          %td{ style: 'min-width: 100px;' }= number_to_currency(debt.debtsum, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+          %td.center.actions-bar
+            = link_to edit_debt_path(debt), class: 'btn-action glyphicons pencil btn-success', title: 'Редактировать' do
+              %i
+            = link_to debt, method: :delete, data: { confirm: 'Вы уверены, что хотите удалить?' }, class: 'btn-action glyphicons remove_2 btn-danger', title: 'Удалить' do
+              %i
+= paginate @debts, param_name: 'debts_page', remote: true

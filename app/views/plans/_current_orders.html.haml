@@ -1,0 +1,50 @@
+.row-fluid
+  .span3
+    = link_to '#currOrders', class: 'btn btn-primary btn-icon glyphicons file_import', data: {:toggle=>"modal"} do
+      %i
+      Импорт текущих
+
+.row-fluid
+  .span12
+
+%table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center.checkboxs
+  %thead
+    %tr
+      %th.uniformjs{ style: 'width: 1%;' }
+        %input{ type: 'checkbox' }
+      %th.center №
+      %th.cemter Город
+      %th.center Куратор
+      %th.center Клиент
+      %th.center Начало
+      %th.center Окончание
+      %th.center Сумма
+      %th.center Груз
+      %th.center Статус
+      %th.center Продление
+      %th.center Старый&nbsp;БЗ
+      %th
+  %tbody
+    - @current_orders.each do |order|
+      %tr.selectable
+        %td.center.uniformjs
+          %input{ type: 'checkbox', id: "#{order.id}" }
+        %td.center= order.ordernum
+        %td= order.city.name if order.city
+        %td= order.employee.initials if order.employee
+        %td= order.client.name if order.client
+        %td.center= order.startdate.strftime('%d.%m.%Y')
+        %td.center= order.finishdate.strftime('%d.%m.%Y')
+        %td= number_to_currency(order.ordersum, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+        %td= number_to_currency(order.weight, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+        %td= order.status_desc
+        %td.center= order.continue_desc
+        %td= Order.find(order.order_id).ordernum if order.order_id
+        %td.center.actions-bar
+          = link_to order, class: 'btn-action glyphicons eye_open btn-default', title: 'Показать' do
+            %i
+          = link_to edit_order_path(order), class: 'btn-action glyphicons pencil btn-success', title: 'Редактировать' do
+            %i
+          = link_to order, method: :delete, data: { confirm: 'Вы уверены, что хотите удалить?' }, class: 'btn-action glyphicons remove_2 btn-danger', title: 'Удалить' do
+            %i
+= paginate @current_orders, param_name: 'current_orders_page', remote: true

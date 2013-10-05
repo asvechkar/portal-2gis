@@ -1,0 +1,32 @@
+.row-fluid
+  .span3
+    = link_to new_plan_path, :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
+      %i
+      Новый план
+.row-fluid
+  .span12
+%table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center
+  %thead
+    %tr
+      %th.center Сотрудник
+      %th.center Год
+      %th.center Месяц
+      %th.center Клиентов
+      %th.center Груз
+      %th.center Сумма
+      %th
+  %tbody
+    - @plans.each do |plan|
+      %tr
+        %td= plan.employee.initials if plan.employee
+        %td= plan.year
+        %td= plan.month
+        %td= plan.clients
+        %td= number_to_currency(plan.weight, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+        %td= number_to_currency((plan.weight * 2.5), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+        %td.center.actions-bar
+          = link_to edit_plan_path(plan), class: 'btn-action glyphicons pencil btn-success', title: 'Редактировать' do
+            %i
+          = link_to plan, method: :delete, data: { confirm: 'Вы уверены, что хотите удалить?' }, class: 'btn-action glyphicons remove_2 btn-danger', title: 'Удалить' do
+            %i
+= paginate @plans, param_name: 'plans_page', remote: true
