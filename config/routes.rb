@@ -35,6 +35,7 @@ Portal2gis::Application.routes.draw do
   resources :averagebills
   resources :eventlogs
   resources :members
+  resources :transaction_orders, only: [:new, :create]
 
   devise_for :users, :controllers => { :registrations => 'registrations', :sessions => 'sessions', :passwords => 'passwords', :confirmations => 'confirmations', :unlocks => 'unlocks' }
   root 'portal#index'
