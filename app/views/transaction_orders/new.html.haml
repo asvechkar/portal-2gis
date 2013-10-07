@@ -14,17 +14,17 @@
   .widget.widget-tabs.widget-tabs-double.widget-tabs-vertical.row-fluid.row-merge
     .widget-head.span3
       %ul
-        %li.active
+        %li{ class: "#{ :active if @step == 'client' }" }
           = link_to '#step-1', :class => 'glyphicons user' do
             %i
             %span.strong Шаг 1
             %span Информация о клиенте
-        %li
+        %li{ class: "#{ :active if @step == 'order' }" }
           = link_to '#step-2', :class => 'glyphicons calculator' do
             %i
             %span.strong Шаг 2
             %span Бланк-заказ
-        %li
+        %li{ class: "#{ :active if @step == 'confirm' }" }
           = link_to '#step-3', :class => 'glyphicons credit_card' do
             %i
             %span.strong Шаг 3
@@ -41,15 +41,18 @@
               = render 'orders/form', { f: ff}
           #step-3.tab-pane{ class: "#{ :active if @step == 'confirm' }" }
             %h4 Подтвердите введенные данные
-            %br Клиент:
+            %b
+              %br Клиент:
             Юр. лицо #{@client.name}
             %br ИНН компании #{@client.inn}
             Название фирмы #{@client.code}
-            %br Заказ:
-            - if @order.city
-              Город #{City.find(@order.city_id).name}
+            %hr
+            %b
+              %br Заказ:
+            - if @order.employee
+              Город #{@order.city.name}
               %br Куратор #{@order.employee.initials}
-              Клиент #{@order.client.name}
+              Клиент #{@order.client.try(:name)}
               %br Сумма заказа, руб #{sprintf('%.2f', @order.ordersum)}
               #{@order.startdate.strftime('Дата начала %d.%m.%Y')}
               %br #{@order.finishdate.strftime('Дата окончания %d.%m.%Y')}
@@ -57,4 +60,5 @@
               %br Номер бланка #{@order.ordernum}
               Предидущий бланк #{@order.order_id}
               %br Пролонгация #{@order.continue == 1 ? 'да' : 'нет'}
-        = f.submit "Перейти к шагу #{@step}", class: 'btn btn-icon btn-primary'
+              %hr
+        = f.submit wizard_button_name, class: 'btn btn-icon btn-primary'
