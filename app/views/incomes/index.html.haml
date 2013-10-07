@@ -1,7 +1,7 @@
 %ul.breadcrumb
   %li Вы сейчас здесь
   %li
-    = link_to root_path, :class => 'glyphicons dashboard' do
+    = link_to root_path, class: 'glyphicons dashboard' do
       %i
       Главная
   %li.divider
@@ -10,10 +10,10 @@
   %h3
     Поступления
   .buttons.pull-right
-    = link_to '#incomes_import', :class => 'btn btn-primary btn-icon glyphicons file_import', data: { toggle: 'modal' } do
+    = link_to '#incomes_import', class: 'btn btn-primary btn-icon glyphicons file_import', data: { toggle: 'modal' } do
       %i
       Импортировать поступления
-    = link_to new_income_path, :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
+    = link_to new_income_path, class: 'btn btn-primary btn-icon glyphicons circle_plus' do
       %i
       Новое поступление
   .clearfix
@@ -44,8 +44,8 @@
               %td.center= income.cash == true ? 'да' : 'нет'
               %td= number_to_currency(income.insum, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
               %td.center.actions-bar
-                = link_to edit_income_path(income), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
+                = link_to edit_income_path(income), class: 'btn-action glyphicons pencil btn-success', title: 'Редактировать' do
                   %i
-                = link_to income, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
+                = link_to income, method: :delete, data: { confirm: 'Вы уверены, что хотите удалить?' }, class: 'btn-action glyphicons remove_2 btn-danger', title: 'Удалить' do
                   %i
 = render 'shared/upload', object: 'income', dialog_id: 'incomes_import'

@@ -1,0 +1,22 @@
+%table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center
+  %thead
+    %tr
+      %th.center Юр. Лицо
+      %th.center ИНН
+      %th.center Название фирмы
+      %th
+  %tbody
+    - @clients.each do |client|
+      - cache client do
+        %tr
+          %td= client.name
+          %td= client.inn
+          %td= client.code
+          %td.center.actions-bar
+            = link_to client, class: 'btn-action glyphicons eye_open btn-default', title: 'Показать' do
+              %i.icon-search
+            = link_to edit_client_path(client), class: 'btn-action glyphicons pencil btn-success', title: 'Редактировать' do
+              %i.icon-edit
+            = link_to client, method: :delete, data: { confirm: 'Вы уверены, что хотите удалить?' }, class: 'btn-action glyphicons remove_2 btn-danger', title: 'Удалить' do
+              %i
+= paginate @clients, param_name: 'clients_page', remote: true

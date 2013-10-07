@@ -1,7 +1,7 @@
 %ul.breadcrumb
   %li Вы сейчас здесь
   %li
-    = link_to root_path, :class => 'glyphicons dashboard' do
+    = link_to root_path, class: 'glyphicons dashboard' do
       %i
       Главная
   %li.divider
@@ -10,19 +10,19 @@
   %h3
     Задолженность
   .buttons.pull-right
-    = link_to debts_floating_path, :class => 'btn btn-warning btn-icon glyphicons circle_plus' do
+    = link_to debts_floating_path, class: 'btn btn-warning btn-icon glyphicons circle_plus' do
       %i
       Расчет текущей
   .buttons.pull-right
-    = link_to '#instModal', :class => 'btn btn-primary btn-icon glyphicons circle_plus', :data => {:toggle=>"modal"} do
+    = link_to '#instModal', class: 'btn btn-primary btn-icon glyphicons circle_plus', data: {:toggle=>"modal"} do
       %i
       Импорт рассрочки
   .buttons.pull-right
-    = link_to '#debtModal', :class => 'btn btn-primary btn-icon glyphicons circle_plus', :data => {:toggle=>"modal"} do
+    = link_to '#debtModal', class: 'btn btn-primary btn-icon glyphicons circle_plus', data: {:toggle=>"modal"} do
       %i
       Импорт дебета
   .buttons.pull-right
-    = link_to new_debt_path, :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
+    = link_to new_debt_path, class: 'btn btn-primary btn-icon glyphicons circle_plus' do
       %i
       Новая задолженность
   .clearfix
@@ -67,9 +67,9 @@
                 %td= debt.decode_type
                 %td{ style: 'min-width: 100px;' }= number_to_currency(debt.debtsum, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
                 %td.center.actions-bar
-                  = link_to edit_debt_path(debt), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
+                  = link_to edit_debt_path(debt), class: 'btn-action glyphicons pencil btn-success', title: 'Редактировать' do
                     %i
-                  = link_to debt, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
+                  = link_to debt, method: :delete, data: { confirm: 'Вы уверены, что хотите удалить?' }, class: 'btn-action glyphicons remove_2 btn-danger', title: 'Удалить' do
                     %i
       = paginate @debts
 = render 'shared/upload', object: 'debt_inst', dialog_id: 'instModal'
