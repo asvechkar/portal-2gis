@@ -1,7 +1,7 @@
 %ul.breadcrumb
   %li Вы сейчас здесь
   %li
-    = link_to root_path, :class => 'glyphicons dashboard' do
+    = link_to root_path, class: 'glyphicons dashboard' do
       %i
       Главная
   %li.divider
@@ -11,10 +11,10 @@
     Клиенты
     %span Справочник
   .buttons.pull-right
-    = link_to new_client_path, :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
+    = link_to new_client_path, class: 'btn btn-primary btn-icon glyphicons circle_plus' do
       %i
       Новый клиент
-    = link_to '#clientsDialog', :class => 'btn btn-primary btn-icon glyphicons file_import', :data => {:toggle => 'modal'} do
+    = link_to '#clientsDialog', class: 'btn btn-primary btn-icon glyphicons file_import', data: {toggle: 'modal'} do
       %i
       Импорт
   .clearfix
@@ -40,11 +40,11 @@
                 %td= client.inn
                 %td= client.code
                 %td.center.actions-bar
-                  = link_to client, :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
+                  = link_to client, class: 'btn-action glyphicons eye_open btn-default', title: 'Показать' do
                     %i.icon-search
-                  = link_to edit_client_path(client), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
+                  = link_to edit_client_path(client), class: 'btn-action glyphicons pencil btn-success', title: 'Редактировать' do
                     %i.icon-edit
-                  = link_to client, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
+                  = link_to client, method: :delete, data: { confirm: 'Вы уверены, что хотите удалить?' }, class: 'btn-action glyphicons remove_2 btn-danger', title: 'Удалить' do
                     %i
       = paginate @clients
 = render 'shared/upload', object: 'client', dialog_id: 'clientsDialog'

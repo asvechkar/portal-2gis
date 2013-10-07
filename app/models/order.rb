@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class Order < ActiveRecord::Base
   belongs_to :employee
   belongs_to :client
@@ -5,7 +7,7 @@ class Order < ActiveRecord::Base
   belongs_to :city
   has_many :debts
   has_many :incomes
-  validates_presence_of :ordernum, :orderdate, :startdate, :finishdate, :status, :ordersum, :employee, :client, :user, :city_id
+  validates_presence_of :ordernum, :orderdate, :startdate, :finishdate, :status, :ordersum, :employee, :user, :city_id
 
   def status_desc
     case self.status

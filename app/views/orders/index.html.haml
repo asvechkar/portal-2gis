@@ -1,7 +1,7 @@
 %ul.breadcrumb
   %li Вы сейчас здесь
   %li
-    = link_to root_path, :class => 'glyphicons dashboard' do
+    = link_to root_path, class: 'glyphicons dashboard' do
       %i
       Главная
   %li.divider
@@ -10,16 +10,16 @@
   %h3
     Бланки заказов
   .buttons.pull-right
-    = link_to new_order_path, :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
+    = link_to new_order_path, class: 'btn btn-primary btn-icon glyphicons circle_plus' do
       %i
       Новый бланк заказа
-    = link_to '#currOrders', :class => 'btn btn-primary btn-icon glyphicons file_import', :data => {:toggle=>"modal"} do
+    = link_to '#currOrders', class: 'btn btn-primary btn-icon glyphicons file_import', data: {:toggle=>"modal"} do
       %i
       Импорт текущих
-    = link_to '#contOrders', :class => 'btn btn-primary btn-icon glyphicons file_import', :data => {:toggle=>"modal"} do
+    = link_to '#contOrders', class: 'btn btn-primary btn-icon glyphicons file_import', data: {:toggle=>"modal"} do
       %i
       Импорт продленных
-    = link_to '', :class => 'btn btn-primary btn-icon glyphicons set_continue', 'data-url' => set_continue_orders_path  do
+    = link_to '', class: 'btn btn-primary btn-icon glyphicons set_continue', 'data-url' => set_continue_orders_path  do
       %i
       Пролонгировать
   .clearfix
@@ -75,11 +75,11 @@
               %td.center= order.continue_desc
               %td= Order.find(order.order_id).ordernum if order.order_id
               %td.center.actions-bar
-                = link_to order, :class => 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
+                = link_to order, class: 'btn-action glyphicons eye_open btn-default', title: 'Показать' do
                   %i
-                = link_to edit_order_path(order), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
+                = link_to edit_order_path(order), class: 'btn-action glyphicons pencil btn-success', title: 'Редактировать' do
                   %i
-                = link_to order, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
+                = link_to order, method: :delete, data: { confirm: 'Вы уверены, что хотите удалить?' }, class: 'btn-action glyphicons remove_2 btn-danger', title: 'Удалить' do
                   %i
       = paginate @orders
 = render 'shared/upload', object: 'order_curr', dialog_id: 'currOrders'

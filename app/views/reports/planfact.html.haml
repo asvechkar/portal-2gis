@@ -32,7 +32,6 @@
           %div
             %label Филиалы
             = select_tag 'branches', options_from_collection_for_select(@branches_sel, "id", "name"), disabled: !current_user.is_admin?, prompt: 'Выберите филиал'
-
       %table.table.table-bordered.table-condensed.table-striped.table-vertical-center.table-pricing.table-pricing-2
         %thead
           %tr

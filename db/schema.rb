@@ -252,6 +252,14 @@ ActiveRecord::Schema.define(version: 20130930114052) do
     t.integer   "user_id"
   end
 
+  create_table "userifications", force: true do |t|
+    t.integer "user_id"
+    t.integer "userable_id"
+    t.string  "userable_type"
+  end
+
+  add_index "userifications", ["userable_id", "userable_type", "user_id"], name: "userification_index", using: :btree
+
   create_table "users", force: true do |t|
     t.string    "email",                                default: "", null: false
     t.string    "encrypted_password",                   default: "", null: false
@@ -266,6 +274,17 @@ ActiveRecord::Schema.define(version: 20130930114052) do
     t.timestamp "created_at",             precision: 6
     t.timestamp "updated_at",             precision: 6
     t.string    "username",                                          null: false
+    t.string    "avatar"
+    t.string    "firstname"
+    t.string    "lastname"
+    t.date      "birthdate"
+    t.boolean   "gender"
+    t.text      "about"
+    t.string    "phone"
+    t.string    "site"
+    t.string    "facebook"
+    t.string    "twitter"
+    t.string    "skype"
     t.string    "confirmation_token"
     t.datetime  "confirmed_at"
     t.datetime  "confirmation_sent_at"
