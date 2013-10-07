@@ -11,4 +11,8 @@ module OrdersHelper
       'Сохранить Новую продажу'
     end
   end
+
+  def employees_branch
+    Employee.where(branch: current_user.account_employee.branch)
+  end
 end

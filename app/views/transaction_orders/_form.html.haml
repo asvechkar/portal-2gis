@@ -1,0 +1,54 @@
+- if @order.errors.any?
+  #error_explanation
+    %h2= "#{pluralize(@order.errors.count, "error")} prohibited this city from being saved:"
+    %ul
+      - @order.errors.full_messages.each do |msg|
+        %li= msg
+.control-group
+  = f.label :city_id, 'Город назначения', :class => 'control-label'
+  .controls
+    = f.collection_select :city_id, City.all, :id, :name, {:prompt => 'Выберите город'}
+.control-group
+  = f.label :employee_id, 'Куратор', :class => 'control-label'
+  .controls
+    = f.collection_select :employee_id, employees_branch, :id, :initials, {:prompt => 'Выберите сотрудника'}
+.control-group
+  = f.label :client_id, 'Клиент', :class => 'control-label'
+  .controls
+    = text_field_tag :client_name, @client.name, disabled: true
+.control-group
+  = f.label :ordersum, 'Сумма заказа', :class => 'control-label'
+  .controls
+    .input-append
+      = f.number_field :ordersum
+      %span.add-on руб
+.control-group
+  = f.label :startdate, 'Начало', :class => 'control-label'
+  .controls
+    #dtp_startdate.input-append.date
+      = f.text_field :startdate
+      %span.add-on
+        %i.icon-th
+.control-group
+  = f.label :finishdate, 'Окончание', :class => 'control-label'
+  .controls
+    #dtp_finishdate.input-append.date
+      = f.text_field :finishdate
+      %span.add-on
+        %i.icon-th
+.control-group
+  = f.label :orderdate, 'Дата заказа', :class => 'control-label'
+  .controls
+    #dtp_orderdate.input-append.date
+      = f.text_field :orderdate
+      %span.add-on
+        %i.icon-th
+.control-group
+  = f.label :ordernum, '№ бланка заказа', :class => 'control-label'
+  .controls
+    = f.text_field :ordernum, :placeholder => '№ бланка'
+.control-group
+  = f.label :order_id, 'Предыдущий бланк', :class => 'control-label'
+  .controls
+    = f.collection_select :order_id, Order.all, :id, :ordernum, {:prompt => 'Выберите бланк-заказ'}
+%hr.separator

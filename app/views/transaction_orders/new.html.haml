@@ -38,7 +38,7 @@
               = render 'clients/form', { f: ff }
           #step-2.tab-pane{ class: "#{ :active if @step == 'order' }" }
             = f.fields_for :order, @order do |ff|
-              = render 'orders/form', { f: ff}
+              = render 'form', { f: ff}
           #step-3.tab-pane{ class: "#{ :active if @step == 'confirm' }" }
             %h4 Подтвердите введенные данные
             %b
@@ -52,7 +52,7 @@
             - if @order.employee
               Город #{@order.city.name}
               %br Куратор #{@order.employee.initials}
-              Клиент #{@order.client.try(:name)}
+              Клиент #{@client.name}
               %br Сумма заказа, руб #{sprintf('%.2f', @order.ordersum)}
               #{@order.startdate.strftime('Дата начала %d.%m.%Y')}
               %br #{@order.finishdate.strftime('Дата окончания %d.%m.%Y')}
