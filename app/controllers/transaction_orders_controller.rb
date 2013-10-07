@@ -23,7 +23,7 @@ class TransactionOrdersController < ApplicationController
       @client.save
       @order.assign_attributes({ client_id: @client.id, continue: 0, status: 0 })
       @order.save
-      redirect_to new_transaction_order_path, notice: 'Новая продажа успешно оформлена'
+      redirect_to @order, notice: 'Новая продажа успешно оформлена'
     end
   end
 

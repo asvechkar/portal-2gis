@@ -31,8 +31,8 @@
         %form
           %div
             %label Филиалы
-            = select_tag 'branches', options_from_collection_for_select(Branch.all.order('name ASC'), "id", "name"), prompt: 'Выберите филиал'
-          .clearfix
+            = select_tag 'branches', options_from_collection_for_select(@branches_sel, "id", "name"), prompt: 'Выберите филиал'
+
       %table.table.table-bordered.table-condensed.table-striped.table-vertical-center.table-pricing.table-pricing-2
         %thead
           %tr
