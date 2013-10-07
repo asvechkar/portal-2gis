@@ -9,17 +9,23 @@ class ApplicationController < ActionController::Base
     method = "#{resource}_params"
     params[resource] &&= send(method) if respond_to?(method, true)
   end
+  # проверяем связан ли пользователь с сотрудником
+  before_action do
+    if current_user.account_employee.presence == nil
+      flash[:notice] = t(:create_employee) + ": #{current_user.username}" + " !"
+    end
+  end
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:username, :email, :avatar) }
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :password, :password_confirmation, :avatar) }
     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :email, :password, :password_confirmation, :current_password, :avatar) }
   end
-  
+
   def after_sign_in_path_for(resource)
     root_path
   end
-  
+
   def after_sign_up_path_for(resource)
     root_path
   end

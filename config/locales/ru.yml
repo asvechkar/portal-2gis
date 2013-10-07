@@ -1,4 +1,5 @@
 ru:
+  create_employee: "Создайте сотрудника для пользователя"
   views:
     pagination:
       first: "&laquo; Начало"

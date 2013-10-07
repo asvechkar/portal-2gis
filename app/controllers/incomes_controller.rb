@@ -6,7 +6,7 @@ class IncomesController < ApplicationController
   # GET /incomes
   # GET /incomes.json
   def index
-    @incomes = Income.all
+    @incomes = Income.where(user_id: @current_user.get_incomes).page(params[:page]).per(25)
   end
 
   # GET /incomes/1

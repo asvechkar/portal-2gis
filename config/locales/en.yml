@@ -21,3 +21,4 @@
 
 en:
   hello: "Hello world"
+  create_employee: "Create employee for user"
