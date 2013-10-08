@@ -11,7 +11,7 @@
           %a.glyphicons.calculator{"data-toggle" => "tab", href: "#tab2-2"}
             %i
             %span.strong Загрузить
-            %span текущих клиентов
+            %span текущие БЗ
         %li
           %a.glyphicons.credit_card{"data-toggle" => "tab", href: "#tab3-2"}
             %i
@@ -43,9 +43,9 @@
         #tab2-2.tab-pane{'data-url' => continue_orders_wizard_index_path}
           .row-fluid
             .span3
-              = link_to '#contOrders', class: 'btn btn-primary btn-icon glyphicons file_import', data: {:toggle=>"modal"} do
+              = link_to '#currOrders', class: 'btn btn-primary btn-icon glyphicons file_import', data: {:toggle=>"modal"} do
                 %i
-                Импорт продленных
+                  Импорт текущих
           .row-fluid
             .span12
           #current_orders
@@ -53,23 +53,23 @@
         #tab3-2.tab-pane{'data-url' => current_orders_wizard_index_path}
           .row-fluid
             .span3
-              = link_to '#currOrders', class: 'btn btn-primary btn-icon glyphicons file_import', data: {:toggle=>"modal"} do
+              = link_to '#contOrders', class: 'btn btn-primary btn-icon glyphicons file_import', data: {:toggle=>"modal"} do
                 %i
-                Импорт текущих
+                  Импорт продленных
           .row-fluid
             .span12
           #continue_orders
         / Step 4
         #tab4-2.tab-pane{'data-url' => debts_wizard_index_path}
           .row-fluid
+            .span2
+              = link_to '#debtModal', class: 'btn btn-primary btn-icon glyphicons circle_plus', data: {:toggle=>"modal"} do
+                %i
+                Импорт дебета
             .span3
               = link_to '#instModal', class: 'btn btn-primary btn-icon glyphicons circle_plus', data: {:toggle=>"modal"} do
                 %i
                 Импорт рассрочки
-            .span3
-              = link_to '#debtModal', class: 'btn btn-primary btn-icon glyphicons circle_plus', data: {:toggle=>"modal"} do
-                %i
-                Импорт дебета
           .row-fluid
             .span12
           #debts

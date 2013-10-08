@@ -7,6 +7,13 @@ class Order < ActiveRecord::Base
   has_many :incomes
   validates_presence_of :ordernum, :orderdate, :startdate, :finishdate, :status, :ordersum, :employee, :client, :user, :city_id
 
+  scope :today, ->(user_id) { where('user_id = ? and created_at between ? and ?',
+                                    user_id,
+                                    DateTime.now.beginning_of_day,
+                                    DateTime.now.end_of_day) }
+  scope :current, -> { where("finishdate > '#{Date.today.at_end_of_month}'") }
+  scope :continue, -> { where("finishdate = '#{Date.today.at_end_of_month}'") }
+
   def status_desc
     case self.status
       when 0 then 'Открыт'
