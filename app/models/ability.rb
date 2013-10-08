@@ -5,18 +5,26 @@ class Ability
     user ||= User.new # guest user (not logged in)
     alias_action :create, :read, :update, :destroy, :to => :crud
     case user.role.name
-      when 'admin'
-        can :manage, :all
-      when 'noob'
-        can :read, :all
-      when 'rgp'
-        can :read, :all
-      when 'manager'
-        can :read, :all
-      when 'dbe'
-        can :read, :all
-      when 'aup'
-        can :read, :all
+    when 'admin'
+      can :manage, :all
+    when 'noob'
+      can :read, :all
+    when 'rgp'
+      can :read, :all
+      can :create, Client
+      can :create, Plan
+      can :create, Income
+      can :update, Order
+      can :update, Plan
+      can :update, Income
+    when 'manager'
+      can :read, :all
+      can :create, Client
+    when 'dbe'
+      can :read, :all
+      can :update, Plan
+    when 'aup'
+      can :manage, :all
     end
     # Список ролей: admin, noob, rgp, manager, dbe, aup
     # Define abilities for the passed in user here. For example:
