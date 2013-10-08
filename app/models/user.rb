@@ -35,33 +35,7 @@ class User < ActiveRecord::Base
     self.roles.all.first
   end
 
-  # проверяем принадлежит ли пользователь роли с именем 'admin'
-  def is_admin?
-    (role.name == 'admin') ? true : false
-  end
-
-  # отбор городов доступных текущему пользователю
-  def get_cities
-    (is_admin?) ? City.all : self.account_employee.presence
-  end
-
-  # отбор филиалов доступных текущему пользователю
-  def get_branches
-    (is_admin?) ? Branch.all : self.account_employee.presence
-  end
-
-  # отбор поступлений доступных текущему пользователю (belongs_to)
-  def get_incomes
-    (is_admin?) ? User.all : self.account_employee.id.presence
-  end
-
-  # отбор планов доступных текущему пользователю (belongs_to)
-  def get_plans
-    (is_admin?) ? User.all : self.account_employee.id.presence
-  end
-
   def city
     self.account_employee ? self.account_employee.branch.name : 'неизвестно'
   end
-
 end

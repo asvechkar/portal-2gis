@@ -6,9 +6,8 @@ class EmployeesController < ApplicationController
   # GET /employees
   # GET /employees.json
   def index
-    @employees = Employee.where(branch_id: @current_user.get_branches).page(params[:page]).per(25)
+    @employees = Employee.all
   end
-
 
   # get 'employees/get_groups_by_branch_id/:id'
   def get_groups_by_branch_id
