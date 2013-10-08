@@ -7,40 +7,36 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    lastDay = Date.today.at_end_of_month
-    signFinishdate = '='
-
-    case params[:type]
-      when 'current' then
-        signFinishdate = '>'
-      when 'continue' then
-        nil
-      else
-        nil
+    if params[:type]
+      lastDay = Date.today.at_end_of_month
+      case params[:type]
+        when 'current' then @orders = Order.where("finishdate > '#{lastDay}'").page(params[:page]).per(25)
+        when 'continue' then @orders = Order.where("finishdate = '#{lastDay}'").page(params[:page]).per(25)
+      end
+    else
+      @orders = Order.all.page(params[:page]).per(25)
     end
-
-    @orders = Order.where(city_id: @current_user.get_cities).where(["finishdate " + signFinishdate + " ? ", lastDay]).page(params[:page]).per(25)
   end
-
+  
   def wizard
   end
 
-# GET /orders/1
-# GET /orders/1.json
+  # GET /orders/1
+  # GET /orders/1.json
   def show
   end
 
-# GET /orders/new
+  # GET /orders/new
   def new
     @order = Order.new
   end
 
-# GET /orders/1/edit
+  # GET /orders/1/edit
   def edit
   end
 
-# POST /orders
-# POST /orders.json
+  # POST /orders
+  # POST /orders.json
   def create
     @order = current_user.orders.new(order_params)
     @order.status = 0
@@ -57,8 +53,8 @@ class OrdersController < ApplicationController
     end
   end
 
-# PATCH/PUT /orders/1
-# PATCH/PUT /orders/1.json
+  # PATCH/PUT /orders/1
+  # PATCH/PUT /orders/1.json
   def update
     respond_to do |format|
       if @order.update(order_params)
@@ -73,8 +69,8 @@ class OrdersController < ApplicationController
     end
   end
 
-# DELETE /orders/1
-# DELETE /orders/1.json
+  # DELETE /orders/1
+  # DELETE /orders/1.json
   def destroy
     Tools.write2log(current_user.id, 'Удаление', 'Заказы', 0, '# ' + @order.id.to_s)
     @order.destroy
@@ -94,14 +90,13 @@ class OrdersController < ApplicationController
   end
 
   private
-# Use callbacks to share common setup or constraints between actions.
-  def set_order
-    @order = Order.find(params[:id])
-  end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_order
+      @order = Order.find(params[:id])
+    end
 
-# Never trust parameters from the scary internet, only allow the white list through.
-  def order_params
-    params.require(:order).permit(:ordernum, :orderdate, :startdate, :finishdate, :status, :ordersum, :continue, :employee_id, :client_id, :user_id, :city_id, :order_id)
-  end
-
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def order_params
+      params.require(:order).permit(:ordernum, :orderdate, :startdate, :finishdate, :status, :ordersum, :continue, :employee_id, :client_id, :user_id, :city_id, :order_id)
+    end
 end

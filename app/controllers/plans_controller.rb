@@ -6,7 +6,7 @@ class PlansController < ApplicationController
   # GET /plans
   # GET /plans.json
   def index
-    @plans = Plan.where(user_id: @current_user.get_plans).page(params[:page]).per(25)
+    @plans = Plan.all
   end
 
   # GET /plans/1
