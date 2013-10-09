@@ -12,6 +12,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20130930114052) do
+  enable_extension "plpgsql"
 
   create_table "averagebills", force: true do |t|
     t.integer   "year",                     null: false
