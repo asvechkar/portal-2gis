@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
     params[resource] &&= send(method) if respond_to?(method, true)
   end
   before_action do
-    flash.alert = 'Пользователь не связан с сотрудником, обратитесь к администратору!' unless current_user.account_employee
+    flash.alert = 'Пользователь не связан с сотрудником, обратитесь к администратору!' unless current_user && current_user.account_employee
   end
 
   def configure_permitted_parameters

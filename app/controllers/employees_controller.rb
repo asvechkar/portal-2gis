@@ -45,7 +45,6 @@ class EmployeesController < ApplicationController
   # POST /employees.json
   def create
     @employee = current_user.employees.new(employee_params)
-    @employee.user_id = current_user.id
     respond_to do |format|
       if @employee.save
         if params[:show_level].to_i == 0
