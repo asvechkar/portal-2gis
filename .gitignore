@@ -4,7 +4,6 @@
 /log/*.log
 /tmp
 .idea/
-/.idea/.*
 /.idea/*
 /.idea
 public/system/*
@@ -13,8 +12,4 @@ public/system
 app/.DS_Store
 public/uploads/*
 .DS_Store
-
-Gemfile.lock
 .rvmrc
-
-public/assets/*
