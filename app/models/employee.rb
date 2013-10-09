@@ -1,21 +1,26 @@
 class Employee < ActiveRecord::Base
   included User
   mount_uploader :avatar, AvatarUploader
+
   belongs_to :level
   belongs_to :position
   belongs_to :user
   belongs_to :branch
+  belongs_to :account, :class_name => 'User'
+
   has_many :branches
   has_many :groups
   has_many :plans
   has_many :orders
   has_many :debts
   has_many :incomes
-  validates_presence_of :firstname, :lastname,  :snils # :middlename,
   has_many :users, :through => :userifications, :foreign_key => 'userable_id'
   has_many :suspensions
   has_many :groups, :through => :suspensions, :source => :employed, :source_type => 'Group'
-  belongs_to :account, :class_name => 'User'
+  
+  validates_presence_of :firstname, :lastname, :snils # :middlename,
+
+  scope :by_branch, ->(id) { joins(:branches).where('employees.branch_id = ?', id) }
 
   def group
     self

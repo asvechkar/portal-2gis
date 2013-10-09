@@ -5,3 +5,8 @@ jQuery ->
       client_id = "0"
     jQuery.get '/incomes/get_orders_by_client_id/' + client_id, (data) ->
       jQuery('#income_order_id').html(data)
+
+@Filter = ->
+
+Filter.apply = ->
+  $('form#income').submit()
