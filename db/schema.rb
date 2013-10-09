@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20130930114052) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "averagebills", force: true do |t|
     t.integer   "year",                     null: false
     t.integer   "month",                    null: false
@@ -286,12 +283,12 @@ ActiveRecord::Schema.define(version: 20130930114052) do
     t.string    "twitter"
     t.string    "skype"
     t.string    "confirmation_token"
-    t.datetime  "confirmed_at"
-    t.datetime  "confirmation_sent_at"
+    t.timestamp "confirmed_at",           precision: 6
+    t.timestamp "confirmation_sent_at",   precision: 6
     t.string    "unconfirmed_email"
     t.integer   "failed_attempts",                      default: 0
     t.string    "unlock_token"
-    t.datetime  "locked_at"
+    t.timestamp "locked_at",              precision: 6
     t.string    "authentication_token"
   end
 
@@ -307,6 +304,6 @@ ActiveRecord::Schema.define(version: 20130930114052) do
     t.integer "role_id"
   end
 
-  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", unique: true, using: :btree
+  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
 end
