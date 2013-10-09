@@ -9,11 +9,8 @@ class ApplicationController < ActionController::Base
     method = "#{resource}_params"
     params[resource] &&= send(method) if respond_to?(method, true)
   end
-  # проверяем связан ли пользователь с сотрудником
   before_action do
-    if current_user.account_employee.presence == nil
-      flash[:notice] = t(:create_employee) + ": #{current_user.username}" + " !"
-    end
+    flash.alert = 'Пользователь не связан с сотрудником, обратитесь к администратору!' unless current_user.account_employee
   end
 
   def configure_permitted_parameters

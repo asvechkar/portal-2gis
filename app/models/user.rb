@@ -38,4 +38,8 @@ class User < ActiveRecord::Base
   def city
     self.account_employee ? self.account_employee.branch.name : 'неизвестно'
   end
+  
+  def is_admin?
+    self.role.name == 'admin'
+  end
 end

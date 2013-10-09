@@ -17,6 +17,7 @@
     = favicon_link_tag '/favicon.ico'
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag 'application'
+    = javascript_include_tag 'bootstrap-fileupload' if params[:controller] == 'employees'
     = csrf_meta_tags
   %body
     .container-fluid.fluid.menu-left
@@ -29,7 +30,7 @@
             - case name.to_s
               - when 'alert' then alert_class = 'alert-warning'
               - when 'notice' then alert_class = 'alert-success'
-              - else  alert_class = 'alert-info'
+              - else  alert_class = 'alert-error'
             %div{ :class => "alert #{alert_class}" }
               %button.close{'data-dismiss' => 'alert', :type => 'button'} &times;
               = msg
