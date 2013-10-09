@@ -5,6 +5,11 @@ class Debt < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :year, :month, :debtsum, :debttype, :user # , :employee, :client, :order,
 
+  scope :today, ->(user_id) { where('user_id = ? and created_at between ? and ?',
+                                    user_id,
+                                    DateTime.now.beginning_of_day,
+                                    DateTime.now.end_of_day) }
+
   def decode_type
     case self.debttype
       when 0

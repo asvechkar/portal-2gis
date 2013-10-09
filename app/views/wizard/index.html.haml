@@ -8,95 +8,93 @@
   %li Мастер импорта
 %h3.separator.bottom
   Мастер импорта
-.widget.widget-heading-simple.widget-body-gray
-  .widget-body
-    .wizard#wizard
-      .widget.widget-tabs.widget-tabs-double
-        .widget-head
-          %ul
-            %li.active
-              %a.glyphicons.user{"data-toggle" => "tab", href: "#tab1-2"}
+.wizard#wizard
+  .widget.widget-tabs.widget-tabs-double
+    .widget-head
+      %ul
+        %li.active
+          %a.glyphicons.user{"data-toggle" => "tab", href: "#tab1-2"}
+            %i
+            %span.strong Загрузить
+            %span всех клиентов
+        %li
+          %a.glyphicons.calculator{"data-toggle" => "tab", href: "#tab2-2"}
+            %i
+            %span.strong Загрузить
+            %span текущие БЗ
+        %li
+          %a.glyphicons.credit_card{"data-toggle" => "tab", href: "#tab3-2"}
+            %i
+            %span.strong Загрузить
+            %span продления
+        %li
+          %a.glyphicons.circle_ok{"data-toggle" => "tab", href: "#tab4-2"}
+            %i
+            %span.strong Загрузить
+            %span задолженности
+        %li
+          %a.glyphicons.circle_ok{"data-toggle" => "tab", href: "#tab5-2"}
+            %i
+            %span.strong Добавить
+            %span планы по новым клиентам
+    .widget-body
+      .tab-content
+        / Step 1
+        #tab1-2.tab-pane.active{'data-url' => clients_wizard_index_path}
+          .row-fluid
+            .span3
+              = link_to '#clientsDialog', class: 'btn btn-primary btn-icon glyphicons file_import', data: {toggle: 'modal'} do
                 %i
-                %span.strong Загрузить
-                %span всех клиентов
-            %li
-              %a.glyphicons.calculator{"data-toggle" => "tab", href: "#tab2-2"}
+                Импорт
+          .row-fluid
+            .span12
+          #clients
+        / Step 2
+        #tab2-2.tab-pane{'data-url' => continue_orders_wizard_index_path}
+          .row-fluid
+            .span3
+              = link_to '#currOrders', class: 'btn btn-primary btn-icon glyphicons file_import', data: {:toggle=>"modal"} do
                 %i
-                %span.strong Загрузить
-                %span текущих клиентов
-            %li
-              %a.glyphicons.credit_card{"data-toggle" => "tab", href: "#tab3-2"}
+                  Импорт текущих
+          .row-fluid
+            .span12
+          #current_orders
+        / Step 3
+        #tab3-2.tab-pane{'data-url' => current_orders_wizard_index_path}
+          .row-fluid
+            .span3
+              = link_to '#contOrders', class: 'btn btn-primary btn-icon glyphicons file_import', data: {:toggle=>"modal"} do
                 %i
-                %span.strong Загрузить
-                %span продления
-            %li
-              %a.glyphicons.circle_ok{"data-toggle" => "tab", href: "#tab4-2"}
+                  Импорт продленных
+          .row-fluid
+            .span12
+          #continue_orders
+        / Step 4
+        #tab4-2.tab-pane{'data-url' => debts_wizard_index_path}
+          .row-fluid
+            .span2
+              = link_to '#debtModal', class: 'btn btn-primary btn-icon glyphicons circle_plus', data: {:toggle=>"modal"} do
                 %i
-                %span.strong Загрузить
-                %span задолженности
-            %li
-              %a.glyphicons.circle_ok{"data-toggle" => "tab", href: "#tab5-2"}
+                Импорт дебета
+            .span3
+              = link_to '#instModal', class: 'btn btn-primary btn-icon glyphicons circle_plus', data: {:toggle=>"modal"} do
                 %i
-                %span.strong Добавить
-                %span планы по новым клиентам
-        .widget-body
-          .tab-content
-            / Step 1
-            #tab1-2.tab-pane.active{'data-url' => clients_wizard_index_path}
-              .row-fluid
-                .span3
-                  = link_to '#clientsDialog', class: 'btn btn-primary btn-icon glyphicons file_import', data: {toggle: 'modal'} do
-                    %i
-                    Импорт
-              .row-fluid
-                .span12
-              #clients
-            / Step 2
-            #tab2-2.tab-pane{'data-url' => continue_orders_wizard_index_path}
-              .row-fluid
-                .span3
-                  = link_to '#contOrders', class: 'btn btn-primary btn-icon glyphicons file_import', data: {:toggle=>"modal"} do
-                    %i
-                    Импорт продленных
-              .row-fluid
-                .span12
-              #current_orders
-            / Step 3
-            #tab3-2.tab-pane{'data-url' => current_orders_wizard_index_path}
-              .row-fluid
-                .span3
-                  = link_to '#currOrders', class: 'btn btn-primary btn-icon glyphicons file_import', data: {:toggle=>"modal"} do
-                    %i
-                    Импорт текущих
-              .row-fluid
-                .span12
-              #continue_orders
-            / Step 4
-            #tab4-2.tab-pane{'data-url' => debts_wizard_index_path}
-              .row-fluid
-                .span3
-                  = link_to '#instModal', class: 'btn btn-primary btn-icon glyphicons circle_plus', data: {:toggle=>"modal"} do
-                    %i
-                    Импорт рассрочки
-                .span3
-                  = link_to '#debtModal', class: 'btn btn-primary btn-icon glyphicons circle_plus', data: {:toggle=>"modal"} do
-                    %i
-                    Импорт дебета
-              .row-fluid
-                .span12
-              #debts
-            #tab5-2.tab-pane{'data-url' => plans_wizard_index_path}
-              .row-fluid
-                .span3
-                  = link_to new_plan_path, :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
-                    %i
-                    Новый план
-              .row-fluid
-                .span12
-              #plans
-    .row-fluid
-      = render 'shared/upload', object: 'client', dialog_id: 'clientsDialog'
-      = render 'shared/upload', object: 'order_curr', dialog_id: 'currOrders'
-      = render 'shared/upload', object: 'order_cont', dialog_id: 'contOrders'
-      = render 'shared/upload', object: 'debt_inst', dialog_id: 'instModal'
-      = render 'shared/upload', object: 'debt_debt', dialog_id: 'debtModal'
+                Импорт рассрочки
+          .row-fluid
+            .span12
+          #debts
+        #tab5-2.tab-pane{'data-url' => plans_wizard_index_path}
+          .row-fluid
+            .span3
+              = link_to new_plan_path, :class => 'btn btn-primary btn-icon glyphicons circle_plus' do
+                %i
+                Новый план
+          .row-fluid
+            .span12
+          #plans
+.row-fluid
+  = render 'shared/upload', object: 'client', dialog_id: 'clientsDialog'
+  = render 'shared/upload', object: 'order_curr', dialog_id: 'currOrders'
+  = render 'shared/upload', object: 'order_cont', dialog_id: 'contOrders'
+  = render 'shared/upload', object: 'debt_inst', dialog_id: 'instModal'
+  = render 'shared/upload', object: 'debt_debt', dialog_id: 'debtModal'
