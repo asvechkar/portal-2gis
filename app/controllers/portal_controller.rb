@@ -3,7 +3,10 @@ class PortalController < ApplicationController
 
   def index
     @branch = current_user.account_employee.branch
+<<<<<<< HEAD
     # @branch = City.where(:name => 'Рязань').first.branches.first unless City.all.empty?
+=======
+>>>>>>> parent of bc342ab... Задача 80. Добавлен гем crummy, логика breadcrumbs вынесена из вьюх в контроллеры, пока изменения коснулись только контроллера portal
     unless @branch.nil?
       @total_clients_plan = 0
       @total_weight_plan = 0
