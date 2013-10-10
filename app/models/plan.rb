@@ -9,7 +9,7 @@ class Plan < ActiveRecord::Base
                                     DateTime.now.end_of_day) }
 
   def weight
-    ave_bill = Averagebill.where(branch_id: self.employee.branch_id, year: self.year, month: self.month).first
+    ave_bill = Averagebill.where(branch: self.employee.branch, year: self.year, month: self.month).first
     return ave_bill.nil? ? 0 : self.clients * ave_bill.bill
   end
 end
