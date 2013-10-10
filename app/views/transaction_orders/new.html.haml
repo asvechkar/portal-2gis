@@ -58,7 +58,7 @@
               %br #{@order.finishdate.strftime('Дата окончания %d.%m.%Y')}
               #{@order.orderdate.strftime('Дата заказа %d.%m.%Y')}
               %br Номер бланка #{@order.ordernum}
-              Предидущий бланк #{@order.order_id}
+              Предыдущий бланк #{@order.order_id}
               %br Пролонгация #{@order.continue == 1 ? 'да' : 'нет'}
               %hr
         = f.submit wizard_button_name, class: 'btn btn-icon btn-primary'
