@@ -3,15 +3,9 @@ class IncomesController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
 
-  # GET /incomes
-  # GET /incomes.json
   def index
-    @incomes = Income.all
-  end
-
-  # GET /incomes/1
-  # GET /incomes/1.json
-  def show
+    @incomes = params[:filter] ? Income.filter(params[:filter]) : Income.all
+    @employees = params[:filter] && params[:filter][:branch] ? Employee.by_branch(params[:filter][:branch]) : Employee.all
   end
 
   def get_orders_by_client_id
@@ -30,17 +24,10 @@ class IncomesController < ApplicationController
     render text: select
   end
 
-  # GET /incomes/new
   def new
     @income = Income.new
   end
 
-  # GET /incomes/1/edit
-  def edit
-  end
-
-  # POST /incomes
-  # POST /incomes.json
   def create
     @income = current_user.incomes.new(income_params)
 
@@ -57,8 +44,6 @@ class IncomesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /incomes/1
-  # PATCH/PUT /incomes/1.json
   def update
     respond_to do |format|
       if @income.update(income_params)
@@ -73,8 +58,6 @@ class IncomesController < ApplicationController
     end
   end
 
-  # DELETE /incomes/1
-  # DELETE /incomes/1.json
   def destroy
     Tools.write2log(current_user.id, 'Удаление', 'Поступления', 0, '# ' + @income.id.to_s)
     @income.destroy
@@ -85,13 +68,12 @@ class IncomesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_income
-      @income = Income.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def income_params
-      params.require(:income).permit(:indate, :client_id, :insum, :employee_id, :cash, :order_id, :user_id)
-    end
+  def set_income
+    @income = Income.find(params[:id])
+  end
+
+  def income_params
+    params.require(:income).permit(:indate, :client_id, :insum, :employee_id, :cash, :order_id, :user_id)
+  end
 end

@@ -1,0 +1,7 @@
+.filter-bar
+  = form_tag incomes_path, method: 'get', id: 'income', name: 'filter' do
+    %div
+      %label Филиалы:
+      = select_tag 'filter[branch]', options_from_collection_for_select(Branch.all, 'id', 'name'), html: { name: 'form', style: 'width: 80px;' }, onchange: 'Filter.apply();'
+      = select_tag 'filter[manager]', options_from_collection_for_select(@employees, 'id', 'lastname'), html: { name: 'form', style: 'width: 80px;' }, onchange: 'Filter.apply();'
+    .clearfix
