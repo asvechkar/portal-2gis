@@ -47,8 +47,4 @@
   = f.label :ordernum, '№ бланка заказа', :class => 'control-label'
   .controls
     = f.text_field :ordernum, :placeholder => '№ бланка'
-.control-group
-  = f.label :order_id, 'Предыдущий бланк', :class => 'control-label'
-  .controls
-    = f.collection_select :order_id, Order.all, :id, :ordernum, {:prompt => 'Выберите бланк-заказ'}
 %hr.separator
