@@ -2,8 +2,8 @@ class PortalController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    #@branch = current_user.account_employee.branch
-    @branch = City.where(:name => 'Рязань').first.branches.first unless City.all.empty?
+    @branch = current_user.account_employee.branch
+    # @branch = City.where(:name => 'Рязань').first.branches.first unless City.all.empty?
     unless @branch.nil?
       @total_clients_plan = 0
       @total_weight_plan = 0
