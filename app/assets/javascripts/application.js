@@ -110,7 +110,17 @@ $(function()
     });
     orders_ids = null;
     return false;
-  })
+  });
+
+  $("#planfact_date").datetimepicker({
+    pickTime: false,
+    format: "dd.mm.yyyy",
+    weekStart: "1",
+    autoclose: "true",
+    minView: "2",
+    todayBtn: "true",
+    language: "ru"
+  });
 
   $('#dtp_orderdate').datetimepicker({
       format: "dd.mm.yyyy",
