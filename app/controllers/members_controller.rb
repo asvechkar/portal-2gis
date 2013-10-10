@@ -4,16 +4,27 @@ class MembersController < ApplicationController
   load_and_authorize_resource
 
   def index
+    add_crumb you_are_in_the_city_link_to_root(current_user.city)
+    add_crumb "Главная", root_path
+    add_crumb "Справочник \"Пользователи\""
     @members = Member.all
   end
 
   def show
+    add_crumb you_are_in_the_city_link_to_root(current_user.city)
+    add_crumb "Главная", root_path
+    add_crumb "Справочник \"Пользователи\"", members_path
+    add_crumb current_user.email
   end
 
   def edit
   end
 
   def new
+    add_crumb you_are_in_the_city_link_to_root(current_user.city)
+    add_crumb "Главная", root_path
+    add_crumb "Справочник \"Пользователи\"", members_path
+    add_crumb "Новый пользователь"
     @member = Member.new
   end
 
@@ -32,6 +43,13 @@ class MembersController < ApplicationController
   end
 
   def update
+    add_crumb you_are_in_the_city_link_to_root(current_user.city)
+    add_crumb "Главная", root_path
+    add_crumb "Справочник \"Пользователи\"", members_path
+    add_crumb "Профиль"
+    add_crumb support_path_link
+    add_crumb "Частые вопросы"
+
     respond_to do |format|
       if @member.update(member_params)
         @member.update_attributes(:role_ids => params[:user][:role_ids])
