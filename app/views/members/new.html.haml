@@ -1,13 +1,4 @@
-%ul.breadcrumb
-  %li Вы сейчас здесь
-  %li
-    = link_to root_path, :class => 'glyphicons dashboard' do
-      %i
-      Главная
-  %li.divider
-  %li= link_to 'Справочник "Пользователи"', members_path
-  %li.divider
-  %li Новый пользователь
+.crumbs= render_crumbs format: :html_list
 %h3.separator.bottom
   Новый пользователь
   %span добавить

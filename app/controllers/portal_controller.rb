@@ -5,8 +5,8 @@ class PortalController < ApplicationController
   def index
 
     add_crumb you_are_in_the_city_link_to_root(current_user.city)
-    add_crumb "Главная"
     add_crumb support_path_link
+    add_crumb "Главная"
 
     @branch = current_user.account_employee.branch
     unless @branch.nil?
@@ -73,5 +73,9 @@ class PortalController < ApplicationController
   end
 
   def support
+    add_crumb you_are_in_the_city_link_to_root(current_user.city)
+    add_crumb "Главная", root_path
+    add_crumb support_path_link
+    add_crumb "Частые вопросы"
   end
 end
