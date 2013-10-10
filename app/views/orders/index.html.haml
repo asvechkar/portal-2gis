@@ -62,7 +62,8 @@
           - @orders.each do |order|
             %tr.selectable
               %td.center.uniformjs
-                %input{ type: 'checkbox', id: "#{order.id}" }
+                - if order.finishdate.month == Date.today.month
+                  %input{ type: 'checkbox', id: "#{order.id}" }
               %td.center= order.ordernum
               %td= order.city.name if order.city
               %td= order.employee.initials if order.employee
