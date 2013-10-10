@@ -4,6 +4,7 @@ Portal2gis::Application.routes.draw do
 
   get 'reports/index'
   get 'reports/planfact'
+  post 'reports/recalc_planfact'
   get 'reports/planfact/:id' => 'reports#planfact'
   get 'positions/level' => 'positions#level'
   get 'debts/floating' => 'debts#floating'
