@@ -8,7 +8,7 @@ class PortalController < ApplicationController
     add_crumb "Главная"
     add_crumb support_path_link
 
-    @branch = City.where(:name => 'Рязань').first.branches.first unless City.all.empty?
+    @branch = current_user.account_employee.branch
     unless @branch.nil?
       @total_clients_plan = 0
       @total_weight_plan = 0
