@@ -1,3 +1,4 @@
-jQuery ->
-  jQuery("#branches").on "change", ->
-    window.location = "/reports/planfact/" + jQuery("#branches :selected").val()
+$ ->
+  $(".refresh").on "click", (event)->
+    event.preventDefault()
+    $('form#planfact_params').submit()

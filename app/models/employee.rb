@@ -14,6 +14,7 @@ class Employee < ActiveRecord::Base
   has_many :orders
   has_many :debts
   has_many :incomes
+  has_many :planfacts, as: :planfactable
   has_many :users, :through => :userifications, :foreign_key => 'userable_id'
   has_many :suspensions
   has_many :groups, :through => :suspensions, :source => :employed, :source_type => 'Group'
@@ -125,11 +126,88 @@ class Employee < ActiveRecord::Base
     total = first + second + third
     prolong = self.get_prolong_percents
     mult = Plancent.where("branch_id = #{self.branch_id} AND year = #{Date.today.year} AND month = #{Date.today.month} AND fromprc <= #{prolong} AND toprc >= #{prolong}")
-    if mult.empty?
-      total += 0
-    else
-      total += mult.first.mult * 0.2
-    end
+    mult.empty? ? total += 0 : total += mult.first.mult * 0.2
     total
   end
+
+  # By_date
+  def get_new_plan_clients_by_date(date)
+    plans = Plan.where(year: date.year, month: date.month, employee: self)
+    plans.empty? ? 0 : plans.first.clients
+  end
+
+  def get_cont_plan_clients_by_date(date)
+    orders = Order.select(:client_id).where(employee: self, continue: 1, finishdate: date.at_end_of_month).group(:client_id)
+    orders.empty? ? 0 : orders.all.count
+  end
+
+  def get_new_fact_clients_by_date(date)
+    orders = Order.select(:client_id).where(employee: self, startdate: date.next_month.at_beginning_of_month).group(:client_id)
+    orders.empty? ? 0 : orders.all.count
+  end
+
+  def get_new_plan_weight_by_date(date)
+    plans = Plan.where(year: date.year, month: date.month, employee: self)
+    plans.empty? ? 0 : plans.first.weight
+  end
+
+  def get_cont_plan_weight_by_date(date)
+    orders = Order.where(employee: self, continue: 1, finishdate: date.at_end_of_month)
+    weight = 0
+    unless orders.empty?
+      orders.each do |order|
+        weight += order.weight
+      end
+    end
+    weight
+  end
+
+  def get_new_fact_weight_by_date(date)
+    orders = Order.where(employee: self, startdate: date.next_month.at_beginning_of_month)
+    weight = 0
+    unless orders.empty?
+      orders.each do |order|
+        weight += order.weight
+      end
+    end
+    weight
+  end
+
+  def get_installment_sum_by_date(date)
+    Debt.where(year: date.year, month: date.month, employee: self, debttype: 1).sum(:debtsum)
+  end
+
+  def get_debt_sum_by_date(date)
+    Debt.where(year: date.year, month: date.month, employee: self, debttype: 2).sum(:debtsum)
+  end
+
+  def get_fact_incomes_by_date(date)
+    Income.where("indate BETWEEN '#{date.at_beginning_of_month}' AND '#{date.at_end_of_month}' AND employee_id = #{self.id}").sum(:insum)
+  end
+
+  def get_prolong_percents_by_date(date)
+    plan = Order.select(:client_id).where(employee: self, finishdate: date.at_end_of_month).group(:client_id)
+    fact = Order.select(:client_id).where("employee_id = #{self.id} AND startdate = '#{date.next_month.at_beginning_of_month}' AND order_id IS NOT NULL").group(:client_id)
+    if fact.empty?
+      0
+    else
+      if plan.empty?
+        0
+      else
+        ((fact.all.count.to_f / plan.all.count.to_f) * 100).round
+      end
+    end
+  end
+
+  def get_ic_by_date(date)
+    first = (self.get_new_fact_clients.to_f / (self.get_new_plan_clients + self.get_cont_plan_clients).to_f) * 0.2
+    second = (self.get_new_fact_weight.to_f / (self.get_new_plan_weight + self.get_cont_plan_weight).to_f) * 0.3
+    third = (self.get_fact_incomes.to_f / (((self.get_new_plan_weight + self.get_cont_plan_weight) * 2.5) + self.get_installment_sum + self.get_debt_sum).to_f) * 0.3
+    total = first + second + third
+    prolong = self.get_prolong_percents
+    mult = Plancent.where("branch_id = #{self.branch_id} AND year = #{date.year} AND month = #{date.month} AND fromprc <= #{prolong} AND toprc >= #{prolong}")
+    mult.empty? ? total += 0 : total += mult.first.mult * 0.2
+    total
+  end
+
 end
