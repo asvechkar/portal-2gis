@@ -52,6 +52,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    crummy (1.7.2)
     debug_inspector (0.0.2)
     devise (3.0.3)
       bcrypt-ruby (~> 3.0)
@@ -204,6 +205,7 @@ DEPENDENCIES
   cancan (~> 1.6.10)
   carrierwave
   coffee-rails (~> 4.0.0)
+  crummy (~> 1.7.2)
   devise (~> 3.0.3)
   figaro (~> 0.7.0)
   haml-rails (~> 0.4)

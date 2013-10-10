@@ -1,8 +1,14 @@
 class PortalController < ApplicationController
+
   before_filter :authenticate_user!
 
   def index
-    @branch = current_user.account_employee.branch
+
+    add_crumb you_are_in_the_city_link_to_root(current_user.city)
+    add_crumb "Главная"
+    add_crumb support_path_link
+
+    @branch = City.where(:name => 'Рязань').first.branches.first unless City.all.empty?
     unless @branch.nil?
       @total_clients_plan = 0
       @total_weight_plan = 0
