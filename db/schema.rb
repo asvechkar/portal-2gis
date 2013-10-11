@@ -11,7 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130930114052) do
+ActiveRecord::Schema.define(version: 20131004133939) do
+
+  # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "averagebills", force: true do |t|
@@ -197,6 +199,24 @@ ActiveRecord::Schema.define(version: 20130930114052) do
   add_index "plancents", ["branch_id"], name: "index_plancents_on_branch_id", using: :btree
   add_index "plancents", ["user_id"], name: "index_plancents_on_user_id", using: :btree
 
+  create_table "planfacts", force: true do |t|
+    t.date     "report_date"
+    t.integer  "planfactable_id"
+    t.string   "planfactable_type"
+    t.integer  "clients_plan"
+    t.integer  "clients_fact"
+    t.float    "weight_plan"
+    t.float    "weight_fact"
+    t.float    "income_plan"
+    t.float    "income_fact"
+    t.float    "pro_percent"
+    t.float    "employee_ic"
+    t.float    "group_ic"
+    t.float    "branch_ic"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "plans", force: true do |t|
     t.integer   "year",                      null: false
     t.integer   "month",                     null: false
@@ -273,16 +293,6 @@ ActiveRecord::Schema.define(version: 20130930114052) do
     t.timestamp "updated_at",             precision: 6
     t.string    "username",                                          null: false
     t.string    "avatar"
-    t.string    "firstname"
-    t.string    "lastname"
-    t.date      "birthdate"
-    t.boolean   "gender"
-    t.text      "about"
-    t.string    "phone"
-    t.string    "site"
-    t.string    "facebook"
-    t.string    "twitter"
-    t.string    "skype"
     t.string    "confirmation_token"
     t.timestamp "confirmed_at",           precision: 6
     t.timestamp "confirmation_sent_at",   precision: 6

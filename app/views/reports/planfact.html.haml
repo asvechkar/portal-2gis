@@ -34,9 +34,12 @@
               %label Филиалы
               = select_tag :id, options_from_collection_for_select(Branch.all.order('name ASC'), "id", "name", params[:id].to_i), prompt: 'Выберите филиал'
           #planfact_date.input-append.date
-            = text_field_tag :report_date, (params[:report_date] || Date.today.strftime("%d.%m.%Y")), placeholder:'Введите дату', required: 'required'
+            = text_field_tag :report_date, (params[:report_date] || Date.today.strftime("%m.%Y")), placeholder:'Введите дату', required: 'required'
             %span.add-on
               %i.icon-th
+          %div
+            = hidden_field_tag 'update_planfact', '0'
+            = submit_tag "Применить"
           .clearfix
       %table.table.table-bordered.table-condensed.table-striped.table-vertical-center.table-pricing.table-pricing-2
         %thead
@@ -58,56 +61,57 @@
             %th.center
             %th.center
         %tbody
-          - if @branch
+          - if @branch && params[:report_date] && @planfact
+            - date = Date.strptime(params[:report_date], '%m.%Y' )
             - @branch.groups.each do |group|
               - group.employees.all.each do |employee|
                 %tr
                   %td= employee.initials # Куратор
-                  %td.center= employee.planfacts.find_by(report_date: params[:report_date]).clients_plan # Клиенты план
-                  %td.center= employee.planfacts.find_by(report_date: params[:report_date]).clients_fact # Клиенты факт
-                  %td= number_to_currency((employee.planfacts.find_by(report_date: params[:report_date]).weight_plan), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Груз план
-                  %td= number_to_currency((employee.planfacts.find_by(report_date: params[:report_date]).weight_fact), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Груз факт
-                  %td= number_to_currency((employee.planfacts.find_by(report_date: params[:report_date]).income_plan), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Поступления план
-                  %td= number_to_currency((employee.planfacts.find_by(report_date: params[:report_date]).income_fact), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Поступления факт
-                  %td.center= employee.planfacts.find_by(report_date: params[:report_date]).pro_percent # % продления
-                  %td= '%.3f' % employee.planfacts.find_by(report_date: params[:report_date]).employee_ic # ИК
+                  %td.center= employee.planfacts.find_by(report_date: date).clients_plan # Клиенты план
+                  %td.center= employee.planfacts.find_by(report_date: date).clients_fact # Клиенты факт
+                  %td= number_to_currency((employee.planfacts.find_by(report_date: date).weight_plan), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Груз план
+                  %td= number_to_currency((employee.planfacts.find_by(report_date: date).weight_fact), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Груз факт
+                  %td= number_to_currency((employee.planfacts.find_by(report_date: date).income_plan), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Поступления план
+                  %td= number_to_currency((employee.planfacts.find_by(report_date: date).income_fact), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u') # Поступления факт
+                  %td.center= employee.planfacts.find_by(report_date: date).pro_percent # % продления
+                  %td= '%.3f' % employee.planfacts.find_by(report_date: date).employee_ic # ИК
               %tr
                 %td.group-row
                   %strong
                     Группа:
                     = group.employee.initials unless group.employee.nil?
                   %td.center.group-row
-                    %strong= group.planfacts.find_by(report_date: params[:report_date]).clients_plan
+                    %strong= group.planfacts.find_by(report_date: date).clients_plan
                   %td.center.group-row
-                    %strong= group.planfacts.find_by(report_date: params[:report_date]).clients_fact
+                    %strong= group.planfacts.find_by(report_date: date).clients_fact
                   %td.group-row
-                    %strong= number_to_currency(group.planfacts.find_by(report_date: params[:report_date]).weight_plan, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+                    %strong= number_to_currency(group.planfacts.find_by(report_date: date).weight_plan, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
                   %td.group-row
-                    %strong= number_to_currency(group.planfacts.find_by(report_date: params[:report_date]).weight_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+                    %strong= number_to_currency(group.planfacts.find_by(report_date: date).weight_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
                   %td.group-row
-                    %strong= number_to_currency(group.planfacts.find_by(report_date: params[:report_date]).income_plan, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+                    %strong= number_to_currency(group.planfacts.find_by(report_date: date).income_plan, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
                   %td.group-row
-                    %strong= number_to_currency(group.planfacts.find_by(report_date: params[:report_date]).income_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+                    %strong= number_to_currency(group.planfacts.find_by(report_date: date).income_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
                   %td.center.group-row
-                    %strong= group.planfacts.find_by(report_date: params[:report_date]).pro_percent
+                    %strong= group.planfacts.find_by(report_date: date).pro_percent
                   %td.group-row
-                    %strong= '%.3f' % group.planfacts.find_by(report_date: params[:report_date]).group_ic
+                    %strong= '%.3f' % group.planfacts.find_by(report_date: date).group_ic
             %tr
               %td
                 %h4{ :style => 'color: #6F8745;'} Итого по филиалу
               %td.center{ :style => 'color: #6F8745;'}
-                %strong= @branch.planfacts.find_by(report_date: params[:report_date]).clients_plan
+                %strong= @branch.planfacts.find_by(report_date: date).clients_plan
               %td.center{ :style => 'color: #6F8745;'}
-                %strong= @branch.planfacts.find_by(report_date: params[:report_date]).clients_fact
+                %strong= @branch.planfacts.find_by(report_date: date).clients_fact
               %td{ :style => 'color: #6F8745;'}
-                %strong= number_to_currency(@branch.planfacts.find_by(report_date: params[:report_date]).weight_plan, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+                %strong= number_to_currency(@branch.planfacts.find_by(report_date: date).weight_plan, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
               %td{ :style => 'color: #6F8745;'}
-                %strong= number_to_currency(@branch.planfacts.find_by(report_date: params[:report_date]).weight_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+                %strong= number_to_currency(@branch.planfacts.find_by(report_date: date).weight_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
               %td{ :style => 'color: #6F8745;'}
-                %strong= number_to_currency(@branch.planfacts.find_by(report_date: params[:report_date]).income_plan, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+                %strong= number_to_currency(@branch.planfacts.find_by(report_date: date).income_plan, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
               %td{ :style => 'color: #6F8745;'}
-                %strong= number_to_currency(@branch.planfacts.find_by(report_date: params[:report_date]).income_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+                %strong= number_to_currency(@branch.planfacts.find_by(report_date: date).income_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
               %td.center{ :style => 'color: #6F8745;'}
-                %strong= @branch.planfacts.find_by(report_date: params[:report_date]).pro_percent.round
+                %strong= @branch.planfacts.find_by(report_date: date).pro_percent.round
               %td{ :style => 'color: #6F8745;'}
-                %strong= '%.3f' % @branch.planfacts.find_by(report_date: params[:report_date]).branch_ic
+                %strong= '%.3f' % @branch.planfacts.find_by(report_date: date).branch_ic

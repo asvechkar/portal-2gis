@@ -25,6 +25,8 @@
   .clearfix
 .separator.bottom
 .innerLR
+  .filter-bar
+    
   .widget.widget-heading-simple.widget-body-gray
     .widget-head
       .menubar.links.primary
@@ -35,6 +37,7 @@
           %li= link_to 'Текущие', orders_path + '?type=current'
           %li.divider
           %li= link_to 'К продлению', orders_path + '?type=continue'
+          %li
     .widget-body
       .separator.bottom.form-inline.small
         Всего:

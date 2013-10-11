@@ -114,7 +114,7 @@ $(function()
 
   $("#planfact_date").datetimepicker({
     pickTime: false,
-    format: "dd.mm.yyyy",
+    format: "mm.yyyy",
     weekStart: "1",
     autoclose: "true",
     minView: "2",
