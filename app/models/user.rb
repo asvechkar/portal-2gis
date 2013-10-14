@@ -38,8 +38,12 @@ class User < ActiveRecord::Base
   def city
     self.account_employee ? self.account_employee.branch.name : 'неизвестно'
   end
-  
-  def is_admin?
-    self.role.name == 'admin'
+
+  # scope :free, where(account_employee: nil)
+
+  Role.all.each do |role|
+    define_method("is_#{role.name}?"){ self.role.name == role.name }
+    define_method("is_not_#{role.name}?"){ self.role.name != role.name }
   end
+
 end

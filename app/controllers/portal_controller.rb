@@ -2,7 +2,7 @@ class PortalController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @branch = current_user.account_employee.branch
+    @branch = current_user.account_employee.branch if current_user.account_employee
     unless @branch.nil?
       @total_clients_plan = 0
       @total_weight_plan = 0

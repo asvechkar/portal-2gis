@@ -32,7 +32,7 @@
                 = label_tag 'username', 'Имя пользователя'
                 = text_field_tag 'username', '', :placeholder => 'лат. буквами', class: 'span12', disabled: true, value: @employee.account.username unless @employee.account.nil? 
                 .separator
-                - if current_user.role.name == 'admin'
+                - if current_user.is_admin?
                   = f.label :account_id, ' Учетные записи'
                   = f.collection_select :account_id, User.all, :id, :username, :prompt => 'Выберите пользователя'
                   .separator

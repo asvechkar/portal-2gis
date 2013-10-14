@@ -14,7 +14,7 @@
         = link_to root_path, :class => 'glyphicons dashboard' do
           %i
           Главная
-      - if current_user.role.name == 'admin'
+      - if current_user.is_admin?
         %li.dropdown.dd-1
           = link_to '', 'data-toggle' => 'dropdown', :class => 'glyphicons settings' do
             %i

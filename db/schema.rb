@@ -294,12 +294,12 @@ ActiveRecord::Schema.define(version: 20131004133939) do
     t.string    "username",                                          null: false
     t.string    "avatar"
     t.string    "confirmation_token"
-    t.timestamp "confirmed_at",           precision: 6
-    t.timestamp "confirmation_sent_at",   precision: 6
+    t.datetime  "confirmed_at"
+    t.datetime  "confirmation_sent_at"
     t.string    "unconfirmed_email"
     t.integer   "failed_attempts",                      default: 0
     t.string    "unlock_token"
-    t.timestamp "locked_at",              precision: 6
+    t.datetime  "locked_at"
     t.string    "authentication_token"
   end
 
