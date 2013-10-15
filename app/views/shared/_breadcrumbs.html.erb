@@ -1,0 +1,3 @@
+<%=
+ (render_crumbs format: :html_list).reverse.sub('</li>'.reverse, '<li class="pull-right hidden-phone"><a class="glyphicons shield" href="/support"><i></i>Поддержка</a></li><li class="divider pull-right hidden-phone"></li>'.reverse).reverse.html_safe # :)) Indian programming. Another way - make a fork from crummy gem and customize it for that layout.
+%>
