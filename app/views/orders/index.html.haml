@@ -26,18 +26,22 @@
 .separator.bottom
 .innerLR
   .filter-bar
-    
+    %form
+      %div
+        %label Продление
+        = select_tag 'continue', '<option value="all">Все</option><option value="current">Текущие</option><option value="continue">К продлению</option>'.html_safe
+      %div
+        %label Филиал
+        = select_tag 'order_branch', options_from_collection_for_select(Branch.order(:name), :id, :name, selected: current_user.account_employee.branch)
+      %div
+        %label Куратор
+        = select_tag 'order_employee', options_from_collection_for_select(Employee.order(:lastname), :id, :initials)
+      %div
+        %label №
+        = text_field :order, :ordernum
+      %div
+        = button_tag 'Применить'
   .widget.widget-heading-simple.widget-body-gray
-    .widget-head
-      .menubar.links.primary
-        %ul
-          %li Фильтр:
-          %li= link_to 'Все', orders_path
-          %li.divider
-          %li= link_to 'Текущие', orders_path + '?type=current'
-          %li.divider
-          %li= link_to 'К продлению', orders_path + '?type=continue'
-          %li
     .widget-body
       .separator.bottom.form-inline.small
         Всего:
