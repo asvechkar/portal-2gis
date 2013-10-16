@@ -28,14 +28,14 @@
   .filter-bar
     %form
       %div
-        %label Продление
+        %label БЗ
         = select_tag 'continue', '<option value="all">Все</option><option value="current">Текущие</option><option value="continue">К продлению</option>'.html_safe
       %div
         %label Филиал
-        = select_tag 'order_branch', options_from_collection_for_select(Branch.order(:name), :id, :name, selected: current_user.account_employee.branch)
+        = select_tag 'order_branch', options_from_collection_for_select(Branch.order(:name), :id, :name, selected: current_user.account_employee.branch.id)
       %div
         %label Куратор
-        = select_tag 'order_employee', options_from_collection_for_select(Employee.order(:lastname), :id, :initials)
+        = select_tag 'order_employee', options_from_collection_for_select(Employee.where(branch: current_user.account_employee.branch).order(:lastname), :id, :initials)
       %div
         %label №
         = text_field :order, :ordernum
@@ -59,18 +59,18 @@
             %th.center Клиент
             %th.center Начало
             %th.center Окончание
-            %th.center Сумма
-            %th.center Груз
+            %th.center{style: 'min-width: 90px;'} Сумма
+            %th.center{style: 'min-width: 90px;'} Груз
             %th.center Статус
             %th.center Продление
             %th.center Старый&nbsp;БЗ
-            %th
+            %th.actions-bar
         %tbody
           - @orders.each do |order|
             %tr.selectable
               %td.center.uniformjs
                 - if order.finishdate.month == Date.today.month
-                  %input{ type: 'checkbox', id: "#{order.id}" }
+                  %input{ type: 'checkbox', id: "#{order.id}", 'checked' => order.continue == 1 }
               %td.center= order.ordernum
               %td= order.city.name if order.city
               %td= order.employee.initials if order.employee
@@ -82,7 +82,7 @@
               %td= order.status_desc
               %td.center= order.continue_desc
               %td= Order.find(order.order_id).ordernum if order.order_id
-              %td.center.actions-bar
+              %td.center
                 = link_to order, class: 'btn-action glyphicons eye_open btn-default', title: 'Показать' do
                   %i
                 = link_to edit_order_path(order), class: 'btn-action glyphicons pencil btn-success', title: 'Редактировать' do
