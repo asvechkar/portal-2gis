@@ -27,9 +27,8 @@ class User < ActiveRecord::Base
                           :join_table => :users_roles,
                           :foreign_key => 'user_id',
                           :association_foreign_key => 'role_id'
-  def is?(role)
-    roles.include?(role.to_s)
-  end
+
+  scope :free, -> { includes(:account_employee).where(employees: {account_id: nil} ) }
 
   def role
     self.roles.all.first
@@ -38,8 +37,6 @@ class User < ActiveRecord::Base
   def city
     self.account_employee ? self.account_employee.branch.name : 'неизвестно'
   end
-
-  # scope :free, where(account_employee: nil)
 
   Role.all.each do |role|
     define_method("is_#{role.name}?"){ self.role.name == role.name }

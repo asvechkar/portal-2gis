@@ -50,12 +50,12 @@
       <%= hidden_field_tag 'classname', object %>
       <% submitTitle = ''
       case dialog_id
-      when 'currOrders' then submitTitle = 'Импортировать текущие'
-      when 'contOrders' then submitTitle = 'Импортировать продленные'
-      when 'instModal' then submitTitle = 'Импортировать рассрочку'
-      when 'debtModal' then submitTitle = 'Импортировать дебет'
-      when 'clientsDialog' then submitTitle = 'Импортировать клиентов'
-      when 'incomes_import' then submitTitle = 'Импортировать поступления'
+        when 'currOrders' then submitTitle = 'Импортировать текущие'
+        when 'contOrders' then submitTitle = 'Импортировать продленные'
+        when 'instModal' then submitTitle = 'Импортировать рассрочку'
+        when 'debtModal' then submitTitle = 'Импортировать дебет'
+        when 'clientsDialog' then submitTitle = 'Импортировать клиентов'
+        when 'incomesImport' then submitTitle = 'Импортировать поступления'
       end %>
       <%= f.submit submitTitle, :class => 'btn btn-primary' %>
     <% end %>

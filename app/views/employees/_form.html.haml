@@ -34,7 +34,7 @@
                 .separator
                 - if current_user.is_admin?
                   = f.label :account_id, ' Учетные записи'
-                  = f.collection_select :account_id, User.all, :id, :username, :prompt => 'Выберите пользователя'
+                  = f.collection_select :account_id, User.free, :id, :username, :prompt => 'Выберите пользователя'
                   .separator
                   = link_to 'Создать нового пользователя', new_member_path, class: 'btn btn-primary'
             .separator.line.bottom

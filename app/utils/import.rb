@@ -1,16 +1,16 @@
 module Import
-  mattr_accessor :sheet, :uid, :employee_fn, :employee_ln
+  # attr_accessor :sheet, :uid, :employee_fn, :employee_ln
 
   def self.xlsx(file, cname, uid)
-    sheet = Roo::Excelx.new(file)
-    self.sheet, self.uid = sheet, uid
+    xlsheet = Roo::Excelx.new(file)
+    # self.sheet, self.uid = sheet, uid
     case cname
-      when 'client' then log = Import.clients(sheet, uid)
-      when 'order_curr' then log = Import.orders(sheet, uid)
-      when 'order_cont' then log = Import.orders_cont(sheet, uid)
-      when 'debt_inst' then log = Import.installments(sheet, uid)
-      when 'debt_debt' then log = Import.debts(sheet, uid)
-      when 'income' then log = income
+      when 'client' then log = Import.clients(xlsheet, uid)
+      when 'order_curr' then log = Import.orders(xlsheet, uid)
+      when 'order_cont' then log = Import.orders_cont(xlsheet, uid)
+      when 'debt_inst' then log = Import.installments(xlsheet, uid)
+      when 'debt_debt' then log = Import.debts(xlsheet, uid)
+      when 'income' then log = Import.income(xlsheet, uid)
     end
     return log
   end
@@ -174,26 +174,29 @@ module Import
     return log.id
   end
 
-  #импорт поступлений (A,B,F,H)
-  def self.income
+  #импорт поступлений (A - ф,и сотрудника, B - название клиента, C - дата поступления, D - сумма поступления)
+  def self.income(sheet, uid)
     message = ''
     count = 0
     sheet.last_row.downto(2) do |row|
       # Получаем сотрудника
-      employee_id = employee_for_row(row)
+      full_name = sheet.cell('A', row)
+      employee_ln = full_name.slice(/(^[^,]*)/).strip
+      employee_fn = full_name.slice(/([^,\s]*[^\s]$)/).strip
+      employee_id = whereMyEmployee(employee_ln, employee_fn, uid)
       # Получает клиента
       client_name = sheet.cell('B', row)
       client_id = Import.getClientByName(client_name, uid)
       # Получаем бланк-заказ
-      order_id = Order.find_by(:client_id => client_id, :employee_id => employee_id)
+      # order_id = Order.find_by(:client_id => client_id, :employee_id => employee_id)
       # Получаем сумму
-      indate = sheet.cell('F', row)
-      insum = sheet.cell('H', row)
+      indate = sheet.cell('C', row)
+      insum = sheet.cell('D', row)
       # Сообщения об ошибке
       message = "#{message}<br>Клиент #{client_name} отсутствует в системе" unless client_id
       message = "#{message}<br>Сотрудник #{employee_fn} #{employee_ln} отсутствует в системе" unless employee_id
       # Создание записи
-      income = Income.create(:indate => indate, :insum => insum) if client_id && employee_id
+      income = Income.create(client_id: client_id, employee_id: employee_id, indate: indate, insum: insum) if client_id && employee_id
       count += 1 if income
     end
     message = "#{message}<br><p>Импортировано #{count} записей из #{sheet.last_row - 1}</p>"
@@ -234,12 +237,4 @@ module Import
     return id
   end
 
-  private
-
-  def self.employee_for_row(row)
-    full_name = sheet.cell('A', row)
-    self.employee_ln = full_name.slice(/(^[^,]*)/).strip
-    self.employee_fn = full_name.slice(/([^,\s]*[^\s]$)/).strip
-    whereMyEmployee(employee_ln, employee_fn, uid)    
-  end
 end

@@ -4,8 +4,14 @@ class IncomesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @incomes = params[:filter] ? Income.filter(params[:filter]) : Income.all
-    @employees = params[:filter] && params[:filter][:branch] ? Employee.by_branch(params[:filter][:branch]) : Employee.all
+    @incomes = if params[:branch]
+                 Income.includes(:employee).where(employees: { branch_id: params[:branch] }).order(indate: :desc)
+               elsif params[:manager]
+                 Income.where(employee_id: params[:manager]).order(indate: :desc)
+               else
+                 Income.includes(:employee).where(employees: { branch_id: current_employee.branch_id }).order(indate: :desc)
+               end
+    @employees = params[:branch] ? Employee.where(branch_id: params[:branch]).order(:lastname) : Employee.where(branch_id: current_employee.branch_id).order(:lastname)
   end
 
   def get_orders_by_client_id
@@ -70,7 +76,11 @@ class IncomesController < ApplicationController
   private
 
   def set_income
-    @income = Income.find(params[:id])
+    begin
+      @income = Income.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to incomes_path, flash: { error: 'Такого поступления нет' }
+    end
   end
 
   def income_params

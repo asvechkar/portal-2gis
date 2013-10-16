@@ -1,12 +1,8 @@
 jQuery ->
-  jQuery('#income_client_id').change ->
-    client_id = jQuery('#income_client_id :selected').val()
-    if (client_id == "")
-      client_id = "0"
-    jQuery.get '/incomes/get_orders_by_client_id/' + client_id, (data) ->
-      jQuery('#income_order_id').html(data)
+  jQuery('#brancheslist').change ->
+    branch_id = jQuery('#brancheslist :selected').val()
+    window.location = window.location.origin + window.location.pathname + '?branch=' + branch_id
+  jQuery('#managerslist').change ->
+    branch_id = jQuery('#managerslist :selected').val()
+    window.location = window.location.origin + window.location.pathname + '?manager=' + branch_id
 
-@Filter = ->
-
-Filter.apply = ->
-  $('form#income').submit()

@@ -10,9 +10,9 @@
   %h3
     Поступления
   .buttons.pull-right
-    = link_to '#incomes_import', class: 'btn btn-primary btn-icon glyphicons file_import', data: { toggle: 'modal' } do
+    = link_to '#incomesImport', class: 'btn btn-primary btn-icon glyphicons file_import', data: { toggle: 'modal' } do
       %i
-      Импортировать поступления
+      Импорт
     = link_to new_income_path, class: 'btn btn-primary btn-icon glyphicons circle_plus' do
       %i
       Новое поступление
@@ -50,4 +50,4 @@
                   %i
                 = link_to income, method: :delete, data: { confirm: 'Вы уверены, что хотите удалить?' }, class: 'btn-action glyphicons remove_2 btn-danger', title: 'Удалить' do
                   %i
-= render 'shared/upload', object: 'income', dialog_id: 'incomes_import'
+= render 'shared/upload', object: 'income', dialog_id: 'incomesImport'

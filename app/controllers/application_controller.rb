@@ -27,4 +27,9 @@ class ApplicationController < ActionController::Base
   def after_sign_up_path_for(resource)
     root_path
   end
+
+  def current_employee
+    @current_employee ||= current_user.account_employee
+  end
+  helper_method :current_employee
 end
