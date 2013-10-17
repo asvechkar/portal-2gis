@@ -27,20 +27,7 @@
 .innerLR
   .widget.widget-heading-simple.widget-body-gray
     .widget-body
-      .filter-bar
-        = form_tag (reports_recalc_planfact_path), id: 'planfact_params' do
-          - if current_user.is_admin?
-            %div
-              %label Филиалы
-              = select_tag :id, options_from_collection_for_select(Branch.all.order('name ASC'), "id", "name", params[:id].to_i), prompt: 'Выберите филиал'
-          #planfact_date.input-append.date
-            = text_field_tag :report_date, (params[:report_date] || Date.today.strftime("%m.%Y")), placeholder:'Введите дату', required: 'required'
-            %span.add-on
-              %i.icon-th
-          %div
-            = hidden_field_tag 'update_planfact', '0'
-            = submit_tag "Применить"
-          .clearfix
+      = render 'filters'
       %table.table.table-bordered.table-condensed.table-striped.table-vertical-center.table-pricing.table-pricing-2
         %thead
           %tr

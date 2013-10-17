@@ -18,6 +18,7 @@ gem 'roo'
 
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'jquery-fileupload-rails'
 
 gem 'figaro', '~> 0.7.0'

@@ -6,3 +6,4 @@
     %div
       %label Менеджеры:
       = select_tag 'managerslist', options_from_collection_for_select(@employees, :id, :initials, selected: params[:manager]), prompt: 'Выберите менеджера'
+    .clearfix

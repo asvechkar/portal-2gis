@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
     method = "#{resource}_params"
     params[resource] &&= send(method) if respond_to?(method, true)
   end
+  add_flash_types :error, :success
 
   before_action do
     flash.alert = 'Пользователь не связан с сотрудником, обратитесь к администратору!' unless current_user && current_user.account_employee

@@ -16,7 +16,7 @@ class ReportsController < ApplicationController
 
   def recalc_planfact
     date = Date.strptime(params[:report_date], '%m.%Y' )
-    params[:id].blank? ? @branch = current_user.branches.first : @branch = Branch.find(params[:id])
+    @branch = Branch.find(params[:branches_list] || current_employee.branch_id)
     if params[:update_planfact] == "1" && @branch
       branch_debt = 0
       branch_clients_plan = 0

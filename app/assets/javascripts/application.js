@@ -1,6 +1,8 @@
 //= require jquery
-//= require jquery-migrate-1.2.1
+//= require jquery.ui.all
+//= require jquery.ui.datepicker-ru
 //= require jquery_ujs
+//= require jquery-migrate-1.2.1
 //= require jquery.bootstrap.wizard
 //= require jquery.inputmask.bundle
 //= require jquery.toggle.buttons
