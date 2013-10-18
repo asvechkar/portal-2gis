@@ -17,42 +17,36 @@
   .clearfix
 .separator.bottom
 .innerLR
-  .widget.widget-heading-simple.widget-body-gray
-    .widget-body
-      .separator.bottom.form-inline.small
-        Всего:
-        = @employees.count
-      %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center
-        %thead
-          %tr
-            %th.center Имя
-            %th.center Отчество
-            %th.center Фамилия
-            %th.center СНИЛС
-            %th.center Должность
-            %th.center Опыт
-            %th.center Филиал
-            %th.center Группы
-            %th.center Пользователь
-            %th
-        %tbody
-          - @employees.each do |employee|
-            %tr
-              %td= employee.firstname
-              %td= employee.middlename
-              %td= employee.lastname
-              %td= employee.snils
-              %td= employee.position.name if employee.position
-              %td= employee.level.name if employee.level_id
-              %td= employee.branch.name if employee.branch
-              %td
-                - employee.groups.each do |g|
-                  = link_to g.code + ' ', group_path(g)
-              %td= employee.account.username unless employee.account.nil? 
-              %td.center.actions-bar
-                = link_to employee, :class=> 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
-                  %i
-                = link_to edit_employee_path(employee), :class=> 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
-                  %i
-                = link_to employee, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :title => 'Удалить', :class=> 'btn-action glyphicons remove_2 btn-danger' do
-                  %i
+  .widget.widget-heading-simple.widget-body-white.widget-employees
+    .widget-body.padding-none
+      .row-fluid.row-merge
+        .span4.listWrapper
+          .innerAll
+            %form.form-inline{autocomplete: "off"}
+              .widget-search.separator.bottom
+                %button.btn.btn-inverse.pull-right{type: "button"}
+                  %i.icon-search
+                .overflow-hidden
+                  %input{placeholder: "Найти...", type: "text", value: ""}/
+              %select{style: "width: 100%;"}
+                %optgroup{label: "Филиал"}
+                  - Branch.all.each do |branch|
+                    %option{value: "#{branch.name}"}= branch.name
+          %span.results
+            = "Всего найдено сотрудников: #{ @employees.count }"
+            %i.icon-circle-arrow-down
+          %ul.list.unstyled
+            - @employees.each do |employee|
+              %li
+                /.active
+                .media.innerAll
+                  .media-object.pull-left.thumb
+                    = image_tag employee.avatar ? employee.avatar_url(:thumb) : 'employees.png', alt: 'Profile'
+                  .media-body
+                    %span.strong= "#{employee.firstname} #{employee.middlename} #{employee.lastname}"
+                    %span.muted= employee.email
+                    %i.icon-envelope
+                    %i.icon-phone
+                    %i.icon-skype
+        - unless @employees.blank?
+          = render partial: 'employee', locals: { employee: @employees.first }

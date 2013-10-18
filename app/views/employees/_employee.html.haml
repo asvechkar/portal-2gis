@@ -1,0 +1,95 @@
+.span8.detailsWrapper
+  .ajax-loading.hide
+    %i.icon-spinner.icon-spin.icon-4x
+  .innerAll
+    .title
+      .row-fluid
+        .span8
+          %h3.text-primary= "#{employee.firstname} #{employee.middlename} #{employee.lastname}"
+          %span.muted= employee.position_name
+        .span4.text-right
+          %p.muted
+            4 projects
+            %a{href: ""}
+              %i.icon-circle-arrow-right
+          .margin-bottom-none.progress.progress-small.count-outside
+            .count 30%
+            .bar{style: "width: 30%;"}
+    %hr/
+    .body
+      .row-fluid
+        .span4.overflow-hidden
+          .center
+            %a.thumb.inline-block{href: ""}
+              = image_tag employee.avatar ? employee.avatar_url(:large) : 'employees.png', alt: 'Profile'
+          .separator.bottom
+          %ul.icons-ul
+            %li
+              %i.icon-envelope.icon-li.icon-fixed-width
+              = employee.email
+            %li
+              %i.icon-phone.icon-li.icon-fixed-width
+              = employee.phone
+            %li
+              %i.icon-skype.icon-li.icon-fixed-width
+              = employee.skype
+        .span8
+          %h5.strong About
+          %p= employee.about || "Краткая информация о сотруднике отсутствует."
+          .row-fluid
+            .span4
+              %h5.strong Reports
+              %a.btn.btn-primary.btn-small.btn-block{href: ""}
+                %i.icon-download-alt.icon-fixed-width
+                June
+              %a.btn.btn-default.btn-small.btn-block{href: ""}
+                %i.icon-download-alt.icon-fixed-width
+                May
+              %a.btn.btn-default.btn-small.btn-block{href: ""}
+                %i.icon-download-alt.icon-fixed-width
+                April
+              .separator.bottom
+            .span7.offset1
+              %h5.strong Skills
+              .progress.progress-mini.progress-primary.count-outside.add-outside
+                .count 100%
+                .bar{style: "width: 100%;"}
+                .add HTML
+              .progress.progress-mini.progress-primary.count-outside.add-outside
+                .count 90%
+                .bar{style: "width: 90%;"}
+                .add CSS
+              .progress.progress-mini.progress-primary.count-outside.add-outside
+                .count 93%
+                .bar{style: "width: 93%;"}
+                .add jQuery
+              .progress.progress-mini.progress-primary.count-outside.add-outside
+                .count 79%
+                .bar{style: "width: 79%;"}
+                .add PHP
+              .progress.progress-mini.count-outside.add-outside
+                .count 20%
+                .bar{style: "width: 20%;"}
+                .add WP
+              .separator.bottom
+          %h5.text-uppercase.strong.text-primary
+            %i.icon-group.text-regular.icon-fixed-width
+            MosaicPro
+            %span.text-lowercase.strong.padding-none Team
+            %span.text-lowercase.padding-none (2 people)
+          %ul.team
+            %li
+              %span.crt 1
+              %span.strong Adrian Demian
+              %span.muted Senior Designer
+            %li
+              %span.crt 2
+              %span.strong Laza Bogdan
+              %span.muted Senior Developer
+          %td.center.actions-bar
+            = link_to employee, :class=> 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
+              %i
+            = link_to edit_employee_path(employee), :class=> 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
+              %i
+            = link_to employee, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :title => 'Удалить', :class=> 'btn-action glyphicons remove_2 btn-danger' do
+              %i

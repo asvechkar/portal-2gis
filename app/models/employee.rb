@@ -18,10 +18,13 @@ class Employee < ActiveRecord::Base
   has_many :users, :through => :userifications, :foreign_key => 'userable_id'
   has_many :suspensions
   has_many :groups, :through => :suspensions, :source => :employed, :source_type => 'Group'
-  
+
   validates_presence_of :firstname, :lastname, :snils # :middlename,
 
   scope :by_branch, ->(id) { joins(:branches).where('employees.branch_id = ?', id) }
+
+  delegate :email, to: :user, allow_nil: true
+  delegate :name, to: :position, prefix: true, allow_nil: true
 
   def group
     self
