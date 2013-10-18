@@ -32,6 +32,13 @@
 //= require pGenerator.jquery
 //= require wizard
 
+function equalHeight(boxes)
+{
+	boxes.height('auto');
+	var maxHeight = Math.max.apply( Math, boxes.map(function(){ return $(this).height(); }).get());
+	boxes.height(maxHeight);
+}
+
 function toggleMenuHidden()
 {
   //console.log('toggleMenuHidden');
@@ -77,7 +84,7 @@ $(function()
   if ($('.uniformjs').length) $('.uniformjs').find("select, input, button, textarea").uniform();
   $('.selectpicker').selectpicker();
   if ($('.toggle-button').length) $('.toggle-button').toggleButtons();
-  
+
   $('#password_generator_btn').pGenerator({
           'bind': 'click',
           'passwordElement': '#my-input-element',

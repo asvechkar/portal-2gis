@@ -23,3 +23,15 @@ jQuery ->
       branch_id = "0"
     jQuery.get '/employees/get_groups_by_branch_id/' + branch_id, (data) ->
       jQuery('#group_group_ids').html(data)
+$ ->
+  $(".widget-employees").each ->
+  $(this).find("select").select2()  unless typeof $.fn.select2 is "undefined"
+  equalHeight $(this).find(".row-merge > [class*=\"span\"]")
+  $(this).on "click", ".listWrapper li:not(.active)", ->
+    p = $(this).parents(".widget-employees:first")
+    p.find(".listWrapper li").removeClass "active"
+    $(this).addClass "active"
+    p.find(".ajax-loading").stop().fadeIn 1000, ->
+      setTimeout (->
+        p.find(".ajax-loading").fadeOut()
+      ), 1000
