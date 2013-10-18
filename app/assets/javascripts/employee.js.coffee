@@ -30,8 +30,15 @@ $ ->
   $(this).on "click", ".listWrapper li:not(.active)", ->
     p = $(this).parents(".widget-employees:first")
     p.find(".listWrapper li").removeClass "active"
+    id = $(this).attr("class")
     $(this).addClass "active"
-    p.find(".ajax-loading").stop().fadeIn 1000, ->
-      setTimeout (->
-        p.find(".ajax-loading").fadeOut()
-      ), 1000
+    $.ajax
+      type: "GET"
+      url: "/employees/" + id
+      progress: ->
+        p.find(".ajax-loading").stop().fadeIn 1000, ->
+          setTimeout (->
+            p.find(".ajax-loading").fadeOut()
+          ), 1000
+      success: (response) ->
+        $(".detailsWrapper").html response.html

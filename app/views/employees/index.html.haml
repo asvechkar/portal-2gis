@@ -36,9 +36,8 @@
             = "Всего найдено сотрудников: #{ @employees.count }"
             %i.icon-circle-arrow-down
           %ul.list.unstyled
-            - @employees.each do |employee|
-              %li
-                /.active
+            - @employees.each_with_index do |employee, index|
+              %li{class: index == 0 ? "active #{employee.id}" : employee.id}
                 .media.innerAll
                   .media-object.pull-left.thumb
                     = image_tag employee.avatar ? employee.avatar_url(:thumb) : 'employees.png', alt: 'Profile'
@@ -48,5 +47,6 @@
                     %i.icon-envelope
                     %i.icon-phone
                     %i.icon-skype
-        - unless @employees.blank?
-          = render partial: 'employee', locals: { employee: @employees.first }
+        .span8.detailsWrapper
+          - unless @employees.blank?
+            = render partial: 'employee', locals: { employee: @employees.first }

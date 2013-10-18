@@ -30,6 +30,10 @@ class EmployeesController < ApplicationController
   # GET /employees/1
   # GET /employees/1.json
   def show
+    if request.xhr?
+      html = render_to_string(partial: 'employee', layout: false, locals: { employee: @employee })
+      render json: { html: html }
+    end
   end
 
   # GET /employees/new
@@ -102,16 +106,16 @@ class EmployeesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_params
       params.require(:employee).permit(
-      :firstname, 
-      :middlename, 
-      :lastname, 
-      :snils, 
-      :level_id, 
-      :position_id, 
-      :branch_id, 
+      :firstname,
+      :middlename,
+      :lastname,
+      :snils,
+      :level_id,
+      :position_id,
+      :branch_id,
       :user_id,
       :account_id,
-      :birthdate, 
+      :birthdate,
       :gender,
       :about,
       :phone,
