@@ -22,7 +22,7 @@
       .row-fluid.row-merge
         .span4.listWrapper
           .innerAll
-            %form.form-inline{autocomplete: "off"}
+            %form#employees_search.form-inline{autocomplete: "off"}
               .widget-search.separator.bottom
                 %button.btn.btn-inverse.pull-right{type: "button"}
                   %i.icon-search
@@ -30,23 +30,10 @@
                   %input{placeholder: "Найти...", type: "text", value: ""}/
               %select{style: "width: 100%;"}
                 %optgroup{label: "Филиал"}
+                  %option{value: "all"}= "любой"
                   - Branch.all.each do |branch|
-                    %option{value: "#{branch.name}"}= branch.name
-          %span.results
-            = "Всего найдено сотрудников: #{ @employees.count }"
-            %i.icon-circle-arrow-down
-          %ul.list.unstyled
-            - @employees.each_with_index do |employee, index|
-              %li{class: index == 0 ? "active #{employee.id}" : employee.id}
-                .media.innerAll
-                  .media-object.pull-left.thumb
-                    = image_tag employee.avatar ? employee.avatar_url(:thumb) : 'employees.png', alt: 'Profile'
-                  .media-body
-                    %span.strong= "#{employee.firstname} #{employee.middlename} #{employee.lastname}"
-                    %span.muted= employee.email
-                    %i.icon-envelope
-                    %i.icon-phone
-                    %i.icon-skype
+                    %option{value: "#{branch.id}"}= branch.name
+          = render partial: 'employees', locals: { employees: @employees }
         .span8.detailsWrapper
           - unless @employees.blank?
             = render partial: 'employee', locals: { employee: @employees.first }

@@ -23,6 +23,25 @@ jQuery ->
       branch_id = "0"
     jQuery.get '/employees/get_groups_by_branch_id/' + branch_id, (data) ->
       jQuery('#group_group_ids').html(data)
+
+searchEmployees = ->
+  surname = $('#employees_search').find('input').val()
+  branch  = $('#employees_search').find('select').val()
+  $.ajax
+    type: "GET"
+    url: "/employees"
+    data:
+      surname: surname
+      branch: branch
+    progress: ->
+      p.find(".ajax-loading").stop().fadeIn 1000, ->
+        setTimeout (->
+          p.find(".ajax-loading").fadeOut()
+        ), 1000
+    success: (response) ->
+      $(".employee-list").html response.html_employees
+      $(".detailsWrapper").html response.html_employee
+
 $ ->
   $(".widget-employees").each ->
   $(this).find("select").select2()  unless typeof $.fn.select2 is "undefined"
@@ -42,3 +61,9 @@ $ ->
           ), 1000
       success: (response) ->
         $(".detailsWrapper").html response.html
+  $("#employees_search").find("button").click ->
+    searchEmployees()
+  $('#employees_search').find('select').change ->
+    searchEmployees()
+
+

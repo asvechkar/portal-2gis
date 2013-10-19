@@ -1,0 +1,16 @@
+.employee-list
+  %span.results
+    = "Всего найдено сотрудников: #{ employees.count }"
+    %i.icon-circle-arrow-down
+  %ul.list.unstyled
+    - employees.each_with_index do |employee, index|
+      %li{class: index == 0 ? "active #{employee.id}" : employee.id}
+        .media.innerAll
+          .media-object.pull-left.thumb
+            = image_tag employee.avatar.present? ? employee.avatar_url(:thumb) : 'employees.png', alt: 'Profile', size: '27x27'
+          .media-body
+            %span.strong= "#{employee.firstname} #{employee.middlename} #{employee.lastname}"
+            %span.muted= employee.email
+            %i.icon-envelope
+            %i.icon-phone
+            %i.icon-skype

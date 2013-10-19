@@ -6,7 +6,20 @@ class EmployeesController < ApplicationController
   # GET /employees
   # GET /employees.json
   def index
-    @employees = Employee.all
+    if request.xhr?
+      branch_id = Branch.find_by_id(params[:branch])
+      lastname = params[:surname].mb_chars.downcase if params[:surname]
+      @employees = Employee.with_lastname(lastname).with_branch(branch_id).all
+      html_employees = render_to_string(partial: 'employees', layout: false,
+                                        locals: { employees: @employees })
+      unless @employees.blank?
+        html_employee = render_to_string(partial: 'employee', layout: false,
+                                         locals: { employee: @employees.first })
+      end
+      render json: { html_employees: html_employees, html_employee: html_employee }
+    else
+      @employees = Employee.all
+    end
   end
 
   # get 'employees/get_groups_by_branch_id/:id'
