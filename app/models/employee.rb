@@ -209,5 +209,14 @@ class Employee < ActiveRecord::Base
     mult.empty? ? total += 0 : total += mult.first.mult * 0.2
     total
   end
+  # ------------------------------ Новые методы
+  def plan_new_clients(date)
+    plans = Plan.where(year: date.year, month: date.month, employee: self)
+    plans.empty? ? 0 : plans.first.clients
+  end
+  
+  def plan_new_clients_current
+    plan_new_clients(Date.today)
+  end
 
 end

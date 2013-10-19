@@ -42,7 +42,7 @@
       .span9.containerBg.innerTB
         .innerLR
           .row-fluid.innerB
-            .span12
+            .span6
               .widget.widget-heading-simple.widget-body-white.margin-none
                 .widget-head
                   %h4.heading.glyphicons.user
@@ -54,8 +54,28 @@
                       = @employee.about
                     - else
                       Краткая информация о сотруднике отсутствует.
+            .span6
+              .widget.widget-heading-simple.widget-body-gray
+                .widget-head
+                  %h4.heading.glyphicons.history
+                    %i
+                    План на текущий месяц (только для менеджеров)
+                .widget-body.list.collapse.in
+                  %ul
+                    %li
+                      %span Новых клиентов
+                      %span.count= @employee.plan_new_clients_current
+                    %li
+                      %span Продленных клиентов
+                      %span.count 0
+                    %li
+                      %span Поступления по новым клиентам
+                      %span.count 0
+                    %li
+                      %span Поступления по продленным клиентам
+                      %span.count 0
           .row-fluid
-            .span12
+            .span6
               .widget.widget-heading-simple.widget-body-white.margin-none
                 .widget-head
                   %h4.heading.glyphicons.calendar
@@ -79,3 +99,17 @@
                       %i
                       СНИЛС:
                       = @employee.snils
+            .span6
+              .widget.widget-heading-simple.widget-body-gray
+                .widget-head
+                  %h4.heading.glyphicons.history
+                    %i
+                    Факт за текущий месяц (только для менеджеров)
+                .widget-body.list.collapse.in
+                  %ul
+                    %li
+                      %span Процент поступлений
+                      %span.count 0
+                    %li
+                      %span Интегральный коэффициент
+                      %span.count 0
