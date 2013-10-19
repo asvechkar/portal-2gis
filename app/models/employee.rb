@@ -22,8 +22,10 @@ class Employee < ActiveRecord::Base
   validates_presence_of :firstname, :lastname, :snils # :middlename,
 
   scope :by_branch, ->(id) { joins(:branches).where('employees.branch_id = ?', id) }
+  scope :with_branch, ->(id) { where(branch_id: id) if id }
+  scope :with_lastname, ->(lastname) { where("LOWER(lastname) like '%#{lastname}%'")}
 
-  delegate :email, to: :user, allow_nil: true
+  delegate :email, to: :account, allow_nil: true
   delegate :name, to: :position, prefix: true, allow_nil: true
 
   def group
@@ -217,7 +219,7 @@ class Employee < ActiveRecord::Base
     plans = Plan.where(year: date.year, month: date.month, employee: self)
     plans.empty? ? 0 : plans.first.clients
   end
-  
+
   def plan_new_clients_current
     plan_new_clients(Date.today)
   end

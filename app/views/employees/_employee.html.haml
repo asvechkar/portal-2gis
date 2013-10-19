@@ -7,31 +7,31 @@
         %h3.text-primary= "#{employee.firstname} #{employee.middlename} #{employee.lastname}"
         %span.muted= employee.position_name
       .span4.text-right
-        %p.muted
-          4 projects
-          %a{href: ""}
-            %i.icon-circle-arrow-right
-        .margin-bottom-none.progress.progress-small.count-outside
-          .count 30%
-          .bar{style: "width: 30%;"}
+        %td.center.actions-bar
+          = link_to employee, :class=> 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
+            %i
+          = link_to edit_employee_path(employee), :class=> 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
+            %i
+          = link_to employee, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :title => 'Удалить', :class=> 'btn-action glyphicons remove_2 btn-danger' do
+            %i
   %hr/
   .body
     .row-fluid
       .span4.overflow-hidden
         .center
           %a.thumb.inline-block{href: ""}
-            = image_tag employee.avatar ? employee.avatar_url(:large) : 'employees.png', alt: 'Profile'
+            = image_tag employee.avatar.present? ? employee.avatar_url(:large) : 'employees.png', alt: 'Profile'
         .separator.bottom
         %ul.icons-ul
           %li
             %i.icon-envelope.icon-li.icon-fixed-width
-            = employee.email
+            = employee.email || 'не указан'
           %li
             %i.icon-phone.icon-li.icon-fixed-width
-            = employee.phone
+            = employee.phone || 'не указан'
           %li
             %i.icon-skype.icon-li.icon-fixed-width
-            = employee.skype
+            = employee.skype || 'не указан'
       .span8
         %h5.strong About
         %p= employee.about || "Краткая информация о сотруднике отсутствует."
@@ -71,24 +71,17 @@
               .bar{style: "width: 20%;"}
               .add WP
             .separator.bottom
-        %h5.text-uppercase.strong.text-primary
-          %i.icon-group.text-regular.icon-fixed-width
-          MosaicPro
-          %span.text-lowercase.strong.padding-none Team
-          %span.text-lowercase.padding-none (2 people)
-        %ul.team
-          %li
-            %span.crt 1
-            %span.strong Adrian Demian
-            %span.muted Senior Designer
-          %li
-            %span.crt 2
-            %span.strong Laza Bogdan
-            %span.muted Senior Developer
-        %td.center.actions-bar
-          = link_to employee, :class=> 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
-            %i
-          = link_to edit_employee_path(employee), :class=> 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
-            %i
-          = link_to employee, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :title => 'Удалить', :class=> 'btn-action glyphicons remove_2 btn-danger' do
-            %i
+        - group = employee.groups.first
+        - if group
+          %h5.text-uppercase.strong.text-primary
+            %i.icon-group.text-regular.icon-fixed-width
+            = group.code
+            %span.text-lowercase.strong.padding-none Комманда
+            %span.text-lowercase.padding-none="сотрудников: #{group.employees.count}"
+          %div
+            - group.employees.first(4).each_with_index do |emp, index|
+              %ul.team
+                %li
+                  %span.crt= index
+                  %span.strong= "#{emp.firstname} #{emp.lastname}"
+                  %span.muted= emp.position_name
