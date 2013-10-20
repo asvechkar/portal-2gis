@@ -70,10 +70,10 @@
                       %span.count= @employee.plan_cont_clients_current
                     %li
                       %span Поступления по новым клиентам
-                      %span.count 0
+                      %span.count= @employee.incomes_new_clients_current
                     %li
                       %span Поступления по продленным клиентам
-                      %span.count 0
+                      %span.count= @employee.incomes_cont_clients_current
           .row-fluid
             .span6
               .widget.widget-heading-simple.widget-body-white.margin-none
