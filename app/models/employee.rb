@@ -307,6 +307,12 @@ class Employee < ActiveRecord::Base
   
   # Интегральный коэффициент
   def ik(date)
+    return 0
+  end
+
+  # Интегральный коэффициент текущий
+  def ik_current
+    ik(Date.today)
   end
 
 end
