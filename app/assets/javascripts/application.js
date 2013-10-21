@@ -74,6 +74,8 @@ function removeMenuHiddenPhone()
 
 $(function()
 {
+  $('#selected_count').text($('.checkboxs tbody :checked').length)
+
   $('.navbar.main .btn-navbar').click(function()
   {
     var disabled = typeof toggleMenuButtonWhileTourOpen != 'undefined' ? toggleMenuButtonWhileTourOpen(true) : false;
@@ -107,6 +109,8 @@ $(function()
     for (var i = 0; i < all_elements; i++) {
       orders_ids.push($('.checkboxs tbody :checked')[i].id);
     }
+    $('#check_all').removeAttr('checked');
+    $.uniform.update();
   });
 
   $('.set_continue').click( function (e){
@@ -119,6 +123,23 @@ $(function()
     });
     orders_ids = null;
     return false;
+  });
+
+  $('#check_all').click( function() {
+    if ($('#check_all').is(':checked')) {
+      $('input:checkbox').each(function() {
+        this.checked = true;
+      });
+      $('#selected_count').text($('.checkboxs tbody :checked').length)
+      $.uniform.update();
+    }
+    else {
+      $('input:checkbox').each(function() {
+        this.checked = false;
+      });
+      $('#selected_count').text($('.checkboxs tbody :checked').length)
+      $.uniform.update();
+    }
   });
 
   $("#planfact_date").datetimepicker({
