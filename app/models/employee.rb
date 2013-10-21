@@ -25,7 +25,7 @@ class Employee < ActiveRecord::Base
   scope :with_branch, ->(id) { where(branch_id: id) if id }
   scope :with_lastname, ->(lastname) { where("LOWER(lastname) like '%#{lastname}%'")}
 
-  delegate :email, to: :user, allow_nil: true
+  delegate :email, to: :account, allow_nil: true
   delegate :name, to: :position, prefix: true, allow_nil: true
 
   def group
