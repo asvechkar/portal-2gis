@@ -97,7 +97,7 @@ class Group < ActiveRecord::Base
   
   # Процент продлений
   def cont_percent(date)
-    Plancent.where(brach_id: self.branch, year: date.year, month: date.month, mult: 1.0).first.fromprc rescue 0
+    Plancent.where(brach_id: self.branch_id, year: date.year, month: date.month, mult: 1.0).first.fromprc rescue 0
   end
   
   # Процент продлений текуший

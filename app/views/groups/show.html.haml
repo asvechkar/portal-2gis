@@ -11,99 +11,100 @@
 %h3.separator.bottom
   = @group.code
   %span карточка
-.innerLR
-  .row-fluid
-    .span5
-      .row-fluid.innerB
-        .span12
-          .widget.widget-heading-simple.widget-body-white.margin-none
-            .widget-head
-              %h4.heading.glyphicons.group
-                %i
-                Инфомация о группе
-            .widget-body
-              %ul.unstyled.icons.margin-none
-                %li.glyphicons.group
+.widget.widget-heading-simple.widget-body-gray
+  .widget-body
+    .row-fluid
+      .span5
+        .row-fluid.innerB
+          .span12
+            .widget.widget-heading-simple.widget-body-white.margin-none
+              .widget-head
+                %h4.heading.glyphicons.group
                   %i
-                  Код группы:
-                  = @group.code
-                %li.glyphicons.tie
+                  Инфомация о группе
+              .widget-body
+                %ul.unstyled.icons.margin-none
+                  %li.glyphicons.group
+                    %i
+                    Код группы:
+                    = @group.code
+                  %li.glyphicons.tie
+                    %i
+                    Руководитель:
+                    = @group.employee.initials if @group.employee
+                  %li.glyphicons.globe
+                    %i
+                    Филиал:
+                    = @group.branch.name
+                  %li.glyphicons.user
+                    %i
+                    Автор:
+                    = @group.user.username
+                  %li.glyphicons.calendar
+                    %i
+                    Создана:
+                    %span.label= @group.created_at.strftime('%d.%m.%Y %H:%M')
+        .row-fluid
+          .span12
+            .widget.widget-heading-simple.widget-body-gray
+              .widget-head
+                %h4.heading.glyphicons.history
                   %i
-                  Руководитель:
-                  = @group.employee.initials if @group.employee
-                %li.glyphicons.globe
-                  %i
-                  Филиал:
-                  = @group.branch.name
-                %li.glyphicons.user
-                  %i
-                  Автор:
-                  = @group.user.username
-                %li.glyphicons.calendar
-                  %i
-                  Создана:
-                  %span.label= @group.created_at.strftime('%d.%m.%Y %H:%M')
-      .row-fluid
-        .span12
-          .widget.widget-heading-simple.widget-body-gray
-            .widget-head
-              %h4.heading.glyphicons.history
-                %i
-                Плановые показатели
-            .widget-body.list.collapse.in
-              %ul
-                %li
-                  %span Новые клиенты
-                  %span.count= @group.plan_new_clients_current
-                %li
-                  %span Продленные клиенты
-                  %span.count= @group.plan_cont_clients_current
-                %li
-                  %span Груз по новым клиентам
-                  %span.count= number_to_currency(@group.weight_new_clients_current, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
-                %li
-                  %span Груз по продленным клиентам
-                  %span.count= number_to_currency(@group.weight_cont_clients_current, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
-                %li
-                  %span Поступления по новым клиентам
-                  %span.count= number_to_currency(@group.incomes_new_clients_current, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
-                %li
-                  %span Поступления по продленным клиентам
-                  %span.count= number_to_currency(@group.incomes_cont_clients_current, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
-                %li
-                  %span Процент продлений
-                  %span.count= @group.cont_percent_current
-    .span7
-      .widget.widget-heading-simple.widget-body-gray
-        .widget-body
-          .separator.bottom.form-inline.small
-            Всего:
-            = @group_members.count
-          %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center
-            %thead
-              %tr
-                %th.center Имя
-                %th.center Отчество
-                %th.center Фамилия
-                %th.center СНИЛС
-                %th.center Должность
-                %th.center Опыт
-                %th.center Пользователь
-                %th
-            %tbody
-              - @group_members.each do |employee|
+                  Плановые показатели
+              .widget-body.list.collapse.in
+                %ul
+                  %li
+                    %span Новые клиенты
+                    %span.count= @group.plan_new_clients_current
+                  %li
+                    %span Продленные клиенты
+                    %span.count= @group.plan_cont_clients_current
+                  %li
+                    %span Груз по новым клиентам
+                    %span.count= number_to_currency(@group.weight_new_clients_current, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+                  %li
+                    %span Груз по продленным клиентам
+                    %span.count= number_to_currency(@group.weight_cont_clients_current, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+                  %li
+                    %span Поступления по новым клиентам
+                    %span.count= number_to_currency(@group.incomes_new_clients_current, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+                  %li
+                    %span Поступления по продленным клиентам
+                    %span.count= number_to_currency(@group.incomes_cont_clients_current, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+                  %li
+                    %span Процент продлений
+                    %span.count= @group.cont_percent_current
+      .span7
+        .widget.widget-heading-simple.widget-body-gray
+          .widget-body
+            .separator.bottom.form-inline.small
+              Всего:
+              = @group_members.count
+            %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center
+              %thead
                 %tr
-                  %td= employee.firstname
-                  %td= employee.middlename
-                  %td= employee.lastname
-                  %td= employee.snils
-                  %td= employee.position.name if employee.position
-                  %td= employee.level.name if employee.level_id
-                  %td= employee.account.username unless employee.account.nil?
-                  %td.center.actions-bar
-                    = link_to employee, :class=> 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
-                      %i
-                    = link_to edit_employee_path(employee), :class=> 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
-                      %i
-                    = link_to employee, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :title => 'Удалить', :class=> 'btn-action glyphicons remove_2 btn-danger' do
-                      %i
+                  %th.center Имя
+                  %th.center Отчество
+                  %th.center Фамилия
+                  %th.center СНИЛС
+                  %th.center Должность
+                  %th.center Опыт
+                  %th.center Пользователь
+                  %th
+              %tbody
+                - @group_members.each do |employee|
+                  %tr
+                    %td= employee.firstname
+                    %td= employee.middlename
+                    %td= employee.lastname
+                    %td= employee.snils
+                    %td= employee.position.name if employee.position
+                    %td= employee.level.name if employee.level_id
+                    %td= employee.account.username unless employee.account.nil?
+                    %td.center.actions-bar
+                      = link_to employee, :class=> 'btn-action glyphicons eye_open btn-default', :title => 'Показать' do
+                        %i
+                      = link_to edit_employee_path(employee), :class=> 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
+                        %i
+                      = link_to employee, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :title => 'Удалить', :class=> 'btn-action glyphicons remove_2 btn-danger' do
+                        %i
