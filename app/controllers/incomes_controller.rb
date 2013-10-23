@@ -11,7 +11,8 @@ class IncomesController < ApplicationController
                else
                  Income.includes(:employee).where(employees: { branch_id: current_employee.branch_id }).order(indate: :desc)
                end
-    @employees = params[:branch] ? Employee.where(branch_id: params[:branch]).order(:lastname) : Employee.where(branch_id: current_employee.branch_id).order(:lastname)
+    branch = params[:branch].present? ? params[:branch] : current_employee.branch_id
+    @employees = Employee.where(branch_id: branch).order(:lastname)
   end
 
   def get_orders_by_client_id

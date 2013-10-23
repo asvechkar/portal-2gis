@@ -6,7 +6,14 @@ class PlansController < ApplicationController
   # GET /plans
   # GET /plans.json
   def index
-    @plans = Plan.all
+    if request.xhr?
+      branch = params[:filter_branch].present? ? params[:filter_branch] : current_employee.branch
+      @plans = Plan.by_branch(branch).by_group(params[:filter_group]).all
+      html = render_to_string(partial: 'plans', layout: false, locals: { plans: @plans })
+      render json: { html: html }
+    else
+      @plans = Plan.all
+    end
   end
 
   # GET /plans/1

@@ -91,7 +91,7 @@ class OrdersController < ApplicationController
   private
 
     def get_filtered_orders
-      branch = params[:order_branch] || current_employee.branch
+      branch = params[:order_branch].present? ? params[:order_branch] : current_employee.branch
       @orders = Order.by_branch(branch).by_ordernum(params[:order][:ordernum]).by_employee(params[:order_employee])
       @orders = case params[:type]
                 when 'current' then @orders.current.page(params[:page]).per(25)

@@ -3,9 +3,10 @@
     %div
       %label БЗ
       = select_tag 'type', '<option value="all">Все</option><option value="current">Текущие</option><option value="continue">К продлению</option>'.html_safe
-    %div{style: "visibility: #{current_user.is_admin? ? 'visible' : 'hidden'}"}
-      %label Филиал
-      = select_tag 'order_branch', options_from_collection_for_select(Branch.order(:name), :id, :name, selected: current_user.account_employee.branch.id)
+    - if current_user.is_admin?
+      %div
+        %label Филиал
+        = select_tag 'order_branch', options_from_collection_for_select(Branch.order(:name), :id, :name, selected: current_employee.branch.id)
     %div
       %label Куратор
       = select_tag 'order_employee', options_from_collection_for_select(Employee.order(:lastname), :id, :initials), include_blank: true

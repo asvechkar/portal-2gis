@@ -15,7 +15,7 @@ class Order < ActiveRecord::Base
                                     DateTime.now.end_of_day) }
   scope :current, -> { where("finishdate > '#{Date.today.at_end_of_month}'") }
   scope :continue, -> { where("finishdate = '#{Date.today.at_end_of_month}'") }
-  scope :by_branch, ->(branch) { joins(:employee).where('employees.branch_id = ?', branch) }
+  scope :by_branch, ->(branch) { joins(:employee).where('employees.branch_id = ?', branch) if branch.present? }
   scope :by_ordernum, ->(ordernum) { where(ordernum: ordernum) if ordernum.present? }
   scope :by_employee, ->(employee) { where(employee_id: employee) if employee.present? }
 

@@ -25,6 +25,7 @@
 //= require upload
 // bootstrap-fileupload
 //= require employee
+//= require plans
 //= require orders
 //= require incomes
 //= require debts

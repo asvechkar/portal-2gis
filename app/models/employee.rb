@@ -28,10 +28,6 @@ class Employee < ActiveRecord::Base
   delegate :email, to: :account, allow_nil: true
   delegate :name, to: :position, prefix: true, allow_nil: true
 
-  def group
-    self
-  end
-
   def initials
     self.lastname + ' ' + self.firstname[0] + '.' + self.middlename[0] + '.'
   end
