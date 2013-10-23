@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,800,700,600&subset=latin,cyrillic,cyrillic-ext,latin-ext);
 /*!
  * QuickAdmin v1.4.0
- * 
+ *
  * Copyright MosaicPro
  * http://www.mosaicpro.biz
  *
@@ -2394,7 +2394,7 @@ html.top-full .navbar.main .topnav:last-of-type li:last-child {
   -moz-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
   line-height: 30px;
-  height: 40px;
+  /*height: 40px;*/
   padding: 0 10px;
 }
 .filter-bar.border-top-none {
@@ -5786,16 +5786,16 @@ textarea {
 .table-bordered {
   border-color: #dbdbdb;
   /* Reset rounded corners
-	thead:first-child tr:first-child>th:first-child, 
-	tbody:first-child tr:first-child>td:first-child, 
+	thead:first-child tr:first-child>th:first-child,
+	tbody:first-child tr:first-child>td:first-child,
 	tbody:first-child tr:first-child>th:first-child,
-	thead:first-child tr:first-child>th:last-child, 
-	tbody:first-child tr:first-child>td:last-child, 
+	thead:first-child tr:first-child>th:last-child,
+	tbody:first-child tr:first-child>td:last-child,
 	tbody:first-child tr:first-child>th:last-child,
-	thead:last-child tr:last-child>th:first-child, 
-	tbody:last-child tr:last-child>td:first-child, 
-	tbody:last-child tr:last-child>th:first-child, 
-	tfoot:last-child tr:last-child>td:first-child, 
+	thead:last-child tr:last-child>th:first-child,
+	tbody:last-child tr:last-child>td:first-child,
+	tbody:last-child tr:last-child>th:first-child,
+	tfoot:last-child tr:last-child>td:first-child,
 	tfoot:last-child tr:last-child>th:first-child {
 		.rounded();
 	}
@@ -6101,11 +6101,11 @@ div.dataTables_filter label {
   }
   .table-responsive.block {
     /* Force table to not be like tables anymore */
-  
+
     /* Hide table headers (but not display: none;, for accessibility) */
-  
+
     /* Label the data */
-  
+
   }
   .table-responsive.block table,
   .table-responsive.block thead,
@@ -6125,7 +6125,7 @@ div.dataTables_filter label {
   }
   .table-responsive.block td {
     /* Behave  like a "row" */
-  
+
     border: none;
     border-bottom: 1px solid #e5e5e5;
     position: relative;
@@ -6135,10 +6135,10 @@ div.dataTables_filter label {
   }
   .table-responsive.block td:before {
     /* Now like a table header */
-  
+
     position: absolute;
     /* Top/left values mimic padding */
-  
+
     vertical-align: middle;
     left: 6px;
     width: 45%;

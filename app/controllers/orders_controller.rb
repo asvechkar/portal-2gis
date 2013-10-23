@@ -7,17 +7,16 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    if params[:type]
-      lastDay = Date.today.at_end_of_month
-      case params[:type]
-        when 'current' then @orders = Order.where("finishdate > '#{lastDay}'").page(params[:page]).per(25)
-        when 'continue' then @orders = Order.where("finishdate = '#{lastDay}'").page(params[:page]).per(25)
-      end
+    if params[:type] && request.xhr?
+      get_filtered_orders
+      html = render_to_string(partial: 'orders', layout: false, locals: { orders: @orders })
+      render json: { html: html }
     else
-      @orders = Order.all.page(params[:page]).per(25)
+      branch = current_employee.branch || Branch.first
+      @orders = Order.by_branch(branch).page(params[:page]).per(25)
     end
   end
-  
+
   def wizard
   end
 
@@ -90,6 +89,17 @@ class OrdersController < ApplicationController
   end
 
   private
+
+    def get_filtered_orders
+      branch = params[:order_branch] || current_employee.branch
+      @orders = Order.by_branch(branch).by_ordernum(params[:order][:ordernum]).by_employee(params[:order_employee])
+      @orders = case params[:type]
+                when 'current' then @orders.current.page(params[:page]).per(25)
+                when 'continue' then @orders.continue.page(params[:page]).per(25)
+                else @orders.page(params[:page]).per(25)
+                end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_order
       @order = Order.find(params[:id])

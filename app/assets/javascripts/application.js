@@ -25,6 +25,7 @@
 //= require upload
 // bootstrap-fileupload
 //= require employee
+//= require orders
 //= require incomes
 //= require debts
 //= require upload
@@ -41,7 +42,6 @@ function equalHeight(boxes)
 
 function toggleMenuHidden()
 {
-  //console.log('toggleMenuHidden');
   $('.container-fluid:first').toggleClass('menu-hidden');
   $('#menu').toggleClass('hidden-phone', function()
   {
@@ -72,129 +72,134 @@ function removeMenuHiddenPhone()
     $('#menu').removeClass('hidden-phone');
 }
 
-$(function()
+function initializeCustomStuff()
 {
-  $('#selected_count').text($('.checkboxs tbody :checked').length)
+    $('#selected_count').text($('.checkboxs tbody :checked').length)
 
-  $('.navbar.main .btn-navbar').click(function()
-  {
-    var disabled = typeof toggleMenuButtonWhileTourOpen != 'undefined' ? toggleMenuButtonWhileTourOpen(true) : false;
-    if (!disabled)
-      toggleMenuHidden();
-  });
-
-  if ($('.uniformjs').length) $('.uniformjs').find("select, input, button, textarea").uniform();
-  $('.selectpicker').selectpicker();
-  if ($('.toggle-button').length) $('.toggle-button').toggleButtons();
-
-  $('#password_generator_btn').pGenerator({
-          'bind': 'click',
-          'passwordElement': '#my-input-element',
-          'displayElement': '#my-display-element',
-          'passwordLength': 8,
-          'uppercase': true,
-          'lowercase': true,
-          'numbers':   true,
-          'specialChars': false,
-          'onPasswordGenerated': function(generatedPassword) {
-          	$('#member_password').val(generatedPassword);
-            $('#password_generator_label').html(generatedPassword);
-          }
-      });
-  var orders_ids = [];
-  $('.checkboxs tbody').on('click', 'tr.selectable', function(e){
-    var all_elements = $('.checkboxs tbody :checked').length;
-    orders_ids = [];
-    $('#selected_count').text(all_elements);
-    for (var i = 0; i < all_elements; i++) {
-      orders_ids.push($('.checkboxs tbody :checked')[i].id);
-    }
-    $('#check_all').removeAttr('checked');
-    $.uniform.update();
-  });
-
-  $('.set_continue').click( function (e){
-    var url = $('.set_continue').data('url');
-    $.ajax({
-      type:'post',
-      url: url,
-      data: ({ ids: orders_ids }),
-      success: function () { location.reload(true); }
+    $('.navbar.main .btn-navbar').click(function()
+    {
+      var disabled = typeof toggleMenuButtonWhileTourOpen != 'undefined' ? toggleMenuButtonWhileTourOpen(true) : false;
+      if (!disabled)
+        toggleMenuHidden();
     });
-    orders_ids = null;
-    return false;
-  });
 
-  $('#check_all').click( function() {
-    if ($('#check_all').is(':checked')) {
-      $('input:checkbox').each(function() {
-        this.checked = true;
-      });
-      $('#selected_count').text($('.checkboxs tbody :checked').length)
+    if ($('.uniformjs').length) $('.uniformjs').find("select, input, button, textarea").uniform();
+    $('.selectpicker').selectpicker();
+    if ($('.toggle-button').length) $('.toggle-button').toggleButtons();
+
+    $('#password_generator_btn').pGenerator({
+            'bind': 'click',
+            'passwordElement': '#my-input-element',
+            'displayElement': '#my-display-element',
+            'passwordLength': 8,
+            'uppercase': true,
+            'lowercase': true,
+            'numbers':   true,
+            'specialChars': false,
+            'onPasswordGenerated': function(generatedPassword) {
+            	$('#member_password').val(generatedPassword);
+              $('#password_generator_label').html(generatedPassword);
+            }
+        });
+    var orders_ids = [];
+    $('.checkboxs tbody').on('click', 'tr.selectable', function(e){
+      var all_elements = $('.checkboxs tbody :checked').length;
+      orders_ids = [];
+      $('#selected_count').text(all_elements);
+      for (var i = 0; i < all_elements; i++) {
+        orders_ids.push($('.checkboxs tbody :checked')[i].id);
+      }
+      $('#check_all').removeAttr('checked');
       $.uniform.update();
-    }
-    else {
-      $('input:checkbox').each(function() {
-        this.checked = false;
+    });
+
+    $('.set_continue').click( function (e){
+      var url = $('.set_continue').data('url');
+      $.ajax({
+        type:'post',
+        url: url,
+        data: ({ ids: orders_ids }),
+        success: function () { location.reload(true); }
       });
-      $('#selected_count').text($('.checkboxs tbody :checked').length)
-      $.uniform.update();
-    }
-  });
+      orders_ids = null;
+      return false;
+    });
 
-  $("#planfact_date").datetimepicker({
-    pickTime: false,
-    format: "mm.yyyy",
-    weekStart: "1",
-    autoclose: "true",
-    minView: "2",
-    todayBtn: "true",
-    language: "ru"
-  });
+    $('#check_all').click( function() {
+      if ($('#check_all').is(':checked')) {
+        $('input:checkbox').each(function() {
+          this.checked = true;
+        });
+        $('#selected_count').text($('.checkboxs tbody :checked').length)
+        $.uniform.update();
+      }
+      else {
+        $('input:checkbox').each(function() {
+          this.checked = false;
+        });
+        $('#selected_count').text($('.checkboxs tbody :checked').length)
+        $.uniform.update();
+      }
+    });
 
-  $('#dtp_orderdate').datetimepicker({
+    $("#planfact_date").datetimepicker({
+      pickTime: false,
+      format: "mm.yyyy",
+      weekStart: "1",
+      autoclose: "true",
+      minView: "2",
+      todayBtn: "true",
+      language: "ru"
+    });
+
+    $('#dtp_orderdate').datetimepicker({
+        format: "dd.mm.yyyy",
+        weekStart: "1",
+        autoclose: "true",
+        minView: "2",
+        todayBtn: "true",
+        language: "ru"
+    });
+    $('#dtp_startdate').datetimepicker({
       format: "dd.mm.yyyy",
       weekStart: "1",
       autoclose: "true",
       minView: "2",
       todayBtn: "true",
       language: "ru"
-  });
-  $('#dtp_startdate').datetimepicker({
-    format: "dd.mm.yyyy",
-    weekStart: "1",
-    autoclose: "true",
-    minView: "2",
-    todayBtn: "true",
-    language: "ru"
-  });
-  $('#dtp_finishdate').datetimepicker({
-    format: "dd.mm.yyyy",
-    weekStart: "1",
-    autoclose: "true",
-    minView: "2",
-    todayBtn: "true",
-    language: "ru"
-  });
-  $('#dtp_birthdate').datetimepicker({
-    format: "dd.mm.yyyy",
-    weekStart: "1",
-    autoclose: "true",
-    minView: "2",
-    todayBtn: "true",
-    language: "ru"
-  });
-  $('#member_birthdate').on('change', function(){
-    year = parseInt($('#member_birthdate').val().match(/\d+/g)[2]);
-    month = parseInt($('#member_birthdate').val().match(/\d+/g)[1]) - 1;
-    day = parseInt($('#member_birthdate').val().match(/\d+/g)[0]);
-    birthdate = new Date(year, month, day);
-    todate = new Date();
-    defdate = todate - birthdate;
-    $('#age').val(Math.floor(defdate / (1000*60*60*24*365.26)).toString());
-  });
-  $("#inputmask-currency").inputmask('999 999 999,99', { numericInput: true, rightAlignNumerics: false, greedy: false});
-  $('#member_phone').inputmask('(999) 999-9999', { numericInput: true, rightAlignNumerics: false, greedy: false})
+    });
+    $('#dtp_finishdate').datetimepicker({
+      format: "dd.mm.yyyy",
+      weekStart: "1",
+      autoclose: "true",
+      minView: "2",
+      todayBtn: "true",
+      language: "ru"
+    });
+    $('#dtp_birthdate').datetimepicker({
+      format: "dd.mm.yyyy",
+      weekStart: "1",
+      autoclose: "true",
+      minView: "2",
+      todayBtn: "true",
+      language: "ru"
+    });
+    $('#member_birthdate').on('change', function(){
+      year = parseInt($('#member_birthdate').val().match(/\d+/g)[2]);
+      month = parseInt($('#member_birthdate').val().match(/\d+/g)[1]) - 1;
+      day = parseInt($('#member_birthdate').val().match(/\d+/g)[0]);
+      birthdate = new Date(year, month, day);
+      todate = new Date();
+      defdate = todate - birthdate;
+      $('#age').val(Math.floor(defdate / (1000*60*60*24*365.26)).toString());
+    });
+    $("#inputmask-currency").inputmask('999 999 999,99', { numericInput: true, rightAlignNumerics: false, greedy: false});
+    $('#member_phone').inputmask('(999) 999-9999', { numericInput: true, rightAlignNumerics: false, greedy: false})
+}
+
+$(function()
+{
+  initializeCustomStuff();
 });
 
 ajaxRequest = function(url, type) {

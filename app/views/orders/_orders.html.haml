@@ -1,0 +1,48 @@
+.widget-body
+  .separator.bottom.form-inline.small
+    Всего:
+    = orders.total_count
+    Отмечено:
+    %span#selected_count 0
+  %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center.checkboxs
+    %thead
+      %tr
+        %th.uniformjs{ style: 'width: 1%;' }
+          %input{ type: 'checkbox', id: 'check_all'}
+        %th.center №
+        %th.cemter Город
+        %th.center Куратор
+        %th.center Клиент
+        %th.center Начало
+        %th.center Окончание
+        %th.center{style: 'min-width: 90px;'} Сумма
+        %th.center{style: 'min-width: 90px;'} Груз
+        %th.center Статус
+        %th.center Продление
+        %th.center Старый&nbsp;БЗ
+        %th.actions-bar
+    %tbody
+      - orders.each do |order|
+        %tr.selectable
+          %td.center.uniformjs
+            - if order.finishdate.month == Date.today.month
+              %input{ type: 'checkbox', id: "#{order.id}", 'checked' => order.continue == 1 }
+          %td.center= order.ordernum
+          %td= order.city.name if order.city
+          %td= order.employee.initials if order.employee
+          %td= order.client.name if order.client
+          %td.center= order.startdate.strftime('%d.%m.%Y')
+          %td.center= order.finishdate.strftime('%d.%m.%Y')
+          %td= number_to_currency(order.ordersum, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+          %td= number_to_currency(order.weight, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+          %td= order.status_desc
+          %td.center= order.continue_desc
+          %td= Order.find(order.order_id).ordernum if order.order_id
+          %td.center
+            = link_to order, class: 'btn-action glyphicons eye_open btn-default', title: 'Показать' do
+              %i
+            = link_to edit_order_path(order), class: 'btn-action glyphicons pencil btn-success', title: 'Редактировать' do
+              %i
+            = link_to order, method: :delete, data: { confirm: 'Вы уверены, что хотите удалить?' }, class: 'btn-action glyphicons remove_2 btn-danger', title: 'Удалить' do
+              %i
+  = paginate orders
