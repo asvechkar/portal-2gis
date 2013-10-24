@@ -9,3 +9,12 @@ $ ->
         $(".orders-list").html response.html
         initializeCustomStuff())
     e.preventDefault()
+
+  $('#orders_search #order_branch').change ->
+    id = $(this).val()
+    if id
+      $.ajax(
+        type: "GET"
+        url: "/branches/"+id+"/employees_list"
+        success: (response) ->
+          $("#orders_search #order_employee").replaceOptions(response.employees))

@@ -9,7 +9,7 @@
         = select_tag 'order_branch', options_from_collection_for_select(Branch.order(:name), :id, :name, selected: current_employee.branch.id)
     %div
       %label Куратор
-      = select_tag 'order_employee', options_from_collection_for_select(Employee.order(:lastname), :id, :initials), include_blank: true
+      = select_tag 'order_employee', options_from_collection_for_select(current_employee.branch.employees.order(:lastname), :id, :initials), include_blank: true
     %div
       %label №
       = text_field :order, :ordernum
