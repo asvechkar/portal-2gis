@@ -203,6 +203,19 @@ $(function()
   initializeCustomStuff();
 });
 
+$.fn.replaceOptions = function(options) {
+  var self, $option;
+  this.empty();
+  self = this;
+  self.append($("<option></option>"))
+  $.each(options, function(key, value) {
+    $option = $("<option></option>")
+    .attr("value", key)
+    .text(value);
+    self.append($option);
+  });
+};
+
 ajaxRequest = function(url, type) {
   $.ajax({
     url: url,

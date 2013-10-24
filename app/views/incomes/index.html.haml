@@ -18,36 +18,8 @@
       Новое поступление
   .clearfix
 .separator.bottom
-#incomes_filter
-  = render partial: 'filter'
 .innerLR
-  .widget.widget-heading-simple.widget-body-gray
-    .widget-body
-      .separator.bottom.form-inline.small
-        Всего:
-        = @incomes.count
-      %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center
-        %thead
-          %tr
-            %th.center Дата
-            %th.center Клиент
-            %th.center Менеджер
-            %th.center № заказа
-            %th.center Наличные
-            %th.center Сумма
-            %th
-        %tbody
-          - @incomes.each do |income|
-            %tr
-              %td.center= income.indate.strftime('%d.%m.%Y')
-              %td= income.client.name if income.client
-              %td= income.employee.initials if income.employee
-              %td= income.order.ordernum if income.order
-              %td.center= income.cash == true ? 'да' : 'нет'
-              %td= number_to_currency(income.insum, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
-              %td.center.actions-bar
-                = link_to edit_income_path(income), class: 'btn-action glyphicons pencil btn-success', title: 'Редактировать' do
-                  %i
-                = link_to income, method: :delete, data: { confirm: 'Вы уверены, что хотите удалить?' }, class: 'btn-action glyphicons remove_2 btn-danger', title: 'Удалить' do
-                  %i
+  = render partial: 'filter'
+  .widget.widget-heading-simple.widget-body-gray.incomes-list
+    = render partial: 'incomes', locals: { incomes: @incomes }
 = render 'shared/upload', object: 'income', dialog_id: 'incomesImport'

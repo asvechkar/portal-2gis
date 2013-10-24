@@ -9,6 +9,7 @@ class Plan < ActiveRecord::Base
                                     DateTime.now.end_of_day) }
   scope :by_branch, ->(branch) { joins(:employee).where('employees.branch_id = ?', branch) if branch.present? }
   scope :by_group, ->(group) { joins(employee: :groups).where('groups.id = ?', group) if group.present? }
+  scope :by_date, ->(date) { where('year = ? and month = ?', date.year, date.month) }
 
   def weight
     ave_bill = Averagebill.where(branch: self.employee.branch, year: self.year, month: self.month).first

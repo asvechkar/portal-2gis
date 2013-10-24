@@ -5,8 +5,6 @@ class ReportsController < ApplicationController
   end
 
   def planfact
-    # @report_data = Employee.all.map{|employee| employee.groups.first.nil? ? nil : employee}.compact
-    # @report_data = Employee.all.delete_if{|employee| employee.groups.first.nil?}
     params[:id].blank? ? @branch = current_user.branches.first : @branch = Branch.find(params[:id])
     if params[:report_date]
       date = Date.strptime(params[:report_date], '%m.%Y' )

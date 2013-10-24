@@ -1,10 +1,19 @@
-jQuery ->
-  jQuery('#brancheslist').change (event)->
-    event.preventDefault()
-    branch_id = jQuery('#brancheslist :selected').val()
-    window.location = window.location.origin + window.location.pathname + '?branch=' + branch_id
-  jQuery('#managerslist').change (event)->
-    event.preventDefault()
-    branch_id = jQuery('#managerslist :selected').val()
-    window.location = window.location.origin + window.location.pathname + '?manager=' + branch_id
+$ ->
+  $("#incomes_search").submit (e) ->
+    form = $(this)
+    $.ajax(
+      type: "GET"
+      url: "/incomes"
+      data: form.serialize()
+      success: (response) ->
+        $(".incomes-list").html response.html)
+    e.preventDefault()
 
+  $('#incomes_search #branch').change ->
+    id = $(this).val()
+    if id
+      $.ajax(
+        type: "GET"
+        url: "/branches/"+id+"/employees_list"
+        success: (response) ->
+          $("#incomes_search #manager").replaceOptions(response.employees))

@@ -4,15 +4,12 @@ class IncomesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @incomes = if params[:branch]
-                 Income.includes(:employee).where(employees: { branch_id: params[:branch] }).order(indate: :desc)
-               elsif params[:manager]
-                 Income.where(employee_id: params[:manager]).order(indate: :desc)
-               else
-                 Income.includes(:employee).where(employees: { branch_id: current_employee.branch_id }).order(indate: :desc)
-               end
     branch = params[:branch].present? ? params[:branch] : current_employee.branch_id
-    @employees = Employee.where(branch_id: branch).order(:lastname)
+    @incomes = Income.by_branch(branch).by_employee(params[:manager]).order(indate: :desc)
+    if request.xhr?
+      html = render_to_string(partial: 'incomes', layout: false, locals: { incomes: @incomes })
+      render json: { html: html }
+    end
   end
 
   def get_orders_by_client_id

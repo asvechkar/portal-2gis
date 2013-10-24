@@ -22,7 +22,11 @@ Portal2gis::Application.routes.draw do
   end
   resources :plans
   resources :groups
-  resources :branches
+  resources :branches do
+    get :groups_list, on: :member
+    get :employees_list, on: :member
+  end
+
   resources :employees do
     resources :userifications
   end

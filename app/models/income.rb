@@ -6,4 +6,7 @@ class Income < ActiveRecord::Base
 
   validates :indate, :insum, presence: true
 
+  scope :by_branch, ->(branch) { joins(:employee).where('employees.branch_id = ?', branch) if branch.present? }
+  scope :by_employee, ->(employee) { where(employee_id: employee) if employee.present? }
+
 end
