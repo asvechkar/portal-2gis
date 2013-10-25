@@ -34,6 +34,23 @@
 //= require pGenerator.jquery
 //= require wizard
 
+/**
+ * Russian translation for bootstrap-datetimepicker
+ * Victor Taranenko <darwin@snowdale.com>
+ */
+;(function($){
+	$.fn.datetimepicker.dates['ru'] = {
+		days: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"],
+		daysShort: ["Вск", "Пнд", "Втр", "Срд", "Чтв", "Птн", "Суб", "Вск"],
+		daysMin: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
+		months: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+		monthsShort: ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
+		today: "Сегодня",
+		suffix: [],
+		meridiem: []
+	};
+}(jQuery));
+
 function equalHeight(boxes)
 {
 	boxes.height('auto');
@@ -148,7 +165,19 @@ function initializeCustomStuff()
       format: "mm.yyyy",
       weekStart: "1",
       autoclose: "true",
-      minView: "2",
+      startView: "3",
+      minView: "3",
+      todayBtn: "true",
+      language: "ru"
+    });
+    
+    $("#report_date").datetimepicker({
+      pickTime: false,
+      format: "mm.yyyy",
+      weekStart: "1",
+      autoclose: "true",
+      startView: "3",
+      minView: "3",
       todayBtn: "true",
       language: "ru"
     });
