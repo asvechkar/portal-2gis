@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
       render json: { html: html }
     else
       branch = current_employee.branch || Branch.first
-      @orders = Order.by_branch(branch).page(params[:page]).per(25)
+      @orders = Order.by_branch(branch).page(params[:page]).per(50)
     end
   end
 
