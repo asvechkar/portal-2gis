@@ -7,7 +7,7 @@ class PlansController < ApplicationController
   # GET /plans.json
   def index
     branch = params[:filter_branch].present? ? params[:filter_branch] : current_employee.branch
-    date = params[:report_date].to_date rescue Date.today
+    date = Date.strptime(params[:report_date], '%m.%Y') rescue Date.today
     @plans = Plan.by_branch(branch).by_date(date).by_group(params[:filter_group]).all
     if request.xhr?
       html = render_to_string(partial: 'plans', layout: false, locals: { plans: @plans })
