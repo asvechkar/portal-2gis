@@ -1,5 +1,5 @@
 class BranchesController < ApplicationController
-  before_action :set_branch, only: [:groups_list, :show, :edit, :update, :destroy]
+  before_action :set_branch, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
   load_and_authorize_resource
 
@@ -22,7 +22,7 @@ class BranchesController < ApplicationController
 
   def employees_list
     res = {}
-    @branch.employees.each { |e| res[e.id] = g.initials }
+    @branch.employees.each { |e| res[e.id] = e.initials }
     render json: { employees: res }
   end
 
