@@ -9,7 +9,7 @@
       = select_tag 'filter_group', options_from_collection_for_select(current_employee.branch.groups.order(:code), :id, :code), include_blank: true
     %div
       %label Дата
-      = date_field_tag :report_date, Date.today.strftime("%m.%Y"), placeholder:'Введите дату', required: 'required'
+      = text_field_tag :report_date, Date.today.strftime("%m.%Y"), placeholder:'Введите дату', required: 'required'
     %div
       = submit_tag 'Применить'
     .clearfix
