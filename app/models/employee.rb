@@ -210,7 +210,7 @@ class Employee < ActiveRecord::Base
     mult.empty? ? total += 0 : total += mult.first.mult * 0.2
     total
   end
-  # ------------------------------ Новые методы
+  # ------------------------------ Плановые методы
   # План по новым клиентам
   def plan_new_clients(date)
     plans = Plan.where(year: date.year, month: date.month, employee: self)
@@ -300,10 +300,110 @@ class Employee < ActiveRecord::Base
   def cont_percent_current
     cont_percent(Date.today)
   end
+  
+  # ------------------------------ Методы рассчета факта
+  # Факт по новым клиентам
+  def fact_new_clients(date)
+    orders = Order.select(:client_id).where(employee: self, startdate: date.next_month.at_beginning_of_month).group(:client_id)
+    orders.empty? ? 0 : orders.all.count
+  end
+  
+  # Факт по новым клиентам текущий
+  def fact_new_clients_current
+    fact_new_clients(Date.today)
+  end
+  
+  # Факт по продленным клиентам
+  def fact_cont_clients(date)
+    orders = Order.select(:client_id).where(employee: self, startdate: date.next_month.at_beginning_of_month).where.not(order_id: nil).group(:client_id)
+    orders.empty? ? 0 : orders.all.count
+  end
+  
+  # Факт по продленным клиентам текущий
+  def fact_cont_clients_current
+    fact_cont_clients(Date.today)
+  end
+  
+  # Факт по клиентам
+  def fact_clients(date)
+    fact_new_clients(date) + fact_cont_clients(date)
+  end
+  
+  # Факт по клиентам текущий
+  def fact_clients_current
+    fact_clients(Date.today)
+  end
+  
+  # Фактический груз по новым клиентам
+  def fact_weight_new_clients(date)
+    return 0
+  end
+  
+  # Фактический груз по новым клиентам текущий
+  def fact_weight_new_clients_current
+    fact_weight_new_clients(Date.today)
+  end
+  
+  # Фактический груз по продленным клиентам
+  def fact_weight_cont_clients(date)
+    return 0
+  end
+  
+  # Фактический груз по продленным клиентам текущий
+  def fact_weight_cont_clients_current
+    fact_weight_cont_clients(Date.today)
+  end
+  
+  # Фактический груз
+  def fact_weight(date)
+    fact_weight_new_clients(date) + fact_weight_cont_clients(date)
+  end
+  
+  # Фактический груз текущий
+  def fact_weight_current
+    fact_weight(Date.today)
+  end
+  
+  # Фактические поступления по новым клиентам
+  def fact_incomes_new_clients(date)
+    return 0
+  end
+  
+  # Фактические поступления по новым клиентам текущие
+  def fact_incomes_new_clients_current
+    fact_incomes_new_clients(Date.today)
+  end
+  
+  # Фактические поступления по продленным клиентам
+  def fact_incomes_cont_clients(date)
+    return 0
+  end
+  
+  # Фактические поступления по продленным клиентам текущие
+  def fact_incomes_cont_clients_current
+    fact_incomes_cont_clients(Date.today)
+  end
+  
+  # Фактические поступления
+  def fact_incomes(date)
+    fact_incomes_new_clients(date) + fact_incomes_cont_clients(date)
+  end
+  
+  # Фактические поступления текущие
+  def fact_incomes_current
+    fact_incomes(Date.today)
+  end
 
   # Интегральный коэффициент
   def ik(date)
-    return 0
+    client_ik = fact_clients(date) / plan_clients(date) * 0.2
+    weight_ik = (self.get_new_fact_weight.to_f / (self.get_new_plan_weight + self.get_cont_plan_weight).to_f) * 0.3
+    incomes_ik = (self.get_fact_incomes.to_f / (((self.get_new_plan_weight + self.get_cont_plan_weight) * 2.5) + self.get_installment_sum + self.get_debt_sum).to_f) * 0.3
+    total_ik = first + second + third
+    prolong = self.get_prolong_percents
+    mult = Plancent.where("branch_id = #{self.branch_id} AND year = #{Date.today.year} AND month = #{Date.today.month} AND fromprc <= #{prolong} AND toprc >= #{prolong}")
+    mult.empty? ? total_ik += 0 : total_ik += mult.first.mult * 0.2
+    total_ik
   end
 
   # Интегральный коэффициент текущий
