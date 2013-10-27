@@ -217,20 +217,10 @@ class Employee < ActiveRecord::Base
     plans.empty? ? 0 : plans.first.clients
   end
 
-  # План по новым клиентам текущий
-  def plan_new_clients_current
-    plan_new_clients(Date.today)
-  end
-
   # План по продленным клиентам
   def plan_cont_clients(date)
     orders = Order.select(:client_id).where(:employee => self, :continue => 1, :finishdate => date.at_end_of_month).group(:client_id)
     orders.empty? ? 0 : orders.all.count
-  end
-
-  # План по продленным клиентам текущий
-  def plan_cont_clients_current
-    plan_cont_clients(Date.today)
   end
 
   # План по клиентам
@@ -238,20 +228,10 @@ class Employee < ActiveRecord::Base
     plan_new_clients(date) + plan_cont_clients(date)
   end
 
-  # План по клиентам текущий
-  def plan_clients_current
-    plan_clients(Date.today)
-  end
-
   # Груз по новым клиентам
   def weight_new_clients(date)
     plans = Plan.where(:year => date.year, :month => date.month, :employee => self)
     plans.empty? ? 0 : plans.first.weight
-  end
-
-  # Груз по новым клиентам текущий
-  def weight_new_clients_current
-    weight_new_clients(Date.today)
   end
 
   # Груз по продленным клиентам
@@ -266,19 +246,9 @@ class Employee < ActiveRecord::Base
     weight
   end
 
-  # Груз по продленным клиентам текущий
-  def weight_cont_clients_current
-    weight_cont_clients(Date.today)
-  end
-
   # Поступления по новым клиентам
   def incomes_new_clients(date)
     weight_new_clients(date) * 2.5
-  end
-
-  # Поступления по новым клиентам текущий
-  def incomes_new_clients_current
-    incomes_new_clients(Date.today)
   end
 
   # Поступления по продленным клиентам
@@ -286,31 +256,16 @@ class Employee < ActiveRecord::Base
     weight_cont_clients(date) * 2.5
   end
 
-  # Поступления по продленным клиентам текущий
-  def incomes_cont_clients_current
-    incomes_cont_clients(Date.today)
-  end
-
   # Процент продлений
   def cont_percent(date)
-    Plancent.where(brach_id: self.branch_id, year: date.year, month: date.month, mult: 1.0).first.fromprc rescue 0
+    Plancent.where(branch_id: self.branch_id, year: date.year, month: date.month, mult: 1.0).first.fromprc rescue 0
   end
 
-  # Процент продлений текуший
-  def cont_percent_current
-    cont_percent(Date.today)
-  end
-  
   # ------------------------------ Методы рассчета факта
   # Факт по новым клиентам
   def fact_new_clients(date)
     orders = Order.select(:client_id).where(employee: self, startdate: date.next_month.at_beginning_of_month).group(:client_id)
     orders.empty? ? 0 : orders.all.count
-  end
-  
-  # Факт по новым клиентам текущий
-  def fact_new_clients_current
-    fact_new_clients(Date.today)
   end
   
   # Факт по продленным клиентам
@@ -319,19 +274,9 @@ class Employee < ActiveRecord::Base
     orders.empty? ? 0 : orders.all.count
   end
   
-  # Факт по продленным клиентам текущий
-  def fact_cont_clients_current
-    fact_cont_clients(Date.today)
-  end
-  
   # Факт по клиентам
   def fact_clients(date)
     fact_new_clients(date) + fact_cont_clients(date)
-  end
-  
-  # Факт по клиентам текущий
-  def fact_clients_current
-    fact_clients(Date.today)
   end
   
   # Фактический груз по новым клиентам
@@ -339,19 +284,9 @@ class Employee < ActiveRecord::Base
     return 0
   end
   
-  # Фактический груз по новым клиентам текущий
-  def fact_weight_new_clients_current
-    fact_weight_new_clients(Date.today)
-  end
-  
   # Фактический груз по продленным клиентам
   def fact_weight_cont_clients(date)
     return 0
-  end
-  
-  # Фактический груз по продленным клиентам текущий
-  def fact_weight_cont_clients_current
-    fact_weight_cont_clients(Date.today)
   end
   
   # Фактический груз
@@ -359,19 +294,9 @@ class Employee < ActiveRecord::Base
     fact_weight_new_clients(date) + fact_weight_cont_clients(date)
   end
   
-  # Фактический груз текущий
-  def fact_weight_current
-    fact_weight(Date.today)
-  end
-  
   # Фактические поступления по новым клиентам
   def fact_incomes_new_clients(date)
     return 0
-  end
-  
-  # Фактические поступления по новым клиентам текущие
-  def fact_incomes_new_clients_current
-    fact_incomes_new_clients(Date.today)
   end
   
   # Фактические поступления по продленным клиентам
@@ -379,21 +304,11 @@ class Employee < ActiveRecord::Base
     return 0
   end
   
-  # Фактические поступления по продленным клиентам текущие
-  def fact_incomes_cont_clients_current
-    fact_incomes_cont_clients(Date.today)
-  end
-  
   # Фактические поступления
   def fact_incomes(date)
-    fact_incomes_new_clients(date) + fact_incomes_cont_clients(date)
+    Income.where("indate BETWEEN '#{Date.today.at_beginning_of_month}' AND '#{Date.today.at_end_of_month}' AND employee_id = #{self.id}").sum(:insum)
   end
   
-  # Фактические поступления текущие
-  def fact_incomes_current
-    fact_incomes(Date.today)
-  end
-
   # Интегральный коэффициент
   def ik(date)
     client_ik = fact_clients(date) / plan_clients(date) * 0.2
@@ -405,10 +320,29 @@ class Employee < ActiveRecord::Base
     mult.empty? ? total_ik += 0 : total_ik += mult.first.mult * 0.2
     total_ik
   end
-
-  # Интегральный коэффициент текущий
-  def ik_current
-    ik(Date.today)
+  
+  # Добавление текущего вывода показателей
+  %w(
+  plan_new_clients
+  plan_cont_clients
+  plan_clients
+  weight_new_clients
+  weight_cont_clients
+  incomes_new_clients
+  incomes_cont_clients
+  cont_percent
+  fact_new_clients
+  fact_cont_clients
+  fact_clients
+  fact_weight_new_clients
+  fact_weight_cont_clients 
+  fact_weight 
+  fact_incomes_new_clients 
+  fact_incomes_cont_clients 
+  fact_incomes 
+  ik
+  ).each do |meth|
+    define_method("#{meth}_current") { send(meth, Date.today) }
   end
 
 end
