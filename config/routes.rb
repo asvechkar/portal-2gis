@@ -1,5 +1,7 @@
 Portal2gis::Application.routes.draw do
 
+  resources :factors
+
   resources :plancents
 
   get 'reports/index'

@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   has_many :incomes
   has_many :eventlogs
   has_many :plancents
+  has_many :factors
   has_one :account_employee, :class_name => 'Employee', :foreign_key => 'account_id'
   has_and_belongs_to_many :roles,
                           :join_table => :users_roles,

@@ -51,6 +51,8 @@
             = link_to 'Средний чек', averagebills_path
           %li{ :class => current_page?(plancents_path) ? 'active' : nil }
             = link_to 'Плановый процент', plancents_path
+          %li{ :class => current_page?(factors_path) ? 'active' : nil }
+            = link_to 'Коэффициенты', factors_path
       %li{ :class => current_page?('#') ? 'active' : nil }
         = link_to wizard_index_path, :class => 'glyphicons magic' do
           %i

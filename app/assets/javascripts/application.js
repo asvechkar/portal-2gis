@@ -33,6 +33,7 @@
 //= require reports
 //= require pGenerator.jquery
 //= require wizard
+//= require factors
 
 /**
  * Russian translation for bootstrap-datetimepicker

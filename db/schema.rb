@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131004133939) do
+ActiveRecord::Schema.define(version: 20131104093757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,6 +121,35 @@ ActiveRecord::Schema.define(version: 20131004133939) do
   end
 
   add_index "eventlogs", ["user_id"], name: "index_eventlogs_on_user_id", using: :btree
+
+  create_table "factors", force: true do |t|
+    t.integer  "branch_id"
+    t.integer  "user_id"
+    t.integer  "month"
+    t.integer  "year"
+    t.float    "prepay"
+    t.integer  "avaragebill"
+    t.float    "clients"
+    t.float    "weight"
+    t.float    "incomes"
+    t.float    "prolongcent"
+    t.float    "proplancor"
+    t.float    "planproc04from"
+    t.float    "planproc04to"
+    t.float    "planproc06from"
+    t.float    "planproc06to"
+    t.float    "planproc08from"
+    t.float    "planproc08to"
+    t.float    "planproc10from"
+    t.float    "planproc10to"
+    t.float    "planproc12from"
+    t.float    "planproc12to"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "factors", ["branch_id"], name: "index_factors_on_branch_id", using: :btree
+  add_index "factors", ["user_id"], name: "index_factors_on_user_id", using: :btree
 
   create_table "groups", force: true do |t|
     t.string    "code",                      null: false

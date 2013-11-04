@@ -1,0 +1,25 @@
+%ul.breadcrumb
+  %li Вы в городе
+  %li
+    = link_to root_path, :class => 'glyphicons globe' do
+      %i
+      = current_employee.branch.city.name
+  %li.divider
+  %li Справочник "Коэффициенты"
+  %li.pull-right.hidden-phone
+    = link_to support_path, :class => 'glyphicons shield' do
+      Справка
+      %i
+  %li.pull-right.hidden-phone.divider
+.heading-buttons
+  %h3
+    Справочник "Коэффициенты"
+  .buttons.pull-right
+    = link_to new_factor_path, :class => 'btn-action glyphicons circle_plus btn-success', 'data-toggle' => 'tooltip', 'data-original-title' => 'Добавить', 'data-placement' => 'left' do
+      %i
+  .clearfix
+.separator.bottom
+.innerLR
+  = render 'filters'
+  .widget.widget-heading-simple.widget-body-gray.plans-list
+    = render partial: 'factors', locals: { factors: @factors }

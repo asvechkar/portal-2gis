@@ -1,0 +1,13 @@
+%ul.breadcrumb
+  %li Вы в городе
+  %li
+    = link_to root_path, :class => 'glyphicons globe' do
+      %i
+      = current_employee.branch.city.name
+  %li.divider
+  %li= link_to 'Справочник "Коэффициенты"', factors_path
+  %li.divider
+  %li Добавить
+%h3.separator.bottom
+  Добавить
+= render 'form'

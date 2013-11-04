@@ -1,0 +1,45 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  branch_id: 
+  month: 1
+  year: 1
+  prepay: 1.5
+  avaragebill: 1
+  clients: 1.5
+  weight: 1.5
+  incomes: 1.5
+  prolongcent: 1.5
+  proplancor: 1.5
+  planproc04from: 1.5
+  planproc04to: 1.5
+  planproc06from: 1.5
+  planproc06to: 1.5
+  planproc08from: 1.5
+  planproc08to: 1.5
+  planproc10from: 1.5
+  planproc10to: 1.5
+  planproc12from: 1.5
+  planproc12to: 1.5
+
+two:
+  branch_id: 
+  month: 1
+  year: 1
+  prepay: 1.5
+  avaragebill: 1
+  clients: 1.5
+  weight: 1.5
+  incomes: 1.5
+  prolongcent: 1.5
+  proplancor: 1.5
+  planproc04from: 1.5
+  planproc04to: 1.5
+  planproc06from: 1.5
+  planproc06to: 1.5
+  planproc08from: 1.5
+  planproc08to: 1.5
+  planproc10from: 1.5
+  planproc10to: 1.5
+  planproc12from: 1.5
+  planproc12to: 1.5

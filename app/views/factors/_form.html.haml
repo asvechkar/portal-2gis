@@ -1,0 +1,96 @@
+= form_for @factor, :html => {:class => 'form-horizontal margin-none'} do |f|
+  - if @factor.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@factor.errors.count, "error")} prohibited this factor from being saved:"
+      %ul
+        - @factor.errors.full_messages.each do |msg|
+          %li= msg
+  .widget.widget-heading-simple.widget-body-gray
+    .widget-body
+      .row-fluid
+        .span6
+          .control-group
+            = f.label :branch_id, 'Филиал', :class => 'control-label'
+            .controls
+              = f.collection_select :branch_id, Branch.order(:name), :id, :name, {:prompt => 'Выберите филиал'}
+          .control-group
+            = f.label :prepay, 'Коэффициент предоплат', :class => 'control-label span12'
+            .controls
+              = f.text_field :prepay
+          .control-group
+            = f.label :avaragebill, 'Средний чек', :class => 'control-label'
+            .controls
+              = f.number_field :avaragebill
+          .control-group
+            = f.label :prolongcent, 'Процент продлений', :class => 'control-label'
+            .controls
+              = f.text_field :prolongcent
+          .control-group
+            = f.label :proplancor, 'Корректировка плана продлений', :class => 'control-label span12'
+            .controls
+              = f.text_field :proplancor
+        .span6
+          .control-group
+            = f.label :report_date, 'Месяц и год', :class => 'control-label'
+            .controls
+              = text_field_tag :report_date, Date.today.strftime("%m.%Y")
+          .control-group
+            = f.label :clients, 'Клиенты в выпуск', :class => 'control-label'
+            .controls
+              = f.text_field :clients
+          .control-group
+            = f.label :weight, 'Груз в выпуск', :class => 'control-label'
+            .controls
+              = f.text_field :weight
+          .control-group
+            = f.label :incomes, 'Поступления', :class => 'control-label'
+            .controls
+              = f.text_field :incomes
+      %h4 Плановый процент продлений
+      %hr.separator
+      .row-fluid
+        .span6
+          .control-group
+            = f.label :planproc04from, 'множитель 0.4 от', :class => 'control-label'
+            .controls
+              = f.text_field :planproc04from
+          .control-group
+            = f.label :planproc06from, 'множитель 0.6 от', :class => 'control-label'
+            .controls
+              = f.text_field :planproc06from
+          .control-group
+            = f.label :planproc08from, 'множитель 0.8 от', :class => 'control-label'
+            .controls
+              = f.text_field :planproc08from
+          .control-group
+            = f.label :planproc10from, 'множитель 1.0 от', :class => 'control-label'
+            .controls
+              = f.text_field :planproc10from
+          .control-group
+            = f.label :planproc12from, 'множитель 1.2 от', :class => 'control-label'
+            .controls
+              = f.text_field :planproc12from
+        .span6
+          .control-group
+            = f.label :planproc04to, 'до', :class => 'control-label'
+            .controls
+              = f.text_field :planproc04to
+          .control-group
+            = f.label :planproc06to, 'до', :class => 'control-label'
+            .controls
+              = f.text_field :planproc06to
+          .control-group
+            = f.label :planproc08to, 'до', :class => 'control-label'
+            .controls
+              = f.text_field :planproc08to
+          .control-group
+            = f.label :planproc10to, 'до', :class => 'control-label'
+            .controls
+              = f.text_field :planproc10to
+          .control-group
+            = f.label :planproc12to, 'до', :class => 'control-label'
+            .controls
+              = f.text_field :planproc12to
+      %hr.separator
+      .form-actions
+        = f.submit 'Сохранить', :class => 'btn btn-icon btn-primary'

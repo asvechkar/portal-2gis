@@ -1,0 +1,21 @@
+.widget-body
+  %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center
+    %thead
+      %tr
+        %th.center Филиал
+        %th.center Год
+        %th.center Месяц
+        %th
+    %tbody
+      - factors.each do |factor|
+        %tr
+          %td= factor.branch.name
+          %td= factor.year
+          %td= factor.month
+          %td.center.actions-bar
+            = link_to factor, :class => 'btn-action glyphicons eye_open btn-default', :title => 'Карточка' do
+              %i
+            = link_to edit_factor_path(factor), :class => 'btn-action glyphicons pencil btn-success', :title => 'Редактировать' do
+              %i
+            = link_to factor, :method => :delete, :data => { :confirm => 'Вы уверены, что хотите удалить?' }, :class => 'btn-action glyphicons remove_2 btn-danger', :title => 'Удалить' do
+              %i

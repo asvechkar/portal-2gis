@@ -7,6 +7,7 @@ class Branch < ActiveRecord::Base
   has_many :averagebills
   has_many :plancents
   has_many :planfacts, as: :planfactable
+  has_many :factors
   validates_presence_of :name
   validates_uniqueness_of :name
   

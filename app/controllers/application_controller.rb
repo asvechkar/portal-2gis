@@ -11,10 +11,6 @@ class ApplicationController < ActionController::Base
   end
   add_flash_types :error, :success
 
-  before_action do
-    flash.alert = 'Пользователь не связан с сотрудником, обратитесь к администратору!' unless current_user && current_user.account_employee
-  end
-
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:username, :email, :avatar) }
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :password, :password_confirmation, :avatar) }
