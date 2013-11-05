@@ -11,7 +11,7 @@
 .control-group
   = f.label :employee_id, 'Куратор', :class => 'control-label'
   .controls
-    = f.collection_select :employee_id, Employee.all, :id, :initials, {:prompt => 'Выберите сотрудника'}
+    = f.collection_select :employee_id, Employee.where(branch_id: current_employee.branch.id).order(:lastname), :id, :initials, {:prompt => 'Выберите сотрудника'}
 .control-group
   = f.label :client_id, 'Клиент', :class => 'control-label'
   .controls
