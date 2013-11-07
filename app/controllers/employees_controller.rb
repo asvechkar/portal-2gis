@@ -24,8 +24,8 @@ class EmployeesController < ApplicationController
 
   def clients_list
     res = {}
-    @employee.orders.order(:ordernum).each { |order| res[order.id] = order.ordernum }
-    render json: { orders: res }
+    @employee.clients.order(:name).each { |client| res[client.id] = client.name }
+    render json: { clients: res }
   end
 
   # get 'employees/get_groups_by_branch_id/:id'

@@ -7,7 +7,7 @@ class Employee < ActiveRecord::Base
   belongs_to :user
   belongs_to :branch
   belongs_to :account, :class_name => 'User'
-
+  has_many :clients, through: :orders, uniq: true
   has_many :branches
   has_many :groups
   has_many :plans

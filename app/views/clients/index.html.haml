@@ -31,6 +31,7 @@
             %th.center Юр. Лицо
             %th.center ИНН
             %th.center Название фирмы
+            %th.center Заказов
             %th
         %tbody
           - @clients.each do |client|
@@ -39,6 +40,7 @@
                 %td= client.name
                 %td= client.inn
                 %td= client.code
+                %td= client.orders.count
                 %td.center.actions-bar
                   = link_to client, class: 'btn-action glyphicons eye_open btn-default', title: 'Показать' do
                     %i.icon-search
