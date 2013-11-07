@@ -246,6 +246,11 @@ class Employee < ActiveRecord::Base
     weight
   end
 
+  # Общий груз
+  def plan_weight(date)
+    weight_new_clients(date) + weight_cont_clients(date)
+  end
+
   # Поступления по новым клиентам
   def incomes_new_clients(date)
     weight_new_clients(date) * 2.5
@@ -256,15 +261,30 @@ class Employee < ActiveRecord::Base
     weight_cont_clients(date) * 2.5
   end
 
+  # Плановые поступления
+  def plan_incomes(date)
+    incomes_new_clients(date) + incomes_cont_clients(date)
+  end
+
   # Процент продлений
   def cont_percent(date)
     Plancent.where(branch_id: self.branch_id, year: date.year, month: date.month, mult: 1.0).first.fromprc rescue 0
   end
 
+  # Рассрочки
+  def installments(date)
+    Debt.where(year: date.year, month: date.month, employee: self, debttype: 1).sum(:debtsum) rescue 0
+  end
+
+  # Дебетовая задолженность
+  def debts(date)
+    Debt.where(year: date.year, month: date.month, employee: self, debttype: 2).sum(:debtsum) rescue 0
+  end
+
   # ------------------------------ Методы рассчета факта
   # Факт по новым клиентам
   def fact_new_clients(date)
-    orders = Order.select(:client_id).where(employee: self, startdate: date.next_month.at_beginning_of_month).group(:client_id)
+    orders = Order.select(:client_id).where(employee: self, startdate: date.next_month.at_beginning_of_month, order_id: nil).group(:client_id)
     orders.empty? ? 0 : orders.all.count
   end
   
@@ -281,12 +301,20 @@ class Employee < ActiveRecord::Base
   
   # Фактический груз по новым клиентам
   def fact_weight_new_clients(date)
-    return 0
+    total_weight = 0
+    Order.where(employee: self, startdate: date.next_month.at_beginning_of_month, order_id: nil).each do |order|
+      total_weight += order.weight
+    end
+    return total_weight
   end
   
   # Фактический груз по продленным клиентам
   def fact_weight_cont_clients(date)
-    return 0
+    total_weight = 0
+    Order.where(employee: self, startdate: date.next_month.at_beginning_of_month).where.not(order_id: nil).each do |order|
+      total_weight += order.weight
+    end
+    return total_weight
   end
   
   # Фактический груз
@@ -306,15 +334,15 @@ class Employee < ActiveRecord::Base
   
   # Фактические поступления
   def fact_incomes(date)
-    Income.where("indate BETWEEN '#{Date.today.at_beginning_of_month}' AND '#{Date.today.at_end_of_month}' AND employee_id = #{self.id}").sum(:insum)
+    Income.where("indate BETWEEN '#{date.at_beginning_of_month}' AND '#{date.at_end_of_month}' AND employee_id = #{self.id}").sum(:insum)
   end
   
   # Интегральный коэффициент
   def ik(date)
-    client_ik = fact_clients(date) / plan_clients(date) * 0.2
-    weight_ik = (self.get_new_fact_weight.to_f / (self.get_new_plan_weight + self.get_cont_plan_weight).to_f) * 0.3
-    incomes_ik = (self.get_fact_incomes.to_f / (((self.get_new_plan_weight + self.get_cont_plan_weight) * 2.5) + self.get_installment_sum + self.get_debt_sum).to_f) * 0.3
-    total_ik = first + second + third
+    client_ik = fact_clients(date) / plan_clients(date) * self.branch.factor(date).client
+    weight_ik = fact_weight(date) / plan_weight(date) * self.branch.factor(date).weight
+    incomes_ik = fact_incomes(date) / (plan_incomes(date) + installments(date) + debts(date)) * self.branch.factor(date).incomes
+    total_ik = client_ik + weight_ik + incomes_ik
     prolong = self.get_prolong_percents
     mult = Plancent.where("branch_id = #{self.branch_id} AND year = #{Date.today.year} AND month = #{Date.today.month} AND fromprc <= #{prolong} AND toprc >= #{prolong}")
     mult.empty? ? total_ik += 0 : total_ik += mult.first.mult * 0.2
@@ -328,9 +356,12 @@ class Employee < ActiveRecord::Base
   plan_clients
   weight_new_clients
   weight_cont_clients
+  plan_weight
   incomes_new_clients
   incomes_cont_clients
+  plan_incomes
   cont_percent
+  installments
   fact_new_clients
   fact_cont_clients
   fact_clients

@@ -10,6 +10,14 @@ class Branch < ActiveRecord::Base
   has_many :factors
   validates_presence_of :name
   validates_uniqueness_of :name
+
+  # params.require(:factor).permit(:branch_id, :month, :year, :prepay, :avaragebill, :clients, :weight, :incomes, :prolongcent, :proplancor, :planproc04from, :planproc04to, :planproc06from, :planproc06to, :planproc08from, :planproc08to, :planproc10from, :planproc10to, :planproc12from, :planproc12to)
+
+  # Коэффициенты
+  def factor(date)
+    Factor.where(branch_id: self.id, month: date.month, year: date.year).first rescue nil
+  end
+
   
   # ------------------------------ Новые методы
   # План по новым клиентам

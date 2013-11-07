@@ -114,19 +114,13 @@
                 .widget-body.list.collapse.in
                   %ul
                     %li
-                      %span Факт по новым клиентам
-                      %span.count= @employee.fact_new_clients_current
+                      %span Клиентов
+                      %span.count= @employee.fact_clients_current
                     %li
-                      %span Факт по продленным клиентам
-                      %span.count= @employee.fact_cont_clients_current
+                      %span Груз
+                      %span.count= @employee.fact_weight_current
                     %li
-                      %span Фактический груз по новым клиентам
-                      %span.count= @employee.fact_weight_new_clients_current
-                    %li
-                      %span Фактический груз по продленным клиентам
-                      %span.count= @employee.fact_weight_cont_clients_current
-                    %li
-                      %span Фактические поступления
+                      %span Поступлений
                       %span.count= @employee.fact_incomes_current
                     %li
                       %span Процент поступлений
