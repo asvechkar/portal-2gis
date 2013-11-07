@@ -9,6 +9,12 @@ class ClientsController < ApplicationController
     @clients = Client.all.page(params[:page]).per(25)
   end
 
+  def orders_list
+    res = {}
+    @client.orders.order(:ordernum).each { |order| res[order.id] = order.ordernum }
+    render json: { orders: res }
+  end
+
   # GET /clients/1
   # GET /clients/1.json
   def show

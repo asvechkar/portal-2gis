@@ -22,6 +22,12 @@ class EmployeesController < ApplicationController
     end
   end
 
+  def clients_list
+    res = {}
+    @employee.orders.order(:ordernum).each { |order| res[order.id] = order.ordernum }
+    render json: { orders: res }
+  end
+
   # get 'employees/get_groups_by_branch_id/:id'
   def get_groups_by_branch_id
     select = '<option value="">Выберите группу</option>'

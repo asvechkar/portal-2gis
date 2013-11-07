@@ -1,9 +1,5 @@
 Portal2gis::Application.routes.draw do
 
-  resources :factors
-
-  resources :plancents
-
   get 'reports/index'
   get 'reports/planfact'
   post 'reports/recalc_planfact'
@@ -16,6 +12,8 @@ Portal2gis::Application.routes.draw do
   get 'support' => 'portal#support'
 
 
+  resources :factors
+  resources :plancents
   resources :debts
   resources :orders do
     collection do
@@ -31,8 +29,11 @@ Portal2gis::Application.routes.draw do
 
   resources :employees do
     resources :userifications
+    get :clients_list, on: :member
   end
-  resources :clients
+  resources :clients do
+    get :orders_list, on: :member
+  end
   resources :positions
   resources :levels
   resources :cities
