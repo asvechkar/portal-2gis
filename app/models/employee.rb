@@ -253,12 +253,12 @@ class Employee < ActiveRecord::Base
 
   # Поступления по новым клиентам
   def incomes_new_clients(date)
-    weight_new_clients(date) * 2.5
+    weight_new_clients(date) * self.branch.factor(date).prepay
   end
 
   # Поступления по продленным клиентам
   def incomes_cont_clients(date)
-    weight_cont_clients(date) * 2.5
+    weight_cont_clients(date) * self.branch.factor(date).prepay
   end
 
   # Плановые поступления
@@ -335,6 +335,21 @@ class Employee < ActiveRecord::Base
   # Фактические поступления
   def fact_incomes(date)
     Income.where("indate BETWEEN '#{date.at_beginning_of_month}' AND '#{date.at_end_of_month}' AND employee_id = #{self.id}").sum(:insum)
+  end
+  
+  # Фактический процент продлений
+  def fact_percent(date)
+    plan = Order.select(:client_id).where(employee: self, finishdate: date.at_end_of_month).group(:client_id).count rescue 0
+    fact = Order.select(:client_id).where(employee: self, startdate: date.next_month.at_beginning_of_month}.where.not(client_id: nil).group(:client_id).count rescue 0
+    if fact.empty?
+      0
+    else
+      if plan.empty?
+        0
+      else
+        ((fact.all.count.to_f / plan.all.count.to_f) * 100).round
+      end
+    end
   end
   
   # Интегральный коэффициент
