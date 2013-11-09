@@ -268,7 +268,7 @@ class Employee < ActiveRecord::Base
 
   # Процент продлений
   def cont_percent(date)
-    Plancent.where(branch_id: self.branch_id, year: date.year, month: date.month, mult: 1.0).first.fromprc rescue 0
+    self.branch.factor(date).planproc10from rescue 0
   end
 
   # Рассрочки
@@ -340,7 +340,7 @@ class Employee < ActiveRecord::Base
   # Фактический процент продлений
   def fact_percent(date)
     plan = Order.select(:client_id).where(employee: self, finishdate: date.at_end_of_month).group(:client_id).count rescue 0
-    fact = Order.select(:client_id).where(employee: self, startdate: date.next_month.at_beginning_of_month}.where.not(client_id: nil).group(:client_id).count rescue 0
+    fact = Order.select(:client_id).where(employee: self, startdate: date.next_month.at_beginning_of_month).where.not(client_id: nil).group(:client_id).count rescue 0
     if fact.empty?
       0
     else
