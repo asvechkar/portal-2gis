@@ -339,13 +339,9 @@ class Employee < ActiveRecord::Base
   
   # Фактический процент продлений
   def fact_percent(date)
-    plan = Order.select(:client_id).where(employee: self, finishdate: date.at_end_of_month).group(:client_id).count rescue 0
-    fact = Order.select(:client_id).where(employee: self, startdate: date.next_month.at_beginning_of_month).where.not(order_id: nil).group(:client_id).count rescue 0
-    if fact == 0
-      0
-    else
-      ((fact / plan) * 100).round
-    end
+    plan = self.clients.where('orders.finishdate = ?', date.at_end_of_month).count
+    fact = self.clients.where('orders.startdate = ? and order_id is not NULL', date.next_month.at_beginning_of_month).count
+    fact == 0 ? 0 : ((fact / plan) * 100).round
   end
   
   # Интегральный коэффициент
