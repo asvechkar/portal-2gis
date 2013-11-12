@@ -253,12 +253,12 @@ class Employee < ActiveRecord::Base
 
   # Поступления по новым клиентам
   def incomes_new_clients(date)
-    weight_new_clients(date) * self.branch.factor(date).prepay
+    weight_new_clients(date) * self.branch.factor(date).prepay rescue 0
   end
 
   # Поступления по продленным клиентам
   def incomes_cont_clients(date)
-    weight_cont_clients(date) * self.branch.factor(date).prepay
+    weight_cont_clients(date) * self.branch.factor(date).prepay rescue 0
   end
 
   # Плановые поступления
@@ -348,10 +348,10 @@ class Employee < ActiveRecord::Base
   def ik(date)
     client_ik = fact_clients(date) / plan_clients(date) * self.branch.factor(date).client rescue 0
     weight_ik = fact_weight(date) / plan_weight(date) * self.branch.factor(date).weight rescue 0
-    incomes_ik = fact_incomes(date) / (plan_incomes(date) + installments(date) + debts(date)) * self.branch.factor(date).incomes
+    incomes_ik = fact_incomes(date) / (plan_incomes(date) + installments(date) + debts(date)) * self.branch.factor(date).incomes rescue 0
     total_ik = client_ik + weight_ik + incomes_ik
     prolong = fact_percent(date)
-    total_ik += self.branch.mult(date, prolong) * self.branch.factor(date).prolongcent
+    total_ik += self.branch.mult(date, prolong) * self.branch.factor(date).prolongcent rescue 0
     total_ik
   end
   
