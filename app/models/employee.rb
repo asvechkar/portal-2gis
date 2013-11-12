@@ -340,27 +340,22 @@ class Employee < ActiveRecord::Base
   # Фактический процент продлений
   def fact_percent(date)
     plan = Order.select(:client_id).where(employee: self, finishdate: date.at_end_of_month).group(:client_id).count rescue 0
-    fact = Order.select(:client_id).where(employee: self, startdate: date.next_month.at_beginning_of_month).where.not(client_id: nil).group(:client_id).count rescue 0
-    if fact.empty?
+    fact = Order.select(:client_id).where(employee: self, startdate: date.next_month.at_beginning_of_month).where.not(order_id: nil).group(:client_id).count rescue 0
+    if fact == 0
       0
     else
-      if plan.empty?
-        0
-      else
-        ((fact.all.count.to_f / plan.all.count.to_f) * 100).round
-      end
+      ((fact / plan) * 100).round
     end
   end
   
   # Интегральный коэффициент
   def ik(date)
-    client_ik = fact_clients(date) / plan_clients(date) * self.branch.factor(date).client
-    weight_ik = fact_weight(date) / plan_weight(date) * self.branch.factor(date).weight
+    client_ik = fact_clients(date) / plan_clients(date) * self.branch.factor(date).client rescue 0
+    weight_ik = fact_weight(date) / plan_weight(date) * self.branch.factor(date).weight rescue 0
     incomes_ik = fact_incomes(date) / (plan_incomes(date) + installments(date) + debts(date)) * self.branch.factor(date).incomes
     total_ik = client_ik + weight_ik + incomes_ik
-    prolong = self.get_prolong_percents
-    mult = Plancent.where("branch_id = #{self.branch_id} AND year = #{Date.today.year} AND month = #{Date.today.month} AND fromprc <= #{prolong} AND toprc >= #{prolong}")
-    mult.empty? ? total_ik += 0 : total_ik += mult.first.mult * 0.2
+    prolong = fact_percent(date)
+    total_ik += self.branch.mult(date, prolong) * self.branch.factor(date).prolongcent
     total_ik
   end
   

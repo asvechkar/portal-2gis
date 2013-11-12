@@ -18,6 +18,29 @@ class Branch < ActiveRecord::Base
     Factor.where(branch_id: self.id, month: date.month, year: date.year).first rescue nil
   end
 
+  # Множитель
+  def mult(date, percent)
+    factor = self.factor(date)
+    case percent
+      when percent < factor.planproc04from
+        return 0
+      when factor.planproc04from..factor.planproc04to
+        return 0.4
+      when factor.planproc06from..factor.planproc06to
+        return 0.6
+      when factor.planproc08from..factor.planproc08to
+        return 0.8
+      when factor.planproc10from..factor.planproc10to
+        return 1.0
+      when factor.planproc12from..factor.planproc12to
+        return 1.2
+      when percent > factor.planproc12to
+        return 1.2
+      else
+        return 0
+    end
+  end
+
   
   # ------------------------------ Новые методы
   # План по новым клиентам
