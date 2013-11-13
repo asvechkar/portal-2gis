@@ -54,23 +54,14 @@
               .widget-body.list.collapse.in
                 %ul
                   %li
-                    %span Новые клиенты
-                    %span.count= @group.plan_new_clients_current
+                    %span Клиенты
+                    %span.count= @group.plan_clients_current
                   %li
-                    %span Продленные клиенты
-                    %span.count= @group.plan_cont_clients_current
+                    %span Груз
+                    %span.count= number_to_currency(@group.plan_weight_сurrent, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
                   %li
-                    %span Груз по новым клиентам
-                    %span.count= number_to_currency(@group.weight_new_clients_current, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
-                  %li
-                    %span Груз по продленным клиентам
-                    %span.count= number_to_currency(@group.weight_cont_clients_current, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
-                  %li
-                    %span Поступления по новым клиентам
-                    %span.count= number_to_currency(@group.incomes_new_clients_current, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
-                  %li
-                    %span Поступления по продленным клиентам
-                    %span.count= number_to_currency(@group.incomes_cont_clients_current, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+                    %span Поступления
+                    %span.count= number_to_currency(@group.plan_incomes_сurrent, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
                   %li
                     %span Процент продлений
                     %span.count= @group.cont_percent_current
