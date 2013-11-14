@@ -59,6 +59,16 @@ class Group < ActiveRecord::Base
     self.branch.factor(date).planproc10from rescue 0
   end
   
+  # Рассрочки
+  def installments(date)
+    self.employees.inject(0) { |sum, employee| sum += employee.installments(date) }
+  end
+
+  # Дебетовая задолженность
+  def debts(date)
+    self.employees.inject(0) { |sum, employee| sum += employee.debts(date) }
+  end
+  
   # ------------------------------ Методы рассчета факта
   # Факт по новым клиентам
   def fact_new_clients(date)
