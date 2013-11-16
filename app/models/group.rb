@@ -55,7 +55,7 @@ class Group < ActiveRecord::Base
   end
   
   # Процент продлений
-  def cont_percent(date)
+  def plan_percent(date)
     self.branch.factor(date).planproc10from rescue 0
   end
   
@@ -146,7 +146,7 @@ class Group < ActiveRecord::Base
   incomes_new_clients
   incomes_cont_clients
   plan_incomes
-  cont_percent
+  plan_percent
   installments
   fact_new_clients
   fact_cont_clients
@@ -156,7 +156,8 @@ class Group < ActiveRecord::Base
   fact_weight 
   fact_incomes_new_clients 
   fact_incomes_cont_clients 
-  fact_incomes 
+  fact_incomes
+  fact_percent
   ik
   ).each do |meth|
     define_method("#{meth}_current") { send(meth, Date.today) }

@@ -63,23 +63,17 @@
                 .widget-body.list.collapse.in
                   %ul
                     %li
-                      %span Новых клиентов
-                      %span.count= @employee.plan_new_clients_current
+                      %span Клиентов
+                      %span.count= @employee.plan_clients_current
                     %li
-                      %span Продленных клиентов
-                      %span.count= @employee.plan_cont_clients_current
+                      %span Груз
+                      %span.count= @employee.plan_weight_current
                     %li
-                      %span Груз по новым клиентам
-                      %span.count= @employee.weight_new_clients_current
+                      %span Поступления
+                      %span.count= @employee.plan_incomes_current
                     %li
-                      %span Груз по продленным клиентам
-                      %span.count= @employee.weight_cont_clients_current
-                    %li
-                      %span Поступления по новым клиентам
-                      %span.count= @employee.incomes_new_clients_current
-                    %li
-                      %span Поступления по продленным клиентам
-                      %span.count= @employee.incomes_cont_clients_current
+                      %span Процент поступлений
+                      %span.count= @employee.plan_percent_current
           .row-fluid
             .span6
               .widget.widget-heading-simple.widget-body-white.margin-none
@@ -124,7 +118,7 @@
                       %span.count= @employee.fact_incomes_current
                     %li
                       %span Процент поступлений
-                      %span.count= @employee.cont_percent_current
+                      %span.count= @employee.fact_percent_current
                     %li
                       %span Интегральный коэффициент
                       %span.count= @employee.ik_current

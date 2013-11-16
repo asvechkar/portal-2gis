@@ -58,13 +58,13 @@
                     %span.count= @group.plan_clients_current
                   %li
                     %span Груз
-                    %span.count= number_to_currency(@group.plan_weight_сurrent, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+                    %span.count= number_to_currency(@group.plan_weight_current, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
                   %li
                     %span Поступления
-                    %span.count= number_to_currency(@group.plan_incomes_сurrent, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+                    %span.count= number_to_currency(@group.plan_incomes_current, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
                   %li
                     %span Процент продлений
-                    %span.count= @group.cont_percent_current
+                    %span.count= @group.plan_percent_current
       .span7
         .widget.widget-heading-simple.widget-body-gray
           .widget-body
