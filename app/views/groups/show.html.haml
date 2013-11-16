@@ -14,7 +14,7 @@
 .widget.widget-heading-simple.widget-body-gray
   .widget-body
     .row-fluid
-      .span5
+      .span4
         .row-fluid.innerB
           .span12
             .widget.widget-heading-simple.widget-body-white.margin-none
@@ -65,7 +65,31 @@
                   %li
                     %span Процент продлений
                     %span.count= @group.plan_percent_current
-      .span7
+        .row-fluid
+          .span12
+            .widget.widget-heading-simple.widget-body-gray
+              .widget-head
+                %h4.heading.glyphicons.history
+                  %i
+                  Фактические показатели
+              .widget-body.list.collapse.in
+                %ul
+                  %li
+                    %span Клиенты
+                    %span.count= @group.fact_clients_current
+                  %li
+                    %span Груз
+                    %span.count= number_to_currency(@group.fact_weight_current, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+                  %li
+                    %span Поступления
+                    %span.count= number_to_currency(@group.fact_incomes_current, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u')
+                  %li
+                    %span Процент продлений
+                    %span.count= @group.fact_percent_current
+                  %li
+                    %span ИК
+                    %span.count= @group.ik_current
+      .span8
         .widget.widget-heading-simple.widget-body-gray
           .widget-body
             .separator.bottom.form-inline.small
@@ -74,10 +98,7 @@
             %table.table.table-bordered.table-condensed.table-striped.table-primary.table-vertical-center
               %thead
                 %tr
-                  %th.center Имя
-                  %th.center Отчество
-                  %th.center Фамилия
-                  %th.center СНИЛС
+                  %th.center ФИО
                   %th.center Должность
                   %th.center Опыт
                   %th.center Пользователь
@@ -85,10 +106,7 @@
               %tbody
                 - @group_members.each do |employee|
                   %tr
-                    %td= employee.firstname
-                    %td= employee.middlename
-                    %td= employee.lastname
-                    %td= employee.snils
+                    %td= employee.initials
                     %td= employee.position.name if employee.position
                     %td= employee.level.name if employee.level_id
                     %td= employee.account.username unless employee.account.nil?
