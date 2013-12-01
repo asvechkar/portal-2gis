@@ -59,15 +59,15 @@
                   %td.center= link_to employee.planfacts.find_by(report_date: date).clients_fact,
                     '', 'data-original-title' => "из них новых #{employee.fact_new_clients(date)}, продлений #{employee.fact_cont_clients(date)} ", rel: 'tooltip', data: { placement: :top } # Клиенты факт
                   %td= link_to number_to_currency((employee.planfacts.find_by(report_date: date).weight_plan), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u'),
-                    '', 'data-original-title' => "по новым #{employee.weight_new_clients(date)}, по продлениям #{employee.weight_cont_clients(date)}, по изменениям пакетов ", rel: 'tooltip', data: { placement: :top } # Груз план
+                    '', 'data-original-title' => "по новым #{employee.weight_new_clients(date)}, по продлениям #{employee.weight_cont_clients(date)}", rel: 'tooltip', data: { placement: :top } # Груз план
                   %td= link_to number_to_currency((employee.planfacts.find_by(report_date: date).weight_fact), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u'),
-                    '', 'data-original-title' => "по новым #{employee.fact_weight_new_clients(date)}, по продлениям #{employee.fact_weight_cont_clients(date)}, по изменениям пакетов", rel: 'tooltip', data: { placement: :top } # Груз факт
+                    '', 'data-original-title' => "по новым #{employee.fact_weight_new_clients(date)}, по продлениям #{employee.fact_weight_cont_clients(date)}", rel: 'tooltip', data: { placement: :top } # Груз факт
                   %td= link_to number_to_currency((employee.planfacts.find_by(report_date: date).income_plan), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u'),
-                    '', 'data-original-title' => "от новых #{employee.incomes_new_clients(date)}, от продлений #{employee.incomes_cont_clients(date)}, Рассрочки , дебет ", rel: 'tooltip', data: { placement: :top } # Поступления план
+                    '', 'data-original-title' => "от новых #{employee.incomes_new_clients(date)}, от продлений #{employee.incomes_cont_clients(date)}, рассрочки #{employee.installments(date)}, дебет #{employee.debts(date)} ", rel: 'tooltip', data: { placement: :top } # Поступления план
                   %td= link_to number_to_currency((employee.planfacts.find_by(report_date: date).income_fact), unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u'),
-                    '', 'data-original-title' => "от новых #{employee.fact_incomes_new_clients(date)}, от продлений #{employee.fact_incomes_cont_clients(date)}, Рассрочки-, дебет- ", rel: 'tooltip', data: { placement: :top } # Поступления факт
+                    '', 'data-original-title' => "от новых #{employee.fact_incomes_new_clients(date)}, от продлений #{employee.fact_incomes_cont_clients(date)}", rel: 'tooltip', data: { placement: :top } # Поступления факт
                   %td.center= link_to employee.planfacts.find_by(report_date: date).pro_percent,
-                    '', 'data-original-title' => "Всего продлений #{employee.cont_percent(date)}, продлено -", rel: 'tooltip', data: { placement: :top } # % продления
+                    '', 'data-original-title' => "плановый #{employee.plan_percent(date)}, фактический #{employee.fact_percent(date)}", rel: 'tooltip', data: { placement: :top } # % продления
                   %td= '%.3f' % employee.planfacts.find_by(report_date: date).employee_ic # ИК
               %tr
                 %td.group-row
@@ -79,22 +79,22 @@
                       '', 'data-original-title' => "из них новых #{group.plan_new_clients(date)}, продлений #{group.plan_cont_clients(date)} ", rel: 'tooltip', data: { placement: :top }
                   %td.center.group-row
                     %strong= link_to group.planfacts.find_by(report_date: date).clients_fact,
-                      '', 'data-original-title' => "из них новых #{group.plan_new_clients(date)}, продлений #{group.plan_cont_clients(date)} ", rel: 'tooltip', data: { placement: :top }
+                      '', 'data-original-title' => "из них новых #{group.fact_new_clients(date)}, продлений #{group.fact_cont_clients(date)} ", rel: 'tooltip', data: { placement: :top }
                   %td.group-row
                     %strong= link_to number_to_currency(group.planfacts.find_by(report_date: date).weight_plan, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u'),
-                      '', 'data-original-title' => "по новым #{group.weight_new_clients(date)}, по продлениям #{group.weight_cont_clients(date)}, по изменениям пакетов ", rel: 'tooltip', data: { placement: :top }
+                      '', 'data-original-title' => "по новым #{group.weight_new_clients(date)}, по продлениям #{group.weight_cont_clients(date)}", rel: 'tooltip', data: { placement: :top }
                   %td.group-row
                     %strong= link_to number_to_currency(group.planfacts.find_by(report_date: date).weight_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u'),
-                      '', 'data-original-title' => "по новым #{group.fact_weight_new_clients(date)}, по продлениям #{group.fact_weight_cont_clients(date)}, по изменениям пакетов", rel: 'tooltip', data: { placement: :top } # Груз факт
+                      '', 'data-original-title' => "по новым #{group.fact_weight_new_clients(date)}, по продлениям #{group.fact_weight_cont_clients(date)}", rel: 'tooltip', data: { placement: :top } # Груз факт
                   %td.group-row
                     %strong= link_to number_to_currency(group.planfacts.find_by(report_date: date).income_plan, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u'),
-                      '', 'data-original-title' => "от новых #{group.incomes_new_clients(date)}, от продлений #{group.incomes_cont_clients(date)}, Рассрочки , дебет ", rel: 'tooltip', data: { placement: :top } # Поступления план
+                      '', 'data-original-title' => "от новых #{group.incomes_new_clients(date)}, от продлений #{group.incomes_cont_clients(date)}, рассрочки #{group.installments(date)}, дебет #{group.debts(date)}", rel: 'tooltip', data: { placement: :top } # Поступления план
                   %td.group-row
                     %strong= link_to number_to_currency(group.planfacts.find_by(report_date: date).income_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u'),
-                      '', 'data-original-title' => "от новых #{group.incomes_new_clients(date)}, от продлений #{group.incomes_cont_clients(date)}, Рассрочки , дебет ", rel: 'tooltip', data: { placement: :top } # Поступления план
+                      '', 'data-original-title' => "от новых #{group.fact_incomes_new_clients(date)}, от продлений #{group.fact_incomes_cont_clients(date)}", rel: 'tooltip', data: { placement: :top } # Поступления план
                   %td.center.group-row
                     %strong= link_to group.planfacts.find_by(report_date: date).pro_percent,
-                      '', 'data-original-title' => "Всего продлений #{group.cont_percent(date)}, продлено -", rel: 'tooltip', data: { placement: :top } # % продления
+                      '', 'data-original-title' => "плановый #{group.plan_percent(date)}, фактический #{group.fact_percent(date)}", rel: 'tooltip', data: { placement: :top } # % продления
                   %td.group-row
                     %strong= '%.3f' % group.planfacts.find_by(report_date: date).group_ic
             %tr
@@ -105,21 +105,22 @@
                   '', 'data-original-title' => "из них новых #{@branch.plan_new_clients(date)}, продлений #{@branch.plan_cont_clients(date)} ", rel: 'tooltip', data: { placement: :top }
               %td.center{ :style => 'color: #6F8745;'}
                 %strong= link_to @branch.planfacts.find_by(report_date: date).clients_fact,
-                  '', 'data-original-title' => "из них новых #{@branch.plan_new_clients(date)}, продлений #{@branch.plan_cont_clients(date)} ", rel: 'tooltip', data: { placement: :top }
+                  '', 'data-original-title' => "из них новых #{@branch.fact_new_clients(date)}, продлений #{@branch.fact_cont_clients(date)} ", rel: 'tooltip', data: { placement: :top }
               %td{ :style => 'color: #6F8745;'}
                 %strong= link_to number_to_currency(@branch.planfacts.find_by(report_date: date).weight_plan, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u'),
-                  '', 'data-original-title' => "по новым #{@branch.weight_new_clients(date)}, по продлениям #{@branch.weight_cont_clients(date)}, по изменениям пакетов ", rel: 'tooltip', data: { placement: :top }
+                  '', 'data-original-title' => "по новым #{@branch.weight_new_clients(date)}, по продлениям #{@branch.weight_cont_clients(date)}", rel: 'tooltip', data: { placement: :top }
               %td{ :style => 'color: #6F8745;'}
                 %strong= link_to number_to_currency(@branch.planfacts.find_by(report_date: date).weight_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u'),
-                  '', 'data-original-title' => "по новым #{@branch.fact_weight_new_clients(date)}, по продлениям #{@branch.fact_weight_cont_clients(date)}, по изменениям пакетов", rel: 'tooltip', data: { placement: :top } # Груз факт
+                  '', 'data-original-title' => "по новым #{@branch.fact_weight_new_clients(date)}, по продлениям #{@branch.fact_weight_cont_clients(date)}", rel: 'tooltip', data: { placement: :top } # Груз факт
               %td{ :style => 'color: #6F8745;'}
                 %strong= link_to number_to_currency(@branch.planfacts.find_by(report_date: date).income_plan, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u'),
-                  '', 'data-original-title' => "от новых #{@branch.incomes_new_clients(date)}, от продлений #{@branch.incomes_cont_clients(date)}, Рассрочки , дебет ", rel: 'tooltip', data: { placement: :top } # Поступления план
+                  '', 'data-original-title' => "от новых #{@branch.incomes_new_clients(date)}, от продлений #{@branch.incomes_cont_clients(date)}, рассрочки #{@branch.installments(date)}, дебет #{@branch.debts(date)}", rel: 'tooltip', data: { placement: :top } # Поступления план
+
               %td{ :style => 'color: #6F8745;'}
                 %strong= link_to number_to_currency(@branch.planfacts.find_by(report_date: date).income_fact, unit: 'руб.', separator: ',', delimiter: ' ', format: '%n %u'),
-                  '', 'data-original-title' => "от новых #{@branch.fact_incomes_new_clients(date)}, от продлений #{@branch.fact_incomes_cont_clients(date)}, Рассрочки-, дебет- ", rel: 'tooltip', data: { placement: :top } # Поступления факт
+                  '', 'data-original-title' => "от новых #{@branch.fact_incomes_new_clients(date)}, от продлений #{@branch.fact_incomes_cont_clients(date)}", rel: 'tooltip', data: { placement: :top } # Поступления факт
               %td.center{ :style => 'color: #6F8745;'}
                 %strong= link_to @branch.planfacts.find_by(report_date: date).pro_percent.round,
-                  '', 'data-original-title' => "Всего продлений #{@branch.cont_percent(date)}, продлено -", rel: 'tooltip', data: { placement: :top } # % продления
+                  '', 'data-original-title' => "плановый #{@branch.cont_percent(date)}, фактический #{@branch.fact_percent(date)}", rel: 'tooltip', data: { placement: :top } # % продления
               %td{ :style => 'color: #6F8745;'}
                 %strong= '%.3f' % @branch.planfacts.find_by(report_date: date).branch_ic

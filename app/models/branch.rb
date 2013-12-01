@@ -155,8 +155,10 @@ class Branch < ActiveRecord::Base
   
   # Фактический процент продлений
   def fact_percent(date)
-    plan = self.clients.where('orders.finishdate = ?', date.at_end_of_month).count
-    fact = self.clients.where('orders.startdate = ? and order_id is not NULL', date.next_month.at_beginning_of_month).count
+    plan = 0
+    fact = 0
+    self.employees.inject(0) { |plan, employee| plan += employee.clients.where('orders.finishdate = ?', date.at_end_of_month).count }
+    self.employees.inject(0) { |fact, employee| fact += employee.clients.where('orders.startdate = ? and order_id is not NULL', date.next_month.at_beginning_of_month).count }
     fact == 0 ? 0 : ((fact / plan) * 100).round
   end
   
