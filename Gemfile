@@ -9,6 +9,8 @@ gem 'devise', '~> 4.9.2'
 gem 'cancan', '~> 1.6.10'
 gem 'rolify', '~> 6.0.1'
 
+gem 'bootsnap', require: false
+
 gem 'sass-rails', '~> 5.1.0'
 gem 'haml-rails', '~> 2.1'
 gem 'paperclip', '~> 5.2'
@@ -30,6 +32,7 @@ gem 'kaminari'
 gem 'crummy'
 
 group :development do
+  gem 'listen'
   gem 'puma'
   gem 'better_errors'
   gem 'binding_of_caller'

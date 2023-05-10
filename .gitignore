@@ -14,3 +14,4 @@ public/uploads/*
 public/assets/*
 /.project
 .env
+/Gemfile.lock
