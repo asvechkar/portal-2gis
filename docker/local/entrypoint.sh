@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-bundle exec rails db:migrate
+bundle exec rake db:migrate
 
 rm -f tmp/pids/server.pid
 
