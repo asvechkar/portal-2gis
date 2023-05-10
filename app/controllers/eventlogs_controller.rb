@@ -1,6 +1,6 @@
 class EventlogsController < ApplicationController
   before_action :set_eventlog, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   # GET /eventlogs
   # GET /eventlogs.json

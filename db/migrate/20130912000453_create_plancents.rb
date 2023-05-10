@@ -1,4 +1,4 @@
-class CreatePlancents < ActiveRecord::Migration
+class CreatePlancents < ActiveRecord::Migration[5.2]
   def change
     create_table :plancents do |t|
       t.integer :year

@@ -1,6 +1,6 @@
 class FactorsController < ApplicationController
   before_action :set_factor, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   load_and_authorize_resource
 
   # GET /factors

@@ -1,4 +1,4 @@
-class Uploads < ActiveRecord::Migration
+class Uploads < ActiveRecord::Migration[5.2]
   def change
     create_table :uploads do |t|
       t.string   "upload_file_name"

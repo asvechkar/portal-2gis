@@ -1,4 +1,4 @@
-class Branch < ActiveRecord::Base
+class Branch < ApplicationRecord
   belongs_to :city
   belongs_to :employee
   belongs_to :user

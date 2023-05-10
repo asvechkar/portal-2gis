@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Portal2gis::Application.config.secret_key_base = '615e16bd6f9565a2b95bd827b2b5fe4e9d2576a693ff2ba9285ca715918815032bf32b0d61cb25292352d931b140c2d4bfa9d9ef6ec161c3d082789c1f55e7bc'
+Portal2gis::Application.config.secret_key_base = ENV['SECRET_KEY']

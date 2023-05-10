@@ -1,4 +1,4 @@
-class Position < ActiveRecord::Base
+class Position < ApplicationRecord
   belongs_to :user
   has_many :employees
   validates_presence_of :name

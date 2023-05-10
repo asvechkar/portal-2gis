@@ -3,15 +3,14 @@
 /db/*.sqlite3-journal
 /log/*.log
 /tmp
-.idea/
-/.idea/*
+/var
 /.idea
 public/system/*
 public/system
 .DS_Store
 app/.DS_Store
 public/uploads/*
-.DS_Store
 .rvmrc
 public/assets/*
 /.project
+.env

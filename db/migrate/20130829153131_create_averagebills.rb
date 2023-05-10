@@ -1,4 +1,4 @@
-class CreateAveragebills < ActiveRecord::Migration
+class CreateAveragebills < ActiveRecord::Migration[5.2]
   def change
     create_table :averagebills do |t|
       t.integer :year, :null => false

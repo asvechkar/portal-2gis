@@ -1,4 +1,4 @@
-class AddColumnToEmployees < ActiveRecord::Migration
+class AddColumnToEmployees < ActiveRecord::Migration[5.2]
   def change
     add_column :employees, :birthdate, :date
     add_column :employees, :gender, :boolean

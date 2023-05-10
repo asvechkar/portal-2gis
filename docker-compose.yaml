@@ -1,0 +1,67 @@
+version: '3.9'
+
+x-template: &template
+  networks:
+    - default
+  build:
+    context: .
+    dockerfile: docker/local/Dockerfile
+  env_file:
+    - .env
+  volumes:
+    - .:/opt/app
+  depends_on:
+    - db
+    - redis
+
+services:
+  db:
+    image: "postgres:12"
+    container_name: portal-2gis_db
+    networks:
+      - default
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./var/data/postgres:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+  redis:
+    image: redis:latest
+    container_name: portal-2gis_redis
+    restart: unless-stopped
+    volumes:
+      - ./var/data/redis_db:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - default
+  web:
+    <<: *template
+    restart: always
+    container_name: portal-2gis_web
+    ports:
+      - "3000:3000"
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: portal-2gis_mailhog
+    restart: always
+    networks:
+      - default
+    expose:
+      - "1025"
+      - "8025"
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+#  sidekiq:
+#    <<: *template
+#    container_name: sidekiq
+#    command: bash -c "bundle exec sidekiq -q default -q mailers"
+
+networks:
+  default:
+    driver: bridge

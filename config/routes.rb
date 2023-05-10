@@ -1,5 +1,4 @@
-Portal2gis::Application.routes.draw do
-
+Rails.application.routes.draw do
   get 'reports/index'
   get 'reports/planfact'
   post 'reports/recalc_planfact'
@@ -10,7 +9,6 @@ Portal2gis::Application.routes.draw do
   get 'incomes/get_orders_by_client_id/:id' => 'incomes#get_orders_by_client_id'
   get 'orders/wizard' => 'orders#wizard', :as => 'new_deal'
   get 'support' => 'portal#support'
-
 
   resources :factors
   resources :plancents

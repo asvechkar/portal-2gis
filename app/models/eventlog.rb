@@ -1,3 +1,3 @@
-class Eventlog < ActiveRecord::Base
+class Eventlog < ApplicationRecord
   belongs_to :user
 end

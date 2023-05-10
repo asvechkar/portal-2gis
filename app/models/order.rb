@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Order < ActiveRecord::Base
+class Order < ApplicationRecord
   belongs_to :employee
   belongs_to :client
   belongs_to :user

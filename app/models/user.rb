@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   rolify
   mount_uploader :avatar, AvatarUploader
   # Include default devise modules. Others available are:
@@ -33,6 +33,10 @@ class User < ActiveRecord::Base
 
   def role
     self.roles.all.first
+  end
+
+  def is_admin?
+    true
   end
 
   def city

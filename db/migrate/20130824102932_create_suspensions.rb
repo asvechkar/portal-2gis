@@ -1,4 +1,4 @@
-class CreateSuspensions < ActiveRecord::Migration
+class CreateSuspensions < ActiveRecord::Migration[5.2]
   def change
     create_table :suspensions do |t|
       t.belongs_to :employee

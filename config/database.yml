@@ -1,28 +1,29 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  port: 5432
+  # For details on connection pooling, see Rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
 development:
-  adapter: postgresql
-  encoding: unicode
-  database: portal-2gis_development
-  pool: 5
-  username: portal2gis
-  password: "123qweDSA"
-  host: localhost
-  port: 5432
+  <<: *default
+  host: <%= ENV['DB_HOST'] %>
+  database: <%= ENV['DB_NAME'] %>
+  username: <%= ENV['DB_USER'] %>
+  password: <%= ENV['DB_PASS'] %>
+
 test:
-  adapter: postgresql
-  encoding: unicode
-  database: portal-2gis_test
-  pool: 5
-  username: portal2gis
-  password: "123qweDSA"
-  host: localhost
-  port: 5432
+  <<: *default
+  host: <%= ENV['DB_HOST'] %>
+  database: <%= ENV['DB_NAME'] %>
+  username: <%= ENV['DB_USER'] %>
+  password: <%= ENV['DB_PASS'] %>
+
 production:
-  adapter: postgresql
-  host: localhost
-  encoding: utf8
-  username: portal2gis
-  password: 123qweDSA
-  port: 5432
-  database: portal-2gis_production
-  pool: 5
+  <<: *default
+  host: <%= ENV['DB_HOST'] %>
+  database: <%= ENV['DB_NAME'] %>
+  username: <%= ENV['DB_USER'] %>
+  password: <%= ENV['DB_PASS'] %>
   timeout: 5000

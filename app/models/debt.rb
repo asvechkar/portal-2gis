@@ -1,4 +1,4 @@
-class Debt < ActiveRecord::Base
+class Debt < ApplicationRecord
   belongs_to :employee
   belongs_to :client
   belongs_to :order

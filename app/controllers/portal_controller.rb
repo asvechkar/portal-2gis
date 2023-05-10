@@ -1,5 +1,5 @@
 class PortalController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   def index
     @branch = current_user.account_employee.branch if current_user.account_employee
